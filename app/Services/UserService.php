@@ -39,12 +39,12 @@ class UserService
     public function getUserById($id)
     {
         // Get user by id using UserRepository
-        return $this->userRepository->getById($id);
+        return $this->userRepository->findById($id);
     }
 
     public function getAllUsers()
     {
         // Get all users using UserRepository
-        return $this->userRepository->getAll();
+        return $this->userRepository->all();
     }
 }

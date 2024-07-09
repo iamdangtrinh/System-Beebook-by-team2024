@@ -1,13 +1,21 @@
 <?php
-// app/Repositories/Interfaces/BaseRepositoryInterface.php
 
 namespace App\Repositories\Interfaces;
 
 interface BaseRepositoryInterface
 {
-    public function getById($id);
-    public function getAll();
-    public function create(array $attributes);
-    public function update($id, array $attributes);
-    public function delete($id);
+    public function all();
+    public function findById(int $id);
+    public function create(array $payload);
+    public function update(int $id = 0, array $payload = []);
+    public function delete(int $id = 0);
+    public function forDelete(int $id = 0);
+    public function pagination(
+        array $column = ['*'],
+        array $condition = [],
+        array $join = [],
+        array $extend = [],
+        $perpage = 20,
+        array $relations = []);
+    public function updateByWhereIn(string $WhereInField = '', array $whereIn = [], array $payload = []);
 }
