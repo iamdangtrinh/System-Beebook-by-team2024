@@ -1,50 +1,92 @@
 <?php
-// app/Services/UserService.php
 
 namespace App\Services;
 
-use App\Repositories\UserRepository;
+use App\Services\Interfaces\UserServiceInterface;
+// use App\Models\User;
+use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use App\Models\UserCatalogue;
 
-class UserService
+/**
+ * Class UserService
+ * @package App\Services
+ */
+class UserService implements UserServiceInterface
 {
     protected $userRepository;
-
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
-    public function createUser(array $data)
+    private function paginateSelect()
     {
-        // Validate $data if needed
-        
-        // Create user using UserRepository
-        return $this->userRepository->create($data);
+        return ['id', 'name', 'email'];
     }
 
-    public function updateUser($id, array $data)
+    public function paginate($request)
     {
-        // Validate $data if needed
-
-        // Update user using UserRepository
-        return $this->userRepository->update($id, $data);
+        $condition['keyword'] = addslashes($request->input('keyword'));
+        $condition['publish'] = addslashes($request->input('publish'));
+        $perPage = $request->integer('perpage');
+        $users = $this->userRepository->pagination(
+            $this->paginateSelect(),
+            $condition,
+            [],
+            ['path' => 'user/index'],
+            $perPage,
+            );
+        return $users;
     }
 
-    public function deleteUser($id)
+    public function create($request)
     {
-        // Delete user using UserRepository
-        return $this->userRepository->delete($id);
+        DB::beginTransaction();
+        try {
+
+            $payload = $request->except(['_token', 'send', 'repassword']);
+            
+            $payload['password'] = Hash::make($payload['password']);
+            $user = $this->userRepository->create($payload);
+            DB::commit();
+            return true;
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            echo $exception->getMessage();
+            return false;
+        }
+    }
+    public function update($id, $request)
+    {
+        DB::beginTransaction();
+        try {
+            $payload = $request->except(['_token', 'send']);
+            // định dạng lại date
+            $user = $this->userRepository->update($id, $payload);
+            DB::commit();
+            return true;
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            echo $exception->getMessage();
+            return false;
+        }
     }
 
-    public function getUserById($id)
+    public function destroy($id)
     {
-        // Get user by id using UserRepository
-        return $this->userRepository->findById($id);
-    }
-
-    public function getAllUsers()
-    {
-        // Get all users using UserRepository
-        return $this->userRepository->all();
+        DB::beginTransaction();
+        try {
+            $user = $this->userRepository->delete($id);
+            DB::commit();
+            return true;
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            echo $exception->getMessage();
+            return false;
+        }
     }
 }

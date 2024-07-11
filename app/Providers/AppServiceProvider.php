@@ -2,24 +2,21 @@
 
 namespace App\Providers;
 
-use App\Repositories\UserRepository;
-use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
-
 class AppServiceProvider extends ServiceProvider
 {
+    protected $serviceBindings = [
+        'App\Services\Interfaces\UserServiceInterface' => 'App\Services\UserService',
+        'App\Repositories\Interfaces\UserRepositoryInterface' => 'App\Repositories\UserRepository',
+    ];
     /**
      * Register any application services.
      */
     public function register(): void
     {
-        $this->app->bind(UserRepository::class, function ($app) {
-            return new UserRepository($app->make(\App\Models\User::class));
-        });
-
-        $this->app->singleton(UserService::class, function ($app) {
-            return new UserService($app->make(UserRepository::class));
-        });
+        foreach($this->serviceBindings as $key => $val) {
+            $this->app->bind($key,$val);
+        }
     }
 
     /**

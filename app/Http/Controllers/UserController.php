@@ -15,15 +15,15 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->userService->getAllUsers();
+        $users = $this->userService->paginate($request);
         return response()->json($users);
     }
 
     public function show($id)
     {
-        $user = $this->userService->getUserById($id);
+        $user = $this->userService->findById($id);
         return response()->json($user);
     }
 
@@ -32,7 +32,7 @@ class UserController extends Controller
         $userData = $request->only(['name', 'email', 'password']);
         $result = $this->userService->createUser($userData);
         if(!$result) {
-            return 'Có lỗi xảy ra do thiếu fields';
+            return 'Có lỗi xảy ra do thiếu fail';
         } else {
             return "Tạo user thành công";
         }
