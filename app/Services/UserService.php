@@ -30,14 +30,12 @@ class UserService implements UserServiceInterface
 
     public function paginate($request)
     {
-        $condition['keyword'] = addslashes($request->input('keyword'));
-        $condition['publish'] = addslashes($request->input('publish'));
         $perPage = $request->integer('perpage');
         $users = $this->userRepository->pagination(
             $this->paginateSelect(),
-            $condition,
             [],
-            ['path' => 'user/index'],
+            [],
+            ['path' => 'users'],
             $perPage,
             );
         return $users;
@@ -49,7 +47,6 @@ class UserService implements UserServiceInterface
         try {
 
             $payload = $request->except(['_token', 'send', 'repassword']);
-            
             $payload['password'] = Hash::make($payload['password']);
             $user = $this->userRepository->create($payload);
             DB::commit();
@@ -65,7 +62,6 @@ class UserService implements UserServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->except(['_token', 'send']);
-            // định dạng lại date
             $user = $this->userRepository->update($id, $payload);
             DB::commit();
             return true;

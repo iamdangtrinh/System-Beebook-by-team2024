@@ -41,6 +41,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         if (!empty($join)) {
             $query->join(...$join);
         }
+
         // thay đổi đường dẫn phân trang tại trang user/index
         return $query->paginate($perpage)->withQueryString()->withPath(env('APP_URL').$extend['path']);
     }
