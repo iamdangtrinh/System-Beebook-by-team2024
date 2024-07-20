@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 include_once( 'route/trinhroute.php');
 include_once( 'route/phatroute.php');
 include_once( 'route/nhiroute.php');
