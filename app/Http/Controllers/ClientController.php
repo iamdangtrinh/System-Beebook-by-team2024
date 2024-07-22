@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class ClientController extends Controller
+{
+    public function home()
+    {
+        return view('Client.home');
+    }
+    public function shop()
+    {
+        return view('Client.shop');
+    }
+    public function cart()
+    {
+        return view('Client.cart');
+    }
+    public function blog()
+    {
+        return view('Client.blog');
+    }
+}
