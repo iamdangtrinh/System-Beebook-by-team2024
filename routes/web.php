@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/', [ClientController::class, 'home']);
 Route::get('/cart', [ClientController::class, 'cart']);
 Route::get('/shop', [ClientController::class, 'shop']);
