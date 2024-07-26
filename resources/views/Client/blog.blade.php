@@ -3,7 +3,7 @@
 
 
         <main class="main">
-        	<div class="page-header text-center" style="background-image: url('{{asset('/')}}images/page-header-bg.jpg')">
+        	<div class="page-header text-center" style="background-image: url('{{asset('/')}}client/images/page-header-bg.jpg')">
         		<div class="container">
         			<h1 class="page-title">Blog Classic<span>Blog</span></h1>
         		</div><!-- End .container -->
@@ -25,7 +25,7 @@
                             <article class="entry">
                                 <figure class="entry-media">
                                     <a href="single.html">
-                                        <img src="{{asset('/')}}images/blog/post-1.jpg" alt="image desc">
+                                        <img src="{{asset('/')}}client/images/blog/post-1.jpg" alt="image desc">
                                     </a>
                                 </figure><!-- End .entry-media -->
 
@@ -59,7 +59,7 @@
                             <article class="entry">
                                 <figure class="entry-media entry-video">
                                     <a href="single.html">
-                                        <img src="{{asset('/')}}images/blog/post-2.jpg" alt="image desc">
+                                        <img src="{{asset('/')}}client/images/blog/post-2.jpg" alt="image desc">
                                     </a>
                                 </figure><!-- End .entry-media -->
 
@@ -93,10 +93,10 @@
                                 <figure class="entry-media">
                                     <div class="owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl">
                                         <a href="single.html">
-                                            <img src="{{asset('/')}}images/blog/post-3.jpg" alt="image desc">
+                                            <img src="{{asset('/')}}client/images/blog/post-3.jpg" alt="image desc">
                                         </a>
                                         <a href="single.html">
-                                            <img src="{{asset('/')}}images/blog/post-2.jpg" alt="image desc">
+                                            <img src="{{asset('/')}}client/images/blog/post-2.jpg" alt="image desc">
                                         </a>
                                     </div><!-- End .owl-carousel -->
                                 </figure><!-- End .entry-media -->
@@ -131,7 +131,7 @@
                             <article class="entry">
                                 <figure class="entry-media">
                                     <a href="single.html">
-                                        <img src="{{asset('/')}}images/blog/post-4.jpg" alt="image desc">
+                                        <img src="{{asset('/')}}client/images/blog/post-4.jpg" alt="image desc">
                                     </a>
                                 </figure><!-- End .entry-media -->
 
@@ -164,7 +164,7 @@
                             <article class="entry">
                                 <figure class="entry-media">
                                     <a href="single.html">
-                                        <img src="{{asset('/')}}images/blog/post-5.jpg" alt="image desc">
+                                        <img src="{{asset('/')}}client/images/blog/post-5.jpg" alt="image desc">
                                     </a>
                                 </figure><!-- End .entry-media -->
 
@@ -245,7 +245,7 @@
                                         <li>
                                             <figure>
                                                 <a href="#">
-                                                    <img src="{{asset('/')}}images/blog/sidebar/post-1.jpg" alt="post">
+                                                    <img src="{{asset('/')}}client/images/blog/sidebar/post-1.jpg" alt="post">
                                                 </a>
                                             </figure>
 
@@ -257,7 +257,7 @@
                                         <li>
                                             <figure>
                                                 <a href="#">
-                                                    <img src="{{asset('/')}}images/blog/sidebar/post-2.jpg" alt="post">
+                                                    <img src="{{asset('/')}}client/images/blog/sidebar/post-2.jpg" alt="post">
                                                 </a>
                                             </figure>
 
@@ -269,7 +269,7 @@
                                         <li>
                                             <figure>
                                                 <a href="#">
-                                                    <img src="{{asset('/')}}images/blog/sidebar/post-3.jpg" alt="post">
+                                                    <img src="{{asset('/')}}client/images/blog/sidebar/post-3.jpg" alt="post">
                                                 </a>
                                             </figure>
 
@@ -281,7 +281,7 @@
                                         <li>
                                             <figure>
                                                 <a href="#">
-                                                    <img src="{{asset('/')}}images/blog/sidebar/post-4.jpg" alt="post">
+                                                    <img src="{{asset('/')}}client/images/blog/sidebar/post-4.jpg" alt="post">
                                                 </a>
                                             </figure>
 
@@ -298,7 +298,7 @@
                                     
                                     <div class="banner-sidebar banner-overlay">
                                         <a href="#">
-                                            <img src="{{asset('/')}}images/blog/sidebar/banner.jpg" alt="banner">
+                                            <img src="{{asset('/')}}client/images/blog/sidebar/banner.jpg" alt="banner">
                                         </a>
                                     </div><!-- End .banner-ad -->
                                 </div><!-- End .widget -->
@@ -337,7 +337,7 @@
 	            	<div class="row">
 	            		<div class="col-sm-6 col-lg-3">
 	            			<div class="widget widget-about">
-	            				<img src="{{asset('/')}}images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+	            				<img src="{{asset('/')}}client/images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
 	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
 
 	            				<div class="social-icons">
@@ -400,7 +400,7 @@
 	        	<div class="container">
 	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
 	        		<figure class="footer-payments">
-	        			<img src="{{asset('/')}}images/payments.png" alt="Payment methods" width="272" height="20">
+	        			<img src="{{asset('/')}}client/images/payments.png" alt="Payment methods" width="272" height="20">
 	        		</figure><!-- End .footer-payments -->
 	        	</div><!-- End .container -->
 	        </div><!-- End .footer-bottom -->
@@ -695,14 +695,14 @@
     </div><!-- End .modal -->
 
     <!-- Plugins JS File -->
-    <script src="{{asset('/')}}js/jquery.min.js"></script>
-    <script src="{{asset('/')}}js/bootstrap.bundle.min.js"></script>
-    <script src="{{asset('/')}}js/jquery.hoverIntent.min.js"></script>
-    <script src="{{asset('/')}}js/jquery.waypoints.min.js"></script>
-    <script src="{{asset('/')}}js/superfish.min.js"></script>
-    <script src="{{asset('/')}}js/owl.carousel.min.js"></script>
+    <script src="{{asset('/')}}client/js/jquery.min.js"></script>
+    <script src="{{asset('/')}}client/js/bootstrap.bundle.min.js"></script>
+    <script src="{{asset('/')}}client/js/jquery.hoverIntent.min.js"></script>
+    <script src="{{asset('/')}}client/js/jquery.waypoints.min.js"></script>
+    <script src="{{asset('/')}}client/js/superfish.min.js"></script>
+    <script src="{{asset('/')}}client/js/owl.carousel.min.js"></script>
     <!-- Main JS File -->
-    <script src="{{asset('/')}}js/main.js"></script>
+    <script src="{{asset('/')}}client/js/main.js"></script>
 </body>
 
 

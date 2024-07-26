@@ -1,7 +1,7 @@
 @extends('header')
 @section('body')
         <main class="main">
-        	<div class="page-header text-center" style="background-image: url('{{asset('/')}}images/page-header-bg.jpg')">
+        	<div class="page-header text-center" style="background-image: url('{{asset('/')}}/client/images/page-header-bg.jpg')">
         		<div class="container">
         			<h1 class="page-title">Shopping Cart<span>Shop</span></h1>
         		</div><!-- End .container -->
@@ -38,7 +38,7 @@
 												<div class="product">
 													<figure class="product-media">
 														<a href="#">
-															<img src="{{asset('/')}}images/products/table/product-1.jpg" alt="Product image">
+															<img src="{{asset('/')}}client/images/products/table/product-1.jpg" alt="Product image">
 														</a>
 													</figure>
 
@@ -61,7 +61,7 @@
 												<div class="product">
 													<figure class="product-media">
 														<a href="#">
-															<img src="{{asset('/')}}images/products/table/product-2.jpg" alt="Product image">
+															<img src="{{asset('/')}}client/images/products/table/product-2.jpg" alt="Product image">
 														</a>
 													</figure>
 
@@ -171,7 +171,7 @@
 	            	<div class="row">
 	            		<div class="col-sm-6 col-lg-3">
 	            			<div class="widget widget-about">
-	            				<img src="{{asset('/')}}images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+	            				<img src="{{asset('/')}}client/images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
 	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
 
 	            				<div class="social-icons">
@@ -234,7 +234,7 @@
 	        	<div class="container">
 	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
 	        		<figure class="footer-payments">
-	        			<img src="{{asset('/')}}images/payments.png" alt="Payment methods" width="272" height="20">
+	        			<img src="{{asset('/')}}client/images/payments.png" alt="Payment methods" width="272" height="20">
 	        		</figure><!-- End .footer-payments -->
 	        	</div><!-- End .container -->
 	        </div><!-- End .footer-bottom -->
@@ -529,15 +529,15 @@
     </div><!-- End .modal -->
 
     <!-- Plugins JS File -->
-    <script src="{{asset('/')}}js/jquery.min.js"></script>
-    <script src="{{asset('/')}}js/bootstrap.bundle.min.js"></script>
-    <script src="{{asset('/')}}js/jquery.hoverIntent.min.js"></script>
-    <script src="{{asset('/')}}js/jquery.waypoints.min.js"></script>
-    <script src="{{asset('/')}}js/superfish.min.js"></script>
-    <script src="{{asset('/')}}js/owl.carousel.min.js"></script>
-    <script src="{{asset('/')}}js/bootstrap-input-spinner.js"></script>
+    <script src="{{asset('/')}}client/js/jquery.min.js"></script>
+    <script src="{{asset('/')}}client/js/bootstrap.bundle.min.js"></script>
+    <script src="{{asset('/')}}client/js/jquery.hoverIntent.min.js"></script>
+    <script src="{{asset('/')}}client/js/jquery.waypoints.min.js"></script>
+    <script src="{{asset('/')}}client/js/superfish.min.js"></script>
+    <script src="{{asset('/')}}client/js/owl.carousel.min.js"></script>
+    <script src="{{asset('/')}}client/js/bootstrap-input-spinner.js"></script>
     <!-- Main JS File -->
-    <script src="{{asset('/')}}js/main.js"></script>
+    <script src="{{asset('/')}}client/js/main.js"></script>
 </body>
 
 

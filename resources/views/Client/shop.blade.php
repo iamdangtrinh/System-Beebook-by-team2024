@@ -3,7 +3,7 @@
 <body>
     
         <main class="main">
-        	<div class="page-header text-center" style="background-image: url('{{asset('/')}}images/page-header-bg.jpg')">
+        	<div class="page-header text-center" style="background-image: url('{{asset('/')}}client/page-header-bg.jpg')">
         		<div class="container">
         			<h1 class="page-title">Grid 3 Columns<span>Shop</span></h1>
         		</div><!-- End .container -->
@@ -93,7 +93,7 @@
                                             <figure class="product-media">
                                                 <span class="product-label label-new">New</span>
                                                 <a href="product.html">
-                                                    <img src="{{asset('/')}}images/products/product-4.jpg" alt="Product image" class="product-image">
+                                                    <img src="{{asset('/')}}client/images/products/product-4.jpg" alt="Product image" class="product-image">
                                                 </a>
 
                                                 <div class="product-action-vertical">
@@ -124,14 +124,14 @@
 
                                                 <div class="product-nav product-nav-thumbs">
                                                     <a href="#" class="active">
-                                                        <img src="{{asset('/')}}images/products/product-4-thumb.jpg" alt="product desc">
+                                                        <img src="{{asset('/')}}client/images/products/product-4-thumb.jpg" alt="product desc">
                                                     </a>
                                                     <a href="#">
-                                                        <img src="{{asset('/')}}images/products/product-4-2-thumb.jpg" alt="product desc">
+                                                        <img src="{{asset('/')}}client/images/products/product-4-2-thumb.jpg" alt="product desc">
                                                     </a>
 
                                                     <a href="#">
-                                                        <img src="{{asset('/')}}images/products/product-4-3-thumb.jpg" alt="product desc">
+                                                        <img src="{{asset('/')}}client/images/products/product-4-3-thumb.jpg" alt="product desc">
                                                     </a>
                                                 </div><!-- End .product-nav -->
                                             </div><!-- End .product-body -->
@@ -142,7 +142,7 @@
                                         <div class="product product-7 text-center">
                                             <figure class="product-media">
                                                 <a href="product.html">
-                                                    <img src="{{asset('/')}}images/products/product-5.jpg" alt="Product image" class="product-image">
+                                                    <img src="{{asset('/')}}client/images/products/product-5.jpg" alt="Product image" class="product-image">
                                                 </a>
 
                                                 <div class="product-action-vertical">
@@ -173,10 +173,10 @@
 
                                                 <div class="product-nav product-nav-thumbs">
                                                     <a href="#" class="active">
-                                                        <img src="{{asset('/')}}images/products/product-5-thumb.jpg" alt="product desc">
+                                                        <img src="{{asset('/')}}client/images/products/product-5-thumb.jpg" alt="product desc">
                                                     </a>
                                                     <a href="#">
-                                                        <img src="{{asset('/')}}images/products/product-5-2-thumb.jpg" alt="product desc">
+                                                        <img src="{{asset('/')}}client/images/products/product-5-2-thumb.jpg" alt="product desc">
                                                     </a>
                                                 </div><!-- End .product-nav -->
                                             </div><!-- End .product-body -->
@@ -188,7 +188,7 @@
                                             <figure class="product-media">
                                                 <span class="product-label label-out">Out of Stock</span>
                                                 <a href="product.html">
-                                                    <img src="{{asset('/')}}images/products/product-6.jpg" alt="Product image" class="product-image">
+                                                    <img src="{{asset('/')}}client/images/products/product-6.jpg" alt="Product image" class="product-image">
                                                 </a>
 
                                                 <div class="product-action-vertical">
@@ -224,7 +224,7 @@
                                         <div class="product product-7 text-center">
                                             <figure class="product-media">
                                                 <a href="product.html">
-                                                    <img src="{{asset('/')}}images/products/product-7.jpg" alt="Product image" class="product-image">
+                                                    <img src="{{asset('/')}}client/images/products/product-7.jpg" alt="Product image" class="product-image">
                                                 </a>
 
                                                 <div class="product-action-vertical">
@@ -261,7 +261,7 @@
                                             <figure class="product-media">
                                                 <span class="product-label label-new">New</span>
                                                 <a href="product.html">
-                                                    <img src="{{asset('/')}}images/products/product-8.jpg" alt="Product image" class="product-image">
+                                                    <img src="{{asset('/')}}client/images/products/product-8.jpg" alt="Product image" class="product-image">
                                                 </a>
 
                                                 <div class="product-action-vertical">
@@ -292,10 +292,10 @@
 
                                                 <div class="product-nav product-nav-thumbs">
                                                     <a href="#" class="active">
-                                                        <img src="{{asset('/')}}images/products/product-8-thumb.jpg" alt="product desc">
+                                                        <img src="{{asset('/')}}client/images/products/product-8-thumb.jpg" alt="product desc">
                                                     </a>
                                                     <a href="#">
-                                                        <img src="{{asset('/')}}images/products/product-8-2-thumb.jpg" alt="product desc">
+                                                        <img src="{{asset('/')}}client/images/products/product-8-2-thumb.jpg" alt="product desc">
                                                     </a>
                                                 </div><!-- End .product-nav -->
                                             </div><!-- End .product-body -->
@@ -306,7 +306,7 @@
                                         <div class="product product-7 text-center">
                                             <figure class="product-media">
                                                 <a href="product.html">
-                                                    <img src="{{asset('/')}}images/products/product-9.jpg" alt="Product image" class="product-image">
+                                                    <img src="{{asset('/')}}client/images/products/product-9.jpg" alt="Product image" class="product-image">
                                                 </a>
 
                                                 <div class="product-action-vertical">
@@ -337,13 +337,13 @@
 
                                                 <div class="product-nav product-nav-thumbs">
                                                     <a href="#" class="active">
-                                                        <img src="{{asset('/')}}images/products/product-9-thumb.jpg" alt="product desc">
+                                                        <img src="{{asset('/')}}client/images/products/product-9-thumb.jpg" alt="product desc">
                                                     </a>
                                                     <a href="#">
-                                                        <img src="{{asset('/')}}images/products/product-9-2-thumb.jpg" alt="product desc">
+                                                        <img src="{{asset('/')}}client/images/products/product-9-2-thumb.jpg" alt="product desc">
                                                     </a>
                                                     <a href="#">
-                                                        <img src="{{asset('/')}}images/products/product-9-3-thumb.jpg" alt="product desc">
+                                                        <img src="{{asset('/')}}client/images/products/product-9-3-thumb.jpg" alt="product desc">
                                                     </a>
                                                 </div><!-- End .product-nav -->
                                             </div><!-- End .product-body -->
@@ -355,7 +355,7 @@
                                             <figure class="product-media">
                                                 <span class="product-label label-top">Top</span>
                                                 <a href="product.html">
-                                                    <img src="{{asset('/')}}images/products/product-11.jpg" alt="Product image" class="product-image">
+                                                    <img src="{{asset('/')}}client/images/products/product-11.jpg" alt="Product image" class="product-image">
                                                 </a>
 
                                                 <div class="product-action-vertical">
@@ -386,14 +386,14 @@
 
                                                 <div class="product-nav product-nav-thumbs">
                                                     <a href="#" class="active">
-                                                        <img src="{{asset('/')}}images/products/product-11-thumb.jpg" alt="product desc">
+                                                        <img src="{{asset('/')}}client/images/products/product-11-thumb.jpg" alt="product desc">
                                                     </a>
                                                     <a href="#">
-                                                        <img src="{{asset('/')}}images/products/product-11-2-thumb.jpg" alt="product desc">
+                                                        <img src="{{asset('/')}}client/images/products/product-11-2-thumb.jpg" alt="product desc">
                                                     </a>
 
                                                     <a href="#">
-                                                        <img src="{{asset('/')}}images/products/product-11-3-thumb.jpg" alt="product desc">
+                                                        <img src="{{asset('/')}}client/images/products/product-11-3-thumb.jpg" alt="product desc">
                                                     </a>
                                                 </div><!-- End .product-nav -->
                                             </div><!-- End .product-body -->
@@ -404,7 +404,7 @@
                                         <div class="product product-7 text-center">
                                             <figure class="product-media">
                                                 <a href="product.html">
-                                                    <img src="{{asset('/')}}images/products/product-10.jpg" alt="Product image" class="product-image">
+                                                    <img src="{{asset('/')}}client/images/products/product-10.jpg" alt="Product image" class="product-image">
                                                 </a>
 
                                                 <div class="product-action-vertical">
@@ -440,7 +440,7 @@
                                         <div class="product product-7 text-center">
                                             <figure class="product-media">
                                                 <a href="product.html">
-                                                    <img src="{{asset('/')}}images/products/product-12.jpg" alt="Product image" class="product-image">
+                                                    <img src="{{asset('/')}}client/images/products/product-12.jpg" alt="Product image" class="product-image">
                                                 </a>
 
                                                 <div class="product-action-vertical">
@@ -754,7 +754,7 @@
 	            	<div class="row">
 	            		<div class="col-sm-6 col-lg-3">
 	            			<div class="widget widget-about">
-	            				<img src="{{asset('/')}}images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+	            				<img src="{{asset('/')}}client/images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
 	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
 
 	            				<div class="social-icons">
@@ -817,7 +817,7 @@
 	        	<div class="container">
 	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
 	        		<figure class="footer-payments">
-	        			<img src="{{asset('/')}}images/payments.png" alt="Payment methods" width="272" height="20">
+	        			<img src="{{asset('/')}}client/images/payments.png" alt="Payment methods" width="272" height="20">
 	        		</figure><!-- End .footer-payments -->
 	        	</div><!-- End .container -->
 	        </div><!-- End .footer-bottom -->
@@ -1112,18 +1112,18 @@
     </div><!-- End .modal -->
 
     <!-- Plugins JS File -->
-    <script src="{{asset('/')}}js/jquery.min.js"></script>
-    <script src="{{asset('/')}}js/bootstrap.bundle.min.js"></script>
-    <script src="{{asset('/')}}js/jquery.hoverIntent.min.js"></script>
-    <script src="{{asset('/')}}js/jquery.waypoints.min.js"></script>
-    <script src="{{asset('/')}}js/superfish.min.js"></script>
-    <script src="{{asset('/')}}js/owl.carousel.min.js"></script>
-    <script src="{{asset('/')}}js/wNumb.js"></script>
-    <script src="{{asset('/')}}js/bootstrap-input-spinner.js"></script>
-    <script src="{{asset('/')}}js/jquery.magnific-popup.min.js"></script>
-    <script src="{{asset('/')}}js/nouislider.min.js"></script>
+    <script src="{{asset('/')}}client/js/jquery.min.js"></script>
+    <script src="{{asset('/')}}client/js/bootstrap.bundle.min.js"></script>
+    <script src="{{asset('/')}}client/js/jquery.hoverIntent.min.js"></script>
+    <script src="{{asset('/')}}client/js/jquery.waypoints.min.js"></script>
+    <script src="{{asset('/')}}client/js/superfish.min.js"></script>
+    <script src="{{asset('/')}}client/js/owl.carousel.min.js"></script>
+    <script src="{{asset('/')}}client/js/wNumb.js"></script>
+    <script src="{{asset('/')}}client/js/bootstrap-input-spinner.js"></script>
+    <script src="{{asset('/')}}client/js/jquery.magnific-popup.min.js"></script>
+    <script src="{{asset('/')}}client/js/nouislider.min.js"></script>
     <!-- Main JS File -->
-    <script src="{{asset('/')}}js/main.js"></script>
+    <script src="{{asset('/')}}client/js/main.js"></script>
 </body>
 
 

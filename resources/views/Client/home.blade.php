@@ -19,8 +19,8 @@
                                     <div class="intro-slide">
                                         <figure class="slide-image">
                                             <picture>
-                                                <source media="(max-width: 480px)" srcset="images/slider/slide-1-480w.jpg">
-                                                <img src="images/slider/slide-1.jpg" alt="Image Desc">
+                                                <source media="(max-width: 480px)" srcset="client/images/slider/slide-1-480w.jpg">
+                                                <img src="client/images/slider/slide-1.jpg" alt="Image Desc">
                                             </picture>
                                         </figure><!-- End .slide-image -->
 
@@ -38,8 +38,8 @@
                                     <div class="intro-slide">
                                         <figure class="slide-image">
                                             <picture>
-                                                <source media="(max-width: 480px)" srcset="images/slider/slide-2-480w.jpg">
-                                                <img src="images/slider/slide-2.jpg" alt="Image Desc">
+                                                <source media="(max-width: 480px)" srcset="client/images/slider/slide-2-480w.jpg">
+                                                <img src="client/images/slider/slide-2.jpg" alt="Image Desc">
                                             </picture>
                                         </figure><!-- End .slide-image -->
 
@@ -57,8 +57,8 @@
                                     <div class="intro-slide">
                                         <figure class="slide-image">
                                             <picture>
-                                                <source media="(max-width: 480px)" srcset="images/slider/slide-3-480w.jpg">
-                                                <img src="images/slider/slide-3.jpg" alt="Image Desc">
+                                                <source media="(max-width: 480px)" srcset="client/images/slider/slide-3-480w.jpg">
+                                                <img src="client/images/slider/slide-3.jpg" alt="Image Desc">
                                             </picture>
                                         </figure><!-- End .slide-image -->
 
@@ -83,7 +83,7 @@
                                     <div class="col-md-6 col-lg-12">
                                         <div class="banner banner-display">
                                             <a href="#">
-                                                <img src="images/banners/home/intro/banner-1.jpg" alt="Banner">
+                                                <img src="client/images/banners/home/intro/banner-1.jpg" alt="Banner">
                                             </a>
 
                                             <div class="banner-content">
@@ -97,7 +97,7 @@
                                     <div class="col-md-6 col-lg-12">
                                         <div class="banner banner-display mb-0">
                                             <a href="#">
-                                                <img src="images/banners/home/intro/banner-2.jpg" alt="Banner">
+                                                <img src="client/images/banners/home/intro/banner-2.jpg" alt="Banner">
                                             </a>
 
                                             <div class="banner-content">
@@ -139,27 +139,27 @@
                             }
                         }'>
                         <a href="#" class="brand">
-                            <img src="images/brands/1.png" alt="Brand Name">
+                            <img src="client/images/brands/1.png" alt="Brand Name">
                         </a>
 
                         <a href="#" class="brand">
-                            <img src="images/brands/2.png" alt="Brand Name">
+                            <img src="client/images/brands/2.png" alt="Brand Name">
                         </a>
 
                         <a href="#" class="brand">
-                            <img src="images/brands/3.png" alt="Brand Name">
+                            <img src="client/images/brands/3.png" alt="Brand Name">
                         </a>
 
                         <a href="#" class="brand">
-                            <img src="images/brands/4.png" alt="Brand Name">
+                            <img src="client/images/brands/4.png" alt="Brand Name">
                         </a>
 
                         <a href="#" class="brand">
-                            <img src="images/brands/5.png" alt="Brand Name">
+                            <img src="client/images/brands/5.png" alt="Brand Name">
                         </a>
 
                         <a href="#" class="brand">
-                            <img src="images/brands/6.png" alt="Brand Name">
+                            <img src="client/images/brands/6.png" alt="Brand Name">
                         </a>
                     </div><!-- End .owl-carousel -->
                 </div><!-- End .container -->
@@ -218,8 +218,8 @@
                             <div class="product product-11 text-center">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="images/demos/demo-2/products/product-1-1.jpg" alt="Product image" class="product-image">
-                                        <img src="images/demos/demo-2/products/product-1-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="client/images/demos/demo-2/products/product-1-1.jpg" alt="Product image" class="product-image">
+                                        <img src="client/images/demos/demo-2/products/product-1-2.jpg" alt="Product image" class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -241,8 +241,8 @@
                             <div class="product product-11 text-center">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="images/demos/demo-2/products/product-2-1.jpg" alt="Product image" class="product-image">
-                                        <img src="images/demos/demo-2/products/product-2-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="client/images/demos/demo-2/products/product-2-1.jpg" alt="Product image" class="product-image">
+                                        <img src="client/images/demos/demo-2/products/product-2-2.jpg" alt="Product image" class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -270,8 +270,8 @@
                                 <figure class="product-media">
                                     <span class="product-label label-new">NEW</span>
                                     <a href="product.html">
-                                        <img src="images/demos/demo-2/products/product-3-1.jpg" alt="Product image" class="product-image">
-                                        <img src="images/demos/demo-2/products/product-3-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="client/images/demos/demo-2/products/product-3-1.jpg" alt="Product image" class="product-image">
+                                        <img src="client/images/demos/demo-2/products/product-3-2.jpg" alt="Product image" class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -295,8 +295,8 @@
                                 <figure class="product-media">
                                     <span class="product-label label-sale">30% OFF</span>
                                     <a href="product.html">
-                                        <img src="images/demos/demo-2/products/product-4-1.jpg" alt="Product image" class="product-image">
-                                        <img src="images/demos/demo-2/products/product-4-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="client/images/demos/demo-2/products/product-4-1.jpg" alt="Product image" class="product-image">
+                                        <img src="client/images/demos/demo-2/products/product-4-2.jpg" alt="Product image" class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -325,8 +325,8 @@
                             <div class="product product-11 text-center">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="images/demos/demo-2/products/product-5-1.jpg" alt="Product image" class="product-image">
-                                        <img src="images/demos/demo-2/products/product-5-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="client/images/demos/demo-2/products/product-5-1.jpg" alt="Product image" class="product-image">
+                                        <img src="client/images/demos/demo-2/products/product-5-2.jpg" alt="Product image" class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -354,8 +354,8 @@
                             <div class="product product-11 text-center">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="images/demos/demo-2/products/product-6-1.jpg" alt="Product image" class="product-image">
-                                        <img src="images/demos/demo-2/products/product-6-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="client/images/demos/demo-2/products/product-6-1.jpg" alt="Product image" class="product-image">
+                                        <img src="client/images/demos/demo-2/products/product-6-2.jpg" alt="Product image" class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -378,8 +378,8 @@
                             <div class="product product-11 text-center">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="images/demos/demo-2/products/product-1-1.jpg" alt="Product image" class="product-image">
-                                        <img src="images/demos/demo-2/products/product-1-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="client/images/demos/demo-2/products/product-1-1.jpg" alt="Product image" class="product-image">
+                                        <img src="client/images/demos/demo-2/products/product-1-2.jpg" alt="Product image" class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -431,8 +431,8 @@
                                 <figure class="product-media">
                                     <span class="product-label label-new">NEW</span>
                                     <a href="product.html">
-                                        <img src="images/demos/demo-2/products/product-3-1.jpg" alt="Product image" class="product-image">
-                                        <img src="images/demos/demo-2/products/product-3-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="client/images/demos/demo-2/products/product-3-1.jpg" alt="Product image" class="product-image">
+                                        <img src="client/images/demos/demo-2/products/product-3-2.jpg" alt="Product image" class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -456,8 +456,8 @@
                                 <figure class="product-media">
                                     <span class="product-label label-sale">30% OFF</span>
                                     <a href="product.html">
-                                        <img src="images/demos/demo-2/products/product-4-1.jpg" alt="Product image" class="product-image">
-                                        <img src="images/demos/demo-2/products/product-4-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="client/images/demos/demo-2/products/product-4-1.jpg" alt="Product image" class="product-image">
+                                        <img src="client/images/demos/demo-2/products/product-4-2.jpg" alt="Product image" class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -514,8 +514,8 @@
                             <div class="product product-11 text-center">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="images/demos/demo-2/products/product-1-1.jpg" alt="Product image" class="product-image">
-                                        <img src="images/demos/demo-2/products/product-1-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="client/images/demos/demo-2/products/product-1-1.jpg" alt="Product image" class="product-image">
+                                        <img src="client/images/demos/demo-2/products/product-1-2.jpg" alt="Product image" class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -536,8 +536,8 @@
                             <div class="product product-11 text-center">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="images/demos/demo-2/products/product-6-1.jpg" alt="Product image" class="product-image">
-                                        <img src="images/demos/demo-2/products/product-6-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="client/images/demos/demo-2/products/product-6-1.jpg" alt="Product image" class="product-image">
+                                        <img src="client/images/demos/demo-2/products/product-6-2.jpg" alt="Product image" class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -588,8 +588,8 @@
                             <div class="product product-11 text-center">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="images/demos/demo-2/products/product-2-1.jpg" alt="Product image" class="product-image">
-                                        <img src="images/demos/demo-2/products/product-2-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="client/images/demos/demo-2/products/product-2-1.jpg" alt="Product image" class="product-image">
+                                        <img src="client/images/demos/demo-2/products/product-2-2.jpg" alt="Product image" class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -615,8 +615,8 @@
                             <div class="product product-11 text-center">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="images/demos/demo-2/products/product-5-1.jpg" alt="Product image" class="product-image">
-                                        <img src="images/demos/demo-2/products/product-5-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="client/images/demos/demo-2/products/product-5-1.jpg" alt="Product image" class="product-image">
+                                        <img src="client/images/demos/demo-2/products/product-5-2.jpg" alt="Product image" class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
@@ -652,7 +652,7 @@
         			<div class="col-6 col-lg-4">
         				<div class="banner banner-display banner-link-anim">
                 			<a href="#">
-                				<img src="images/banners/home/banner-1.jpg" alt="Banner">
+                				<img src="client/images/banners/home/banner-1.jpg" alt="Banner">
                 			</a>
 
                 			<div class="banner-content banner-content-center">
@@ -664,7 +664,7 @@
         			<div class="col-6 col-lg-4 order-lg-last">
         				<div class="banner banner-display banner-link-anim">
                 			<a href="#">
-                				<img src="images/banners/home/banner-4.jpg" alt="Banner">
+                				<img src="client/images/banners/home/banner-4.jpg" alt="Banner">
                 			</a>
 
                 			<div class="banner-content banner-content-center">
@@ -677,7 +677,7 @@
                         <div class="row">
             				<div class="banner banner-display banner-link-anim col-lg-12 col-6">
                     			<a href="#">
-                    				<img src="images/banners/home/banner-2.jpg" alt="Banner">
+                    				<img src="client/images/banners/home/banner-2.jpg" alt="Banner">
                     			</a>
 
                     			<div class="banner-content banner-content-center">
@@ -688,7 +688,7 @@
 
                 			<div class="banner banner-display banner-link-anim col-lg-12 col-6">
                     			<a href="#">
-                    				<img src="images/banners/home/banner-3.jpg" alt="Banner">
+                    				<img src="client/images/banners/home/banner-3.jpg" alt="Banner">
                     			</a>
 
                     			<div class="banner-content banner-content-center">
@@ -732,8 +732,8 @@
                                     <div class="product product-11 mt-v3 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="images/demos/demo-2/products/product-12-1.jpg" alt="Product image" class="product-image">
-                                                <img src="images/demos/demo-2/products/product-12-2.jpg" alt="Product image" class="product-image-hover">
+                                                <img src="client/images/demos/demo-2/products/product-12-1.jpg" alt="Product image" class="product-image">
+                                                <img src="client/images/demos/demo-2/products/product-12-2.jpg" alt="Product image" class="product-image-hover">
                                             </a>
 
                                             <div class="product-action-vertical">
@@ -762,8 +762,8 @@
                                     <div class="product product-11 mt-v3 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="images/demos/demo-2/products/product-10-1.jpg" alt="Product image" class="product-image">
-                                                <img src="images/demos/demo-2/products/product-10-2.jpg" alt="Product image" class="product-image-hover">
+                                                <img src="client/images/demos/demo-2/products/product-10-1.jpg" alt="Product image" class="product-image">
+                                                <img src="client/images/demos/demo-2/products/product-10-2.jpg" alt="Product image" class="product-image-hover">
                                             </a>
 
                                             <div class="product-action-vertical">
@@ -794,8 +794,8 @@
                                         <figure class="product-media">
                                             <span class="product-label label-new">NEW</span>
                                             <a href="product.html">
-                                                <img src="images/demos/demo-2/products/product-9-1.jpg" alt="Product image" class="product-image">
-                                                <img src="images/demos/demo-2/products/product-9-2.jpg" alt="Product image" class="product-image-hover">
+                                                <img src="client/images/demos/demo-2/products/product-9-1.jpg" alt="Product image" class="product-image">
+                                                <img src="client/images/demos/demo-2/products/product-9-2.jpg" alt="Product image" class="product-image-hover">
                                             </a>
 
                                             <div class="product-action-vertical">
@@ -819,8 +819,8 @@
                                     <div class="product product-11 mt-v3 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="images/demos/demo-2/products/product-8-1.jpg" alt="Product image" class="product-image">
-                                                <img src="images/demos/demo-2/products/product-8-2.jpg" alt="Product image" class="product-image-hover">
+                                                <img src="client/images/demos/demo-2/products/product-8-1.jpg" alt="Product image" class="product-image">
+                                                <img src="client/images/demos/demo-2/products/product-8-2.jpg" alt="Product image" class="product-image-hover">
                                             </a>
 
                                             <div class="product-action-vertical">
@@ -850,8 +850,8 @@
                                     <div class="product product-11 mt-v3 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="images/demos/demo-2/products/product-11-1.jpg" alt="Product image" class="product-image">
-                                                <img src="images/demos/demo-2/products/product-11-2.jpg" alt="Product image" class="product-image-hover">
+                                                <img src="client/images/demos/demo-2/products/product-11-1.jpg" alt="Product image" class="product-image">
+                                                <img src="client/images/demos/demo-2/products/product-11-2.jpg" alt="Product image" class="product-image-hover">
                                             </a>
 
                                             <div class="product-action-vertical">
@@ -875,8 +875,8 @@
                                     <div class="product product-11 mt-v3 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="images/demos/demo-2/products/product-13-1.jpg" alt="Product image" class="product-image">
-                                                <img src="images/demos/demo-2/products/product-13-2.jpg" alt="Product image" class="product-image-hover">
+                                                <img src="client/images/demos/demo-2/products/product-13-1.jpg" alt="Product image" class="product-image">
+                                                <img src="client/images/demos/demo-2/products/product-13-2.jpg" alt="Product image" class="product-image-hover">
                                             </a>
 
                                             <div class="product-action-vertical">
@@ -900,8 +900,8 @@
                                     <div class="product product-11 mt-v3 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="images/demos/demo-2/products/product-14-1.jpg" alt="Product image" class="product-image">
-                                                <img src="images/demos/demo-2/products/product-14-2.jpg" alt="Product image" class="product-image-hover">
+                                                <img src="client/images/demos/demo-2/products/product-14-1.jpg" alt="Product image" class="product-image">
+                                                <img src="client/images/demos/demo-2/products/product-14-2.jpg" alt="Product image" class="product-image-hover">
                                             </a>
 
                                             <div class="product-action-vertical">
@@ -931,8 +931,8 @@
                                         <figure class="product-media">
                                             <span class="product-label label-new">NEW</span>
                                             <a href="product.html">
-                                                <img src="images/demos/demo-2/products/product-16-1.jpg" alt="Product image" class="product-image">
-                                                <img src="images/demos/demo-2/products/product-16-2.jpg" alt="Product image" class="product-image-hover">
+                                                <img src="client/images/demos/demo-2/products/product-16-1.jpg" alt="Product image" class="product-image">
+                                                <img src="client/images/demos/demo-2/products/product-16-2.jpg" alt="Product image" class="product-image-hover">
                                             </a>
 
                                             <div class="product-action-vertical">
@@ -965,8 +965,8 @@
                                         <figure class="product-media">
                                             <span class="product-label label-new">NEW</span>
                                             <a href="product.html">
-                                                <img src="images/demos/demo-2/products/product-9-1.jpg" alt="Product image" class="product-image">
-                                                <img src="images/demos/demo-2/products/product-9-2.jpg" alt="Product image" class="product-image-hover">
+                                                <img src="client/images/demos/demo-2/products/product-9-1.jpg" alt="Product image" class="product-image">
+                                                <img src="client/images/demos/demo-2/products/product-9-2.jpg" alt="Product image" class="product-image-hover">
                                             </a>
 
                                             <div class="product-action-vertical">
@@ -990,8 +990,8 @@
                                     <div class="product product-11 mt-v3 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="images/demos/demo-2/products/product-12-1.jpg" alt="Product image" class="product-image">
-                                                <img src="images/demos/demo-2/products/product-12-2.jpg" alt="Product image" class="product-image-hover">
+                                                <img src="client/images/demos/demo-2/products/product-12-1.jpg" alt="Product image" class="product-image">
+                                                <img src="client/images/demos/demo-2/products/product-12-2.jpg" alt="Product image" class="product-image-hover">
                                             </a>
 
                                             <div class="product-action-vertical">
@@ -1020,8 +1020,8 @@
                                     <div class="product product-11 mt-v3 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="images/demos/demo-2/products/product-13-1.jpg" alt="Product image" class="product-image">
-                                                <img src="images/demos/demo-2/products/product-13-2.jpg" alt="Product image" class="product-image-hover">
+                                                <img src="client/images/demos/demo-2/products/product-13-1.jpg" alt="Product image" class="product-image">
+                                                <img src="client/images/demos/demo-2/products/product-13-2.jpg" alt="Product image" class="product-image-hover">
                                             </a>
 
                                             <div class="product-action-vertical">
@@ -1050,8 +1050,8 @@
                                     <div class="product product-11 mt-v3 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="images/demos/demo-2/products/product-8-1.jpg" alt="Product image" class="product-image">
-                                                <img src="images/demos/demo-2/products/product-8-2.jpg" alt="Product image" class="product-image-hover">
+                                                <img src="client/images/demos/demo-2/products/product-8-1.jpg" alt="Product image" class="product-image">
+                                                <img src="client/images/demos/demo-2/products/product-8-2.jpg" alt="Product image" class="product-image-hover">
                                             </a>
 
                                             <div class="product-action-vertical">
@@ -1081,8 +1081,8 @@
                                     <div class="product product-11 mt-v3 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="images/demos/demo-2/products/product-11-1.jpg" alt="Product image" class="product-image">
-                                                <img src="images/demos/demo-2/products/product-11-2.jpg" alt="Product image" class="product-image-hover">
+                                                <img src="client/images/demos/demo-2/products/product-11-1.jpg" alt="Product image" class="product-image">
+                                                <img src="client/images/demos/demo-2/products/product-11-2.jpg" alt="Product image" class="product-image-hover">
                                             </a>
 
                                             <div class="product-action-vertical">
@@ -1106,8 +1106,8 @@
                                     <div class="product product-11 mt-v3 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="images/demos/demo-2/products/product-14-1.jpg" alt="Product image" class="product-image">
-                                                <img src="images/demos/demo-2/products/product-14-2.jpg" alt="Product image" class="product-image-hover">
+                                                <img src="client/images/demos/demo-2/products/product-14-1.jpg" alt="Product image" class="product-image">
+                                                <img src="client/images/demos/demo-2/products/product-14-2.jpg" alt="Product image" class="product-image-hover">
                                             </a>
 
                                             <div class="product-action-vertical">
@@ -1141,8 +1141,8 @@
                                     <div class="product product-11 mt-v3 text-center">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <img src="images/demos/demo-2/products/product-10-1.jpg" alt="Product image" class="product-image">
-                                                <img src="images/demos/demo-2/products/product-10-2.jpg" alt="Product image" class="product-image-hover">
+                                                <img src="client/images/demos/demo-2/products/product-10-1.jpg" alt="Product image" class="product-image">
+                                                <img src="client/images/demos/demo-2/products/product-10-2.jpg" alt="Product image" class="product-image-hover">
                                             </a>
 
                                             <div class="product-action-vertical">
@@ -1173,8 +1173,8 @@
                                         <figure class="product-media">
                                             <span class="product-label label-new">NEW</span>
                                             <a href="product.html">
-                                                <img src="images/demos/demo-2/products/product-16-1.jpg" alt="Product image" class="product-image">
-                                                <img src="images/demos/demo-2/products/product-16-2.jpg" alt="Product image" class="product-image-hover">
+                                                <img src="client/images/demos/demo-2/products/product-16-1.jpg" alt="Product image" class="product-image">
+                                                <img src="client/images/demos/demo-2/products/product-16-2.jpg" alt="Product image" class="product-image-hover">
                                             </a>
 
                                             <div class="product-action-vertical">
@@ -1273,7 +1273,7 @@
                         <article class="entry entry-display">
                             <figure class="entry-media">
                                 <a href="single.html">
-                                    <img src="images/blog/home/post-1.jpg" alt="image desc">
+                                    <img src="client/images/blog/home/post-1.jpg" alt="image desc">
                                 </a>
                             </figure><!-- End .entry-media -->
 
@@ -1296,7 +1296,7 @@
                         <article class="entry entry-display">
                             <figure class="entry-media">
                                 <a href="single.html">
-                                    <img src="images/blog/home/post-2.jpg" alt="image desc">
+                                    <img src="client/images/blog/home/post-2.jpg" alt="image desc">
                                 </a>
                             </figure><!-- End .entry-media -->
 
@@ -1319,7 +1319,7 @@
                         <article class="entry entry-display">
                             <figure class="entry-media">
                                 <a href="single.html">
-                                    <img src="images/blog/home/post-3.jpg" alt="image desc">
+                                    <img src="client/images/blog/home/post-3.jpg" alt="image desc">
                                 </a>
                             </figure><!-- End .entry-media -->
 
@@ -1345,7 +1345,7 @@
                     <a href="blog.html" class="btn btn-outline-darker btn-more"><span>View more articles</span><i class="icon-long-arrow-right"></i></a>
                 </div><!-- End .more-container -->
             </div>
-            <div class="cta cta-display bg-image pt-4 pb-4" style="background-image: url(images/backgrounds/cta/bg-6.jpg);">
+            <div class="cta cta-display bg-image pt-4 pb-4" style="background-image: url(client/images/backgrounds/cta/bg-6.jpg);">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-md-10 col-lg-9 col-xl-8">
@@ -1371,7 +1371,7 @@
 	            	<div class="row">
 	            		<div class="col-sm-6 col-lg-3">
 	            			<div class="widget widget-about">
-	            				<img src="images/logo-footer.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+	            				<img src="client/images/logo-footer.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
 	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
 
 	            				<div class="social-icons">
@@ -1434,7 +1434,7 @@
 	        	<div class="container">
 	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
 	        		<figure class="footer-payments">
-	        			<img src="images/payments.png" alt="Payment methods" width="272" height="20">
+	        			<img src="client/images/payments.png" alt="Payment methods" width="272" height="20">
 	        		</figure><!-- End .footer-payments -->
 	        	</div><!-- End .container -->
 	        </div><!-- End .footer-bottom -->
@@ -1734,7 +1734,7 @@
                 <div class="row no-gutters bg-white newsletter-popup-content">
                     <div class="col-xl-3-5col col-lg-7 banner-content-wrap">
                         <div class="banner-content text-center">
-                            <img src="images/popup/newsletter/logo.png" class="logo" alt="logo" width="60" height="15">
+                            <img src="client/images/popup/newsletter/logo.png" class="logo" alt="logo" width="60" height="15">
                             <h2 class="banner-title">get <span>25<light>%</light></span> off</h2>
                             <p>Subscribe to the Molla eCommerce newsletter to receive timely updates from your favorite products.</p>
                             <form action="#">
@@ -1752,7 +1752,7 @@
                         </div>
                     </div>
                     <div class="col-xl-2-5col col-lg-5 ">
-                        <img src="images/popup/newsletter/img-1.jpg" class="newsletter-img" alt="newsletter">
+                        <img src="client/images/popup/newsletter/img-1.jpg" class="newsletter-img" alt="newsletter">
                     </div>
                 </div>
             </div>
