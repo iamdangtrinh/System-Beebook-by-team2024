@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             $fullname = $surname . ' ' . $name;
             $fullnameNoDiacritics = transliterator_transliterate('Any-Latin; Latin-ASCII', $fullname);
             $emailUsername = strtolower(str_replace(' ', '', $fullnameNoDiacritics));
+            
             DB::table('users')->insert([
                 'name' => $fullname,
                 'email' => $emailUsername . '@gmail.com',
