@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('phone', 10);
             $table->enum('roles', ['admin', 'store', 'customer']);
-            $table->enum('status', ['active', 'inactive']);
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->string('image', 100)->nullable();
             $table->string('facebook_id', 50)->nullable();
             $table->string('google_id', 50)->nullable();

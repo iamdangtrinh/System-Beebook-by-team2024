@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('tags')->nullable();
             $table->string('image', 100)->nullable();
             $table->string('slug', 50)->unique();
-            $table->tinyInteger('status')->default(1);
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->tinyInteger('hot')->default(0);
             $table->string('meta_title_seo', 100)->nullable();
             $table->string('meta_description_seo', 255)->nullable();

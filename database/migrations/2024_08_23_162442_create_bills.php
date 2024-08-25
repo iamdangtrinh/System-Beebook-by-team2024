@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_user');
-            $table->enum('status', ['chuẩn bị', 'đang vận chuyển', 'thành công', 'hủy']);
+            $table->enum('status', ['new', 'shipping', 'success', 'cancel']);
             $table->string('reason_cancel')->nullable();
             $table->decimal('total_amount', 15, 2);
             $table->string('payment_method');

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_wallet');
             $table->decimal('amount', 15, 2);
             $table->enum('type', ['in', 'out']);
-            $table->string('status');
+            $table->string('status'); // thành công hoặc thất bại
             $table->string('method');
             $table->text('content')->nullable();
             $table->timestamps();

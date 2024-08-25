@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('discount', 15, 2);
             $table->tinyInteger('type_coupon');
             $table->integer('quantity');
-            $table->tinyInteger('status');
+            $table->enum('status', ['active', 'inactive'])->default('active');
         });
     }
 

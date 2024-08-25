@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('text_description')->nullable();
             $table->string('text_button')->nullable();
             $table->unsignedTinyInteger('order');
-            $table->tinyInteger('status');
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }
