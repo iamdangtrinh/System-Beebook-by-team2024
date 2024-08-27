@@ -1,716 +1,363 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="en">
 
-
-<!-- molla/index-2.html  22 Nov 2019 09:55:32 GMT -->
-
+<!-- belle/blog-article.html   11 Nov 2019 12:47:01 GMT -->
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Molla - Bootstrap eCommerce Template</title>
-    <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Molla - Bootstrap eCommerce Template">
-    <meta name="author" content="p-themes">
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/') }}client/images/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="client/images/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="client/images/icons/favicon-16x16.png">
-    <link rel="manifest" href="client/images/icons/site.html">
-    <link rel="mask-icon" href="client/images/icons/safari-pinned-tab.svg" color="#666666">
-    <link rel="shortcut icon" href="client/images/icons/favicon.ico">
-    <meta name="apple-mobile-web-app-title" content="Molla">
-    <meta name="application-name" content="Molla">
-    <meta name="msapplication-TileColor" content="#cc9966">
-    <meta name="msapplication-config" content="client/images/icons/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Plugins CSS File -->
-    <link rel="stylesheet" href="client/css/bootstrap.min.css">
-    <link rel="stylesheet" href="client/css/plugins/owl-carousel/owl.carousel.css">
-    <link rel="stylesheet" href="client/css/plugins/magnific-popup/magnific-popup.css">
-    <!-- Main CSS File -->
-    <link rel="stylesheet" href="client/css/style.css">
-    <link rel="stylesheet" href="client/css/skins/skin-demo-20.css">
-    <link rel="stylesheet" href="client/css/demos/demo-20.css">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Blog Article &ndash; Belle Multipurpose Bootstrap 4 Template</title>
+<meta name="description" content="description">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Favicon -->
+<link rel="shortcut icon" href="{{asset('/')}}client/images/favicon.png" />
+<!-- Plugins CSS -->
+<link rel="stylesheet" href="{{asset('/')}}client/css/plugins.css">
+<!-- Bootstap CSS -->
+<link rel="stylesheet" href="{{asset('/')}}client/css/bootstrap.min.css">
+<!-- Main Style CSS -->
+<link rel="stylesheet" href="{{asset('/')}}client/css/style.css">
+<link rel="stylesheet" href="{{asset('/')}}client/css/responsive.css">
 </head>
-
-<body>
-    <div class="page-wrapper">
-        <header class="header header-12">
-            <div class="header-top">
-                <div class="container">
-                    <div class="header-left">
-                        <a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a>
-                    </div><!-- End .header-left -->
-
-                    <div class="header-right">
-
-                        <ul class="top-menu">
-                            <li>
-                                <a href="#">Links</a>
-                                <ul class="dropdown-links">
-                                    <li>
-                                        <div class="header-dropdown">
-                                            <a href="#">USD</a>
-                                            <div class="header-menu">
-                                                <ul>
-                                                    <li><a href="#">Eur</a></li>
-                                                    <li><a href="#">Usd</a></li>
-                                                </ul>
-                                            </div><!-- End .header-menu -->
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="header-dropdown">
-                                            <a href="#">English</a>
-                                            <div class="header-menu">
-                                                <ul>
-                                                    <li><a href="#">English</a></li>
-                                                    <li><a href="#">French</a></li>
-                                                    <li><a href="#">Spanish</a></li>
-                                                </ul>
-                                            </div><!-- End .header-menu -->
-                                        </div>
-                                    </li>
-                                    <li><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li>
-                                </ul>
-                            </li>
-                        </ul><!-- End .top-menu -->
-                    </div><!-- End .header-right -->
-
-                </div><!-- End .container -->
-            </div><!-- End .header-top -->
-
-            <div class="header-middle">
-                <div class="container">
-                    <div class="header-left">
-                        <button class="mobile-menu-toggler">
-                            <span class="sr-only">Toggle mobile menu</span>
-                            <i class="icon-bars"></i>
-                        </button>
-
-                        <a href="index.html" class="logo">
-                            <img src="client/images/demos/demo-20/logo.png" alt="Molla Logo" width="105"
-                                height="25">
-                        </a>
-                    </div><!-- End .header-left -->
-
-                    <div class="header-right">
-                        <div class="header-search header-search-extended header-search-visible header-search-no-radius">
-                            <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
-                            <form action="#" method="get">
-                                <div class="header-search-wrapper search-wrapper-wide">
-                                    <label for="q" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" name="q" id="q"
-                                        placeholder="Search product ..." required>
-
-                                    <div class="select-custom">
-                                        <select id="cat" name="cat">
-                                            <option value="">All Departments</option>
-                                            <option value="1">Fashion</option>
-                                            <option value="2">- Women</option>
-                                            <option value="3">- Men</option>
-                                            <option value="4">- Jewellery</option>
-                                            <option value="5">- Kids Fashion</option>
-                                            <option value="6">Electronics</option>
-                                            <option value="7">- Smart TVs</option>
-                                            <option value="8">- Cameras</option>
-                                            <option value="9">- Games</option>
-                                            <option value="10">Home &amp; Garden</option>
-                                            <option value="11">Motors</option>
-                                            <option value="12">- Cars and Trucks</option>
-                                            <option value="15">- Boats</option>
-                                            <option value="16">- Auto Tools &amp; Supplies</option>
-                                        </select>
-                                    </div><!-- End .select-custom -->
-                                    <button class="btn btn-primary" type="submit"><i
-                                            class="icon-search"></i></button>
-                                </div><!-- End .header-search-wrapper -->
-                            </form>
-                        </div><!-- End .header-search -->
-
-                        <div class="header-dropdown-link">
-                            <div class="account">
-                                <a href="dashboard.html" title="My account">
-                                    <div class="icon">
-                                        <i class="icon-user"></i>
-                                    </div>
-                                    <p>Account</p>
-                                </a>
-                            </div><!-- End .compare-dropdown -->
-
-                            <div class="wishlist">
-                                <a href="wishlist.html" title="Wishlist">
-                                    <div class="icon">
-                                        <i class="icon-heart-o"></i>
-                                        <span class="wishlist-count badge">3</span>
-                                    </div>
-                                    <p>Wishlist</p>
-                                </a>
-                            </div><!-- End .compare-dropdown -->
-
-                            <div class="dropdown cart-dropdown">
-                                <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false" data-display="static">
-                                    <div class="icon">
-                                        <i class="icon-shopping-cart"></i>
-                                        <span class="cart-count">2</span>
-                                    </div>
-                                    <p>Cart</p>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <div class="dropdown-cart-products">
-                                        <div class="product">
-                                            <div class="product-cart-details">
-                                                <h4 class="product-title">
-                                                    <a href="product.html">Beige knitted elastic runner shoes</a>
-                                                </h4>
-
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span>
-                                                    x $84.00
-                                                </span>
-                                            </div><!-- End .product-cart-details -->
-
-                                            <figure class="product-image-container">
-                                                <a href="product.html" class="product-image">
-                                                    <img src="assets/images/products/cart/product-1.jpg"
-                                                        alt="product">
-                                                </a>
-                                            </figure>
-                                            <a href="#" class="btn-remove" title="Remove Product"><i
-                                                    class="icon-close"></i></a>
-                                        </div><!-- End .product -->
-
-                                        <div class="product">
-                                            <div class="product-cart-details">
-                                                <h4 class="product-title">
-                                                    <a href="product.html">Blue utility pinafore denim dress</a>
-                                                </h4>
-
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span>
-                                                    x $76.00
-                                                </span>
-                                            </div><!-- End .product-cart-details -->
-
-                                            <figure class="product-image-container">
-                                                <a href="product.html" class="product-image">
-                                                    <img src="assets/images/products/cart/product-2.jpg"
-                                                        alt="product">
-                                                </a>
-                                            </figure>
-                                            <a href="#" class="btn-remove" title="Remove Product"><i
-                                                    class="icon-close"></i></a>
-                                        </div><!-- End .product -->
-                                    </div><!-- End .cart-product -->
-
-                                    <div class="dropdown-cart-total">
-                                        <span>Total</span>
-
-                                        <span class="cart-total-price">$160.00</span>
-                                    </div><!-- End .dropdown-cart-total -->
-
-                                    <div class="dropdown-cart-action">
-                                        <a href="cart.html" class="btn btn-primary">View Cart</a>
-                                        <a href="checkout.html"
-                                            class="btn btn-outline-primary-2"><span>Checkout</span><i
-                                                class="icon-long-arrow-right"></i></a>
-                                    </div><!-- End .dropdown-cart-total -->
-                                </div><!-- End .dropdown-menu -->
-                            </div><!-- End .cart-dropdown -->
-                        </div>
-                    </div><!-- End .header-right -->
-                </div><!-- End .container -->
-            </div><!-- End .header-middle -->
-
-            <div class="header-bottom sticky-header">
-                <div class="container">
-                    <div style="background-color: #333; display: flex; width: 100%;">
-                        <div class="header-left">
-                            <div class="dropdown category-dropdown">
-                                <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false" data-display="static"
-                                    title="Browse Categories">
-                                    Browse Categories
-                                </a>
-
-                                <div class="dropdown-menu">
-                                    <nav class="side-nav">
-                                        <ul class="menu-vertical sf-arrows">
-                                            <li class="item-lead"><a href="#">Best Books of 2018</a></li>
-                                            <li class="item-lead"><a href="#">New for 2019</a></li>
-                                            <li><a href="#">Art & Photography</a></li>
-                                            <li><a href="#">Biography</a></li>
-                                            <li><a href="#">Children's Books</a></li>
-                                            <li><a href="#">Crafts & Hobbies</a></li>
-                                            <li><a href="#">Fiction</a></li>
-                                            <li><a href="#">Food & Drink</a></li>
-                                            <li><a href="#">Graphic Novels, Anime & Manga</a></li>
-                                            <li><a href="#">Health & Fitness Books</a></li>
-                                            <li><a href="#">Young Adult</a></li>
-                                        </ul><!-- End .menu-vertical -->
-                                    </nav><!-- End .side-nav -->
-                                </div><!-- End .dropdown-menu -->
-                            </div><!-- End .category-dropdown -->
-                        </div><!-- End .header-left -->
-
-                        <div class="header-center">
-
-                            <nav class="main-nav">
-                                <ul class="menu sf-arrows">
-                                    <li class="megamenu-container active">
-                                        <a href="index.html" class="sf-with-ul">Home</a>
-
-                                        <div class="megamenu demo">
-                                            <div class="menu-col">
-                                                <div class="menu-title">Choose your demo</div><!-- End .menu-title -->
-
-                                                <div class="demo-list">
-                                                    <div class="demo-item">
-                                                        <a href="index-1.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/1.jpg);"></span>
-                                                            <span class="demo-title">01 - furniture store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item">
-                                                        <a href="index-2.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/2.jpg);"></span>
-                                                            <span class="demo-title">02 - furniture store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item">
-                                                        <a href="index-3.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/3.jpg);"></span>
-                                                            <span class="demo-title">03 - electronic store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item">
-                                                        <a href="index-4.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/4.jpg);"></span>
-                                                            <span class="demo-title">04 - electronic store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item">
-                                                        <a href="index-5.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/5.jpg);"></span>
-                                                            <span class="demo-title">05 - fashion store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item">
-                                                        <a href="index-6.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/6.jpg);"></span>
-                                                            <span class="demo-title">06 - fashion store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item">
-                                                        <a href="index-7.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/7.jpg);"></span>
-                                                            <span class="demo-title">07 - fashion store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item">
-                                                        <a href="index-8.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/8.jpg);"></span>
-                                                            <span class="demo-title">08 - fashion store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item">
-                                                        <a href="index-9.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/9.jpg);"></span>
-                                                            <span class="demo-title">09 - fashion store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item">
-                                                        <a href="index-10.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/10.jpg);"></span>
-                                                            <span class="demo-title">10 - shoes store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item hidden">
-                                                        <a href="index-11.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/11.jpg);"></span>
-                                                            <span class="demo-title">11 - furniture simple store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item hidden">
-                                                        <a href="index-12.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/12.jpg);"></span>
-                                                            <span class="demo-title">12 - fashion simple store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item hidden">
-                                                        <a href="index-13.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/13.jpg);"></span>
-                                                            <span class="demo-title">13 - market</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item hidden">
-                                                        <a href="index-14.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/14.jpg);"></span>
-                                                            <span class="demo-title">14 - market fullwidth</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item hidden">
-                                                        <a href="index-15.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/15.jpg);"></span>
-                                                            <span class="demo-title">15 - lookbook 1</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item hidden">
-                                                        <a href="index-16.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/16.jpg);"></span>
-                                                            <span class="demo-title">16 - lookbook 2</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item hidden">
-                                                        <a href="index-17.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/17.jpg);"></span>
-                                                            <span class="demo-title">17 - fashion store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item hidden">
-                                                        <a href="index-18.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/18.jpg);"></span>
-                                                            <span class="demo-title">18 - fashion store (with
-                                                                sidebar)</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item hidden">
-                                                        <a href="index-19.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/19.jpg);"></span>
-                                                            <span class="demo-title">19 - games store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item hidden">
-                                                        <a href="index-20.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/20.jpg);"></span>
-                                                            <span class="demo-title">20 - book store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item hidden">
-                                                        <a href="index-21.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/21.jpg);"></span>
-                                                            <span class="demo-title">21 - sport store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item hidden">
-                                                        <a href="index-22.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/22.jpg);"></span>
-                                                            <span class="demo-title">22 - tools store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item hidden">
-                                                        <a href="index-23.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/23.jpg);"></span>
-                                                            <span class="demo-title">23 - fashion left navigation
-                                                                store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                    <div class="demo-item hidden">
-                                                        <a href="index-24.html">
-                                                            <span class="demo-bg"
-                                                                style="background-image: url(assets/images/menu/demos/24.jpg);"></span>
-                                                            <span class="demo-title">24 - extreme sport store</span>
-                                                        </a>
-                                                    </div><!-- End .demo-item -->
-
-                                                </div><!-- End .demo-list -->
-
-                                                <div class="megamenu-action text-center">
-                                                    <a href="#"
-                                                        class="btn btn-outline-primary-2 view-all-demos"><span>View All
-                                                            Demos</span><i class="icon-long-arrow-right"></i></a>
-                                                </div><!-- End .text-center -->
-                                            </div><!-- End .menu-col -->
-                                        </div><!-- End .megamenu -->
-                                    </li>
-                                    <li>
-                                        <a href="category.html" class="sf-with-ul">Shop</a>
-
-                                        <div class="megamenu megamenu-md">
-                                            <div class="row no-gutters">
-                                                <div class="col-md-8">
-                                                    <div class="menu-col">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <div class="menu-title">Shop with sidebar</div>
-                                                                <!-- End .menu-title -->
-                                                                <ul>
-                                                                    <li><a href="category-list.html">Shop List</a></li>
-                                                                    <li><a href="category-2cols.html">Shop Grid 2
-                                                                            Columns</a></li>
-                                                                    <li><a href="category.html">Shop Grid 3 Columns</a>
-                                                                    </li>
-                                                                    <li><a href="category-4cols.html">Shop Grid 4
-                                                                            Columns</a></li>
-                                                                    <li><a href="category-market.html"><span>Shop
-                                                                                Market<span
-                                                                                    class="tip tip-new">New</span></span></a>
-                                                                    </li>
-                                                                </ul>
-
-                                                                <div class="menu-title">Shop no sidebar</div>
-                                                                <!-- End .menu-title -->
-                                                                <ul>
-                                                                    <li><a href="category-boxed.html"><span>Shop Boxed
-                                                                                No Sidebar<span
-                                                                                    class="tip tip-hot">Hot</span></span></a>
-                                                                    </li>
-                                                                    <li><a href="category-fullwidth.html">Shop
-                                                                            Fullwidth No Sidebar</a></li>
-                                                                </ul>
-                                                            </div><!-- End .col-md-6 -->
-
-                                                            <div class="col-md-6">
-                                                                <div class="menu-title">Product Category</div>
-                                                                <!-- End .menu-title -->
-                                                                <ul>
-                                                                    <li><a href="product-category-boxed.html">Product
-                                                                            Category Boxed</a></li>
-                                                                    <li><a href="product-category-fullwidth.html"><span>Product
-                                                                                Category Fullwidth<span
-                                                                                    class="tip tip-new">New</span></span></a>
-                                                                    </li>
-                                                                </ul>
-                                                                <div class="menu-title">Shop Pages</div>
-                                                                <!-- End .menu-title -->
-                                                                <ul>
-                                                                    <li><a href="cart.html">Cart</a></li>
-                                                                    <li><a href="checkout.html">Checkout</a></li>
-                                                                    <li><a href="wishlist.html">Wishlist</a></li>
-                                                                    <li><a href="dashboard.html">My Account</a></li>
-                                                                    <li><a href="#">Lookbook</a></li>
-                                                                </ul>
-                                                            </div><!-- End .col-md-6 -->
-                                                        </div><!-- End .row -->
-                                                    </div><!-- End .menu-col -->
-                                                </div><!-- End .col-md-8 -->
-
-                                                <div class="col-md-4">
-                                                    <div class="banner banner-overlay">
-                                                        <a href="category.html" class="banner banner-menu">
-                                                            <img src="assets/images/menu/banner-1.jpg" alt="Banner">
-
-                                                            <div class="banner-content banner-content-top">
-                                                                <div class="banner-title text-white">Last
-                                                                    <br>Chance<br><span><strong>Sale</strong></span>
-                                                                </div><!-- End .banner-title -->
-                                                            </div><!-- End .banner-content -->
-                                                        </a>
-                                                    </div><!-- End .banner banner-overlay -->
-                                                </div><!-- End .col-md-4 -->
-                                            </div><!-- End .row -->
-                                        </div><!-- End .megamenu megamenu-md -->
-                                    </li>
-                                    <li>
-                                        <a href="product.html" class="sf-with-ul">Product</a>
-
-                                        <div class="megamenu megamenu-sm">
-                                            <div class="row no-gutters">
-                                                <div class="col-md-6">
-                                                    <div class="menu-col">
-                                                        <div class="menu-title">Product Details</div>
-                                                        <!-- End .menu-title -->
-                                                        <ul>
-                                                            <li><a href="product.html">Default</a></li>
-                                                            <li><a href="product-centered.html">Centered</a></li>
-                                                            <li><a href="product-extended.html"><span>Extended
-                                                                        Info<span
-                                                                            class="tip tip-new">New</span></span></a>
-                                                            </li>
-                                                            <li><a href="product-gallery.html">Gallery</a></li>
-                                                            <li><a href="product-sticky.html">Sticky Info</a></li>
-                                                            <li><a href="product-sidebar.html">Boxed With Sidebar</a>
-                                                            </li>
-                                                            <li><a href="product-fullwidth.html">Full Width</a></li>
-                                                            <li><a href="product-masonry.html">Masonry Sticky Info</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div><!-- End .menu-col -->
-                                                </div><!-- End .col-md-6 -->
-
-                                                <div class="col-md-6">
-                                                    <div class="banner banner-overlay">
-                                                        <a href="category.html">
-                                                            <img src="client/images/menu/banner-2.jpg" alt="Banner">
-
-                                                            <div class="banner-content banner-content-bottom">
-                                                                <div class="banner-title text-white">New
-                                                                    Trends<br><span><strong>spring 2019</strong></span>
-                                                                </div><!-- End .banner-title -->
-                                                            </div><!-- End .banner-content -->
-                                                        </a>
-                                                    </div><!-- End .banner -->
-                                                </div><!-- End .col-md-6 -->
-                                            </div><!-- End .row -->
-                                        </div><!-- End .megamenu megamenu-sm -->
-                                    </li>
-                                    <li>
-                                        <a href="#" class="sf-with-ul">Pages</a>
-
-                                        <ul>
-                                            <li>
-                                                <a href="about.html" class="sf-with-ul">About</a>
-
-                                                <ul>
-                                                    <li><a href="about.html">About 01</a></li>
-                                                    <li><a href="about-2.html">About 02</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="contact.html" class="sf-with-ul">Contact</a>
-
-                                                <ul>
-                                                    <li><a href="contact.html">Contact 01</a></li>
-                                                    <li><a href="contact-2.html">Contact 02</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="faq.html">FAQs</a></li>
-                                            <li><a href="404.html">Error 404</a></li>
-                                            <li><a href="coming-soon.html">Coming Soon</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="blog.html" class="sf-with-ul">Blog</a>
-
-                                        <ul>
-                                            <li><a href="blog.html">Classic</a></li>
-                                            <li><a href="blog-listing.html">Listing</a></li>
-                                            <li>
-                                                <a href="#">Grid</a>
-                                                <ul>
-                                                    <li><a href="blog-grid-2cols.html">Grid 2 columns</a></li>
-                                                    <li><a href="blog-grid-3cols.html">Grid 3 columns</a></li>
-                                                    <li><a href="blog-grid-4cols.html">Grid 4 columns</a></li>
-                                                    <li><a href="blog-grid-sidebar.html">Grid sidebar</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="#">Masonry</a>
-                                                <ul>
-                                                    <li><a href="blog-masonry-2cols.html">Masonry 2 columns</a></li>
-                                                    <li><a href="blog-masonry-3cols.html">Masonry 3 columns</a></li>
-                                                    <li><a href="blog-masonry-4cols.html">Masonry 4 columns</a></li>
-                                                    <li><a href="blog-masonry-sidebar.html">Masonry sidebar</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="#">Mask</a>
-                                                <ul>
-                                                    <li><a href="blog-mask-grid.html">Blog mask grid</a></li>
-                                                    <li><a href="blog-mask-masonry.html">Blog mask masonry</a></li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="#">Single Post</a>
-                                                <ul>
-                                                    <li><a href="single.html">Default with sidebar</a></li>
-                                                    <li><a href="single-fullwidth.html">Fullwidth no sidebar</a></li>
-                                                    <li><a href="single-fullwidth-sidebar.html">Fullwidth with
-                                                            sidebar</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="elements-list.html" class="sf-with-ul">Elements</a>
-
-                                        <ul>
-                                            <li><a href="elements-products.html">Products</a></li>
-                                            <li><a href="elements-typography.html">Typography</a></li>
-                                            <li><a href="elements-titles.html">Titles</a></li>
-                                            <li><a href="elements-banners.html">Banners</a></li>
-                                            <li><a href="elements-product-category.html">Product Category</a></li>
-                                            <li><a href="elements-video-banners.html">Video Banners</a></li>
-                                            <li><a href="elements-buttons.html">Buttons</a></li>
-                                            <li><a href="elements-accordions.html">Accordions</a></li>
-                                            <li><a href="elements-tabs.html">Tabs</a></li>
-                                            <li><a href="elements-testimonials.html">Testimonials</a></li>
-                                            <li><a href="elements-blog-posts.html">Blog Posts</a></li>
-                                            <li><a href="elements-portfolio.html">Portfolio</a></li>
-                                            <li><a href="elements-cta.html">Call to Action</a></li>
-                                            <li><a href="elements-icon-boxes.html">Icon Boxes</a></li>
-                                        </ul>
-                                    </li>
-                                </ul><!-- End .menu -->
-                            </nav><!-- End .main-nav -->
-                        </div>
-
-                        <div class="header-right">
-                            <i class="la la-lightbulb-o"></i>
-                            <p>Clearance Up to 30% Off</p>
-                        </div><!-- End .header-right -->
+<body class="template-blog belle">
+<div class="pageWrapper">
+	<!--Search Form Drawer-->
+	<div class="search">
+        <div class="search__form">
+            <form class="search-bar__form" action="#">
+                <button class="go-btn search__button" type="submit"><i class="icon anm anm-search-l"></i></button>
+                <input class="search__input" type="search" name="q" value="" placeholder="Search entire store..." aria-label="Search" autocomplete="off">
+            </form>
+            <button type="button" class="search-trigger close-btn"><i class="icon anm anm-times-l"></i></button>
+        </div>
+    </div>
+    <!--End Search Form Drawer-->
+    <!--Top Header-->
+    <div class="top-header">
+        <div class="container-fluid">
+            <div class="row">
+            	<div class="col-10 col-sm-8 col-md-5 col-lg-4">
+                    <div class="currency-picker">
+                        <span class="selected-currency">USD</span>
+                        <ul id="currencies">
+                            <li data-currency="INR" class="">INR</li>
+                            <li data-currency="GBP" class="">GBP</li>
+                            <li data-currency="CAD" class="">CAD</li>
+                            <li data-currency="USD" class="selected">USD</li>
+                            <li data-currency="AUD" class="">AUD</li>
+                            <li data-currency="EUR" class="">EUR</li>
+                            <li data-currency="JPY" class="">JPY</li>
+                        </ul>
                     </div>
-                </div><!-- End .container -->
-            </div><!-- End .header-bottom -->
-        </header><!-- End .header -->
-
-
-        @yield('body')
-
-        <script src="client/js/jquery.min.js"></script>
-        <script src="client/js/bootstrap.bundle.min.js"></script>
-        <script src="client/js/jquery.hoverIntent.min.js"></script>
-        <script src="client/js/jquery.waypoints.min.js"></script>
-        <script src="client/js/superfish.min.js"></script>
-        <script src="client/js/owl.carousel.min.js"></script>
-        <script src="client/js/jquery.magnific-popup.min.js"></script>
-        <!-- Main JS File -->
-        <script src="client/js/main.js"></script>
-        <script src="client/js/demos/demo-20.js"></script>
-
-</body>
-
-
-<!-- molla/index-2.html  22 Nov 2019 09:55:42 GMT -->
-
-</html>
+                    <div class="language-dropdown">
+                        <span class="language-dd">English</span>
+                        <ul id="language">
+                            <li class="">German</li>
+                            <li class="">French</li>
+                        </ul>
+                    </div>
+                    <p class="phone-no"><i class="anm anm-phone-s"></i> +440 0(111) 044 833</p>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4 d-none d-lg-none d-md-block d-lg-block">
+                	<div class="text-center"><p class="top-header_middle-text"> Worldwide Express Shipping</p></div>
+                </div>
+                <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
+                	<span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
+                    <ul class="customer-links list-inline">
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="register.html">Create Account</a></li>
+                        <li><a href="wishlist.html">Wishlist</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End Top Header-->
+    <!--Header-->
+    <div class="header-wrap animated d-flex">
+    	<div class="container-fluid">        
+            <div class="row align-items-center">
+            	<!--Desktop Logo-->
+                <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
+                    <a href="index.html">
+                    	<img src="{{asset('/')}}client/images/logo.svg" alt="Belle Multipurpose Html Template" title="Belle Multipurpose Html Template" />
+                    </a>
+                </div>
+                <!--End Desktop Logo-->
+                <div class="col-2 col-sm-3 col-md-3 col-lg-8">
+                	<div class="d-block d-lg-none">
+                        <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open">
+                        	<i class="icon anm anm-times-l"></i>
+                            <i class="anm anm-bars-r"></i>
+                        </button>
+                    </div>
+                	<!--Desktop Menu-->
+                	<nav class="grid__item" id="AccessibleNav"><!-- for mobile -->
+                        <ul id="siteNav" class="site-nav medium center hidearrow">
+                            <li class="lvl1 parent megamenu"><a href="#">Home <i class="anm anm-angle-down-l"></i></a>
+                                <div class="megamenu style1">
+                                    <ul class="grid mmWrapper">
+                                        <li class="grid__item large-up--one-whole">
+                                            <ul class="grid">
+                                                <li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#" class="site-nav lvl-1">Home Group 1</a>
+                                                    <ul class="subLinks">
+                                                      <li class="lvl-2"><a href="index.html" class="site-nav lvl-2">Home 1 - Classic</a></li>
+                                                      <li class="lvl-2"><a href="home2-default.html" class="site-nav lvl-2">Home 2 - Default</a></li>
+                                                      <li class="lvl-2"><a href="home15-funiture.html" class="site-nav lvl-2">Home 15 - Furniture <span class="lbl nm_label1">New</span></a></li>
+                                                      <li class="lvl-2"><a href="home3-boxed.html" class="site-nav lvl-2">Home 3 - Boxed</a></li>
+                                                      <li class="lvl-2"><a href="home4-fullwidth.html" class="site-nav lvl-2">Home 4 - Fullwidth</a></li>
+                                                      <li class="lvl-2"><a href="home5-cosmetic.html" class="site-nav lvl-2">Home 5 - Cosmetic</a></li>
+                                                      <li class="lvl-2"><a href="home6-modern.html" class="site-nav lvl-2">Home 6 - Modern</a></li>
+                                                      <li class="lvl-2"><a href="home7-shoes.html" class="site-nav lvl-2">Home 7 - Shoes</a></li>
+                                                    </ul>
+                                                  </li>
+                                                <li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#" class="site-nav lvl-1">Home Group 2</a>
+                                                    <ul class="subLinks">
+                                                        <li class="lvl-2"><a href="home8-jewellery.html" class="site-nav lvl-2">Home 8 - Jewellery</a></li>
+                                                        <li class="lvl-2"><a href="home9-parallax.html" class="site-nav lvl-2">Home 9 - Parallax</a></li>
+                                                        <li class="lvl-2"><a href="home10-minimal.html" class="site-nav lvl-2">Home 10 - Minimal</a></li>
+                                                        <li class="lvl-2"><a href="home11-grid.html" class="site-nav lvl-2">Home 11 - Grid</a></li>
+                                                        <li class="lvl-2"><a href="home12-category.html" class="site-nav lvl-2">Home 12 - Category</a></li>
+                                                        <li class="lvl-2"><a href="home13-auto-parts.html" class="site-nav lvl-2">Home 13 - Auto Parts</a></li>
+                                                        <li class="lvl-2"><a href="home14-bags.html" class="site-nav lvl-2">Home 14 - Bags <span class="lbl nm_label1">New</span></a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#" class="site-nav lvl-1">New Sections</a>
+                                                    <ul class="subLinks">
+                                                        <li class="lvl-2"><a href="home11-grid.html" class="site-nav lvl-2">Image Gallery</a></li>
+                                                        <li class="lvl-2"><a href="home5-cosmetic.html" class="site-nav lvl-2">Featured Product</a></li>
+                                                        <li class="lvl-2"><a href="home7-shoes.html" class="site-nav lvl-2">Columns with Items</a></li>
+                                                        <li class="lvl-2"><a href="home6-modern.html" class="site-nav lvl-2">Text columns with images</a></li>
+                                                        <li class="lvl-2"><a href="home2-default.html" class="site-nav lvl-2">Products Carousel</a></li>
+                                                        <li class="lvl-2"><a href="home9-parallax.html" class="site-nav lvl-2">Parallax Banner</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#" class="site-nav lvl-1">New Features</a>
+                                                    <ul class="subLinks">
+                                                        <li class="lvl-2"><a href="home13-auto-parts.html" class="site-nav lvl-2">Top Information Bar <span class="lbl nm_label1">New</span></a></li>
+                                                        <li class="lvl-2"><a href="#" class="site-nav lvl-2">Age Varification <span class="lbl nm_label1">New</span></a></li>
+                                                        <li class="lvl-2"><a href="#" class="site-nav lvl-2">Footer Blocks</a></li>
+                                                        <li class="lvl-2"><a href="#" class="site-nav lvl-2">2 New Megamenu style</a></li>
+                                                        <li class="lvl-2"><a href="#" class="site-nav lvl-2">Show Total Savings <span class="lbl nm_label3">Hot</span></a></li>
+                                                        <li class="lvl-2"><a href="#" class="site-nav lvl-2">New Custom Icons</a></li>
+                                                        <li class="lvl-2"><a href="#" class="site-nav lvl-2">Auto Currency</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="lvl1 parent megamenu"><a href="#">Shop <i class="anm anm-angle-down-l"></i></a>
+                            	<div class="megamenu style4">
+                                    <ul class="grid grid--uniform mmWrapper">
+                                    	<li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#" class="site-nav lvl-1">Shop Pages</a>
+                                            <ul class="subLinks">
+                                                <li class="lvl-2"><a href="shop-left-sidebar.html" class="site-nav lvl-2">Left Sidebar</a></li>
+                                                <li class="lvl-2"><a href="shop-right-sidebar.html" class="site-nav lvl-2">Right Sidebar</a></li>
+                                                <li class="lvl-2"><a href="shop-fullwidth.html" class="site-nav lvl-2">Fullwidth</a></li>
+                                                <li class="lvl-2"><a href="shop-grid-3.html" class="site-nav lvl-2">3 items per row</a></li>
+                                                <li class="lvl-2"><a href="shop-grid-4.html" class="site-nav lvl-2">4 items per row</a></li>
+                                                <li class="lvl-2"><a href="shop-grid-5.html" class="site-nav lvl-2">5 items per row</a></li>
+                                                <li class="lvl-2"><a href="shop-grid-6.html" class="site-nav lvl-2">6 items per row</a></li>
+                                                <li class="lvl-2"><a href="shop-grid-7.html" class="site-nav lvl-2">7 items per row</a></li>
+                                                <li class="lvl-2"><a href="shop-listview.html" class="site-nav lvl-2">Product Listview</a></li>
+                                            </ul>
+                                      	</li>
+                                      	<li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#" class="site-nav lvl-1">Shop Features</a>
+                                            <ul class="subLinks">
+                                                <li class="lvl-2"><a href="shop-left-sidebar.html" class="site-nav lvl-2">Product Countdown <span class="lbl nm_label3">Hot</span></a></li>
+                                                <li class="lvl-2"><a href="shop-right-sidebar.html" class="site-nav lvl-2">Infinite Scrolling</a></li>
+                                                <li class="lvl-2"><a href="shop-grid-3.html" class="site-nav lvl-2">Pagination - Classic</a></li>
+                                                <li class="lvl-2"><a href="shop-grid-6.html" class="site-nav lvl-2">Pagination - Load More</a></li>
+                                                <li class="lvl-2"><a href="product-labels.html" class="site-nav lvl-2">Dynamic Product Labels</a></li>
+                                                <li class="lvl-2"><a href="product-swatches-style.html" class="site-nav lvl-2">Product Swatches <span class="lbl nm_label2">Sale</span></a></li>
+                                                <li class="lvl-2"><a href="product-hover-info.html" class="site-nav lvl-2">Product Hover Info</a></li>
+                                                <li class="lvl-2"><a href="shop-grid-3.html" class="site-nav lvl-2">Product Reviews</a></li>
+                                                <li class="lvl-2"><a href="shop-left-sidebar.html" class="site-nav lvl-2">Discount Label <span class="lbl nm_label1">New</span></a></li>
+                                            </ul>
+                                      	</li>
+                                        <li class="grid__item lvl-1 col-md-6 col-lg-6">
+                                        	<a href="#"><img src="{{asset('/')}}client/images/megamenu-bg1.jpg" alt="" title="" /></a>
+                                        </li>
+                                    </ul>
+                              	</div>
+                            </li>
+                        <li class="lvl1 parent megamenu"><a href="#">Product <i class="anm anm-angle-down-l"></i></a>
+                        	<div class="megamenu style2">
+                                <ul class="grid mmWrapper">
+                                    <li class="grid__item one-whole">
+                                        <ul class="grid">
+                                            <li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#" class="site-nav lvl-1">Product Page</a>
+                                                <ul class="subLinks">
+                                                    <li class="lvl-2"><a href="product-layout-1.html" class="site-nav lvl-2">Product Layout 1</a></li>
+                                                    <li class="lvl-2"><a href="product-layout-2.html" class="site-nav lvl-2">Product Layout 2</a></li>
+                                                    <li class="lvl-2"><a href="product-layout-3.html" class="site-nav lvl-2">Product Layout 3</a></li>
+                                                    <li class="lvl-2"><a href="product-with-left-thumbs.html" class="site-nav lvl-2">Product With Left Thumbs</a></li>
+                                                    <li class="lvl-2"><a href="product-with-right-thumbs.html" class="site-nav lvl-2">Product With Right Thumbs</a></li>
+                                                    <li class="lvl-2"><a href="product-with-bottom-thumbs.html" class="site-nav lvl-2">Product With Bottom Thumbs</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#" class="site-nav lvl-1">Product Features</a>
+                                                    <ul class="subLinks">
+                                                      <li class="lvl-2"><a href="short-description.html" class="site-nav lvl-2">Short Description</a></li>
+                                                      <li class="lvl-2"><a href="product-countdown.html" class="site-nav lvl-2">Product Countdown</a></li>
+                                                      <li class="lvl-2"><a href="product-video.html" class="site-nav lvl-2">Product Video</a></li>
+                                                      <li class="lvl-2"><a href="product-quantity-message.html" class="site-nav lvl-2">Product Quantity Message</a></li>
+                                                      <li class="lvl-2"><a href="product-visitor-sold-count.html" class="site-nav lvl-2">Product Visitor/Sold Count <span class="lbl nm_label3">Hot</span></a></li>
+                                                      <li class="lvl-2"><a href="product-zoom-lightbox.html" class="site-nav lvl-2">Product Zoom/Lightbox <span class="lbl nm_label1">New</span></a></li>
+                                                    </ul>
+                                                  </li>
+                                                <li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#" class="site-nav lvl-1">Product Features</a>
+                                                    <ul class="subLinks">
+                                                      <li class="lvl-2"><a href="product-with-variant-image.html" class="site-nav lvl-2">Product with Variant Image</a></li>
+                                                      <li class="lvl-2"><a href="product-with-color-swatch.html" class="site-nav lvl-2">Product with Color Swatch</a></li>
+                                                      <li class="lvl-2"><a href="product-with-image-swatch.html" class="site-nav lvl-2">Product with Image Swatch</a></li>
+                                                      <li class="lvl-2"><a href="product-with-dropdown.html" class="site-nav lvl-2">Product with Dropdown</a></li>
+                                                      <li class="lvl-2"><a href="product-with-rounded-square.html" class="site-nav lvl-2">Product with Rounded Square</a></li>
+                                                      <li class="lvl-2"><a href="swatches-style.html" class="site-nav lvl-2">Product Swatches All Style</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#" class="site-nav lvl-1">Product Features</a>
+                                                    <ul class="subLinks">
+                                                      <li class="lvl-2"><a href="product-accordion.html" class="site-nav lvl-2">Product Accordion</a></li>
+                                                      <li class="lvl-2"><a href="product-pre-orders.html" class="site-nav lvl-2">Product Pre-orders <span class="lbl nm_label1">New</span></a></li>
+                                                      <li class="lvl-2"><a href="product-labels-detail.html" class="site-nav lvl-2">Product Labels</a></li>
+                                                      <li class="lvl-2"><a href="product-discount.html" class="site-nav lvl-2">Product Discount In %</a></li>
+                                                      <li class="lvl-2"><a href="product-shipping-message.html" class="site-nav lvl-2">Product Shipping Message</a></li>
+                                                      <li class="lvl-2"><a href="size-guide.html" class="site-nav lvl-2">Size Guide <span class="lbl nm_label1">New</span></a></li>
+                                                    </ul>
+                                                </li>
+                                        </ul>
+                                    </li>
+                                  	<li class="grid__item large-up--one-whole imageCol"><a href="#"><img src="{{asset('/')}}client/images/megamenu-bg2.jpg" alt=""></a></li>
+                                </ul>
+                          	</div>
+                        </li>
+                        <li class="lvl1 parent dropdown"><a href="#">Pages <i class="anm anm-angle-down-l"></i></a>
+                          <ul class="dropdown">
+                          	<li><a href="cart-variant1.html" class="site-nav">Cart Page <i class="anm anm-angle-right-l"></i></a>
+                                <ul class="dropdown">
+                                    <li><a href="cart-variant1.html" class="site-nav">Cart Variant1</a></li>
+                                    <li><a href="cart-variant2.html" class="site-nav">Cart Variant2</a></li>
+                                 </ul>
+                            </li>
+                            <li><a href="compare-variant1.html" class="site-nav">Compare Product <i class="anm anm-angle-right-l"></i></a>
+                                <ul class="dropdown">
+                                    <li><a href="compare-variant1.html" class="site-nav">Compare Variant1</a></li>
+                                    <li><a href="compare-variant2.html" class="site-nav">Compare Variant2</a></li>
+                                 </ul>
+                            </li>
+							<li><a href="checkout.html" class="site-nav">Checkout</a></li>
+                            <li><a href="about-us.html" class="site-nav">About Us <span class="lbl nm_label1">New</span> </a></li>
+                            <li><a href="contact-us.html" class="site-nav">Contact Us</a></li>
+                            <li><a href="faqs.html" class="site-nav">FAQs</a></li>
+                            <li><a href="lookbook1.html" class="site-nav">Lookbook<i class="anm anm-angle-right-l"></i></a>
+                              <ul>
+                                <li><a href="lookbook1.html" class="site-nav">Style 1</a></li>
+                                <li><a href="lookbook2.html" class="site-nav">Style 2</a></li>
+                              </ul>
+                            </li>
+                            <li><a href="404.html" class="site-nav">404</a></li>
+                            <li><a href="coming-soon.html" class="site-nav">Coming soon <span class="lbl nm_label1">New</span> </a></li>
+                          </ul>
+                        </li>
+                        <li class="lvl1 parent dropdown"><a href="#">Blog <i class="anm anm-angle-down-l"></i></a>
+                          <ul class="dropdown">
+                            <li><a href="blog-left-sidebar.html" class="site-nav">Left Sidebar</a></li>
+                            <li><a href="blog-right-sidebar.html" class="site-nav">Right Sidebar</a></li>
+                            <li><a href="blog-fullwidth.html" class="site-nav">Fullwidth</a></li>
+                            <li><a href="blog-grid-view.html" class="site-nav">Gridview</a></li>
+                            <li><a href="blog-article.html" class="site-nav">Article</a></li>
+                          </ul>
+                        </li>
+                        <li class="lvl1"><a href="#"><b>Buy Now!</b> <i class="anm anm-angle-down-l"></i></a></li>
+                      </ul>
+                    </nav>
+                    <!--End Desktop Menu-->
+                </div>
+                <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
+                	<div class="logo">
+                        <a href="index.html">
+                            <img src="{{asset('/')}}client/images/logo.svg" alt="Belle Multipurpose Html Template" title="Belle Multipurpose Html Template" />
+                        </a>
+                    </div>
+                </div>
+                <div class="col-4 col-sm-3 col-md-3 col-lg-2">
+                	<div class="site-cart">
+                    	<a href="#" class="site-header__cart" title="Cart">
+                        	<i class="icon anm anm-bag-l"></i>
+                            <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">2</span>
+                        </a>
+                        <!--Minicart Popup-->
+                        <div id="header-cart" class="block block-cart">
+                        	<ul class="mini-products-list">
+                                <li class="item">
+                                	<a class="product-image" href="#">
+                                    	<img src="{{asset('/')}}client/images/product-images/cape-dress-1.jpg" alt="3/4 Sleeve Kimono Dress" title="" />
+                                    </a>
+                                    <div class="product-details">
+                                    	<a href="#" class="remove"><i class="anm anm-times-l" aria-hidden="true"></i></a>
+                                        <a href="#" class="edit-i remove"><i class="anm anm-edit" aria-hidden="true"></i></a>
+                                        <a class="pName" href="cart.html">Sleeve Kimono Dress</a>
+                                        <div class="variant-cart">Black / XL</div>
+                                        <div class="wrapQtyBtn">
+                                            <div class="qtyField">
+                                            	<span class="label">Qty:</span>
+                                                <a class="qtyBtn minus" href="javascript:void(0);"><i class="fa anm anm-minus-r" aria-hidden="true"></i></a>
+                                                <input type="text" id="Quantity" name="quantity" value="1" class="product-form__input qty">
+                                                <a class="qtyBtn plus" href="javascript:void(0);"><i class="fa anm anm-plus-r" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="priceRow">
+                                        	<div class="product-price">
+                                            	<span class="money">$59.00</span>
+                                            </div>
+                                         </div>
+									</div>
+                                </li>
+                                <li class="item">
+                                	<a class="product-image" href="#">
+                                    	<img src="{{asset('/')}}client/images/product-images/cape-dress-2.jpg" alt="Elastic Waist Dress - Black / Small" title="" />
+                                    </a>
+                                    <div class="product-details">
+                                    	<a href="#" class="remove"><i class="anm anm-times-l" aria-hidden="true"></i></a>
+                                        <a href="#" class="edit-i remove"><i class="anm anm-edit" aria-hidden="true"></i></a>
+                                        <a class="pName" href="cart.html">Elastic Waist Dress</a>
+                                        <div class="variant-cart">Gray / XXL</div>
+                                        <div class="wrapQtyBtn">
+                                            <div class="qtyField">
+                                            	<span class="label">Qty:</span>
+                                                <a class="qtyBtn minus" href="javascript:void(0);"><i class="fa anm anm-minus-r" aria-hidden="true"></i></a>
+                                                <input type="text" id="Quantity" name="quantity" value="1" class="product-form__input qty">
+                                                <a class="qtyBtn plus" href="javascript:void(0);"><i class="fa anm anm-plus-r" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                       	<div class="priceRow">
+                                            <div class="product-price">
+                                                <span class="money">$99.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="total">
+                            	<div class="total-in">
+                                	<span class="label">Cart Subtotal:</span><span class="product-price"><span class="money">$748.00</span></span>
+                                </div>
+                                 <div class="buttonSet text-center">
+                                    <a href="cart.html" class="btn btn-secondary btn--small">View Cart</a>
+                                    <a href="checkout.html" class="btn btn-secondary btn--small">Checkout</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End Minicart Popup-->
+                    </div>
+                    <div class="site-header__search">
+                    	<button type="button" class="search-trigger"><i class="icon anm anm-search-l"></i></button>
+                    </div>
+                </div>
+        	</div>
+        </div>
+    </div>
+    <!--End Header-->
+    @yield('body')
