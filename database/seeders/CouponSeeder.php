@@ -23,7 +23,7 @@ class CouponSeeder extends Seeder
 
         for ($i = 0; $i < $numberOfCoupons; $i++) {
             $codeCoupon = strtoupper(Str::random(10));
-            $description = "Giảm giá áp dụng cho toàn bộ sản phẩm";
+            $description = "Áp dụng cho toàn bộ sản phẩm ";
             $expiresAt = now()->addDays(rand(15, 90));
             $typeCoupon = Arr::random($couponTypes);
             $quantity = rand(1, 100);
@@ -33,11 +33,11 @@ class CouponSeeder extends Seeder
             if ($typeCoupon === 1) {
                 // Percentage discount
                 $discount = rand(5, 30); // Random percentage between 5% and 30%
-                $description .= "Giảm " . $discount . "%";
+                $description .= "giảm " . $discount . "%";
             } else {
                 // Fixed amount discount
                 $discount = rand(5000, 50000); // Random fixed amount between 50 and 500
-                $description .= "Giảm " .number_format($discount, 0, ',', '.'). "đ";
+                $description .= "giảm " .number_format($discount, 0, ',', '.'). "đ";
             }
 
             DB::table('coupons')->insert([
