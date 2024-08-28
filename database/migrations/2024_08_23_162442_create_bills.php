@@ -16,11 +16,11 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user');
             $table->enum('status', ['new', 'shipping', 'success', 'cancel']);
             $table->string('reason_cancel')->nullable();
-            $table->decimal('total_amount', 15, 2);
+            $table->decimal('total_amount', 15, 0);
             $table->string('payment_method');
             $table->string('shipping_method');
-            $table->decimal('discount', 15, 2)->nullable();
-            $table->decimal('fee_shipping', 15, 2)->nullable();
+            $table->decimal('discount', 15, 0)->nullable();
+            $table->decimal('fee_shipping', 15, 0)->nullable();
             $table->string('address', 255);
             $table->string('phone');
             $table->string('name');

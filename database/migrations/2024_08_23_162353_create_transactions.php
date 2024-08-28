@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_wallet');
-            $table->decimal('amount', 15, 2);
+            $table->decimal('amount', 15, 0);
             $table->enum('type', ['in', 'out']);
             $table->string('status'); // thành công hoặc thất bại
             $table->string('method');

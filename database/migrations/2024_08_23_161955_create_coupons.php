@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->timestamps();
             $table->timestamp('expires_at')->nullable();
-            $table->decimal('discount', 15, 2);
+            $table->decimal('discount', 15,0);
             $table->tinyInteger('type_coupon');
             $table->integer('quantity');
             $table->enum('status', ['active', 'inactive'])->default('active');

@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('url_video')->nullable();
             $table->string('image_cover')->nullable(); // hình ảnh sản phẩm;
             $table->unsignedInteger('views')->default(0);
-            $table->decimal('price', 15, 2);
-            $table->decimal('price_sale', 15, 2)->nullable();
+            $table->decimal('price', 15, 0);
+            $table->decimal('price_sale', 15, 0)->nullable();
             $table->boolean('hot')->default(false);
             $table->date('start_sale')->nullable();
             $table->date('end_sale')->nullable();
