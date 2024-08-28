@@ -3,14 +3,16 @@
 namespace App\Services;
 
 use App\Services\Interfaces\CartServiceInterface;
+// use App\Models\User;
 use App\Repositories\Interfaces\CartRepositoryInterface as CartRepository;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Models\UserCatalogue;
 
 /**
- * Class cartervice
+ * Class UserService
  * @package App\Services
  */
 class CartService implements CartServiceInterface
@@ -23,19 +25,23 @@ class CartService implements CartServiceInterface
 
     private function paginateSelect()
     {
-        return ['id', 'name', 'email'];
+        return [
+            'id',
+            'id_user',
+            'id_product',
+            'price',
+            'quantity',
+        ];
     }
 
-    public function paginate($request)
+    public function findCartByUser($perPage = 20)
     {
-        $perPage = $request->integer('perpage');
-        $cart = $this->CartRepository->pagination(
+        $cart = $this->CartRepository->findCart(
             $this->paginateSelect(),
-            [],
-            [],
-            ['path' => 'cart'],
-            $perPage,
-            );
+            // id của user
+            1,
+            $perPage
+        );
         return $cart;
     }
 

@@ -8,5 +8,4 @@ namespace App\Services\Interfaces;
  */
 interface CartServiceInterface
 {
-  public function paginate($request);
 }

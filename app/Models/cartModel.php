@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class cartModel extends Model
 {
@@ -15,7 +16,8 @@ class cartModel extends Model
         'id',
         'id_user',
         'id_product',
-        'name',
+        'price',
         'quantity',
     ];
+
 }
