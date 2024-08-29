@@ -34,33 +34,42 @@
 
                                 @foreach ($result as $cart)
                                     <tr class="cart__row border-bottom line1 cart-flex border-top">
-                                        <td class="cart__image-wrapper cart-flex-item">
-                                            <a href="#"><img class="cart__image"
-                                                    src="{{ asset('/') }}client/images/product-images/product-image30.jpg"
-                                                    alt="Elastic Waist Dress - Navy / Small"></a>
-                                        </td>
-                                        <td class="cart__meta small--text-left cart-flex-item">
-                                            <div class="list-view-item__title">
-                                                <a href="#">abc</a>
-                                            </div>
-                                        </td>
+                                        {{-- PRODUCTS --}}
+                                        @foreach ($cart->cartProduct as $product)
+                                            <td class="cart__image-wrapper cart-flex-item">
+                                                <a href="{{ $product->slug }}">
+                                                    <img class="cart__image"
+                                                        src="{{ $product->image_cover ? asset($product->image_cover) : asset('no_image.jpg') }}"
+                                                        alt="{{ $product->name }}">
+                                                </a>
+                                            </td>
+                                            <td class="cart__meta small--text-left cart-flex-item">
+                                                <div class="list-view-item__title">
+                                                    <a href={{ $product->slug }}>
+                                                        {{ $product->name }}
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        @endforeach
                                         <td class="cart__price-wrapper cart-flex-item">
-                                            <span class="money">{{number_format($cart->price, 0, '.', '.')}} VNĐ</span>
+                                            <span class="money">{{ number_format($cart->price, 0, '.', '.') }} VNĐ</span>
                                         </td>
                                         <td class="cart__update-wrapper cart-flex-item text-right">
                                             <div class="cart__qty text-center">
                                                 <div class="qtyField">
-                                                    <a class="qtyBtn minus" href="javascript:void(0);"><i
-                                                            class="icon icon-minus"></i></a>
+                                                    <button type="button" class="qtyBtn qtyBtnMinus minus"
+                                                        href="javascript:void(0);"><i class="icon icon-minus"></i></button>
                                                     <input class="cart__qty-input qty" type="text" name="updates[]"
-                                                        id="qty" value="{{$cart->quantity}}" pattern="[0-9]*">
-                                                    <a class="qtyBtn plus" href="javascript:void(0);"><i
-                                                            class="icon icon-plus"></i></a>
+                                                        id="qty" value="{{ $cart->quantity }}" pattern="[0-9]*">
+                                                    <button type="button" class="qtyBtn qtyBtnPlus plus" href="javascript:void(0);"><i
+                                                            class="icon icon-plus"></i></button>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="text-right small--hide cart-price">
-                                            <div><span class="money">{{number_format($cart->price * $cart->quantity, 0, '.', '.')}} VNĐ</span></div>
+                                            <div><span
+                                                    class="money">{{ number_format($cart->price * $cart->quantity, 0, '.', '.') }}
+                                                    VNĐ</span></div>
                                         </td>
                                         <td class="text-center small--hide"><a href="#"
                                                 class="btn btn--secondary cart__remove" title="Remove tem"><i
@@ -86,6 +95,7 @@
                 </div>
 
 
+                {{-- mã giảm giá --}}
                 <div class="container mt-4">
                     <div class="row">
                         <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-4">
@@ -144,7 +154,6 @@
         </div>
 
     </div>
-    <!--End Body Content-->
 
     <!--Footer-->
     <footer id="footer">
@@ -265,7 +274,8 @@
                         <!--Footer Copyright-->
                         <div
                             class="col-12 col-sm-12 col-md-6 col-lg-6 order-1 order-md-0 order-lg-0 order-sm-1 copyright text-sm-center text-md-left text-lg-left">
-                            <span></span> <a href="templateshub.net">Templates Hub</a></div>
+                            <span></span> <a href="templateshub.net">Templates Hub</a>
+                        </div>
                         <!--End Footer Copyright-->
                         <!--Footer Payment Icon-->
                         <div
@@ -301,6 +311,8 @@
     <script src="{{ asset('/') }}client/js/popper.min.js"></script>
     <script src="{{ asset('/') }}client/js/lazysizes.js"></script>
     <script src="{{ asset('/') }}client/js/main.js"></script>
+    <script src="{{ asset('/') }}client/js/customCart.js"></script>
+
     </div>
     </body>
 

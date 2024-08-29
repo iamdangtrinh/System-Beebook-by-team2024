@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Models\productModel;
 
 class cartModel extends Model
 {
@@ -19,5 +20,11 @@ class cartModel extends Model
         'price',
         'quantity',
     ];
+
+    public function cartProduct() {
+        return $this->belongsToMany(productModel::class, 'carts', 'id', 'id_product');
+    }
+
+
 
 }

@@ -24,6 +24,7 @@ class cartController extends Controller
     public function index()
     {
         $result = $this->CartService->findCartByUser(20);
+
         return view('Client.cart', compact([
             'result'
         ]));

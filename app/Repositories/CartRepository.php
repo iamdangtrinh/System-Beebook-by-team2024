@@ -25,14 +25,10 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
     public function findCart(array $column = ['*'], int $id_user = 0, $perpage = 20)
     {
         $query = $this->model
-        ->select($column)
-        ->where('id_user', '=', $id_user)
-        ->paginate($perpage);
-
-        if (!empty($join)) {
-            $query->join(...$join);
-        }
-
+            ->select($column)
+            ->where('id_user', '=', $id_user)
+            ->with('cartProduct')
+            ->paginate($perpage);
         return $query;
     }
 }
