@@ -15,12 +15,16 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('code_coupon', 50)->unique();
             $table->text('description')->nullable();
-            $table->timestamps();
+            $table->timestamp('start_date')->nullable();
             $table->timestamp('expires_at')->nullable();
+            $table->decimal('coupon_min_spend', 15,0);
+            $table->decimal('coupon_max_spend', 15,0);
             $table->decimal('discount', 15,0);
-            $table->tinyInteger('type_coupon');
-            $table->integer('quantity');
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->tinyInteger('coupon_uses_per_customer')->comment("Số lần sử dụng tối đa mỗi khách hàng");
+            $table->enum('type_coupon', ['percent', 'amount']);
+            $table->integer('quantity')->comment("Số lần tối đa sử dụng coupon đó");
+            $table->enum('status', ['active', 'inactive', 'expired'])->default('active');
+            $table->timestamps();
         });
     }
 
