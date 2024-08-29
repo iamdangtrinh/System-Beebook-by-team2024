@@ -65,8 +65,24 @@ class CartService implements CartServiceInterface
     {
         DB::beginTransaction();
         try {
-            $payload = $request->except(['_token', 'send']);
-            $user = $this->CartRepository->update($id, $payload);
+            $payload = $request->except(['_token']);
+            $response = $this->CartRepository->update($id, $payload);
+            DB::commit();
+            return true;
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            echo $exception->getMessage();
+            return false;
+        }
+    }
+    
+    public function updateCart($request)
+    {
+        DB::beginTransaction();
+        try {
+            $payload = $request->except(['_token']);
+            $payload['id_user'] = '1';
+            $response = $this->CartRepository->updateQuantityCart($payload);
             DB::commit();
             return true;
         } catch (\Exception $exception) {

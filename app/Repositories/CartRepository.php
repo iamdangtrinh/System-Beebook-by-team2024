@@ -31,4 +31,13 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
             ->paginate($perpage);
         return $query;
     }
+
+    public function updateQuantityCart($payload) {
+
+        $query = $this->model
+        ->where('id_user', '=', $payload['id_user'])
+        ->where('id_product', '=', $payload['id_product'])
+        ->update(['quantity' => $payload['quantity']]);
+        return $query;
+    }
 }

@@ -51,13 +51,17 @@ class cartController extends Controller
         return response()->json($user);
     }
 
-    // cập nhật tài khoản user
-    public function update($id, Request $request)
+    public function update(Request $request)
     {
-        if ($this->CartService->update($id, $request)) {
-            return redirect()->route('user.index')->with('success', 'Update user success');
+
+
+        $result = $this->CartService->updateCart($request);
+
+        if ($result) {
+            return "Cập nhật số lượng sản phẩm thành công!";
+        } else {
+            return "Cập nhật số lượng sản phẩm thất bại!";
         }
-        return redirect()->route('user.index')->with('error', 'Update user error');
     }
 
     public function delete($id)

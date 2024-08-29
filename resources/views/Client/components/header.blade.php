@@ -6,18 +6,27 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="csrf_token" content="{{ csrf_token() }}" />
     <title>Blog Article &ndash; Belle Multipurpose Bootstrap 4 Template</title>
     <meta name="description" content="description">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('/') }}client/images/favicon.png" />
     <!-- Plugins CSS -->
-    <link rel="stylesheet" href="{{ asset('/') }}client/css/plugins.css">
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/plugins.css?version=@php echo time() @endphp">
     <!-- Bootstap CSS -->
-    <link rel="stylesheet" href="{{ asset('/') }}client/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/bootstrap.min.css?version=@php echo time() @endphp">
     <!-- Main Style CSS -->
-    <link rel="stylesheet" href="{{ asset('/') }}client/css/style.css">
-    <link rel="stylesheet" href="{{ asset('/') }}client/css/responsive.css">
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/style.css?version=@php echo time() @endphp">
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/responsive.css?version=@php echo time() @endphp">
+    
+    {{-- toast message start by trinh --}}
+
+    <script src="{{ asset('/') }}client/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('/') }}client/js/lib/toastr.css?version=@php echo time() @endphp">
+    <script src="{{ asset('/') }}client/js/lib/toastr.js?version=@php echo time() @endphp"></script>
+
+    {{-- toast message end --}}
 
     <script>
         let loading = `<i class="removeLoading fa fa-spinner fa-spin" style="font-size:24px"></i>`;

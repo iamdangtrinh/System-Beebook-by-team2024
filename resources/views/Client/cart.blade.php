@@ -57,11 +57,11 @@
                                         <td class="cart__update-wrapper cart-flex-item text-right">
                                             <div class="cart__qty text-center">
                                                 <div class="qtyField">
-                                                    <button type="button" class="qtyBtn qtyBtnMinus minus"
+                                                    <button type="button" data-id-product={{$cart->id_product}} class="qtyBtn qtyBtnMinus minus"
                                                         href="javascript:void(0);"><i class="icon icon-minus"></i></button>
                                                     <input class="cart__qty-input qty" type="text" name="updates[]"
                                                         id="qty" value="{{ $cart->quantity }}" pattern="[0-9]*">
-                                                    <button type="button" class="qtyBtn qtyBtnPlus plus" href="javascript:void(0);"><i
+                                                    <button type="button" data-id-product={{$cart->id_product}} class="qtyBtn qtyBtnPlus plus" href="javascript:void(0);"><i
                                                             class="icon icon-plus"></i></button>
                                                 </div>
                                             </div>
@@ -299,7 +299,6 @@
     <!--Scoll Top-->
     <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
     <!--End Scoll Top-->
-
     <!-- Including Jquery -->
     <script src="{{ asset('/') }}client/js/vendor/jquery-3.3.1.min.js"></script>
     <script src="{{ asset('/') }}client/js/vendor/jquery.cookie.js"></script>
@@ -312,6 +311,7 @@
     <script src="{{ asset('/') }}client/js/lazysizes.js"></script>
     <script src="{{ asset('/') }}client/js/main.js"></script>
     <script src="{{ asset('/') }}client/js/customCart.js"></script>
+    <script src="{{ asset('/') }}client/js/lib/toastr.js?version=@php echo time() @endphp"></script>
 
     </div>
     </body>
