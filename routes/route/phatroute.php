@@ -10,7 +10,6 @@ use App\Http\Controllers\admin\AdminController;
 //client
 
 Route::get('/', [ClientController::class, 'home']);
-Route::get('/cart', [ClientController::class, 'cart']);
 Route::get('/shop', [ClientController::class, 'shop']);
 Route::get('/blog', [ClientController::class, 'blog']);
 Route::get('/blogarticle', [ClientController::class, 'blogarticle']);

@@ -8,6 +8,9 @@ class AppServiceProvider extends ServiceProvider
     protected $serviceBindings = [
         'App\Services\Interfaces\UserServiceInterface' => 'App\Services\UserService',
         'App\Repositories\Interfaces\UserRepositoryInterface' => 'App\Repositories\UserRepository',
+        
+        'App\Services\Interfaces\CartServiceInterface' => 'App\Services\CartService',
+        'App\Repositories\Interfaces\CartRepositoryInterface' => 'App\Repositories\CartRepository',
     ];
     /**
      * Register any application services.

@@ -26,6 +26,7 @@ php artisan migrate
 2 CateforyProductSeeder
 3 ProductsSeeder
 4 UsersSeedder
+5 CouponSeeder
 
 ## Demo
 

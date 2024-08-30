@@ -119,7 +119,7 @@ class ProductsSeeder extends Seeder
             $name = $this->NameBook[$i];
             $slug = Str::slug($name);
             $status = Arr::random($statuses);
-            $parent_id = rand(15,35); // Giả sử các danh mục đã có từ 1 đến số lượng danh mục hiện có
+            $parent_id = rand(1,21); // Giả sử các danh mục đã có từ 1 đến số lượng danh mục hiện có
             $author = $taxonomiesCount > 0 ? rand(1, $taxonomiesCount) : null;
             $publisher = $taxonomiesCount > 0 ? rand(1, $taxonomiesCount) : null;
             $manufacturer = $taxonomiesCount > 0 ? rand(1, $taxonomiesCount) : null;
