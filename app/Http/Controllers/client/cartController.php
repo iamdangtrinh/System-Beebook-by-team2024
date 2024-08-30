@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\cartRequest;
 use Illuminate\Http\Request;
 
 use App\Services\Interfaces\CartServiceInterface as CartService;
@@ -51,10 +52,8 @@ class cartController extends Controller
         return response()->json($user);
     }
 
-    public function update(Request $request)
+    public function update(cartRequest $request)
     {
-
-
         $result = $this->CartService->updateCart($request);
 
         if ($result) {

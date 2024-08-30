@@ -37,7 +37,7 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
         $query = $this->model
         ->where('id_user', '=', $payload['id_user'])
         ->where('id_product', '=', $payload['id_product'])
-        ->update(['quantity' => $payload['quantity']]);
+        ->update(['quantity' => (int)$payload['quantity']]);
         return $query;
     }
 }

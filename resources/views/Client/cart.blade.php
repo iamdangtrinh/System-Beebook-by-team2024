@@ -57,11 +57,16 @@
                                         <td class="cart__update-wrapper cart-flex-item text-right">
                                             <div class="cart__qty text-center">
                                                 <div class="qtyField">
-                                                    <button type="button" data-id-product={{$cart->id_product}} class="qtyBtn qtyBtnMinus minus"
-                                                        href="javascript:void(0);"><i class="icon icon-minus"></i></button>
-                                                    <input class="cart__qty-input qty" type="text" name="updates[]"
-                                                        id="qty" value="{{ $cart->quantity }}" pattern="[0-9]*">
-                                                    <button type="button" data-id-product={{$cart->id_product}} class="qtyBtn qtyBtnPlus plus" href="javascript:void(0);"><i
+                                                    <button type="button" data-id-product={{ $cart->id_product }}
+                                                        class="qtyBtn qtyBtnMinus minus" href="javascript:void(0);"><i
+                                                            class="icon icon-minus"></i></button>
+                                                    @foreach ($cart->cartProduct as $product)
+                                                        <input class="cart__qty-input qty" type="text" name="updates[]"
+                                                            id="qty" data-quantity-max="{{ $product->quantity }}" data-id-product={{ $product->id }}
+                                                            value="{{ $cart->quantity }}" pattern="[0-9]*">
+                                                    @endforeach
+                                                    <button type="button" data-id-product={{ $cart->id_product }}
+                                                        class="qtyBtn qtyBtnPlus plus" href="javascript:void(0);"><i
                                                             class="icon icon-plus"></i></button>
                                                 </div>
                                             </div>

@@ -76,7 +76,7 @@ class CartService implements CartServiceInterface
         }
     }
     
-    public function updateCart($request)
+    public function updateCart(Request $request)
     {
         DB::beginTransaction();
         try {
