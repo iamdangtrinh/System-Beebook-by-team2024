@@ -176,7 +176,7 @@
             <div class="imgBnrOuter">
                 <div class="container">
                     {{-- banner --}}
-                    <div class="row">
+                    <div class="row g-2">
                         <div class="col-xl-8 col-md-8 col-12">
                             <div class="swiper mySwiper">
                                 <div class="swiper-wrapper">
@@ -1203,11 +1203,8 @@
 
         });
     </script>
-    <!--End For Newsletter Popup-->
     </div>
     </body>
-
-    <!-- belle/home15-funiture.html   11 Nov 2019 12:24:28 GMT -->
 
     </html>
 @endsection
