@@ -36,14 +36,18 @@ swiper {
     overflow: hidden;
 }
 
-.myBanner img {
+.imgBanners img {
     border-radius: 6px;
 }
 
-.myBanner .bannerLeft {
+.bannerLeft {
     gap: 10px;
     display: flex;
     flex-direction: column;
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background-color: #fff !important;
 }
 
 /* banner end */

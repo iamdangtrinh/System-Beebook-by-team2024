@@ -175,10 +175,9 @@
         <div class="section imgBanners">
             <div class="imgBnrOuter">
                 <div class="container">
-
                     {{-- banner --}}
-                    <div class="myBanner">
-                        <div class="bannerRight">
+                    <div class="row">
+                        <div class="col-xl-8 col-md-8 col-12">
                             <div class="swiper mySwiper">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
@@ -197,22 +196,19 @@
                                 <div class="swiper-pagination"></div>
                             </div>
                         </div>
-
-                        <div class="bannerLeft">
-                            <div>
-                                <img src="https://cdn0.fahasa.com/media/wysiwyg/Thang-09-2024/btaskeeT9_392x156.jpg"
-                                    alt="">
-                            </div>
-                            <div>
-                                <img src="https://cdn0.fahasa.com/media/wysiwyg/Thang-09-2024/VNpayT9_392%20x%20156.png"
-                                    alt="">
+                        <div class="col-xl-4 col-md-8 col-12">
+                            <div class="bannerLeft">
+                                <div>
+                                    <img
+                                        src="https://cdn0.fahasa.com/media/wysiwyg/Thang-09-2024/btaskeeT9_392x156.jpg"alt="">
+                                </div>
+                                <div>
+                                    <img
+                                        src="https://cdn0.fahasa.com/media/wysiwyg/Thang-09-2024/VNpayT9_392%20x%20156.png"alt="">
+                                </div>
                             </div>
                         </div>
-
                     </div>
-
-
-
                 </div>
             </div>
         </div>
@@ -220,7 +216,7 @@
 
         <!--Custom Image Banner-->
         <div class="section imgBanners">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
                     <a href="#">
                         <img src="{{ asset('/') }}client/images/collection/image-banner-home15-5.jpg"
@@ -245,7 +241,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                         <div class="grid-products">
@@ -763,7 +759,7 @@
 
         <!--Home LookBook Section-->
         <div class="section home-lookbook">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 text-center mb-5">
                         <img src="{{ asset('/') }}client/images/collection/home15-lookbook1.jpg" alt=""
@@ -787,7 +783,7 @@
 
         <!--Store Information-->
         <div class="section store-information">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
                     <ul class="display-table store-info">
                         <li class="display-table-cell"> <i class="anm anm-truck-l" aria-hidden="true"></i>
@@ -825,7 +821,7 @@
     <!--Footer-->
     <footer id="footer" class="footer-3">
         <div class="site-footer">
-            <div class="container-fluid">
+            <div class="container">
                 <!--Footer Links-->
                 <div class="footer-top">
                     <div class="row">
@@ -1197,14 +1193,14 @@
 
         var swiper = new Swiper(".mySwiper", {
             slidesPerView: "auto",
-            autoplay: {
-                delay: 1500
-            },
+            // autoplay: {
+            //     delay: 1500
+            // },
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true,
             },
-            
+
         });
     </script>
     <!--End For Newsletter Popup-->
