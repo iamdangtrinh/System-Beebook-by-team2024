@@ -19,14 +19,18 @@
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('/') }}client/css/style.css?version=@php echo time() @endphp">
     <link rel="stylesheet" href="{{ asset('/') }}client/css/responsive.css?version=@php echo time() @endphp">
-    
-    {{-- toast message start by trinh --}}
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/custom_css.css?version=@php echo time() @endphp">
 
+    {{-- toast message start by trinh --}}
     <script src="{{ asset('/') }}client/js/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ asset('/') }}client/js/lib/toastr.css?version=@php echo time() @endphp">
     <script src="{{ asset('/') }}client/js/lib/toastr.js?version=@php echo time() @endphp"></script>
-
     {{-- toast message end --}}
+
+    {{-- swiper start --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    {{-- swiper end --}}
 
     <script>
         let loading = `<i class="removeLoading fa fa-spinner fa-spin" style="font-size:24px"></i>`;
@@ -34,7 +38,7 @@
 
 </head>
 
-<body class="template-blog belle">
+<body class="template belle">
     <div class="pageWrapper">
         <!--Search Form Drawer-->
         <div class="search">
@@ -126,21 +130,6 @@
                                                         <ul class="subLinks">
                                                             <li class="lvl-2"><a href="index.html"
                                                                     class="site-nav lvl-2">Home 1 - Classic</a></li>
-                                                            <li class="lvl-2"><a href="home2-default.html"
-                                                                    class="site-nav lvl-2">Home 2 - Default</a></li>
-                                                            <li class="lvl-2"><a href="home15-funiture.html"
-                                                                    class="site-nav lvl-2">Home 15 - Furniture <span
-                                                                        class="lbl nm_label1">New</span></a></li>
-                                                            <li class="lvl-2"><a href="home3-boxed.html"
-                                                                    class="site-nav lvl-2">Home 3 - Boxed</a></li>
-                                                            <li class="lvl-2"><a href="home4-fullwidth.html"
-                                                                    class="site-nav lvl-2">Home 4 - Fullwidth</a></li>
-                                                            <li class="lvl-2"><a href="home5-cosmetic.html"
-                                                                    class="site-nav lvl-2">Home 5 - Cosmetic</a></li>
-                                                            <li class="lvl-2"><a href="home6-modern.html"
-                                                                    class="site-nav lvl-2">Home 6 - Modern</a></li>
-                                                            <li class="lvl-2"><a href="home7-shoes.html"
-                                                                    class="site-nav lvl-2">Home 7 - Shoes</a></li>
                                                         </ul>
                                                     </li>
                                                     <li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#"
@@ -530,5 +519,6 @@
                 </div>
             </div>
         </div>
-        <!--End Header-->
-        @yield('body')
+    </div>
+    <!--End Header-->
+    @yield('body')

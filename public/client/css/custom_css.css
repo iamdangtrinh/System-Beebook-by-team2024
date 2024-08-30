@@ -1,0 +1,49 @@
+/* swiper slide start */
+swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* swiper slide end */
+
+/* banner start */
+.myBanner {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+    height: 100%;
+}
+
+.swiper.mySwiper {
+    height: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.myBanner img {
+    border-radius: 6px;
+}
+
+.myBanner .bannerLeft {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* banner end */
