@@ -210,7 +210,6 @@
 
                 <div class="swiper categorySlide">
                     <h3 class="titleCategory">Danh mục sản phẩm</h3>
-                    <hr>
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <a href="">
@@ -1254,7 +1253,7 @@
         // category
         var swiper = new Swiper(".categorySlide", {
             slidesPerView: 1,
-            spaceBetween: 10,
+            // spaceBetween: 10,
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true,
@@ -1273,7 +1272,7 @@
                 },
                 1024: {
                     slidesPerView: 8,
-                    spaceBetween: 30,
+                    spaceBetween: 20,
                 },
             },
         });

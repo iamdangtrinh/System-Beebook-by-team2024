@@ -1,5 +1,8 @@
 html {
-    font-size: 62.5%;
+}
+
+body {
+    background-color: #f0f0f0;
 }
 /* swiper slide start */
 swiper {
@@ -49,6 +52,10 @@ swiper {
     flex-direction: column;
 }
 
+.bannerLeft img {
+    border-radius: 6px;
+}
+
 .swiper-pagination-bullet.swiper-pagination-bullet-active {
     background-color: #fff !important;
 }
@@ -58,10 +65,12 @@ swiper {
 /* category */
 .categorySlide {
     margin: 20px 0px;
+    background-color: #fff;
+    border-radius: 6px;
 }
 
 .categorySlide .swiper-wrapper {
-    padding: 20px 0;
+    padding: 10px 0 20px;
     background-color: transparent;
 }
 
@@ -78,7 +87,7 @@ swiper {
     background-color: transparent;
 }
 .categorySlide .swiper-slide a {
-    font-size: 1.3rem;
+    font-size: 14px;
     font-weight: 500;
     margin-top: 12px;
     text-decoration: none;
@@ -89,7 +98,14 @@ swiper {
 }
 
 .categorySlide .titleCategory {
-    font-size: 2.3rem;
+    font-size: 1.4rem;
     text-transform: uppercase;
     font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+}
+
+a {
+    text-decoration: none;
 }
