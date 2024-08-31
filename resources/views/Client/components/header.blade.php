@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-
-<!-- belle/blog-article.html   11 Nov 2019 12:47:01 GMT -->
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf_token" content="{{ csrf_token() }}" />
-    <title>Blog Article &ndash; Belle Multipurpose Bootstrap 4 Template</title>
+    <title>@yield('title') </title>
+    
     <meta name="description" content="description">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
