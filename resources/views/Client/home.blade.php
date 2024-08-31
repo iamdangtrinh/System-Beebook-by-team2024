@@ -1131,9 +1131,9 @@
         // banner
         var swiper = new Swiper(".mySwiper", {
             slidesPerView: "auto",
-            // autoplay: {
-            //     delay: 1500
-            // },
+            autoplay: {
+                delay: 2500
+            },
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true,
@@ -1144,10 +1144,6 @@
         var swiper = new Swiper(".categorySlide", {
             slidesPerView: 1,
             // spaceBetween: 10,
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
             // autoplay: {
             //     delay: 1500
             // },

@@ -4,8 +4,9 @@
     </div>
     <div class="content">
         <h1 class="main-heading">404</h1>
+        <h2>Trang không tồn tại</h2>
         <p>
-            có thể trang bạn đang tìm không được tìm thấy hoặc chưa từng tồn tại.
+            Có thể trang bạn đang tìm không được tìm thấy hoặc chưa từng tồn tại.
         </p>
         <a href="/">
             <button>Về trang chủ <i class="far fa-hand-point-right"></i></button>
