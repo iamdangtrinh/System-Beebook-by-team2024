@@ -47,9 +47,7 @@ Table of Content:
 /*======================================================================
   1. Google Fonts
 ========================================================================*/
-@import url('http://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,600,700&amp;display=swap');
-@import url('http://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700&amp;display=swap');
-@import url('http://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800&amp;display=swap');
+@import url('http://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,600,700&amp;display=swap');
 
 
 /*======================================================================
@@ -78,7 +76,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "Poppins", Helvetica, Tahoma, Arial, serif;
+  font-family: "roboto", Helvetica, Tahoma, Arial, serif;
   color: #424242;
   font-weight: 400;
   margin: 0;
@@ -118,7 +116,7 @@ button,
 input,
 select,
 textarea {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'roboto', sans-serif;
 }
 
 input:focus,
@@ -328,7 +326,7 @@ h6,
 .h6 {
   color: #000;
   margin: 0 0 10px;
-  font-family: "Roboto Slab", Helvetica, Tahoma, Arial, serif;
+  font-family: "roboto Slab", Helvetica, Tahoma, Arial, serif;
   font-weight: 400;
   line-height: 1.2;
   overflow-wrap: break-word;
@@ -506,7 +504,7 @@ hr {
 }
 
 th {
-  font-family: "Roboto Slab", Helvetica, Tahoma, Arial, serif;
+  font-family: "roboto Slab", Helvetica, Tahoma, Arial, serif;
   font-weight: 700;
 }
 
@@ -525,11 +523,11 @@ th {
 
 /* Font specialized */
 .body-font {
-  font-family: "Poppins", sans-serif;
+  font-family: "roboto", sans-serif;
 }
 
 .heading-font {
-  font-family: "Poppins", sans-serif;
+  font-family: "roboto", sans-serif;
 }
 
 .list--inline {
@@ -598,7 +596,7 @@ th {
 /*======================================================================
   6. Button
 ========================================================================*/
-/* .btn,
+.btn,
 .shopify-payment-button__button--unbranded {
   -moz-user-select: none;
   -ms-user-select: none;
@@ -617,9 +615,9 @@ th {
   border: 1px solid transparent;
   border-radius: 0;
   padding: 8px 15px 8px;
-  background-color: #000;
+  background-color: #ce2626ff;
   color: #fff;
-  font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -629,16 +627,17 @@ th {
   -ms-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-} */
+}
 
 .btn:hover,
 .btn:focus,
 .shopify-payment-button__button--unbranded:hover,
 .shopify-payment-button__button--unbranded:focus {
-  background-color: #1a1a1a;
-  opacity: 0.8;
+  background-color: #ce2626ff;
   color: #fff;
   text-decoration: none;
+  -webkit-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
 }
 
 .btn--small {
@@ -2665,7 +2664,7 @@ a.quick-view {
 }
 
 .latest-blog .article__title.h3 {
-  font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
 }
 
 .latest-blog .wrap-blog .article__grid-image,
@@ -2719,7 +2718,7 @@ a.quick-view {
   letter-spacing: 0.08em;
   font-size: 13px;
   font-weight: 600;
-  font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
 }
 
 .store-info li {
@@ -4235,7 +4234,7 @@ table {
   font-weight: 600;
   letter-spacing: 1px;
   border-bottom: 1px solid #e8e9eb;
-  font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
   margin: 0;
   font-size: 12px;
   cursor: pointer;
@@ -4445,7 +4444,7 @@ table {
 
 .sidebar-product .prFeatures h5 {
   font-size: 1.07692em;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'roboto', sans-serif;
   font-weight: 600;
 }
 
@@ -4644,7 +4643,7 @@ table {
 }
 
 .categories-item h4 {
-  font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
   font-size: 14px;
   text-transform: uppercase;
   margin: 0 0 10px;
@@ -4745,7 +4744,7 @@ table {
 
 #accordionExample .panel-title {
   cursor: pointer;
-  font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
   font-size: 14px;
   text-transform: none;
   margin: 0;
@@ -5471,7 +5470,7 @@ table {
   color: #000;
   text-transform: uppercase;
   font-size: 14px;
-  font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
   letter-spacing: 0.02em;
 }
 
@@ -5658,13 +5657,13 @@ input.checkbox {
 }
 
 .imgBnrOuter .inner .ttl h3 {
-  font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
   font-weight: 700;
   font-size: 21px;
 }
 
 .imgBnrOuter .inner .ttl h5 {
-  font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
   font-weight: 700;
   font-size: 16px;
 }
@@ -5738,7 +5737,7 @@ body.home15-funiture-template {
 
 .home15-funiture-template .section-header h2,
 .home15-funiture-template .section-header .h2 {
-  font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
   font-size: 20px;
   font-weight: 700;
   letter-spacing: 0.03em;
@@ -5822,7 +5821,7 @@ body.home15-funiture-template {
 }
 
 .footer-3 .h4 {
-  font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
 }
 
 @media only screen and (min-width:1199px) {
@@ -5947,7 +5946,7 @@ body.home15-funiture-template {
 
 .hero .text-small .mega-title {
   font-size: 25px;
-  font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
   font-weight: 700;
 }
 
@@ -6158,7 +6157,7 @@ body.home15-funiture-template {
   color: #000000;
   font-size: 15px;
   font-weight: 400;
-  font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
   margin-bottom: 15px;
 }
 
@@ -6188,7 +6187,7 @@ body.home15-funiture-template {
   color: #000000;
   font-size: 15px;
   font-weight: 400;
-  font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
   margin-bottom: 15px;
 }
 
@@ -6200,7 +6199,7 @@ body.home15-funiture-template {
 .footer-4 .newsletter-section .section-header label,
 .footer-4 .newsletter-section .section-header span {
   color: #fff;
-  font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
 }
 
 .footer-4 .newsletter-section .btn {
@@ -6252,7 +6251,7 @@ body.home15-funiture-template {
 .footer-5 .newsletter-section .section-header label,
 .footer-5 .newsletter-section .section-header span {
   color: #fff;
-  font-family: Poppins, Helvetica, Tahoma, Arial, sans-serif;
+  font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
 }
 
 .footer-5 .footer-top,

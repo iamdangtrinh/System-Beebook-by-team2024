@@ -106,3 +106,8 @@ swiper {
 a {
     text-decoration: none;
 }
+
+/* cart */
+.name_product a{
+    color: #000 !important;
+}

@@ -14,20 +14,20 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
+                <div class="col-12 col-sm-12 col-md-8 col-lg-8 main-col">
                     <div class="alert alert-success text-uppercase" role="alert">
                         <i class="icon anm anm-truck-l icon-large"></i> &nbsp;<strong>Congratulations!</strong> You've got
                         free shipping!
                     </div>
-                    <form action="#" method="post" class="cart style2">
-                        <table>
+                    <div action="#" method="post" class="cart style2">
+                        <table class="table table-bordered">
                             <thead class="cart__row cart__header">
                                 <tr>
-                                    <th colspan="2" class="text-center">Sản phẩm</th>
-                                    <th class="text-center">Giá</th>
-                                    <th class="text-center">Số lượng</th>
+                                    <th class="text-center"><input type="checkbox" name="checkAll" id="checkAll"></th>
+                                    <th colspan="2">Sản phẩm</th>
+                                    <th class="text-right">Số lượng</th>
                                     <th class="text-right">Tổng tiền</th>
-                                    <th class="action">&nbsp;</th>
+                                    <th class="action"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,7 +35,12 @@
                                 @foreach ($result as $cart)
                                     <tr class="cart__row border-bottom line1 cart-flex border-top">
                                         {{-- PRODUCTS --}}
+                                        <td class="text-center">
+                                            <input class="" value="{{ $cart->id }}" id="id_cart" type="checkbox">
+                                        </td>
+
                                         @foreach ($cart->cartProduct as $product)
+                                            {{-- HÌnh ảnh và tên sản phẩm --}}
                                             <td class="cart__image-wrapper cart-flex-item">
                                                 <a href="{{ $product->slug }}">
                                                     <img class="cart__image"
@@ -44,16 +49,15 @@
                                                 </a>
                                             </td>
                                             <td class="cart__meta small--text-left cart-flex-item">
-                                                <div class="list-view-item__title">
+                                                <div class="list-view-item__title name_product">
                                                     <a href={{ $product->slug }}>
                                                         {{ $product->name }}
                                                     </a>
                                                 </div>
+                                                <span data-price={{$cart->price}} class="price_product mt-2 fw-bold d-block">{{ number_format($cart->price, 0, '.', '.') }}
+                                                    VNĐ</span>
                                             </td>
                                         @endforeach
-                                        <td class="cart__price-wrapper cart-flex-item">
-                                            <span class="money">{{ number_format($cart->price, 0, '.', '.') }} VNĐ</span>
-                                        </td>
                                         <td class="cart__update-wrapper cart-flex-item text-right">
                                             <div class="cart__qty text-center">
                                                 <div class="qtyField">
@@ -62,8 +66,10 @@
                                                             class="icon icon-minus"></i></button>
                                                     @foreach ($cart->cartProduct as $product)
                                                         <input class="cart__qty-input qty" type="text" name="updates[]"
-                                                            id="qty" data-quantity-max="{{ $product->quantity }}" data-id-product={{ $product->id }}
-                                                            value="{{ $cart->quantity }}" pattern="[0-9]*">
+                                                            id="qty" data-quantity-max="{{ $product->quantity }}"
+                                                            data-price={{ $cart->price }}
+                                                            data-id-product={{ $product->id }}
+                                                            value="{{ $cart->quantity }}">
                                                     @endforeach
                                                     <button type="button" data-id-product={{ $cart->id_product }}
                                                         class="qtyBtn qtyBtnPlus plus" href="javascript:void(0);"><i
@@ -71,12 +77,12 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="text-right small--hide cart-price">
-                                            <div><span
+                                        <td class="text-right cart-price">
+                                            <span
                                                     class="money">{{ number_format($cart->price * $cart->quantity, 0, '.', '.') }}
-                                                    VNĐ</span></div>
+                                                    VNĐ</span>
                                         </td>
-                                        <td class="text-center small--hide"><a href="#"
+                                        <td class="text-center"><a href="#"
                                                 class="btn btn--secondary cart__remove" title="Remove tem"><i
                                                     class="icon icon anm anm-times-l"></i></a></td>
                                     </tr>
@@ -96,67 +102,60 @@
                                 </tr>
                             </tfoot>
                         </table>
-                    </form>
-                </div>
-
-
-                {{-- mã giảm giá --}}
-                <div class="container mt-4">
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-4">
-                            <h5>Discount Codes</h5>
-                            <form action="#" method="post">
-                                <div class="form-group">
-                                    <label for="address_zip">Enter your coupon code if you have one.</label>
-                                    <input type="text" name="coupon">
-                                </div>
-                                <div class="actionRow">
-                                    <div><input type="button" class="btn btn-secondary btn--small" value="Apply Coupon">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 cart__footer">
-                            <div class="solid-border">
-                                <div class="row border-bottom pb-2">
-                                    <span class="col-12 col-sm-6 cart__subtotal-title">Subtotal</span>
-                                    <span class="col-12 col-sm-6 text-right"><span class="money">$735.00</span></span>
-                                </div>
-                                <div class="row border-bottom pb-2 pt-2">
-                                    <span class="col-12 col-sm-6 cart__subtotal-title">Tax</span>
-                                    <span class="col-12 col-sm-6 text-right">$10.00</span>
-                                </div>
-                                <div class="row border-bottom pb-2 pt-2">
-                                    <span class="col-12 col-sm-6 cart__subtotal-title">Shipping</span>
-                                    <span class="col-12 col-sm-6 text-right">Free shipping</span>
-                                </div>
-                                <div class="row border-bottom pb-2 pt-2">
-                                    <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Grand Total</strong></span>
-                                    <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span
-                                            class="money">$1001.00</span></span>
-                                </div>
-                                <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div>
-                                <p class="cart_tearm">
-                                    <label>
-                                        <input type="checkbox" name="tearm" class="checkbox" value="tearm"
-                                            required="">
-                                        I agree with the terms and conditions
-                                    </label>
-                                </p>
-                                <input type="submit" name="checkout" id="cartCheckout"
-                                    class="btn btn--small-wide checkout" value="Proceed To Checkout" disabled="disabled">
-                                <div class="paymnet-img"><img src="{{ asset('/') }}client/images/payment-img.jpg"
-                                        alt="Payment"></div>
-                                <p><a href="#;">Checkout with Multiple Addresses</a></p>
-                            </div>
-
-                        </div>
                     </div>
                 </div>
 
+
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 main-col">
+                    {{-- mã giảm giá --}}
+                    <h5>Discount Codes</h5>
+                    <form action="#" method="post">
+                        <div class="form-group">
+                            <label for="address_zip">Enter your coupon code if you have one.</label>
+                            <input type="text" name="coupon">
+                        </div>
+                        <div class="actionRow">
+                            <button type="button" class="btn w-100">Apply Coupon</button>
+                        </div>
+                    </form>
+
+                    <div class="solid-border">
+                        <div class="row border-bottom pb-2">
+                            <span class="col-12 col-sm-6 cart__subtotal-title">Subtotal</span>
+                            <span class="col-12 col-sm-6 text-right"><span class="money">$735.00</span></span>
+                        </div>
+                        <div class="row border-bottom pb-2 pt-2">
+                            <span class="col-12 col-sm-6 cart__subtotal-title">Tax</span>
+                            <span class="col-12 col-sm-6 text-right">$10.00</span>
+                        </div>
+                        <div class="row border-bottom pb-2 pt-2">
+                            <span class="col-12 col-sm-6 cart__subtotal-title">Shipping</span>
+                            <span class="col-12 col-sm-6 text-right">Free shipping</span>
+                        </div>
+                        <div class="row border-bottom pb-2 pt-2">
+                            <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Grand
+                                    Total</strong></span>
+                            <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span
+                                    class="money">$1001.00</span></span>
+                        </div>
+                        <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div>
+                        <p class="cart_tearm">
+                            <label>
+                                <input type="checkbox" name="tearm" class="checkbox" value="tearm" required="">
+                                I agree with the terms and conditions
+                            </label>
+                        </p>
+                        <input type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout"
+                            value="Proceed To Checkout" disabled="disabled">
+                        <div class="paymnet-img"><img src="{{ asset('/') }}client/images/payment-img.jpg"
+                                alt="Payment"></div>
+                        <p><a href="#;">Checkout with Multiple Addresses</a></p>
+                    </div>
+                </div>
             </div>
+
         </div>
+    </div>
 
     </div>
 
