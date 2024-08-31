@@ -172,58 +172,120 @@
     <!--Body Content-->
     <div id="page-content">
         <!--Image Banners-->
-        <div class="section imgBanners">
-            <div class="imgBnrOuter">
-                <div class="container">
-                    {{-- banner --}}
-                    <div class="row g-2">
-                        <div class="col-xl-8 col-md-8 col-12">
-                            <div class="swiper mySwiper">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img src="https://cdn0.fahasa.com/media/magentothem/banner7/Banner2_9_0924_840x320.jpg"
-                                            alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img src="https://cdn0.fahasa.com/media/magentothem/banner7/MCbooks_KC_Slide_840x320.jpg"
-                                            alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img src="https://cdn0.fahasa.com/media/magentothem/banner7/Resize_TrangDoiTacThang09_SlideBanner_840x320.jpg"
-                                            alt="">
-                                    </div>
+        <div class="imgBnrOuter">
+            <div class="container">
+                {{-- banner --}}
+                <div class="row g-2">
+                    <div class="col-xl-8 col-md-12 col-12">
+                        <div class="swiper mySwiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img src="https://cdn0.fahasa.com/media/magentothem/banner7/Banner2_9_0924_840x320.jpg"
+                                        alt="">
                                 </div>
-                                <div class="swiper-pagination"></div>
+                                <div class="swiper-slide">
+                                    <img src="https://cdn0.fahasa.com/media/magentothem/banner7/MCbooks_KC_Slide_840x320.jpg"
+                                        alt="">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="https://cdn0.fahasa.com/media/magentothem/banner7/Resize_TrangDoiTacThang09_SlideBanner_840x320.jpg"
+                                        alt="">
+                                </div>
                             </div>
+                            <div class="swiper-pagination"></div>
                         </div>
-                        <div class="col-xl-4 col-md-8 col-12">
-                            <div class="bannerLeft">
-                                <div>
-                                    <img
-                                        src="https://cdn0.fahasa.com/media/wysiwyg/Thang-09-2024/btaskeeT9_392x156.jpg"alt="">
-                                </div>
-                                <div>
-                                    <img
-                                        src="https://cdn0.fahasa.com/media/wysiwyg/Thang-09-2024/VNpayT9_392%20x%20156.png"alt="">
-                                </div>
+                    </div>
+                    <div class="col-xl-4 d-md-none d-sm-none d-xl-block col-md-12 col-12">
+                        <div class="bannerLeft">
+                            <div>
+                                <img src="https://cdn0.fahasa.com/media/wysiwyg/Thang-09-2024/btaskeeT9_392x156.jpg"alt="">
+                            </div>
+                            <div>
+                                <img
+                                    src="https://cdn0.fahasa.com/media/wysiwyg/Thang-09-2024/VNpayT9_392%20x%20156.png"alt="">
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="swiper categorySlide">
+                    <h3 class="titleCategory">Danh mục sản phẩm</h3>
+                    <hr>
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <a href="">
+                                <img src="https://cdn0.fahasa.com/media/wysiwyg/Huyen-KD/vn-11134207-7r98o-ly67tdog94y594-removebg-preview_1.png"
+                                    alt="">
+                                Conan Movie</a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="">
+                                <img src="https://cdn0.fahasa.com/media/wysiwyg/Huyen-KD/vn-11134207-7r98o-ly67tdog94y594-removebg-preview_1.png"
+                                    alt="">
+                                Conan Movie</a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="">
+                                <img src="https://cdn0.fahasa.com/media/wysiwyg/Huyen-KD/vn-11134207-7r98o-ly67tdog94y594-removebg-preview_1.png"
+                                    alt="">
+                                Conan Movie</a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="">
+                                <img src="https://cdn0.fahasa.com/media/wysiwyg/Huyen-KD/vn-11134207-7r98o-ly67tdog94y594-removebg-preview_1.png"
+                                    alt="">
+                                Conan Movie</a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="">
+                                <img src="https://cdn0.fahasa.com/media/wysiwyg/Huyen-KD/vn-11134207-7r98o-ly67tdog94y594-removebg-preview_1.png"
+                                    alt="">
+                                Conan Movie</a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="">
+                                <img src="https://cdn0.fahasa.com/media/wysiwyg/Huyen-KD/vn-11134207-7r98o-ly67tdog94y594-removebg-preview_1.png"
+                                    alt="">
+                                Conan Movie</a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="">
+                                <img src="https://cdn0.fahasa.com/media/wysiwyg/Huyen-KD/vn-11134207-7r98o-ly67tdog94y594-removebg-preview_1.png"
+                                    alt="">
+                                Conan Movie</a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="">
+                                <img src="https://cdn0.fahasa.com/media/wysiwyg/Huyen-KD/vn-11134207-7r98o-ly67tdog94y594-removebg-preview_1.png"
+                                    alt="">
+                                Conan Movie</a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="">
+                                <img src="https://cdn0.fahasa.com/media/wysiwyg/Huyen-KD/vn-11134207-7r98o-ly67tdog94y594-removebg-preview_1.png"
+                                    alt="">
+                                Conan Movie</a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="">
+                                <img src="https://cdn0.fahasa.com/media/wysiwyg/Huyen-KD/vn-11134207-7r98o-ly67tdog94y594-removebg-preview_1.png"
+                                    alt="">
+                                Conan Movie</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <!--End Image Banners-->
 
         <!--Custom Image Banner-->
-        <div class="section imgBanners">
-            <div class="container">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                    <a href="#">
-                        <img src="{{ asset('/') }}client/images/collection/image-banner-home15-5.jpg"
-                            alt="Save Big On Popular Designs" title="Save Big On Popular Designs"
-                            class="blur-up lazyload" />
-                    </a>
-                </div>
+        <div class="container">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                <a href="#">
+                    <img src="{{ asset('/') }}client/images/collection/image-banner-home15-5.jpg"
+                        alt="Save Big On Popular Designs" title="Save Big On Popular Designs" class="blur-up lazyload" />
+                </a>
             </div>
         </div>
         <!--Custom Image Banner-->
@@ -1177,20 +1239,7 @@
             }
         });
 
-        /*--------------------------------------
-        	Promotion / Notification Cookie Bar 
-          -------------------------------------- */
-        if (Cookies.get('promotion') != 'true') {
-            $(".notification-bar").show();
-        }
-        $(".close-announcement").on('click', function() {
-            $(".notification-bar").slideUp();
-            Cookies.set('promotion', 'true', {
-                expires: 1
-            });
-            return false;
-        });
-
+        // banner
         var swiper = new Swiper(".mySwiper", {
             slidesPerView: "auto",
             // autoplay: {
@@ -1200,7 +1249,33 @@
                 el: ".swiper-pagination",
                 clickable: true,
             },
+        });
 
+        // category
+        var swiper = new Swiper(".categorySlide", {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            // autoplay: {
+            //     delay: 1500
+            // },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 10,
+                    spaceBetween: 40,
+                },
+                1024: {
+                    slidesPerView: 8,
+                    spaceBetween: 30,
+                },
+            },
         });
     </script>
     </div>

@@ -1,3 +1,6 @@
+html {
+    font-size: 62.5%;
+}
 /* swiper slide start */
 swiper {
     width: 100%;
@@ -51,3 +54,42 @@ swiper {
 }
 
 /* banner end */
+
+/* category */
+.categorySlide {
+    margin: 20px 0px;
+}
+
+.categorySlide .swiper-wrapper {
+    padding: 20px 0;
+    background-color: transparent;
+}
+
+.categorySlide .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid #CE2626;
+    cursor: pointer;
+    overflow: auto;
+}
+
+.categorySlide .swiper-slide {
+    background-color: transparent;
+}
+.categorySlide .swiper-slide a {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-top: 12px;
+    text-decoration: none;
+}
+
+.categorySlide .swiper-slide:hover a {
+    color: #CE2626;
+}
+
+.categorySlide .titleCategory {
+    font-size: 2.3rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
