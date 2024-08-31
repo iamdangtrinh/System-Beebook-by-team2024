@@ -15,7 +15,6 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_coupon');
             $table->unsignedBigInteger('id_user');
-            $table->timestamp('used_at')->nullable();
             $table->timestamps();
 
             $table->foreign('id_coupon')->references('id')->on('coupons')->onDelete('cascade');
