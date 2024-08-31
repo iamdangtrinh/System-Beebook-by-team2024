@@ -598,7 +598,7 @@ th {
 /*======================================================================
   6. Button
 ========================================================================*/
-.btn,
+/* .btn,
 .shopify-payment-button__button--unbranded {
   -moz-user-select: none;
   -ms-user-select: none;
@@ -629,7 +629,7 @@ th {
   -ms-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-}
+} */
 
 .btn:hover,
 .btn:focus,
@@ -1865,6 +1865,7 @@ textarea:-ms-input-placeholder {
   -ms-transition: all ease-out 0.4s;
   -webkit-transition: all ease-out 0.4s;
   transition: all ease-out 0.4s;
+  border-radius: 6px;
 }
 
 .grid-products .item .product-image .hover {
@@ -1878,13 +1879,9 @@ textarea:-ms-input-placeholder {
   transform: translate(-50%, -50%);
 }
 
-.grid-products .item .product-image:hover .primary {
-  opacity: 0;
-}
 
-.grid-products .item .product-image:hover .hover:not(.variantImg) {
-  opacity: 1;
-  visibility: visible;
+.grid-products .item .btn-addto-cart {
+  width: 100%;
 }
 
 .grid-view_image:hover .primary {
@@ -1919,26 +1916,6 @@ textarea:-ms-input-placeholder {
   transition: all ease-out 0.4s;
 }
 
-.grid-view-item.style2 .grid-view-item__link .hover {
-  visibility: hidden;
-  opacity: 0;
-  left: 50%;
-  top: 50%;
-  position: absolute;
-  -ms-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.grid-view-item.style2 .grid-view-item__link:hover .primary {
-  opacity: 0 !important;
-  visibility: hidden;
-}
-
-.grid-view-item.style2 .grid-view-item__link:hover .hover:not(.variantImg) {
-  opacity: 1;
-  visibility: visible;
-}
 
 .grid-view-item.style2 .hoverDetails {
   width: 94%;
@@ -2269,7 +2246,7 @@ a.quick-view,
 a.wishlist,
 .cartIcon,
 .add-to-compare {
-  color: #000000;
+  color: #CE2626;
   background-color: #ffffff;
   border: 0;
   width: 35px;
@@ -2288,7 +2265,7 @@ a.wishlist:hover,
 .variants.add button:hover,
 .add-to-compare:hover {
   color: #ffffff;
-  background-color: #000000;
+  background-color: #CE2626;
   opacity: 0.8;
 }
 

@@ -386,39 +386,6 @@
 	/*-------------------------------
 	  21. Height Product Grid Image
 	----------------------------------*/
-	function productGridView() {
-	  var gridRows = []; 
-	  var tempRow = [];
-	  productGridElements = $('.grid-products .item');
-	  productGridElements.each(function (index) {
-		if ($(this).css('clear') != 'none' && index != 0) {
-		  gridRows.push(tempRow);
-		  tempRow = []; 
-		}
-		tempRow.push(this);
-	
-		if (productGridElements.length == index + 1) {
-		  gridRows.push(tempRow);
-		}
-	  });
-	
-	  $.each(gridRows, function () {
-		var tallestHeight = 0;
-		var tallestHeight1 = 0;
-		$.each(this, function () {
-		  $(this).find('.product-image > a').css('height', '');
-		  elHeight = parseInt($(this).find('.product-image').css('height'));
-		  if (elHeight > tallestHeight) { tallestHeight = elHeight; }
-		});
-	
-		$.each(this, function () {
-		  if($(window).width() > 768) {
-			$(this).find('.product-image > a').css('height', tallestHeight);
-		  }
-		});
-	  });
-	}
-	
 	/*----------------------------
        22. Product details slider 2
     ------------------------------ */
