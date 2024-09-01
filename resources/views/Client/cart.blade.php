@@ -6,154 +6,149 @@
         <div class="page section-header text-center">
             <div class="page-title">
                 <div class="wrapper">
-                    <h1 class="page-width">Shopping Cart</h1>
+                    <h1 class="page-width">Giỏ hàng</h1>
                 </div>
             </div>
         </div>
         <!--End Page Title-->
-
         <div class="container">
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-8 col-lg-8 main-col">
-                    <div class="alert alert-success text-uppercase" role="alert">
-                        <i class="icon anm anm-truck-l icon-large"></i> &nbsp;<strong>Congratulations!</strong> You've got
-                        free shipping!
-                    </div>
-                    <div action="#" method="post" class="cart style2">
-                        <table class="table table-bordered">
-                            <thead class="cart__row cart__header">
-                                <tr>
-                                    <th class="text-center"><input type="checkbox" name="checkAll" id="checkAll"></th>
-                                    <th colspan="2">Sản phẩm</th>
-                                    <th class="text-right">Số lượng</th>
-                                    <th class="text-right">Tổng tiền</th>
-                                    <th class="action"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @foreach ($result as $cart)
-                                    <tr class="cart__row border-bottom line1 cart-flex border-top">
-                                        {{-- PRODUCTS --}}
-                                        <td class="text-center">
-                                            <input class="" value="{{ $cart->id }}" id="id_cart" type="checkbox">
-                                        </td>
-
-                                        @foreach ($cart->cartProduct as $product)
-                                            {{-- HÌnh ảnh và tên sản phẩm --}}
-                                            <td class="cart__image-wrapper cart-flex-item">
-                                                <a href="{{ $product->slug }}">
-                                                    <img class="cart__image"
-                                                        src="{{ $product->image_cover ? asset($product->image_cover) : asset('no_image.jpg') }}"
-                                                        alt="{{ $product->name }}">
-                                                </a>
-                                            </td>
-                                            <td class="cart__meta small--text-left cart-flex-item">
-                                                <div class="list-view-item__title name_product">
-                                                    <a href={{ $product->slug }}>
-                                                        {{ $product->name }}
-                                                    </a>
-                                                </div>
-                                                <span data-price={{$cart->price}} class="price_product mt-2 fw-bold d-block">{{ number_format($cart->price, 0, '.', '.') }}
-                                                    VNĐ</span>
-                                            </td>
-                                        @endforeach
-                                        <td class="cart__update-wrapper cart-flex-item text-right">
-                                            <div class="cart__qty text-center">
-                                                <div class="qtyField">
-                                                    <button type="button" data-id-product={{ $cart->id_product }}
-                                                        class="qtyBtn qtyBtnMinus minus" href="javascript:void(0);"><i
-                                                            class="icon icon-minus"></i></button>
-                                                    @foreach ($cart->cartProduct as $product)
-                                                        <input class="cart__qty-input qty" type="text" name="updates[]"
-                                                            id="qty" data-quantity-max="{{ $product->quantity }}"
-                                                            data-price={{ $cart->price }}
-                                                            data-id-product={{ $product->id }}
-                                                            value="{{ $cart->quantity }}">
-                                                    @endforeach
-                                                    <button type="button" data-id-product={{ $cart->id_product }}
-                                                        class="qtyBtn qtyBtnPlus plus" href="javascript:void(0);"><i
-                                                            class="icon icon-plus"></i></button>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right cart-price">
-                                            <span
-                                                    class="money">{{ number_format($cart->price * $cart->quantity, 0, '.', '.') }}
-                                                    VNĐ</span>
-                                        </td>
-                                        <td class="text-center"><a href="#"
-                                                class="btn btn--secondary cart__remove" title="Remove tem"><i
-                                                    class="icon icon anm anm-times-l"></i></a></td>
+            @if (count($result) !== 0)
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 main-col">
+                        <div class="alert alert-success text-uppercase" role="alert">
+                            <i class="icon anm anm-truck-l icon-large"></i> &nbsp;<strong>Congratulations!</strong> You've
+                            got
+                            free shipping!
+                        </div>
+                        <div action="#" method="post" class="cart style2">
+                            <table class="table table-bordered">
+                                <thead class="cart__row cart__header">
+                                    <tr>
+                                        <th class="text-center"><input type="checkbox" name="checkAll" id="checkAll"></th>
+                                        <th colspan="2">Sản phẩm</th>
+                                        <th class="text-right">Số lượng</th>
+                                        <th class="text-right">Tổng tiền</th>
+                                        <th class="action"></th>
                                     </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
 
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="3" class="text-left"><a href="http://annimexweb.com/"
-                                            class="btn btn-secondary btn--small cart-continue">Continue shopping</a></td>
-                                    <td colspan="3" class="text-right">
-                                        <button type="submit" name="clear"
-                                            class="btn btn-secondary btn--small  small--hide">Clear Cart</button>
-                                        <button type="submit" name="update"
-                                            class="btn btn-secondary btn--small cart-continue ml-2">Update Cart</button>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                                    @foreach ($result as $cart)
+                                        <tr class="cart__row border-bottom line1 cart-flex border-top">
+                                            {{-- PRODUCTS --}}
+
+                                            @foreach ($cart->cartProduct as $product)
+                                                <td class="text-center">
+                                                    <input class="inputCheckCart" data-price={{ $cart->price }}
+                                                        data-id-product={{ $product->id }}
+                                                        data-max-quantity={{ $product->quantity }}
+                                                        value="{{ $cart->id }}" id="id_cart" type="checkbox">
+                                                </td>
+                                                {{-- HÌnh ảnh và tên sản phẩm --}}
+                                                <td class="cart__image-wrapper cart-flex-item">
+                                                    <a href="{{ $product->slug }}">
+                                                        <img class="cart__image"
+                                                            src="{{ $product->image_cover ? asset($product->image_cover) : asset('no_image.jpg') }}"
+                                                            alt="{{ $product->name }}">
+                                                    </a>
+                                                </td>
+                                                <td class="cart__meta small--text-left cart-flex-item">
+                                                    <div class="list-view-item__title name_product">
+                                                        <a href={{ $product->slug }}>
+                                                            {{ $product->name }}
+                                                        </a>
+                                                    </div>
+                                                    <span
+                                                        class="price_product mt-2 fw-bold d-block">{{ number_format($cart->price, 0, '.', '.') }}
+                                                        đ</span>
+                                                    <del>
+                                                        @if ($product->price != 0)
+                                                            {{ number_format($product->price, 0, '.', '.') }} đ
+                                                        @endif
+                                                    </del>
+                                                </td>
+                                            @endforeach
+                                            <td class="cart__update-wrapper cart-flex-item text-right">
+                                                <div class="cart__qty text-center">
+                                                    <div class="qtyField">
+                                                        <button type="button" class="qtyBtn qtyBtnMinus minus"
+                                                            href="javascript:void(0);"><i
+                                                                class="icon icon-minus"></i></button>
+                                                        @foreach ($cart->cartProduct as $product)
+                                                            <input class="cart__qty-input qty" type="text" name="updates"
+                                                                id="qty" value="{{ $cart->quantity }}">
+                                                        @endforeach
+                                                        <button type="button" class="qtyBtn qtyBtnPlus plus"
+                                                            href="javascript:void(0);"><i
+                                                                class="icon icon-plus"></i></button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-right cart-price">
+                                                <span class="money"
+                                                    priceTotal={{ $cart->price * $cart->quantity }}>{{ number_format($cart->price * $cart->quantity, 0, '.', '.') }}
+                                                    đ</span>
+                                            </td>
+                                            <td class="text-center"><a href="#"
+                                                    class="btn btn--secondary cart__remove" title="Remove tem"><i
+                                                        class="icon icon anm anm-times-l"></i></a></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 main-col">
+                        {{-- mã giảm giá --}}
+                        <h5>Khuyến mãi</h5>
+                        <form action="#" method="post">
+                            <div class="form-group">
+                                <label for="address_zip">Enter your coupon code if you have one.</label>
+                                <input type="text" name="coupon">
+                            </div>
+                            <div class="actionRow">
+                                <button type="button" class="btn w-100">Apply Coupon</button>
+                            </div>
+                        </form>
+
+                        <div class="solid-border mt-3">
+                            <div class="row border-bottom pb-2">
+                                <span class="col-12 col-sm-6 cart__subtotal-title">Tạm tính:</span>
+                                <span class="col-12 col-sm-6 text-right"><span class="subTotal">0 đ</span></span>
+                            </div>
+                            <div class="row border-bottom pb-2 pt-2">
+                                <span class="col-12 col-sm-6 cart__subtotal-title">Phương thức vận chuyển:</span>
+                                <span class="col-12 col-sm-6 text-right">Free shipping</span>
+                            </div>
+                            <div class="row border-bottom pb-2 pt-2">
+                                <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Tổng cộng:</strong></span>
+                                <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span
+                                        class="money">0 đ</span></span>
+                            </div>
+                            <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div>
+                            <p class="cart_tearm">
+                                <label>
+                                    <input type="checkbox" name="tearm" class="checkbox" value="tearm" required="">
+                                    I agree with the terms and conditions
+                                </label>
+                            </p>
+                            <input type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout"
+                                value="Proceed To Checkout" disabled="disabled">
+                            <div class="paymnet-img"><img src="{{ asset('/') }}client/images/payment-img.jpg"
+                                    alt="Payment"></div>
+                            <p><a href="#;">Checkout with Multiple Addresses</a></p>
+                        </div>
                     </div>
                 </div>
-
-
-                <div class="col-12 col-sm-12 col-md-4 col-lg-4 main-col">
-                    {{-- mã giảm giá --}}
-                    <h5>Discount Codes</h5>
-                    <form action="#" method="post">
-                        <div class="form-group">
-                            <label for="address_zip">Enter your coupon code if you have one.</label>
-                            <input type="text" name="coupon">
-                        </div>
-                        <div class="actionRow">
-                            <button type="button" class="btn w-100">Apply Coupon</button>
-                        </div>
-                    </form>
-
-                    <div class="solid-border">
-                        <div class="row border-bottom pb-2">
-                            <span class="col-12 col-sm-6 cart__subtotal-title">Subtotal</span>
-                            <span class="col-12 col-sm-6 text-right"><span class="money">$735.00</span></span>
-                        </div>
-                        <div class="row border-bottom pb-2 pt-2">
-                            <span class="col-12 col-sm-6 cart__subtotal-title">Tax</span>
-                            <span class="col-12 col-sm-6 text-right">$10.00</span>
-                        </div>
-                        <div class="row border-bottom pb-2 pt-2">
-                            <span class="col-12 col-sm-6 cart__subtotal-title">Shipping</span>
-                            <span class="col-12 col-sm-6 text-right">Free shipping</span>
-                        </div>
-                        <div class="row border-bottom pb-2 pt-2">
-                            <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Grand
-                                    Total</strong></span>
-                            <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span
-                                    class="money">$1001.00</span></span>
-                        </div>
-                        <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div>
-                        <p class="cart_tearm">
-                            <label>
-                                <input type="checkbox" name="tearm" class="checkbox" value="tearm" required="">
-                                I agree with the terms and conditions
-                            </label>
-                        </p>
-                        <input type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout"
-                            value="Proceed To Checkout" disabled="disabled">
-                        <div class="paymnet-img"><img src="{{ asset('/') }}client/images/payment-img.jpg"
-                                alt="Payment"></div>
-                        <p><a href="#;">Checkout with Multiple Addresses</a></p>
-                    </div>
+            @else
+                <div class="__custom_cart_empty">
+                    <img src="{{ asset('/') }}client/images/ico_emptycart.svg" alt="Cart empty">
+                    <h4 class="">Chưa có sản phẩm trong giỏ hàng của bạn.</h4>
+                    <a href="/" class="btn rounded btn-medium">Mua sắm ngay</a>
                 </div>
-            </div>
-
+            @endif
         </div>
     </div>
 

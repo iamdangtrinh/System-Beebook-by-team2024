@@ -11,23 +11,12 @@
         qtyBtnMinus.on('click', function (e) {
             e.preventDefault();
             toastr.remove();
+            toastr.remove();
             let _this = $(this);
             _this.attr('disabled', true)
-            var inputValue = _this.siblings('.cart__qty-input').val();
-
-            let maxQuantity = _this.siblings('.cart__qty-input').data('quantity-max');
-            DT.handlerAjax(
-                // số lượng nhập vào
-                inputValue,
-                // id sản phẩm
-                _this.data('id-product'),
-                // Nút 
-                _this,
-                // giá 
-                '',
-                maxQuantity
-            )
-            // _this.siblings('.cart__qty-input').val(_this.siblings('.cart__qty-input').data('quantity-max'))
+            let idProduct = _this.closest('tr').find('.inputCheckCart').data('id-product');
+            var quantity = _this.siblings('.cart__qty-input').val();
+            DT.handlerAjax(quantity, idProduct, _this)
         })
 
         // tăng số lượng
@@ -36,30 +25,11 @@
             toastr.remove();
             let _this = $(this);
             _this.attr('disabled', true)
-            // giá trị input
-            var inputValue = _this.siblings('.cart__qty-input').val();
-            let maxQuantity = _this.siblings('.cart__qty-input').data('quantity-max');
 
-            DT.handlerAjax(
-                // số lượng nhập vào
-                inputValue,
-                // id sản phẩm
-                _this.data('id-product'),
-                // Nút 
-                _this,
-                // giá 
-                '',
-                maxQuantity
-            )
-            // let checkMaxQuantity = DT.checkQuanTityMax(_this.siblings('.cart__qty-input').data('quantity-max'), inputValue, _this);
-            // // nếu số lượng nhỏ hơn max
-            // if (!checkMaxQuantity) {
-            //     DT.handlerAjax(inputValue, _this.data('id-product'), _this)
-            // }
-            // // nếu số lượng nhập > max
-            // else {
-            //     _this.siblings('.cart__qty-input').val(_this.siblings('.cart__qty-input').data('quantity-max'))
-            // }
+            let idProduct = _this.closest('tr').find('.inputCheckCart').data('id-product');
+            var quantity = _this.siblings('.cart__qty-input').val();
+
+            DT.handlerAjax(quantity, idProduct, _this)
         })
 
         // thay đổi số lượng
@@ -67,10 +37,11 @@
             e.preventDefault(e);
             toastr.remove();
             let _this = $(this);
+            let idProduct = _this.closest('tr').find('.inputCheckCart').data('id-product');
 
-            if (typeof $(this).val() === 'string' && /[a-z]/i.test($(this).val())) {
+
+            if (typeof Number($(this).val()) === 'string' && /[a-z]/i.test(Number($(this).val()))) {
                 _this.val(1)
-                let idProduct = _this.data('id-product');
 
                 let data = {
                     quantity: 1,
@@ -82,22 +53,30 @@
                     url: `cart/update`,
                     data: data,
                     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content') },
-                });
+                    success: function (response) {
+                        let priceData = _this.closest('tr').find('.inputCheckCart').data('price');
+                        let amount = quantity * priceData;
+                        _this.closest('tr').find('.money').attr('priceTotal', amount);
+                        _this.closest('tr').find('.money').html(amount.toLocaleString('vi-VN') + ' đ')
+                    }
+                },
+                );
             }
 
-            let quantity = $(this).val();
-            let id_product = _this.data('id-product')
+            let quantity = Number($(this).val());
 
-            DT.handlerAjax(quantity, id_product, _this, _this.data('quantity-max'))
+            DT.handlerAjax(quantity, idProduct, _this)
         })
     }
 
-    DT.handlerAjax = (quantity, idProduct, _this = "", quantityMax) => {
+    // xử lí sau khi click
+    DT.handlerAjax = (quantity, idProduct, _this) => {
         let data = {
             quantity: quantity,
             id_product: idProduct,
         }
-
+        let quantityMax = _this.closest('tr').find('.inputCheckCart').data('max-quantity');
+        // nếu số lượng > số max
         if (quantity > quantityMax) {
             if (_this !== '') {
                 _this.attr('disabled', false);
@@ -112,6 +91,12 @@
                 url: `cart/update`,
                 data: data,
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content') },
+                success: function (response) {
+                    let priceData = _this.closest('tr').find('.inputCheckCart').data('price');
+                    let amount = quantityMax * priceData;
+                    _this.closest('tr').find('.money').attr('priceTotal', amount);
+                    _this.closest('tr').find('.money').html(amount.toLocaleString('vi-VN') + ' đ')
+                }
             })
             return toastr.error(`Rất tiếc, bạn chỉ có thể mua tối đa ${quantityMax} sản phẩm`)
         }
@@ -124,11 +109,13 @@
             success: function (response) {
                 toastr.success(response)
                 if (_this !== '') {
-                    let priceData = _this.closest('tr').find('.price_product').data('price')
-                    _this.closest('tr').find('.money').html(quantity * priceData)
-                } else {
+                    let priceData = _this.closest('tr').find('.inputCheckCart').data('price');
+                    let amount = quantity * priceData;
 
+                    _this.closest('tr').find('.money').attr('priceTotal', amount);
+                    _this.closest('tr').find('.money').html(amount.toLocaleString('vi-VN') + ' đ')
                 }
+                DT.updateTotalAmount();
             },
             error: function (response) {
                 toastr.error(response.responseJSON.errors.quantity)
@@ -142,8 +129,23 @@
         });
     }
 
+    DT.updateTotalAmount = () => {
+        const updateSubtotal = () => {
+            let subTotal = 0;
+            $('input.inputCheckCart:checked').each(function () {
+                let price = $(this).closest('tr').find('.money').attr('pricetotal');
+                subTotal += Number(price) || 0;
+            });
+            jQuery('.subTotal').html(subTotal.toLocaleString('vi-VN') + ' đ');
+        };
+        jQuery('.inputCheckCart').on('click', updateSubtotal);
+        updateSubtotal();
+    };
+
+
     $(document).ready(function () {
         DT.updateQuantityCart();
+        DT.updateTotalAmount();
     });
 
 

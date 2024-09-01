@@ -111,3 +111,14 @@ a {
 .name_product a{
     color: #000 !important;
 }
+
+.__custom_cart_empty {
+    padding: 2rem 0px;
+    text-align: center;
+}
+
+.__custom_cart_empty h4 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
