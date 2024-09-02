@@ -142,10 +142,27 @@
         updateSubtotal();
     };
 
+    // refactor code
+    DT.checkAllInput = () => {
+        // click vào check all => checked toàn bộ
+        $("#checkAll").click(function () {
+            // true or false
+            const isChecked = this.checked;
+            $('input.inputCheckCart:checkbox').prop('checked', isChecked);
+            DT.updateTotalAmount();
+        });
+
+        // click từng item nếu item == maxItem => checked checkAll
+        $('input.inputCheckCart').on('click', function () {
+            const allChecked = $('input.inputCheckCart:checkbox').length === $('input.inputCheckCart:checkbox:checked').length;
+            $("#checkAll").prop('checked', allChecked);
+        });
+    }
 
     $(document).ready(function () {
         DT.updateQuantityCart();
         DT.updateTotalAmount();
+        DT.checkAllInput();
     });
 
 

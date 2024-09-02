@@ -45,28 +45,13 @@ class CartService implements CartServiceInterface
         return $cart;
     }
 
+    // thêm sản phẩm vào giỏ hàng
     public function create($request)
     {
         DB::beginTransaction();
         try {
-
-            $payload = $request->except(['_token', 'send', 'repassword']);
-            $payload['password'] = Hash::make($payload['password']);
-            $user = $this->CartRepository->create($payload);
-            DB::commit();
-            return true;
-        } catch (\Exception $exception) {
-            DB::rollBack();
-            echo $exception->getMessage();
-            return false;
-        }
-    }
-    public function update($id, $request)
-    {
-        DB::beginTransaction();
-        try {
             $payload = $request->except(['_token']);
-            $response = $this->CartRepository->update($id, $payload);
+            return $response = $this->CartRepository->addToCart($payload);
             DB::commit();
             return true;
         } catch (\Exception $exception) {
@@ -75,7 +60,23 @@ class CartService implements CartServiceInterface
             return false;
         }
     }
+
+    // public function update($id, $request)
+    // {
+    //     DB::beginTransaction();
+    //     try {
+    //         $payload = $request->except(['_token']);
+    //         $response = $this->CartRepository->update($id, $payload);
+    //         DB::commit();
+    //         return true;
+    //     } catch (\Exception $exception) {
+    //         DB::rollBack();
+    //         echo $exception->getMessage();
+    //         return false;
+    //     }
+    // }
     
+    // cập nhật số lượng sản phẩm trong cart
     public function updateCart(Request $request)
     {
         DB::beginTransaction();
@@ -96,7 +97,7 @@ class CartService implements CartServiceInterface
     {
         DB::beginTransaction();
         try {
-            $user = $this->CartRepository->delete($id);
+            $this->CartRepository->delete($id);
             DB::commit();
             return true;
         } catch (\Exception $exception) {

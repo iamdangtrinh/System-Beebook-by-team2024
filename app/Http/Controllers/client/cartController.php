@@ -24,9 +24,7 @@ class cartController extends Controller
 
     public function index()
     {
-
         $result = $this->CartService->findCartByUser(20);
-
         return view('Client.cart', compact([
             'result'
         ]));
@@ -39,11 +37,7 @@ class cartController extends Controller
     public function store(Request $request)
     {
         $result = $this->CartService->create($request);
-        if ($result) {
-            return response()->json("Thành công");
-        } else {
-            return response()->json("thất bại");
-        }
+        return $result;
     }
 
     // tạo view hiển thị user

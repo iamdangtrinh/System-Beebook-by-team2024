@@ -13,8 +13,8 @@
         <!--End Page Title-->
         <div class="container">
             @if (count($result) !== 0)
-                <div class="row">
-                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 main-col">
+                <div class="row gutter">
+                    <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">
                         <div class="alert alert-success text-uppercase" role="alert">
                             <i class="icon anm anm-truck-l icon-large"></i> &nbsp;<strong>Congratulations!</strong> You've
                             got
@@ -100,7 +100,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 main-col">
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 main-col">
                         {{-- mã giảm giá --}}
                         <h5>Khuyến mãi</h5>
                         <form action="#" method="post">

@@ -45,7 +45,6 @@ class UserService implements UserServiceInterface
     {
         DB::beginTransaction();
         try {
-
             $payload = $request->except(['_token', 'send', 'repassword']);
             $payload['password'] = Hash::make($payload['password']);
             $user = $this->userRepository->create($payload);

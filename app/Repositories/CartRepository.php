@@ -22,6 +22,7 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
         return $carts = $this->model::all();
     }
 
+    // query cart
     public function findCart(array $column = ['*'], int $id_user = 0, $perpage = 20)
     {
         $query = $this->model
@@ -32,12 +33,29 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
         return $query;
     }
 
-    public function updateQuantityCart($payload) {
-
+    // cập nhật số lượng sản phẩm
+    public function updateQuantityCart(array $payload = [])
+    {
         $query = $this->model
-        ->where('id_user', '=', $payload['id_user'])
-        ->where('id_product', '=', $payload['id_product'])
-        ->update(['quantity' => (int)$payload['quantity']]);
+            ->where('id_user', '=', $payload['id_user'])
+            ->where('id_product', '=', $payload['id_product'])
+            ->update(['quantity' => (int)$payload['quantity']]);
         return $query;
+    }
+
+    public function addToCart($payload)
+    {
+        $userExist = $this->model
+            ->where('id_user', '=', $payload['id_user'])
+            ->where('id_product', '=', $payload['id_product'])
+            ->first();
+
+        if ($userExist) {
+            // $this->model->create($payload);
+            return "Cập nhật giỏ hàng thành công";
+        } else {
+                $this->model->create($payload);
+            return "thêm sản phẩm vào giỏ hàng thành công";
+        }
     }
 }

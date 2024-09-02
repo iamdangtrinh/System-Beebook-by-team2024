@@ -4,5 +4,6 @@ use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\client\cartController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/cart', [cartController::class, 'index'])->name('cart');
+Route::get('/cart', [cartController::class, 'index'])->name('cart.index');
 Route::post('/cart/update', [cartController::class, 'update'])->name('cart.update');
+Route::post('addtocart', [cartController::class, 'store'])->name('cart.add');

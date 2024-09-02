@@ -25,6 +25,4 @@ class cartModel extends Model
         return $this->belongsToMany(productModel::class, 'carts', 'id', 'id_product');
     }
 
-
-
 }
