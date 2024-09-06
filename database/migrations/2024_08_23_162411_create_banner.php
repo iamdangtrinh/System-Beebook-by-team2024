@@ -15,9 +15,6 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('image');
             $table->string('text_link')->nullable();
-            $table->string('text_title')->nullable();
-            $table->string('text_description')->nullable();
-            $table->string('text_button')->nullable();
             $table->unsignedTinyInteger('order');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();

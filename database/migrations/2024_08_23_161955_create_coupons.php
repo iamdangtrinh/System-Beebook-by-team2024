@@ -20,7 +20,6 @@ return new class extends Migration
             $table->decimal('coupon_min_spend', 15,0);
             $table->decimal('coupon_max_spend', 15,0);
             $table->decimal('discount', 15,0);
-            $table->tinyInteger('coupon_uses_per_customer')->comment("Số lần sử dụng tối đa mỗi khách hàng");
             $table->enum('type_coupon', ['percent', 'amount']);
             $table->integer('quantity')->comment("Số lần tối đa sử dụng coupon đó");
             $table->enum('status', ['active', 'inactive', 'expired'])->default('active');
