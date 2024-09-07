@@ -46,10 +46,9 @@ class CouponSeeder extends Seeder
                 'description' => $description,
                 'start_date' => now(),
                 'expires_at' => $expiresAt,
-                'coupon_min_spend' => $couponMinSpend,
-                'coupon_max_spend' => $couponMaxSpend,
-                'discount' => $discount,
-                'coupon_uses_per_customer' => rand(1, 5), // Random number of uses per customer between 1 and 5
+                'coupon_min_spend' => number_format($couponMinSpend, 0, '.', ''), // Ensure proper decimal format
+                'coupon_max_spend' => number_format($couponMaxSpend, 0, '.', ''), // Ensure proper decimal format
+                'discount' => number_format($discount, 0, '.', ''), // Ensure proper decimal format
                 'type_coupon' => $typeCoupon,
                 'quantity' => $quantity,
                 'status' => $status,
