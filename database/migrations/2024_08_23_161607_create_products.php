@@ -31,6 +31,11 @@ return new class extends Migration
             $table->date('end_sale')->nullable();
             $table->string('meta_seo')->nullable();
             $table->text('description_seo')->nullable();
+
+            $table->integer('year')->nullable();
+            $table->integer('weight')->nullable();
+            $table->string('language', 50)->nullable();
+
             $table->timestamps();
             $table->softDeletes(); // for deleted_at
 

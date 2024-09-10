@@ -24,6 +24,9 @@ return new class extends Migration
             $table->tinyInteger('hot')->default(0);
             $table->string('meta_title_seo', 100)->nullable();
             $table->string('meta_description_seo', 255)->nullable();
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
             $table->softDeletes();
         });
