@@ -30,7 +30,7 @@ class UsersSeeder extends Seeder
                 'phone' => substr($faker->phoneNumber, 0, 10),
                 'roles' => $faker->randomElement(['admin', 'customer']),
                 'status' => $faker->randomElement(['active', 'inactive']),
-                'image' => 'path/to/image' . $index . '.jpg',
+                'avatar' => 'path/to/image' . $index . '.jpg',
                 'facebook_id' => $faker->optional()->randomNumber(),
                 'google_id' => $faker->optional()->randomNumber(),
                 'address' => $faker->address,

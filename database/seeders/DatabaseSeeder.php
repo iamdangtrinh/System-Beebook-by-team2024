@@ -12,6 +12,7 @@ use Database\Seeders\TaxonomySeeder;
 use Database\Seeders\CategoryProductSeeder;
 use Database\Seeders\ProductsSeeder;
 use Database\Seeders\CouponSeeder;
+use Database\Seeders\UsersSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
             CategoryProductSeeder::class,
             ProductsSeeder::class,
             CouponSeeder::class,
+            UsersSeeder::class,
         ]);
     }
 }

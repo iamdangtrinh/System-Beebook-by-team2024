@@ -1,54 +1,56 @@
-<div class="container">
-    <div class="gif">
-        <img src="https://i.postimg.cc/2yrFyxKv/giphy.gif" alt="gif_ing" />
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Không tìm thấy nội dung</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            text-align: center;
+            padding: 40px 0;
+            background-color: #ffffff;
+        }
+        h1 {
+            font-size: 10rem;
+            background: linear-gradient(to right, #ff6565, #ffa849, #ffeb3b, #7fc9ff);
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            margin-bottom: 0;
+        }
+        .lead {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #000000;
+        }
+        p {
+            color: #666666;
+        }
+        .emoji {
+            font-size: 2rem;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .btn-primary {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>404</h1>
+        <p class="lead">Không tìm thấy nội dung <span class="emoji">😓</span></p>
+        <p>URL của nội dung này đã bị thay đổi hoặc không còn tồn tại.</p>
+        <p>Nếu bạn đang lưu URL này, hãy thử truy cập lại từ trang chủ thay vì dùng URL đã lưu.</p>
+        <a href="/" class="btn btn-primary">Về trang chủ</a>
     </div>
-    <div class="content">
-        <h1 class="main-heading">404</h1>
-        <h2>Trang không tồn tại</h2>
-        <p>
-            Có thể trang bạn đang tìm không được tìm thấy hoặc chưa từng tồn tại.
-        </p>
-        <a href="/">
-            <button>Về trang chủ <i class="far fa-hand-point-right"></i></button>
-        </a>
-    </div>
-</div>
-<style>
-    .container {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .gif {
-        display: flex;
-        justify-content: center;
-    }
-
-    .content {
-        text-align: center;
-        margin: 3rem 0;
-    }
-
-    .content .main-heading {
-        font-size: 2.5rem;
-        font-weight: 700;
-    }
-
-    p {
-        font-size: 1.3rem;
-        padding: 0.7rem 0;
-    }
-
-    button {
-        padding: 1rem;
-        border-radius: 15px;
-        outline: none;
-        border: none;
-        background: #0046d4;
-        color: #fff;
-        font-size: 1.3rem;
-        cursor: pointer;
-    }
-</style>
+</body>
+</html>
