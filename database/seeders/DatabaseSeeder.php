@@ -13,6 +13,7 @@ use Database\Seeders\CategoryProductSeeder;
 use Database\Seeders\ProductsSeeder;
 use Database\Seeders\CouponSeeder;
 use Database\Seeders\UsersSeeder;
+use Database\Seeders\PostSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
             ProductsSeeder::class,
             CouponSeeder::class,
             UsersSeeder::class,
+            PostSeeder::class,
         ]);
     }
 }

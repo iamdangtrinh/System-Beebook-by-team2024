@@ -141,6 +141,10 @@ class ProductsSeeder extends Seeder
                 'end_sale' => now()->addDays(rand(31, 60))->toDateString(),
                 'meta_seo' => $name,
                 'description_seo' => $name,
+                'year' => 2023,
+                'weight' => 200,
+                'language' => 'Tiếng anh',
+
                 'author' => $author,
                 'publisher' => $publisher,
                 'manufacturer' => $manufacturer,
