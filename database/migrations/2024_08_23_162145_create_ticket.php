@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('ticket', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('last_reply_user_id')->nullable();
+            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('last_reply_id_user')->nullable();
             $table->string('subject');
             $table->enum('priority', ['thấp', 'bình thường', 'cao']);
             $table->tinyInteger('status');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('last_reply_user_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('last_reply_id_user')->references('id')->on('users')->onDelete('set null');
         });
     }
 

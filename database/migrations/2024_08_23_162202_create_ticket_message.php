@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('ticket_message', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('ticket_id');
             $table->text('message');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('ticket_id')->references('id')->on('ticket')->onDelete('cascade');
         });
     }
