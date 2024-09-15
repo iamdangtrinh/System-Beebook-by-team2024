@@ -21,8 +21,8 @@ return new class extends Migration
             $table->unsignedInteger('sold')->default(0);
             $table->unsignedInteger('quantity')->default(0);
             $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->string('url_video')->nullable();
-            $table->string('image_cover')->nullable(); // hình ảnh sản phẩm;
+            $table->string('url_video', 50)->nullable();
+            $table->string('image_cover', 100)->nullable(); // hình ảnh sản phẩm;
             $table->unsignedInteger('views')->default(0);
             $table->decimal('price', 15, 0);
             $table->decimal('price_sale', 15, 0)->nullable();
