@@ -15,6 +15,7 @@ use Database\Seeders\CouponSeeder;
 use Database\Seeders\UsersSeeder;
 use Database\Seeders\PostSeeder;
 use Database\Seeders\WalletsSeeder;
+use Database\Seeders\Comments;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,6 +31,7 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             PostSeeder::class,
             WalletsSeeder::class,
+            Comments::class,
         ]);
     }
 }
