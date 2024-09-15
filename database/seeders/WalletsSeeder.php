@@ -20,7 +20,7 @@ class WalletsSeeder extends Seeder
         foreach ($users as $user) {
             DB::table('wallets')->insert([
                 'id_user'    => $user->id,
-                'amount'     => rand(100, 10000),  // Random số tiền cho ví
+                'amount'     => 0,  // Random số tiền cho ví
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
