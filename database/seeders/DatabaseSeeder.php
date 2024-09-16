@@ -16,6 +16,7 @@ use Database\Seeders\UsersSeeder;
 use Database\Seeders\PostSeeder;
 use Database\Seeders\WalletsSeeder;
 use Database\Seeders\Comments;
+use Database\Seeders\CartSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
             PostSeeder::class,
             WalletsSeeder::class,
             Comments::class,
+            CartSeeder::class,
         ]);
     }
 }
