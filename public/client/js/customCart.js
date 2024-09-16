@@ -39,10 +39,8 @@
             let _this = $(this);
             let idProduct = _this.closest('tr').find('.inputCheckCart').data('id-product');
 
-
             if (typeof Number($(this).val()) === 'string' && /[a-z]/i.test(Number($(this).val()))) {
                 _this.val(1)
-
                 let data = {
                     quantity: 1,
                     id_product: idProduct,
@@ -64,8 +62,13 @@
             }
 
             let quantity = Number($(this).val());
+            if (typeof quantity === 'number' && Number.isFinite(quantity)) {
+                DT.handlerAjax(quantity, idProduct, _this);
+            } else {
+                _this.val(1)
+                return toastr.error(`Số lượng sản phẩm phải là số.`)
+            }
 
-            DT.handlerAjax(quantity, idProduct, _this)
         })
     }
 

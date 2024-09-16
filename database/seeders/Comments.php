@@ -55,7 +55,7 @@ class Comments extends Seeder
         ];
 
         // Tạo 200 bình luận mẫu
-        for ($i = 0; $i < 9000000; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             DB::table('comments')->insert([
                 'id_product' => $faker->randomElement($productIds),
                 'id_user' => $faker->randomElement($userIds),
