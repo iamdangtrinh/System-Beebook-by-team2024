@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('last_reply_id_user')->nullable();
             $table->string('subject');
-            $table->enum('priority', ['thấp', 'bình thường', 'cao']);
+            $table->enum('priority', ['low', 'normal', 'high']);
             $table->tinyInteger('status');
             $table->timestamps();
 
