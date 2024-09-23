@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('last_reply_id_user')->nullable();
             $table->string('subject');
             $table->enum('priority', ['low', 'normal', 'high']);
-            $table->tinyInteger('status');
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');

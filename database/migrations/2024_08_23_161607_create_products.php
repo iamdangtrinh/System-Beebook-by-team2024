@@ -15,10 +15,9 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_image')->nullable();
             $table->unsignedBigInteger('id_category');
-            $table->string('name', 50);
+            $table->string('name');
             $table->longText('description');
-            $table->string('slug', 80)->unique();
-            $table->unsignedInteger('sold')->default(0);
+            $table->string('slug')->unique();
             $table->unsignedInteger('quantity')->default(0);
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->string('url_video', 50)->nullable();
@@ -27,8 +26,6 @@ return new class extends Migration
             $table->decimal('price', 15, 0);
             $table->decimal('price_sale', 15, 0)->nullable();
             $table->boolean('hot')->default(false);
-            $table->date('start_sale')->nullable();
-            $table->date('end_sale')->nullable();
             $table->string('meta_seo')->nullable();
             $table->text('description_seo')->nullable();
 

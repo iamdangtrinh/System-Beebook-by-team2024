@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_product');
             $table->string('product_key');
-            $table->text('product_value');
+            $table->text('product_value')->nullable();
             $table->timestamps();
 
             $table->foreign('id_product')->references('id')->on('products')->onDelete('cascade');

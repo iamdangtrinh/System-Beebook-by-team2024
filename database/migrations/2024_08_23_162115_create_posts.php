@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->enum('post_type', ['review', 'blog']);
-            $table->string('title', 50);
+            $table->string('title');
             $table->longText('content');
             $table->unsignedInteger('views')->default(0);
             $table->string('tags')->nullable();
             $table->string('image', 100)->nullable();
-            $table->string('slug', 50)->unique();
+            $table->string('slug');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->tinyInteger('hot')->default(0);
             $table->string('meta_title_seo', 100)->nullable();

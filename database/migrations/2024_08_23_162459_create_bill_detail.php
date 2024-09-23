@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_product');
             $table->unsignedBigInteger('id_bill');
             $table->string('name', 50);
+            $table->string('image_cover', 100)->nullable();
             $table->unsignedInteger('quantity');
             $table->decimal('price', 15, 0);
             $table->timestamps();

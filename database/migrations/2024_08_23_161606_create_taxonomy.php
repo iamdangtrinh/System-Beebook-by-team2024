@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->enum('type', ['author', 'manufacture', 'translator']);
             $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->timestamps();
             $table->softDeletes();
         });

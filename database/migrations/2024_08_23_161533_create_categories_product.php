@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('name', 50);
             $table->string('image', 100)->nullable();
-            $table->string('slug', 80)->unique();
+            $table->string('slug', 80);
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->tinyInteger('order');
             $table->bigInteger('parent_id')->unsigned()->nullable();

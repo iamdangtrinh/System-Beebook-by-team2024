@@ -22,7 +22,7 @@ return new class extends Migration
             $table->decimal('discount', 15,0);
             $table->enum('type_coupon', ['percent', 'amount']);
             $table->integer('quantity')->comment("Số lần tối đa sử dụng coupon đó");
-            $table->enum('status', ['active', 'inactive', 'expired'])->default('active');
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }
