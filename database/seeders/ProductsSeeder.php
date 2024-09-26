@@ -130,15 +130,12 @@ class ProductsSeeder extends Seeder
                 'description' => $name, // Tạo mô tả đơn giản
                 'slug' => $slug,
                 'status' => $status,
-                'sold' => rand(0, 100), // Số lượng bán ra ngẫu nhiên
                 'quantity' => rand(0, 1000), // Số lượng tồn kho ngẫu nhiên
                 'url_video' => null,
                 'views' => rand(0, 5000), // Số lượt xem ngẫu nhiên
                 'price' => rand(10000, 1000000) / 100, // Giá ngẫu nhiên
                 'price_sale' => rand(0, 1) ? rand(5000, 500000) / 100 : null, // Giá khuyến mãi ngẫu nhiên
                 'hot' => rand(0, 1) ? true : false,
-                'start_sale' => now()->addDays(rand(1, 30))->toDateString(),
-                'end_sale' => now()->addDays(rand(31, 60))->toDateString(),
                 'meta_seo' => $name,
                 'description_seo' => $name,
                 'year' => 2023,

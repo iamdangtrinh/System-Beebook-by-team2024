@@ -28,7 +28,7 @@ class UsersSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'phone' => substr($faker->phoneNumber, 0, 10),
-                'roles' => $faker->randomElement(['admin', 'customer','shop_manager','blog_manager']),
+                'roles' => $faker->randomElement(['admin', 'customer']),
                 'status' => $faker->randomElement(['active', 'inactive']),
                 'avatar' => 'path/to/image' . $index . '.jpg',
                 'facebook_id' => $faker->optional()->randomNumber(),

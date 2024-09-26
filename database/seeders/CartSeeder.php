@@ -32,10 +32,9 @@ class CartSeeder extends Seeder
             DB::table('carts')->insert([
                 'id_user' => $userId,
                 'id_product' => $product->id, // Store the product ID
-                'price' => number_format($price, 0, '.', ''), // Ensure proper decimal format
+                'price' => $price, // Ensure proper decimal format
                 'quantity' => $quantity,
                 'name' => $product->name, // Store the real product name
-                'image_cover' => null, // You can replace null with a default image if needed
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

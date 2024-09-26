@@ -16,7 +16,7 @@ class CouponSeeder extends Seeder
     {
         // Define coupon types
         $couponTypes = ['percent', 'amount']; // 'percent' = Percentage, 'amount' = Fixed Amount
-        $statuses = ['active', 'inactive', 'expired'];
+        $statuses = ['active', 'inactive'];
 
         // Define the number of coupons to create
         $numberOfCoupons = 100;
