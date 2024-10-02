@@ -59,3 +59,9 @@ jobs:
 
     - name: Run code style checks (optional)
       run: composer run-script check-style
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Check code style
+      run: npm run check-style
