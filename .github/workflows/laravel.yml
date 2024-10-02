@@ -36,7 +36,11 @@ jobs:
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
+<<<<<<< Updated upstream
         php-version: 8.2
+=======
+        php-version: 8.1
+>>>>>>> Stashed changes
         extensions: mbstring, intl, pdo, bcmath, gd, curl
         coverage: none
 
