@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  laravel-tests:
+  laravel-cicd:
 
     runs-on: ubuntu-latest
 
@@ -57,11 +57,13 @@ jobs:
     - name: Run PHPUnit tests
       run: vendor/bin/phpunit --testdox
 
+    - name: Login Docker Hub
+      uses: docker/login-action@v1
+      with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+
+    
+
     # - name: Run code style checks (optional)
     #   run: composer run-script check-style
-
-    # - name: Install dependencies
-    #   run: composer install --prefer-dist --no-progress --no-suggest
-
-    # - name: Check code style
-    #   run: npm run check-style
