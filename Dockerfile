@@ -1,48 +1,19 @@
-# version: '3.8'
-# update
-services:
-  app:
-    image: php:8.2-fpm
-    container_name: laravel_app
-    working_dir: /var/www
-    volumes:
-      - ./:/var/www
-      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
-    networks:
-      - laravel
+FROM php:8.2-fpm-alpine
 
-  webserver:
-    image: nginx:alpine
-    container_name: nginx_webserver
-    restart: unless-stopped
-    ports:
-      - "443:80"
-    volumes:
-      - ./:/var/www
-      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-    networks:
-      - laravel
-    depends_on:
-      - app
+WORKDIR /var/www/app
 
-  db:
-    image: mysql:8.0
-    container_name: mysql_db
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravel
-      MYSQL_USER: laraveluser
-      MYSQL_PASSWORD: laravelpass
-    ports:
-      - "3306:3306"
-    volumes:
-      - dbdata:/var/lib/mysql
-    networks:
-      - laravel
+RUN apk update && apk add \
+    curl \
+    libpng-dev \
+    libxml2-dev \
+    zip \
+    unzip
 
-volumes:
-  dbdata:
-  
-networks:
-  laravel:
-    driver: bridge
+RUN docker-php-ext-install pdo pdo_mysql \
+    && apk --no-cache add nodejs npm
+
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+USER root
+
+RUN chmod 777 -R /var/www/app
