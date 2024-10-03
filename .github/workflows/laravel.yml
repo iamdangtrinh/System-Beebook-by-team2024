@@ -12,7 +12,8 @@ jobs:
   laravel-cicd:
 
     runs-on: ubuntu-latest
-
+    env:
+      DOCKERHUB_USERNAME: dtrinhit
     services:
       mysql:
         image: mysql:8.0
