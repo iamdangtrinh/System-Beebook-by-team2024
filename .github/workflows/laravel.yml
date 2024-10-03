@@ -68,8 +68,8 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
-          context: ./app  # Đường dẫn đến thư mục chứa Dockerfile
-          file: ./app/Dockerfile  # Đường dẫn đến Dockerfile
+          context:   # Đường dẫn đến thư mục chứa Dockerfile
+          file: Dockerfile  # Đường dẫn đến Dockerfile
           push: true
           tags: ${{ env.DOCKERHUB_USERNAME }}/clockbox:latest
 
