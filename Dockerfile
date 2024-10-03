@@ -34,7 +34,7 @@ services:
       MYSQL_USER: laraveluser
       MYSQL_PASSWORD: laravelpass
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - dbdata:/var/lib/mysql
     networks:
