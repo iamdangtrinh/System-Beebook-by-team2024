@@ -13,7 +13,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      DOCKERHUB_USERNAME: dtrinhit
+      DOCKERHUB_USERNAME_ENV: dtrinhit
     services:
       mysql:
         image: mysql:8.0
@@ -71,7 +71,7 @@ jobs:
           context:   # Đường dẫn đến thư mục chứa Dockerfile
           file: Dockerfile  # Đường dẫn đến Dockerfile
           push: true
-          tags: ${{ env.DOCKERHUB_USERNAME }}/clockbox:latest
+          tags: ${{ env.DOCKERHUB_USERNAME_ENV }}/clockbox:latest
 
     
 
