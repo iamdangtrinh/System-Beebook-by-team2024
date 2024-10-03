@@ -1,6 +1,6 @@
 FROM php:8.2-fpm-alpine
 
-WORKDIR /app
+WORKDIR /
 
 RUN apk update && apk add \
     curl \
@@ -19,4 +19,4 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 USER root
 
-RUN chmod 777 -R /var/www/app
+RUN chmod 777 -R /
