@@ -12,8 +12,6 @@ jobs:
   laravel-cicd:
 
     runs-on: ubuntu-latest
-    env:
-      DOCKERHUB_USERNAME_ENV: dtrinhit
     services:
       mysql:
         image: mysql:8.0
@@ -71,7 +69,7 @@ jobs:
           context:   # Đường dẫn đến thư mục chứa Dockerfile
           file: Dockerfile  # Đường dẫn đến Dockerfile
           push: true
-
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/clockbox:latest
     
 
     # - name: Run code style checks (optional)

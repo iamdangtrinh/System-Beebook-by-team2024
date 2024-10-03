@@ -1,6 +1,6 @@
 FROM php:8.2-fpm-alpine
 
-WORKDIR /var/www/app
+WORKDIR /app
 
 RUN apk update && apk add \
     curl \
@@ -11,6 +11,9 @@ RUN apk update && apk add \
 
 RUN docker-php-ext-install pdo pdo_mysql \
     && apk --no-cache add nodejs npm
+
+# Stage 2: Serve the built app using Nginx
+FROM nginx:alpine
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
