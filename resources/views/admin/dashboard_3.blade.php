@@ -414,13 +414,10 @@
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             Nội dung
-                            <div class="box-image-finder">
-                                <img src="" alt="" class="show-image">
-
-                                <input type="text" name="image" class="form-control upload-image"
-                                    autocomplete="on" value="" data-upload="Images" id="image"
-                                    placeholder="">
-                            </div>
+                            <span class="image img-cover image-target">
+                                <img src="/no_image.jpg" class="img-fluid rounded-top" alt="" />
+                            </span>
+                            <input type="hidden" value="" name="image" class="url_image">
                         </div>
                     </div>
                 </div>
@@ -474,8 +471,8 @@
 
     <!-- ChartJS-->
     <script src="js/plugins/chartJs/Chart.min.js"></script>
-    <script src="/admin/ckfinder_2/ckfinder.js"></script>
-    <script src="/admin/lib/ckfinder.js"></script>
+    <script src="/admin/plugins/ckfinder_2/ckfinder.js"></script>
+    <script src="/admin/plugins/lib/ckfinder.js"></script>
 </body>
 
 </html>
