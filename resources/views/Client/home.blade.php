@@ -1088,6 +1088,7 @@
     <script src="{{ asset('/') }}client/js/popper.min.js"></script>
     <script src="{{ asset('/') }}client/js/lazysizes.js"></script>
     <script src="{{ asset('/') }}client/js/main.js"></script>
+
     <!--For Newsletter Popup-->
     <script>
         jQuery(document).ready(function() {
@@ -1095,27 +1096,6 @@
                 jQuery('#popup-container').fadeOut();
                 jQuery('#modalOverly').fadeOut();
             });
-
-            var visits = jQuery.cookie('visits') || 0;
-            visits++;
-            jQuery.cookie('visits', visits, {
-                expires: 1,
-                path: '/'
-            });
-            console.debug(jQuery.cookie('visits'));
-            if (jQuery.cookie('visits') > 1) {
-                jQuery('#modalOverly').hide();
-                jQuery('#popup-container').hide();
-            } else {
-                var pageHeight = jQuery(document).height();
-                jQuery('<div id="modalOverly"></div>').insertBefore('body');
-                jQuery('#modalOverly').css("height", pageHeight);
-                jQuery('#popup-container').show();
-            }
-            if (jQuery.cookie('noShowWelcome')) {
-                jQuery('#popup-container').hide();
-                jQuery('#active-popup').hide();
-            }
         });
 
         jQuery(document).mouseup(function(e) {

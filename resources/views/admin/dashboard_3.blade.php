@@ -414,6 +414,9 @@
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             Nội dung
+
+                            <textarea name="content" id="content" class="content" cols="30" rows="10"></textarea>
+
                             <span class="image img-cover image-target">
                                 <img src="/no_image.jpg" class="img-fluid rounded-top" alt="" />
                             </span>
@@ -471,8 +474,13 @@
 
     <!-- ChartJS-->
     <script src="js/plugins/chartJs/Chart.min.js"></script>
+
+    {{-- custom by dang trinh --}}
     <script src="/admin/plugins/ckfinder_2/ckfinder.js"></script>
-    <script src="/admin/plugins/lib/ckfinder.js"></script>
+
+    <script src="/admin/plugins/ckeditor/ckeditor.js"></script>
+
+    <script src="/admin/lib/ckfinder.js"></script>
 </body>
 
 </html>

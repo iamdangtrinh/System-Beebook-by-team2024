@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
+@php 
+define( 'CSS_VER', "1.0.0" );
+@endphp
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -12,18 +16,19 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('/') }}client/images/favicon.png" />
     <!-- Plugins CSS -->
-    <link rel="stylesheet" href="{{ asset('/') }}client/css/plugins.css?version=@php echo time() @endphp">
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/plugins.css?version=@php CSS_VER @endphp">
     <!-- Bootstap CSS -->
-    <link rel="stylesheet" href="{{ asset('/') }}client/css/bootstrap.min.css?version=@php echo time() @endphp">
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/bootstrap.min.css?version=@php CSS_VER @endphp">
     <!-- Main Style CSS -->
-    <link rel="stylesheet" href="{{ asset('/') }}client/css/style.css?version=@php echo time() @endphp">
-    <link rel="stylesheet" href="{{ asset('/') }}client/css/responsive.css?version=@php echo time() @endphp">
-    <link rel="stylesheet" href="{{ asset('/') }}client/css/custom_css.css?version=@php echo time() @endphp">
-
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/style.css?version=@php CSS_VER @endphp">
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/responsive.css?version=@php CSS_VER @endphp">
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/custom_css.css?version=@php CSS_VER @endphp">
+    
     {{-- toast message start by trinh --}}
     <script src="{{ asset('/') }}client/js/jquery.min.js"></script>
-    <link rel="stylesheet" href="{{ asset('/') }}client/js/lib/toastr.css?version=@php echo time() @endphp">
-    <script src="{{ asset('/') }}client/js/lib/toastr.js?version=@php echo time() @endphp"></script>
+    <link rel="stylesheet" href="{{ asset('/') }}client/js/lib/toastr.css?version=@php CSS_VER @endphp">
+    <script src="{{ asset('/') }}client/js/lib/toastr.js?version=@php CSS_VER @endphp"></script>
+    <script src="{{ asset('/') }}client/js/lib/sweetalert2.js?version=@php CSS_VER @endphp"></script>
     {{-- toast message end --}}
 
     {{-- swiper start --}}
@@ -42,9 +47,9 @@
         <!--Top Header-->
         <!--Top Header-->
         <div class="top-header">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
-                    <div class="col-10 col-sm-8 col-md-5 col-lg-4">
+                    <div class="col-10 col-sm-8 col-md-5 col-lg-8">
                         <div class="currency-picker">
                             <span class="selected-currency">USD</span>
                             <ul id="currencies">
@@ -86,7 +91,7 @@
         <!--End Top Header-->
         <!--Header-->
         <div class="header-wrap animated d-flex border-bottom">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row align-items-center">
                     <!--Desktop Logo-->
                     <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
