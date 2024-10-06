@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('id_image')->nullable();
             $table->unsignedBigInteger('id_category');
             $table->string('name');
             $table->longText('description');

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('phone', 10)->nullable();
+            $table->string('phone', 100)->nullable();
             $table->enum('roles', ['admin', 'customer'])->default('customer');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->string('avatar', 100)->nullable();
@@ -22,7 +22,6 @@ return new class extends Migration
             // $table->unsignedBigInteger('province_id')->nullable();
             // $table->unsignedBigInteger('ward_id')->nullable();
             $table->string('address', 255);
-            $table->date('birthday')->nullable();
             // $table->foreign('city_id')->references('id')->on('cities')->onDelete('set null');
             // $table->foreign('province_id')->references('id')->on('provinces')->onDelete('set null');
             // $table->foreign('ward_id')->references('id')->on('wards')->onDelete('set null');

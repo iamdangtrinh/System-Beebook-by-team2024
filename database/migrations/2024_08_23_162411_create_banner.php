@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('banner', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('image');
+            $table->string('type')->nullable();
             $table->string('text_link')->nullable();
             $table->unsignedTinyInteger('order');
             $table->enum('status', ['active', 'inactive'])->default('active');
