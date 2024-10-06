@@ -34,7 +34,6 @@ class UsersSeeder extends Seeder
                 'facebook_id' => $faker->optional()->randomNumber(),
                 'google_id' => $faker->optional()->randomNumber(),
                 'address' => $faker->address,
-                'birthday' => $faker->date('Y-m-d', '2000-01-01'),
             ]);
     }
 }

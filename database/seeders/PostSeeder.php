@@ -16,7 +16,7 @@ class PostSeeder extends Seeder
     {
         $postTypes = ['review', 'blog'];
         $statuses = ['active', 'inactive'];
-        $tags = ['Laravel', 'PHP', 'JavaScript', 'Vue.js', 'React'];
+        $tags = ['Sách khoa học', 'Tâm lý', 'Viễn tưởng', 'Phát triển bản thân'];
         
         for ($i = 0; $i < 100; $i++) {
             $title = 'Bài viết số ' . ($i + 1);

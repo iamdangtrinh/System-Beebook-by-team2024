@@ -34,7 +34,6 @@ class CartSeeder extends Seeder
                 'id_product' => $product->id, // Store the product ID
                 'price' => $price, // Ensure proper decimal format
                 'quantity' => $quantity,
-                'name' => $product->name, // Store the real product name
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
