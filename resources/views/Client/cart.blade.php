@@ -10,6 +10,13 @@
                 </div>
             </div>
         </div>
+
+        <pre>
+            @php
+                // dd($result);
+            @endphp
+        </pre>
+
         <!--End Page Title-->
         <div class="container">
             @if (count($result) !== 0)
@@ -17,8 +24,7 @@
                     <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">
                         <div class="alert alert-success text-uppercase" role="alert">
                             <i class="icon anm anm-truck-l icon-large"></i> &nbsp;<strong>Congratulations!</strong> You've
-                            got
-                            free shipping!
+                            got free shipping!
                         </div>
                         <div action="#" method="post" class="cart style2">
                             <table class="table table-bordered">
@@ -32,66 +38,89 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
-                                    @foreach ($result as $cart)
+                                    @foreach ($result as $cartItem)
                                         <tr class="cart__row border-bottom line1 cart-flex border-top">
                                             {{-- PRODUCTS --}}
+                                            @php
+                                                // Check if the user is authenticated
+                                                $isAuthenticated = Auth::user();
+                                                // Get cartProduct or use item details based on authentication
+                                                $products = $isAuthenticated ? $cartItem->cartProduct : [$cartItem];
+                                                $price = $isAuthenticated ? $cartItem->price : $cartItem['price'];
+                                                $quantity = $isAuthenticated
+                                                    ? $cartItem->quantity
+                                                    : $cartItem['quantity'];
+                                            @endphp
 
-                                            @foreach ($cart->cartProduct as $product)
+                                            @foreach ($products as $product)
                                                 <td class="text-center">
-                                                    <input class="inputCheckCart" data-price={{ $cart->price }}
-                                                        data-id-product={{ $product->id }}
-                                                        data-max-quantity={{ $product->quantity }}
-                                                        value="{{ $cart->id }}" id="id_cart" type="checkbox">
+                                                    <input class="inputCheckCart" data-price="{{ $price }}"
+                                                        data-id-product="{{ $isAuthenticated ? $product->id : $product['id'] }}"
+                                                        data-max-quantity="{{ $isAuthenticated ? $product->quantity : $product['quantity'] }}"
+                                                        value="{{ $isAuthenticated ? $cartItem->id : $product['id'] }}"
+                                                        id="id_cart" type="checkbox">
                                                 </td>
-                                                {{-- HÌnh ảnh và tên sản phẩm --}}
+
+                                                {{-- Product Image and Name --}}
                                                 <td class="cart__image-wrapper cart-flex-item">
-                                                    <a href="{{ $product->slug }}">
+                                                    <a href="{{ $isAuthenticated ? $product->slug : $product['slug'] }}">
                                                         <img class="cart__image"
-                                                            src="{{ $product->image_cover ? asset($product->image_cover) : asset('no_image.jpg') }}"
-                                                            alt="{{ $product->name }}">
+                                                            src="{{ $isAuthenticated ? ($product->image_cover ? asset($product->image_cover) : asset('no_image.jpg')) : ($product['image_cover'] ? asset($product['image_cover']) : asset('no_image.jpg')) }}"
+                                                            alt="{{ $isAuthenticated ? $product->name : $product['name'] }}">
                                                     </a>
                                                 </td>
+
                                                 <td class="cart__meta small--text-left cart-flex-item">
                                                     <div class="list-view-item__title name_product">
-                                                        <a href={{ $product->slug }}>
-                                                            {{ $product->name }}
+                                                        <a
+                                                            href="{{ $isAuthenticated ? $product->slug : $product['slug'] }}">
+                                                            {{ $isAuthenticated ? $product->name : $product['name'] }}
                                                         </a>
                                                     </div>
-                                                    <span
-                                                        class="price_product mt-2 fw-bold d-block">{{ number_format($cart->price, 0, '.', '.') }}
-                                                        đ</span>
+                                                    <span class="price_product mt-2 fw-bold d-block">
+                                                        {{ number_format($price, 0, '.', '.') }} đ
+                                                    </span>
                                                     <del>
-                                                        @if ($product->price != 0)
-                                                            {{ number_format($product->price, 0, '.', '.') }} đ
+                                                        @if (($isAuthenticated ? $product->price : $product['price']) != 0)
+                                                            {{ number_format($isAuthenticated ? $product->price : $product['price'], 0, '.', '.') }}
+                                                            đ
                                                         @endif
                                                     </del>
                                                 </td>
                                             @endforeach
+
+                                            {{-- Quantity Controls --}}
                                             <td class="cart__update-wrapper cart-flex-item text-right">
                                                 <div class="cart__qty text-center">
                                                     <div class="qtyField">
                                                         <button type="button" class="qtyBtn qtyBtnMinus minus"
-                                                            href="javascript:void(0);"><i
-                                                                class="icon icon-minus"></i></button>
-                                                        @foreach ($cart->cartProduct as $product)
-                                                            <input class="cart__qty-input qty" type="text" name="updates"
-                                                                id="qty" value="{{ $cart->quantity }}">
-                                                        @endforeach
+                                                            href="javascript:void(0);">
+                                                            <i class="icon icon-minus"></i>
+                                                        </button>
+                                                        <input class="cart__qty-input qty" type="text" name="updates"
+                                                            id="qty" value="{{ $quantity }}">
                                                         <button type="button" class="qtyBtn qtyBtnPlus plus"
-                                                            href="javascript:void(0);"><i
-                                                                class="icon icon-plus"></i></button>
+                                                            href="javascript:void(0);">
+                                                            <i class="icon icon-plus"></i>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </td>
+
+                                            {{-- Total Price --}}
                                             <td class="text-right cart-price">
-                                                <span class="money"
-                                                    priceTotal={{ $cart->price * $cart->quantity }}>{{ number_format($cart->price * $cart->quantity, 0, '.', '.') }}
-                                                    đ</span>
+                                                <span class="money" priceTotal="{{ $price * $quantity }}">
+                                                    {{ number_format($price * $quantity, 0, '.', '.') }} đ
+                                                </span>
                                             </td>
-                                            <td class="text-center"><a href="#"
-                                                    class="btn btn--secondary cart__remove" title="Remove tem"><i
-                                                        class="icon icon anm anm-times-l"></i></a></td>
+
+                                            {{-- Remove Button --}}
+                                            <td class="text-center">
+                                                <a href="#" class="btn btn--secondary cart__remove"
+                                                    title="Remove item">
+                                                    <i class="icon icon anm anm-times-l"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -100,6 +129,7 @@
                         </div>
                     </div>
 
+                    {{-- mã giảm giá --}}
                     <div class="col-12 col-sm-12 col-md-3 col-lg-3 main-col">
                         {{-- mã giảm giá --}}
                         <h5>Khuyến mãi</h5>
@@ -141,6 +171,7 @@
                             <p><a href="#;">Checkout with Multiple Addresses</a></p>
                         </div>
                     </div>
+                    {{-- mã giảm giá --}}
                 </div>
             @else
                 <div class="__custom_cart_empty">
@@ -310,12 +341,10 @@
     <script src="{{ asset('/') }}client/js/lazysizes.js"></script>
     <script src="{{ asset('/') }}client/js/main.js"></script>
     <script src="{{ asset('/') }}client/js/customCart.js"></script>
-    <script src="{{ asset('/') }}client/js/lib/toastr.js?version=@php echo time() @endphp"></script>
+    <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
 
     </div>
     </body>
-
-    <!-- belle/cart-variant1.html   11 Nov 2019 12:44:32 GMT -->
 
     </html>
 @endsection

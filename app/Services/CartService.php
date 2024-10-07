@@ -2,14 +2,13 @@
 
 namespace App\Services;
 
+use App\Models\productModel;
 use App\Services\Interfaces\CartServiceInterface;
-// use App\Models\User;
 use App\Repositories\Interfaces\CartRepositoryInterface as CartRepository;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Models\UserCatalogue;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class UserService
@@ -36,12 +35,37 @@ class CartService implements CartServiceInterface
 
     public function findCartByUser($perPage = 20)
     {
-        $cart = $this->CartRepository->findCart(
-            $this->paginateSelect(),
-            // id của user
-            1,
-            $perPage
-        );
+        if (Auth::user()) {
+            $cart = $this->CartRepository->findCart(
+                $this->paginateSelect(),
+                1,
+                $perPage
+            );
+        } else {
+            // Lấy giỏ hàng từ session
+            $carts = session()->get('cart', []);
+            // Khởi tạo mảng chứa các ID sản phẩm từ giỏ hàng
+            $proIdArr = array_column($carts, 'product_id');
+            // Truy vấn sản phẩm từ cơ sở dữ liệu dựa trên các product_id
+            $products = ProductModel::whereIn('id', $proIdArr)->get();
+            // Tạo một mảng để lưu kết hợp dữ liệu từ giỏ hàng và sản phẩm
+            $cart = [];
+            foreach ($products as $product) {
+                $productId = $product->id;
+                // Lấy thông tin từ session giỏ hàng dựa trên product_id
+                $sessionCartItem = $carts[$productId];
+                // Kết hợp dữ liệu của sản phẩm và giỏ hàng (giá và số lượng)
+                $cart[] = [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'image_cover' => $product->image_cover,
+                    'slug' => $product->slug,
+                    'quantity' => $sessionCartItem['quantity'], // Số lượng từ giỏ hàng
+                    'price' => $sessionCartItem['product_price'], // Giá từ giỏ hàng
+                ];
+            }
+        }
+
         return $cart;
     }
 
@@ -51,7 +75,32 @@ class CartService implements CartServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->except(['_token']);
-            return $response = $this->CartRepository->addToCart($payload);
+            if (Auth::user()) {
+                if (!$payload['id_product']) {
+                    abort(404);
+                }
+                $response = $this->CartRepository->addToCart($payload);
+            } else {
+                // kiểm tra giỏ hàng có tồn tại hay không
+                $cart = $request->session()->get('cart', []);
+                $productId = $payload['id_product'];
+                $quantityToAdd = $payload['quantity'];
+                $productPrice = $payload['price'];
+
+                // Cập nhật số lượng
+                if (isset($cart[$productId])) {
+                    $cart[$productId]['quantity'] += $quantityToAdd; // Cộng thêm số lượng mới
+                } else {
+                    // Nếu sản phẩm chưa có, thêm mới vào giỏ hàng
+                    $cart[$productId] = [
+                        'product_id' => $productId,
+                        'quantity' => $quantityToAdd,
+                        'product_price' => $productPrice,
+                    ];
+                }
+
+                session()->put('cart', $cart);
+            }
             DB::commit();
             return true;
         } catch (\Exception $exception) {
@@ -75,15 +124,19 @@ class CartService implements CartServiceInterface
     //         return false;
     //     }
     // }
-    
+
     // cập nhật số lượng sản phẩm trong cart
     public function updateCart(Request $request)
     {
         DB::beginTransaction();
         try {
-            $payload = $request->except(['_token']);
-            $payload['id_user'] = '1';
-            $response = $this->CartRepository->updateQuantityCart($payload);
+            if (Auth::user()) {
+                $payload = $request->except(['_token']);
+                $payload['id_user'] = '1';
+                $response = $this->CartRepository->updateQuantityCart($payload);
+            } else {
+                // cập nhật giỏ hàng khi chưa có đăng nhập
+            }
             DB::commit();
             return true;
         } catch (\Exception $exception) {

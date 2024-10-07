@@ -7,3 +7,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/cart', [cartController::class, 'index'])->name('cart.index');
 Route::post('/cart/update', [cartController::class, 'update'])->name('cart.update');
 Route::post('addtocart', [cartController::class, 'store'])->name('cart.add');
+
+Route::get('test', [cartController::class, 'viewcarttocart'])->name('cart.no.login');

@@ -5,10 +5,9 @@ namespace App\Http\Controllers\client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\cartRequest;
 use Illuminate\Http\Request;
-
 use App\Services\Interfaces\CartServiceInterface as CartService;
 use App\Repositories\Interfaces\CartRepositoryInterface as CartRepository;
-
+use Illuminate\Support\Facades\Session;
 
 class cartController extends Controller
 {
@@ -30,21 +29,23 @@ class cartController extends Controller
         ]));
     }
 
-    // tạo view user
+    // tạo view cart
     public function create() {}
 
-    //   tạo user
+    //   tạo giỏ hàng nếu có đăng nhạp
     public function store(Request $request)
     {
+        // nếu có đăng nhập
         $result = $this->CartService->create($request);
+        // nếu không có đăng nhập
         return $result;
     }
 
-    // tạo view hiển thị user
+    // tạo view hiển thị giỏ hàng
     public function edit($id)
     {
-        $user = $this->CartRepository->findById($id);
-        return response()->json($user);
+        $cart = $this->CartRepository->findById($id);
+        return response()->json($cart);
     }
 
     public function update(cartRequest $request)
@@ -60,30 +61,34 @@ class cartController extends Controller
 
     public function delete($id)
     {
-        $seo = config('apps.user.delete');
-        $user = $this->CartRepository->findById($id);
-        $template = 'backend.user.user.delete';
+        $seo = config('apps.cart.delete');
+        $cart = $this->CartRepository->findById($id);
+        $template = 'backend.cart.cart.delete';
         return view(
             'backend.dashboard.layout',
             compact(
                 'template',
                 'seo',
-                'user',
+                'cart',
             )
         );
     }
 
     public function deleteSoft($id)
     {
-        $seo = config('apps.user.delete');
-        $user = $this->CartRepository->delete($id);
+        $seo = config('apps.cart.delete');
+        $cart = $this->CartRepository->delete($id);
     }
 
     public function destroy($id)
     {
         if ($this->CartService->destroy($id)) {
-            return redirect()->route('user.index')->with('success', 'Delete user success');
+            return redirect()->route('cart.index')->with('success', 'Delete cart success');
         }
-        return redirect()->route('user.index')->with('error', 'Delete user error, please again');
+        return redirect()->route('cart.index')->with('error', 'Delete cart error, please again');
+    }
+
+    public function viewcarttocart() {
+        return view('addtocart');
     }
 }
