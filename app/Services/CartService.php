@@ -158,11 +158,23 @@ class CartService implements CartServiceInterface
         }
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         DB::beginTransaction();
         try {
-            $this->CartRepository->delete($id);
+            $payload = $request->except(['_token']);
+            $id_product = $payload['id_product'];
+            if (Auth::user()) {
+                $payload['id_user'] = '1';
+                // xóa khi có đăng nhập
+            } else {
+                $cart = $request->session()->get('cart', []);
+                // Xóa sản phẩm khỏi giỏ hàng
+                if (isset($cart[$id_product])) {
+                    unset($cart[$id_product]);
+                }
+                $request->session()->put('cart', $cart);
+            }
             DB::commit();
             return true;
         } catch (\Exception $exception) {

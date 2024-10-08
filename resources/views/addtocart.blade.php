@@ -10,7 +10,7 @@
 
 <body>
 
-    <form action={{ route('cart.add') }} method="post">
+    <form action={{ route('cart.store') }} method="post">
         @csrf
         <input type="text" value="2" name="id_product">
         <input type="text" value="200000" name="price">

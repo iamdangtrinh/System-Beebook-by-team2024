@@ -33,7 +33,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($result as $cartItem)
-                                        <tr class="cart__row border-bottom line1 cart-flex border-top">
+                                        <tr class="cartItem cart__row border-bottom line1 cart-flex border-top">
                                             {{-- PRODUCTS --}}
                                             @php
                                                 // Check if the user is authenticated
@@ -110,8 +110,8 @@
 
                                             {{-- Remove Button --}}
                                             <td class="text-center">
-                                                <a href="#" class="btn btn--secondary cart__remove"
-                                                    title="Remove item">
+                                                <a href="#" class="btn btn--secondary cart__remove removeProduct"
+                                                    title="">
                                                     <i class="icon icon anm anm-times-l"></i>
                                                 </a>
                                             </td>

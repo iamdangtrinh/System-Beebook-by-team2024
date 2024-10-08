@@ -59,19 +59,14 @@ class cartController extends Controller
         }
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
-        $seo = config('apps.cart.delete');
-        $cart = $this->CartRepository->findById($id);
-        $template = 'backend.cart.cart.delete';
-        return view(
-            'backend.dashboard.layout',
-            compact(
-                'template',
-                'seo',
-                'cart',
-            )
-        );
+        $result = $this->CartService->destroy($request);
+        if ($result) {
+            return "Xóa sản phẩm thành công!";
+        } else {
+            return "Xóa sản phẩm thất bại!";
+        }
     }
 
     public function deleteSoft($id)
@@ -88,7 +83,8 @@ class cartController extends Controller
         return redirect()->route('cart.index')->with('error', 'Delete cart error, please again');
     }
 
-    public function viewcarttocart() {
+    public function viewcarttocart()
+    {
         return view('addtocart');
     }
 }

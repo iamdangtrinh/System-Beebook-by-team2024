@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
-@php 
-define( 'CSS_VER', "1.0.0" );
+@php
+    define('CSS_VER', '1.0.0');
 @endphp
 
 <head>
@@ -23,11 +23,12 @@ define( 'CSS_VER', "1.0.0" );
     <link rel="stylesheet" href="{{ asset('/') }}client/css/style.css?version=@php CSS_VER @endphp">
     <link rel="stylesheet" href="{{ asset('/') }}client/css/responsive.css?version=@php CSS_VER @endphp">
     <link rel="stylesheet" href="{{ asset('/') }}client/css/custom_css.css?version=@php CSS_VER @endphp">
-    
+
     {{-- toast message start by trinh --}}
     <script src="{{ asset('/') }}client/js/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ asset('/') }}client/js/lib/toastr.css?version=@php CSS_VER @endphp">
     <script src="{{ asset('/') }}client/js/lib/toastr.js?version=@php CSS_VER @endphp"></script>
+    {{-- sweetalert2 --}}
     <script src="{{ asset('/') }}client/js/lib/sweetalert2.js?version=@php CSS_VER @endphp"></script>
     {{-- toast message end --}}
 
