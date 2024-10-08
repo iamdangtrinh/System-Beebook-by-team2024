@@ -60,6 +60,8 @@ class CartService implements CartServiceInterface
                     'name' => $product->name,
                     'image_cover' => $product->image_cover,
                     'slug' => $product->slug,
+                    'price_product' => $product->price, // Giá từ giỏ hàng
+                    'quantity_product' => $product->quantity, // Giá từ giỏ hàng
                     'quantity' => $sessionCartItem['quantity'], // Số lượng từ giỏ hàng
                     'price' => $sessionCartItem['product_price'], // Giá từ giỏ hàng
                 ];
@@ -110,32 +112,42 @@ class CartService implements CartServiceInterface
         }
     }
 
-    // public function update($id, $request)
-    // {
-    //     DB::beginTransaction();
-    //     try {
-    //         $payload = $request->except(['_token']);
-    //         $response = $this->CartRepository->update($id, $payload);
-    //         DB::commit();
-    //         return true;
-    //     } catch (\Exception $exception) {
-    //         DB::rollBack();
-    //         echo $exception->getMessage();
-    //         return false;
-    //     }
-    // }
+    public function update($id, $request)
+    {
+        //     DB::beginTransaction();
+        //     try {
+        //         $payload = $request->except(['_token']);
+        //         $response = $this->CartRepository->update($id, $payload);
+        //         DB::commit();
+        //         return true;
+        //     } catch (\Exception $exception) {
+        //         DB::rollBack();
+        //         echo $exception->getMessage();
+        //         return false;
+        //     }
+    }
 
     // cập nhật số lượng sản phẩm trong cart
     public function updateCart(Request $request)
     {
         DB::beginTransaction();
         try {
+            $payload = $request->except(['_token']);
             if (Auth::user()) {
-                $payload = $request->except(['_token']);
                 $payload['id_user'] = '1';
                 $response = $this->CartRepository->updateQuantityCart($payload);
             } else {
                 // cập nhật giỏ hàng khi chưa có đăng nhập
+                $cart = $request->session()->get('cart', []);
+                $productId = $payload['id_product'];
+                $quantityToAdd = $payload['quantity'];
+
+                // Cập nhật số lượng
+                if (isset($cart[$productId])) {
+                    $cart[$productId]['quantity'] = $quantityToAdd; // Cập nhật số lượng sản phẩm
+                }
+
+                session()->put('cart', $cart);
             }
             DB::commit();
             return true;

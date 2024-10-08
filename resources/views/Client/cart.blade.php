@@ -11,21 +11,15 @@
             </div>
         </div>
 
-        <pre>
-            @php
-                // dd($result);
-            @endphp
-        </pre>
-
         <!--End Page Title-->
         <div class="container">
             @if (count($result) !== 0)
                 <div class="row gutter">
                     <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">
-                        <div class="alert alert-success text-uppercase" role="alert">
+                        {{-- <div class="alert alert-success text-uppercase" role="alert">
                             <i class="icon anm anm-truck-l icon-large"></i> &nbsp;<strong>Congratulations!</strong> You've
                             got free shipping!
-                        </div>
+                        </div> --}}
                         <div action="#" method="post" class="cart style2">
                             <table class="table table-bordered">
                                 <thead class="cart__row cart__header">
@@ -56,7 +50,7 @@
                                                 <td class="text-center">
                                                     <input class="inputCheckCart" data-price="{{ $price }}"
                                                         data-id-product="{{ $isAuthenticated ? $product->id : $product['id'] }}"
-                                                        data-max-quantity="{{ $isAuthenticated ? $product->quantity : $product['quantity'] }}"
+                                                        data-max-quantity="{{ $isAuthenticated ? $product->quantity : $product['quantity_product'] }}"
                                                         value="{{ $isAuthenticated ? $cartItem->id : $product['id'] }}"
                                                         id="id_cart" type="checkbox">
                                                 </td>
@@ -82,7 +76,7 @@
                                                     </span>
                                                     <del>
                                                         @if (($isAuthenticated ? $product->price : $product['price']) != 0)
-                                                            {{ number_format($isAuthenticated ? $product->price : $product['price'], 0, '.', '.') }}
+                                                            {{ number_format($isAuthenticated ? $product->price : $product['price_product'], 0, '.', '.') }}
                                                             đ
                                                         @endif
                                                     </del>
