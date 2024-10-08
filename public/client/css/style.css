@@ -31,7 +31,6 @@ Table of Content:
 22. Categories List
 23. Pages
 24. Cart Pages
-25. Quick View
 26. Promotional Top Popup
 27. Image Banners
 28. Homepages Demo
@@ -47,7 +46,7 @@ Table of Content:
 /*======================================================================
   1. Google Fonts
 ========================================================================*/
-@import url('http://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,600,700&amp;display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,600,700&amp;display=swap');
 
 
 /*======================================================================
@@ -5534,48 +5533,6 @@ input.checkbox {
 .cart__meta-text {
   color: #a2a2a2;
   font-size: 12px;
-}
-
-/*======================================================================
-  25. Quick View
-========================================================================*/
-#content_quickview.modal {
-  top: 8%;
-}
-
-#content_quickview .modal-dialog {
-  max-width: 800px;
-  background-color: #fff;
-  padding: 25px;
-}
-
-#content_quickview .modal-body {
-  border: 0;
-  padding: 0;
-}
-
-#content_quickview .modal-content {
-  border: 0;
-}
-
-#content_quickview .model-close-btn {
-  width: 30px;
-  height: 30px;
-  line-height: 32px;
-  position: absolute;
-  top: -23px;
-  right: -20px;
-  cursor: pointer;
-  text-align: center;
-}
-
-.modal-open {
-  padding-right: 0 !important;
-}
-
-.modal-open .modal {
-  padding-right: 0 !important;
-  overflow: hidden;
 }
 
 /*======================================================================

@@ -123,4 +123,21 @@ a {
     font-size: 20px;
 }
 
-.top-header .container .row 
+.cart__remove {
+
+}
+
+.cart__image {
+    min-width: 120px;
+    border-radius: 6px;
+}
+
+@media only screen and (max-width: 767px) {
+    .cart__qty {
+        width: 100;
+    }
+
+    .title_coupon {
+        margin-top: 20px;
+    }
+}

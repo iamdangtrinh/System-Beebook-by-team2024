@@ -239,12 +239,6 @@
                         success: function (response) {
                             console.log(response);
                         },
-                        error: function (error) {
-                            console.log("====================================");
-                            console.log(error);
-                            console.log("====================================");
-                        },
-                        complete: function () {},
                     });
 
                     Swal.fire({
@@ -252,6 +246,7 @@
                         text: "Sản phẩm của bạn đã bị xóa.",
                         icon: "success",
                     });
+                    DT.updateTotalAmount();
                 }
             });
         });

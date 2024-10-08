@@ -11,25 +11,24 @@
     <meta name="csrf_token" content="{{ csrf_token() }}" />
     <title>@yield('title') </title>
 
-    <meta name="description" content="description">
+    <meta name="description" content="Sách tiếng Việt - Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('/') }}client/images/favicon.png" />
     <!-- Plugins CSS -->
-    <link rel="stylesheet" href="{{ asset('/') }}client/css/plugins.css?version=@php CSS_VER @endphp">
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/plugins.css?ver=@php echo CSS_VER @endphp">
     <!-- Bootstap CSS -->
-    <link rel="stylesheet" href="{{ asset('/') }}client/css/bootstrap.min.css?version=@php CSS_VER @endphp">
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/bootstrap.min.css?ver=@php echo CSS_VER @endphp">
     <!-- Main Style CSS -->
-    <link rel="stylesheet" href="{{ asset('/') }}client/css/style.css?version=@php CSS_VER @endphp">
-    <link rel="stylesheet" href="{{ asset('/') }}client/css/responsive.css?version=@php CSS_VER @endphp">
-    <link rel="stylesheet" href="{{ asset('/') }}client/css/custom_css.css?version=@php CSS_VER @endphp">
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/style.css?ver=@php echo CSS_VER @endphp">
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/responsive.css?ver=@php echo CSS_VER @endphp">
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/custom_css.css?ver=@php echo CSS_VER @endphp">
 
     {{-- toast message start by trinh --}}
     <script src="{{ asset('/') }}client/js/jquery.min.js"></script>
-    <link rel="stylesheet" href="{{ asset('/') }}client/js/lib/toastr.css?version=@php CSS_VER @endphp">
-    <script src="{{ asset('/') }}client/js/lib/toastr.js?version=@php CSS_VER @endphp"></script>
+    <link rel="stylesheet" href="{{ asset('/') }}client/js/lib/toastr.css?ver=@php echo CSS_VER @endphp">
+    <script src="{{ asset('/') }}client/js/lib/toastr.js?ver=@php echo CSS_VER @endphp"></script>
     {{-- sweetalert2 --}}
-    <script src="{{ asset('/') }}client/js/lib/sweetalert2.js?version=@php CSS_VER @endphp"></script>
+    <script src="{{ asset('/') }}client/js/lib/sweetalert2.js?ver=@php echo CSS_VER @endphp"></script>
     {{-- toast message end --}}
 
     {{-- swiper start --}}
@@ -45,7 +44,6 @@
 
 <body class="template belle">
     <div class="pageWrapper">
-        <!--Top Header-->
         <!--Top Header-->
         <div class="top-header">
             <div class="container">

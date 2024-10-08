@@ -292,7 +292,7 @@
 	.template-blog .mini-list-item .mini-view_image { width:80px; }
 	.template-blog .mini-list-item .details { margin-left:0; }
 	
-	.cart thead, .cart-price, .cart .cart__update-wrapper { display:none; padding-top:0; padding-bottom:15px; }
+	/* .cart thead, .cart-price, .cart .cart__update-wrapper { display:none; padding-top:0; padding-bottom:15px; } */
 	.cart .small--hide { display:none; }
 	.cart tr, .cart tbody { width:100%; display:table; } 
 	.cart tbody { display:block; }

@@ -1,4 +1,6 @@
+<title>@yield('title', 'Giỏ hàng')</title>
 @extends('Client.components.header')
+
 @section('body')
     <!--Body Content-->
     <div id="page-content">
@@ -20,25 +22,23 @@
                             <i class="icon anm anm-truck-l icon-large"></i> &nbsp;<strong>Congratulations!</strong> You've
                             got free shipping!
                         </div> --}}
-                        <div action="#" method="post" class="cart style2">
-                            <table class="table table-bordered">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" style="white-space: nowrap;">
                                 <thead class="cart__row cart__header">
                                     <tr>
                                         <th class="text-center"><input type="checkbox" name="checkAll" id="checkAll"></th>
                                         <th colspan="2">Sản phẩm</th>
-                                        <th class="text-right">Số lượng</th>
-                                        <th class="text-right">Tổng tiền</th>
+                                        <th class="text-center">Số lượng</th>
+                                        <th class="text-center">Tổng tiền</th>
                                         <th class="action"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($result as $cartItem)
-                                        <tr class="cartItem cart__row border-bottom line1 cart-flex border-top">
-                                            {{-- PRODUCTS --}}
+                                        <tr class="cartItem cart__row border-bottom border-top">
+                                            {{-- data pro --}}
                                             @php
-                                                // Check if the user is authenticated
                                                 $isAuthenticated = Auth::user();
-                                                // Get cartProduct or use item details based on authentication
                                                 $products = $isAuthenticated ? $cartItem->cartProduct : [$cartItem];
                                                 $price = $isAuthenticated ? $cartItem->price : $cartItem['price'];
                                                 $quantity = $isAuthenticated
@@ -55,7 +55,7 @@
                                                         id="id_cart" type="checkbox">
                                                 </td>
 
-                                                {{-- Product Image and Name --}}
+                                                {{-- Hình ảnh và tên --}}
                                                 <td class="cart__image-wrapper cart-flex-item">
                                                     <a href="{{ $isAuthenticated ? $product->slug : $product['slug'] }}">
                                                         <img class="cart__image"
@@ -83,8 +83,8 @@
                                                 </td>
                                             @endforeach
 
-                                            {{-- Quantity Controls --}}
-                                            <td class="cart__update-wrapper cart-flex-item text-right">
+                                            {{-- Số lượng sản phẩm --}}
+                                            <td class="cart__update-wrapper cart-flex-item text-center">
                                                 <div class="cart__qty text-center">
                                                     <div class="qtyField">
                                                         <button type="button" class="qtyBtn qtyBtnMinus minus"
@@ -101,32 +101,31 @@
                                                 </div>
                                             </td>
 
-                                            {{-- Total Price --}}
+                                            {{-- Tổng tiền --}}
                                             <td class="text-right cart-price">
                                                 <span class="money" priceTotal="{{ $price * $quantity }}">
                                                     {{ number_format($price * $quantity, 0, '.', '.') }} đ
                                                 </span>
                                             </td>
 
-                                            {{-- Remove Button --}}
+                                            {{-- Xóa sản phẩm --}}
                                             <td class="text-center">
-                                                <a href="#" class="btn btn--secondary cart__remove removeProduct"
-                                                    title="">
+                                                <a href="#" class="btn cart__remove removeProduct" title="">
                                                     <i class="icon icon anm anm-times-l"></i>
                                                 </a>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
-
                             </table>
                         </div>
                     </div>
+                    {{-- </div> --}}
 
                     {{-- mã giảm giá --}}
                     <div class="col-12 col-sm-12 col-md-3 col-lg-3 main-col">
                         {{-- mã giảm giá --}}
-                        <h5>Khuyến mãi</h5>
+                        <h5 class="title_coupon">Khuyến mãi</h5>
                         <form action="#" method="post">
                             <div class="form-group">
                                 <label for="address_zip">Enter your coupon code if you have one.</label>
