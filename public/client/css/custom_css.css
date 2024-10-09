@@ -1,5 +1,4 @@
-html {
-}
+html {}
 
 /* swiper slide start */
 swiper {
@@ -83,6 +82,7 @@ swiper {
 .categorySlide .swiper-slide {
     background-color: transparent;
 }
+
 .categorySlide .swiper-slide a {
     font-size: 14px;
     font-weight: 500;
@@ -108,7 +108,7 @@ a {
 }
 
 /* cart */
-.name_product a{
+.name_product a {
     color: #000 !important;
 }
 
@@ -123,13 +123,15 @@ a {
     font-size: 20px;
 }
 
-.cart__remove {
-
-}
+.cart__remove {}
 
 .cart__image {
     min-width: 120px;
     border-radius: 6px;
+}
+
+.qtyField .qty {
+    width: 40px;
 }
 
 @media only screen and (max-width: 767px) {

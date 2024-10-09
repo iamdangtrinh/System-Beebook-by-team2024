@@ -183,6 +183,7 @@
         });
     };
 
+    // cập nhật số lượng sản phẩm
     DT.updateTotalAmount = () => {
         const updateSubtotal = () => {
             let subTotal = 0;
@@ -199,12 +200,11 @@
         updateSubtotal();
     };
 
+    // xóa sản phẩm trong giỏ hàng
     DT.removeProductCart = () => {
         $(".removeProduct").click(function (e) {
             e.preventDefault();
             const _this = $(this);
-
-            console.log(_this);
 
             Swal.fire({
                 title: "Xác nhận xóa?",
@@ -222,9 +222,14 @@
                         .closest(".cartItem")
                         .find(".inputCheckCart")
                         .val();
+                    let id_cart = _this
+                        .closest(".cartItem")
+                        .find(".inputCheckCart")
+                        .data('id-cart');
 
                     let data = {
                         id_product,
+                        id_cart
                     };
 
                     $.ajax({
@@ -235,9 +240,6 @@
                             "X-CSRF-TOKEN": $('meta[name="csrf_token"]').attr(
                                 "content"
                             ),
-                        },
-                        success: function (response) {
-                            console.log(response);
                         },
                     });
 

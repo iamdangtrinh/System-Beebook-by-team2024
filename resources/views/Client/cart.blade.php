@@ -36,21 +36,22 @@
                                 <tbody>
                                     @foreach ($result as $cartItem)
                                         <tr class="cartItem cart__row border-bottom border-top">
-                                            {{-- data pro --}}
+                                            {{-- sản phẩm --}}
                                             @php
                                                 $isAuthenticated = Auth::user();
-                                                $products = $isAuthenticated ? $cartItem->cartProduct : [$cartItem];
+                                                $products = true ? $cartItem->cartProduct : [$cartItem];
                                                 $price = $isAuthenticated ? $cartItem->price : $cartItem['price'];
-                                                $quantity = $isAuthenticated
-                                                    ? $cartItem->quantity
-                                                    : $cartItem['quantity'];
+                                                $quantity = $isAuthenticated ? $cartItem->quantity : $cartItem['quantity'];
+                                                $idCart = $cartItem->id;
                                             @endphp
+
 
                                             @foreach ($products as $product)
                                                 <td class="text-center">
                                                     <input class="inputCheckCart" data-price="{{ $price }}"
                                                         data-id-product="{{ $isAuthenticated ? $product->id : $product['id'] }}"
-                                                        data-max-quantity="{{ $isAuthenticated ? $product->quantity : $product['quantity_product'] }}"
+                                                        data-max-quantity="{{ true ? $product->quantity : $product['quantity_product'] }}"
+                                                        data-id-cart="{{ true ? $idCart : 0 }}"
                                                         value="{{ $isAuthenticated ? $cartItem->id : $product['id'] }}"
                                                         id="id_cart" type="checkbox">
                                                 </td>
