@@ -1,15 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
-namespace App\Models\productModel;
+namespace App\Models;
+namespace App\Http\Controllers\client;
+use App\Http\Controllers\Controller;
+use App\Models\Product;
 
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index($slug)
+    public function index()
     {
-        $product = productModel::where('slug', $slug)->firstOrFail();;
+        //
+    }
+    public function detail($slug)
+    {
+        $product = Product::where('slug', $slug)->firstOrFail();
+        dd($product);
         return view('Client.productdetail', compact([
             'product'
         ]));
