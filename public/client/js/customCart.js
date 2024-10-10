@@ -185,19 +185,17 @@
 
     // cập nhật số lượng sản phẩm
     DT.updateTotalAmount = () => {
-        const updateSubtotal = () => {
-            let subTotal = 0;
-            $("input.inputCheckCart:checked").each(function () {
-                let price = $(this)
-                    .closest("tr")
-                    .find(".money")
-                    .attr("pricetotal");
-                subTotal += Number(price) || 0;
-            });
-            jQuery(".subTotal").html(subTotal.toLocaleString("vi-VN") + " đ");
-            jQuery(".money").html(subTotal.toLocaleString("vi-VN") + " đ");
-        };
-        jQuery(".inputCheckCart").on("click", updateSubtotal);
+        jQuery(".inputCheckCart").on("click", DT.updateSubtotal());
+    };
+
+    DT.updateSubtotal = () => {
+        let subTotal = 0;
+        $("input.inputCheckCart:checked").each(function () {
+            let price = $(this).closest("tr").find(".money").attr("pricetotal");
+            subTotal += Number(price) || 0;
+        });
+        jQuery(".subTotal").html(subTotal.toLocaleString("vi-VN") + " đ");
+        jQuery(".money").html(subTotal.toLocaleString("vi-VN") + " đ");
     };
 
     // xóa sản phẩm trong giỏ hàng
@@ -205,6 +203,12 @@
         $(".removeProduct").click(function (e) {
             e.preventDefault();
             const _this = $(this);
+
+            Swal.fire({
+                title: "The Internet?",
+                text: "That thing is still around?",
+                icon: "question",
+            });
 
             Swal.fire({
                 title: "Xác nhận xóa?",
@@ -256,19 +260,20 @@
 
     // check box code
     DT.checkAllInput = () => {
-        const $checkAll = $("#checkAll");
-        const $inputChecks = $("input.inputCheckCart:checkbox");
+        const checkAll = $("#checkAll");
+        const inputChecks = $("input.inputCheckCart:checkbox");
 
-        $checkAll.on("click", function () {
+        checkAll.on("click", function () {
             const isChecked = this.checked;
-            $inputChecks.prop("checked", isChecked);
-            DT.updateTotalAmount();
+            inputChecks.prop("checked", isChecked);
+            DT.updateSubtotal();
         });
 
-        $inputChecks.on("click", function () {
+        inputChecks.on("click", function () {
             const allChecked =
-                $inputChecks.length === $inputChecks.filter(":checked").length;
-            $checkAll.prop("checked", allChecked);
+                inputChecks.length === inputChecks.filter(":checked").length;
+            checkAll.prop("checked", allChecked);
+            DT.updateSubtotal();
         });
     };
 
@@ -286,21 +291,17 @@
         //     // DT.setCookie("productChecked", productChecked, 1);
         // });
 
-        $('#cartCheckout').on('click', function() {
+        $("#cartCheckout").on("click", function () {
             let productChecked = [];
 
-            $('input.inputCheckCart:checked').each(function() {
+            $("input.inputCheckCart:checked").each(function () {
                 let _this = $(this);
-                const productName = _this.closest('tr').find('.name_product').text().trim();
-                const productQty = _this.closest('tr').find('.cart__qty-input').val();
-                productChecked.push(`${_this.val()}, ${productName}, ${productQty}`);
+                
+                productChecked.push(`${_this.val()}`);
             });
             console.log(productChecked);
-             DT.setCookie("productChecked", productChecked, 1);
-            
-        })
-
-        // console.log(atob(DT.getCookie("productChecked")));
+            DT.setCookie("productChecked", productChecked, 1);
+        });
     };
 
     // Lấy cookie
@@ -314,7 +315,7 @@
     DT.setCookie = (cookiename, cookievalue, exdays) => {
         const exdate = new Date();
         exdate.setDate(exdate.getDate() + exdays);
-        const c_value = JSON.stringify(cookievalue) + `; expires=${exdate.toUTCString()}`;
+        const c_value = btoa(cookievalue) + `; expires=${exdate.toUTCString()}`;
         document.cookie = `${cookiename}=${c_value}; path=/`;
     };
 

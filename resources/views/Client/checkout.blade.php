@@ -2,17 +2,22 @@
 @extends('Client.components.header')
 
 @php
-    $products = json_decode($_COOKIE['productChecked']);
+    use App\Models\Product;
+    $productId = isset($_COOKIE['productChecked']) ? base64_decode($_COOKIE['productChecked']) : '';
+    $productIds = array_filter(explode(',', $productId));
+    $products = Product::whereIn('id', $productIds)->get();
 
-    $productArray = [];
-    foreach ($products as $key => $value) {
-        $productArray = explode(', ', $value);
+    $subTotal = 0;
+
+    foreach ($products as $product) {
+        if ($product->price_sale !== null) {
+            $subTotal += $product->price_sale;
+        } else {
+            $subTotal += $product->price;
+        }
     }
 
-    var_dump($productArray)
-
 @endphp
-
 
 @section('body')
     <style>
@@ -33,12 +38,23 @@
             color: #fff;
             background: #CE2626;
             font-weight: bold;
+            border-radius: 6px 6px 0 0;
         }
 
         .__custom_image {
             border-radius: 6px;
-            width: 100px;
+            width: 110px;
+            border: 2px solid #ddd;
         }
+
+        .your-order-payment {
+            border-radius: 0 0 6px 6px;
+        }
+
+        .checkout {
+            border-radius: 6px
+        }
+        
     </style>
 
     <!--Page Title-->
@@ -109,27 +125,31 @@
                     <div class="your-order">
 
                         <ul class="list_order">
-                            {{-- @foreach ($products as $product)
-                                <li class="item_checkout d-flex align-items-start">
-                                    <img class="__custom_image" width="80px" src="/no_image.jpg" alt="tên sản phẩm">
-                                    <p class="__name_product_checkout"><span class="d-block w-75">{{$product['1']}}</span></p>
-                                    <span>350.00 đ</span>
+                            @foreach ($products as $product)
+                                <li class="item_checkout mb-3 d-flex align-items-start">
+                                    <img class="__custom_image" width="80px"
+                                        src="{{ $product->image_cover ? $product->image_cover : '/no_image.jpg' }}"
+                                        alt="{{ $product->name }}">
+                                    <p class="__name_product_checkout"><span
+                                            class="d-block w-75">{{ $product->name }}</span></p>
+                                    <span>{{ number_format($product->price_sale !== null ? $product->price_sale : $product->sale, '0', '.', '.') }}
+                                        đ</span>
                                 </li>
-                            @endforeach --}}
+                            @endforeach
                         </ul>
-
                     </div>
 
                     <div class="total">
-                        <div class="row border-bottom pb-2">
+                        <div class="row border-bottom mb-3">
                             <span class="col-12 col-sm-6 cart__subtotal-title">Tạm tính:</span>
-                            <span class="col-12 col-sm-6 text-right"><span id="subTotal">0 đ</span></span>
+                            <span class="col-12 col-sm-6 text-right"><span
+                                    id="subTotal">{{ number_format($subTotal, '0', '.', '.') }} đ</span></span>
                         </div>
-                        <div class="row border-bottom pb-2">
+                        <div class="row border-bottom mb-3">
                             <span class="col-12 col-sm-6 cart__subtotal-title">Phí vận chuyển:</span>
                             <span class="col-12 col-sm-6 text-right"><span id="freeShipping">0 đ</span></span>
                         </div>
-                        <div class="row border-bottom pb-2">
+                        <div class="row border-bottom mb-3">
                             <span class="col-12 col-sm-6 cart__subtotal-title">Tổng tiền:</span>
                             <span class="col-12 col-sm-6 text-right"><span id="totalAmout">0 đ</span></span>
                         </div>
@@ -171,8 +191,9 @@
                                     </div>
                                     <div class="card mb-2">
                                         <div class="card-header">
-                                            <a class="collapsed card-link" data-bs-toggle="collapse" href="#collapseThree"
-                                                role="button" aria-expanded="false" aria-controls="collapseThree">
+                                            <a class="collapsed card-link" data-bs-toggle="collapse"
+                                                href="#collapseThree" role="button" aria-expanded="false"
+                                                aria-controls="collapseThree">
                                                 PayPal
                                             </a>
                                         </div>
