@@ -37,4 +37,10 @@ class ClientController extends Controller
     {
         return view('Client.shortdescription');
     }
+
+    // by dang trinh
+    public function checkOut()
+    {
+        return view('Client.checkout');
+    }
 }

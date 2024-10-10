@@ -17,9 +17,11 @@ use Illuminate\Support\Facades\Auth;
 class CartService implements CartServiceInterface
 {
     protected $CartRepository;
+    private $isAuthenticated;
     public function __construct(CartRepository $CartRepository)
     {
         $this->CartRepository = $CartRepository;
+        $this->isAuthenticated = Auth::user();
     }
 
     private function paginateSelect()
@@ -35,38 +37,38 @@ class CartService implements CartServiceInterface
 
     public function findCartByUser($perPage = 20)
     {
-        // if (Auth::user()) {
-        $cart = $this->CartRepository->findCart(
-            $this->paginateSelect(),
-            1,
-            $perPage
-        );
-        // } else {
-        //     // Lấy giỏ hàng từ session
-        //     $carts = session()->get('cart', []);
-        //     // Khởi tạo mảng chứa các ID sản phẩm từ giỏ hàng
-        //     $proIdArr = array_column($carts, 'product_id');
-        //     // Truy vấn sản phẩm từ cơ sở dữ liệu dựa trên các product_id
-        //     $products = ProductModel::whereIn('id', $proIdArr)->get();
-        //     // Tạo một mảng để lưu kết hợp dữ liệu từ giỏ hàng và sản phẩm
-        //     $cart = [];
-        //     foreach ($products as $product) {
-        //         $productId = $product->id;
-        //         // Lấy thông tin từ session giỏ hàng dựa trên product_id
-        //         $sessionCartItem = $carts[$productId];
-        //         // Kết hợp dữ liệu của sản phẩm và giỏ hàng (giá và số lượng)
-        //         $cart[] = [
-        //             'id' => $product->id,
-        //             'name' => $product->name,
-        //             'image_cover' => $product->image_cover,
-        //             'slug' => $product->slug,
-        //             'price_product' => $product->price, // Giá từ giỏ hàng
-        //             'quantity_product' => $product->quantity, // Giá từ giỏ hàng
-        //             'quantity' => $sessionCartItem['quantity'], // Số lượng từ giỏ hàng
-        //             'price' => $sessionCartItem['product_price'], // Giá từ giỏ hàng
-        //         ];
-        //     }
-        // }
+        if ($this->isAuthenticated) {
+            $cart = $this->CartRepository->findCart(
+                $this->paginateSelect(),
+                1,
+                $perPage
+            );
+        } else {
+            // Lấy giỏ hàng từ session
+            $carts = session()->get('cart', []);
+            // Khởi tạo mảng chứa các ID sản phẩm từ giỏ hàng
+            $proIdArr = array_column($carts, 'product_id');
+            // Truy vấn sản phẩm từ cơ sở dữ liệu dựa trên các product_id
+            $products = ProductModel::whereIn('id', $proIdArr)->get();
+            // Tạo một mảng để lưu kết hợp dữ liệu từ giỏ hàng và sản phẩm
+            $cart = [];
+            foreach ($products as $product) {
+                $productId = $product->id;
+                // Lấy thông tin từ session giỏ hàng dựa trên product_id
+                $sessionCartItem = $carts[$productId];
+                // Kết hợp dữ liệu của sản phẩm và giỏ hàng (giá và số lượng)
+                $cart[] = [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'image_cover' => $product->image_cover,
+                    'slug' => $product->slug,
+                    'price_product' => $product->price, // Giá từ giỏ hàng
+                    'quantity_product' => $product->quantity, // Giá từ giỏ hàng
+                    'quantity' => $sessionCartItem['quantity'], // Số lượng từ giỏ hàng
+                    'price' => $sessionCartItem['product_price'], // Giá từ giỏ hàng
+                ];
+            }
+        }
 
         return $cart;
     }
@@ -77,7 +79,7 @@ class CartService implements CartServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->except(['_token']);
-            if (Auth::user()) {
+            if ($this->isAuthenticated) {
                 if (!$payload['id_product']) {
                     abort(404);
                 }
@@ -133,7 +135,7 @@ class CartService implements CartServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->except(['_token']);
-            if (Auth::user()) {
+            if ($this->isAuthenticated) {
                 $payload['id_user'] = '1';
                 $response = $this->CartRepository->updateQuantityCart($payload);
             } else {
@@ -165,7 +167,7 @@ class CartService implements CartServiceInterface
             $payload = $request->except(['_token']);
             $id_product = $payload['id_product'];
             // xóa khi có đăng nhập
-            if (Auth::user()) {
+            if ($this->isAuthenticated) {
                 $response = $this->CartRepository->delete($payload['id_cart']);
             } else {
                 $cart = $request->session()->get('cart', []);

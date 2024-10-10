@@ -946,7 +946,7 @@ textarea:-ms-input-placeholder {
   margin-top: 5px;
   display: none;
   background-color: #fff;
-  border: 1px solid #e8e9eb;
+  /* border: 1px solid #e8e9eb; */
   position: absolute;
   top: 100%;
   right: -5px;
@@ -5296,7 +5296,7 @@ table {
 
 .order-button-payment .btn {
   font-size: 18px;
-  font-size: 700;
+  font-size: 20;
   padding: 10px 20px;
 }
 
@@ -5306,7 +5306,7 @@ table {
   padding: 20px;
 }
 
-.create-ac-content,
+.checkout,
 .your-order-payment {
   border: 1px solid #ddd;
   padding: 20px;

@@ -195,9 +195,9 @@
                 subTotal += Number(price) || 0;
             });
             jQuery(".subTotal").html(subTotal.toLocaleString("vi-VN") + " đ");
+            jQuery(".money").html(subTotal.toLocaleString("vi-VN") + " đ");
         };
         jQuery(".inputCheckCart").on("click", updateSubtotal);
-        updateSubtotal();
     };
 
     // xóa sản phẩm trong giỏ hàng
@@ -225,11 +225,11 @@
                     let id_cart = _this
                         .closest(".cartItem")
                         .find(".inputCheckCart")
-                        .data('id-cart');
+                        .data("id-cart");
 
                     let data = {
                         id_product,
-                        id_cart
+                        id_cart,
                     };
 
                     $.ajax({
@@ -254,23 +254,68 @@
         });
     };
 
-    // refactor code
+    // check box code
     DT.checkAllInput = () => {
-        // click vào check all => checked toàn bộ
-        $("#checkAll").click(function () {
-            // true or false
+        const $checkAll = $("#checkAll");
+        const $inputChecks = $("input.inputCheckCart:checkbox");
+
+        $checkAll.on("click", function () {
             const isChecked = this.checked;
-            $("input.inputCheckCart:checkbox").prop("checked", isChecked);
+            $inputChecks.prop("checked", isChecked);
             DT.updateTotalAmount();
         });
 
-        // click từng item nếu item == maxItem => checked checkAll
-        $("input.inputCheckCart").on("click", function () {
+        $inputChecks.on("click", function () {
             const allChecked =
-                $("input.inputCheckCart:checkbox").length ===
-                $("input.inputCheckCart:checkbox:checked").length;
-            $("#checkAll").prop("checked", allChecked);
+                $inputChecks.length === $inputChecks.filter(":checked").length;
+            $checkAll.prop("checked", allChecked);
         });
+    };
+
+    DT.saveCookieProductCart = () => {
+        // $(".inputCheckCart").on("click", function () {
+        //     let productChecked = [];
+        //     $('input.inputCheckCart:checked').each(function() {
+        //         const productName = $(this).closest('tr').find('.name_product').text().trim();
+        //         const productQty = $(this).closest('tr').find('.cart__qty-input').val();
+        //         console.log(productQty);
+        //         let _this = $(this);
+        //         productChecked.push(_this.val());
+        //     })
+
+        //     // DT.setCookie("productChecked", productChecked, 1);
+        // });
+
+        $('#cartCheckout').on('click', function() {
+            let productChecked = [];
+
+            $('input.inputCheckCart:checked').each(function() {
+                let _this = $(this);
+                const productName = _this.closest('tr').find('.name_product').text().trim();
+                const productQty = _this.closest('tr').find('.cart__qty-input').val();
+                productChecked.push(`${_this.val()}, ${productName}, ${productQty}`);
+            });
+            console.log(productChecked);
+             DT.setCookie("productChecked", productChecked, 1);
+            
+        })
+
+        // console.log(atob(DT.getCookie("productChecked")));
+    };
+
+    // Lấy cookie
+    DT.getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        return parts.length === 2 ? parts.pop().split(";").shift() : null;
+    };
+
+    // Thiết lập cookie
+    DT.setCookie = (cookiename, cookievalue, exdays) => {
+        const exdate = new Date();
+        exdate.setDate(exdate.getDate() + exdays);
+        const c_value = JSON.stringify(cookievalue) + `; expires=${exdate.toUTCString()}`;
+        document.cookie = `${cookiename}=${c_value}; path=/`;
     };
 
     $(document).ready(function () {
@@ -278,5 +323,6 @@
         DT.updateTotalAmount();
         DT.checkAllInput();
         DT.removeProductCart();
+        DT.saveCookieProductCart();
     });
 })(jQuery);

@@ -39,10 +39,10 @@
                                             {{-- sản phẩm --}}
                                             @php
                                                 $isAuthenticated = Auth::user();
-                                                $products = true ? $cartItem->cartProduct : [$cartItem];
+                                                $products = $isAuthenticated ? $cartItem->cartProduct : [$cartItem];
                                                 $price = $isAuthenticated ? $cartItem->price : $cartItem['price'];
                                                 $quantity = $isAuthenticated ? $cartItem->quantity : $cartItem['quantity'];
-                                                $idCart = $cartItem->id;
+                                                $idCart = $isAuthenticated ? $cartItem->id : 0 ;
                                             @endphp
 
 
@@ -50,8 +50,8 @@
                                                 <td class="text-center">
                                                     <input class="inputCheckCart" data-price="{{ $price }}"
                                                         data-id-product="{{ $isAuthenticated ? $product->id : $product['id'] }}"
-                                                        data-max-quantity="{{ true ? $product->quantity : $product['quantity_product'] }}"
-                                                        data-id-cart="{{ true ? $idCart : 0 }}"
+                                                        data-max-quantity="{{ $isAuthenticated ? $product->quantity : $product['quantity_product'] }}"
+                                                        data-id-cart="{{ $isAuthenticated ? $idCart : 0 }}"
                                                         value="{{ $isAuthenticated ? $cartItem->id : $product['id'] }}"
                                                         id="id_cart" type="checkbox">
                                                 </td>
@@ -66,11 +66,8 @@
                                                 </td>
 
                                                 <td class="cart__meta small--text-left cart-flex-item">
-                                                    <div class="list-view-item__title name_product">
-                                                        <a
-                                                            href="{{ $isAuthenticated ? $product->slug : $product['slug'] }}">
-                                                            {{ $isAuthenticated ? $product->name : $product['name'] }}
-                                                        </a>
+                                                    <div class="list-view-item__title">
+                                                        <a class="name_product" href="{{ $isAuthenticated ? $product->slug : $product['slug'] }}"> {{ $isAuthenticated ? $product->name : $product['name'] }}</a>
                                                     </div>
                                                     <span class="price_product mt-2 fw-bold d-block">
                                                         {{ number_format($price, 0, '.', '.') }} đ
@@ -126,16 +123,16 @@
                     {{-- mã giảm giá --}}
                     <div class="col-12 col-sm-12 col-md-3 col-lg-3 main-col">
                         {{-- mã giảm giá --}}
-                        <h5 class="title_coupon">Khuyến mãi</h5>
-                        <form action="#" method="post">
+                        {{-- <h5 class="title_coupon">Khuyến mãi</h5>
+                        <form action="#" id="formCouponCode" method="post">
                             <div class="form-group">
-                                <label for="address_zip">Enter your coupon code if you have one.</label>
-                                <input type="text" name="coupon">
+                                <label for="coupon">Nhập mã phiếu giảm giá của bạn nếu bạn có.</label>
+                                <input type="text" id="couponCode" name="coupon">
                             </div>
                             <div class="actionRow">
-                                <button type="button" class="btn w-100">Apply Coupon</button>
+                                <button type="button" class="btn sendCouponCode btn w-100">Áp dụng</button>
                             </div>
-                        </form>
+                        </form> --}}
 
                         <div class="solid-border mt-3">
                             <div class="row border-bottom pb-2">
@@ -144,7 +141,9 @@
                             </div>
                             <div class="row border-bottom pb-2 pt-2">
                                 <span class="col-12 col-sm-6 cart__subtotal-title">Phương thức vận chuyển:</span>
-                                <span class="col-12 col-sm-6 text-right">Free shipping</span>
+                                <span class="col-12 col-sm-6 text-right">
+                                    <img src="/Logo-GHN.webp" alt="">
+                                    Giao hàng nhanh</span>
                             </div>
                             <div class="row border-bottom pb-2 pt-2">
                                 <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Tổng cộng:</strong></span>
@@ -159,7 +158,7 @@
                                 </label>
                             </p>
                             <input type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout"
-                                value="Proceed To Checkout" disabled="disabled">
+                                value="Thanh toán">
                             <div class="paymnet-img"><img src="{{ asset('/') }}client/images/payment-img.jpg"
                                     alt="Payment"></div>
                             <p><a href="#;">Checkout with Multiple Addresses</a></p>
@@ -334,6 +333,8 @@
     <script src="{{ asset('/') }}client/js/popper.min.js"></script>
     <script src="{{ asset('/') }}client/js/lazysizes.js"></script>
     <script src="{{ asset('/') }}client/js/main.js"></script>
+
+    <script src="{{ asset('/') }}client/js/customCoupon.js"></script>
     <script src="{{ asset('/') }}client/js/customCart.js"></script>
     <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
 

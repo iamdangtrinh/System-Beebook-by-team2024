@@ -11,6 +11,9 @@ class AppServiceProvider extends ServiceProvider
         
         'App\Services\Interfaces\CartServiceInterface' => 'App\Services\CartService',
         'App\Repositories\Interfaces\CartRepositoryInterface' => 'App\Repositories\CartRepository',
+        
+        'App\Services\Interfaces\CouponServiceInterface' => 'App\Services\CouponService',
+        'App\Repositories\Interfaces\CouponRepositoryInterface' => 'App\Repositories\CouponRepository',
     ];
     /**
      * Register any application services.
