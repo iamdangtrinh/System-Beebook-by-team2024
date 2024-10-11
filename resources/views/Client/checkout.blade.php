@@ -124,88 +124,98 @@
             </div> --}}
 
             {{-- đơn hàng --}}
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <h2 class="order-title">Đơn hàng của bạn</h2>
-                <div class="your-order-payment">
-                    <div class="your-order">
 
-                        <ul class="list_order">
-                            @foreach ($products as $product)
-                                <li class="item_checkout mb-3 d-flex align-items-start">
-                                    <img class="__custom_image" width="80px"
-                                        src="{{ $product->image_cover ? $product->image_cover : '/no_image.jpg' }}"
-                                        alt="{{ $product->name }}">
-                                    <p class="__name_product_checkout"><span
-                                            class="d-block w-75">{{ $product->name }}</span></p>
-                                    <span>{{ number_format($product->price_sale !== null ? $product->price_sale : $product->price, '0', '.', '.') }}
-                                        đ</span>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+            <form action="{{ route('checkout.store') }}" method="post">
+                @csrf
 
-                    <div class="total">
-                        <div class="row border-bottom mb-3">
-                            <span class="col-12 col-sm-6 cart__subtotal-title">Tạm tính:</span>
-                            <span class="col-12 col-sm-6 text-right"><span data-sub-total="{{ $subTotal }}"
-                                    id="subTotal">{{ number_format($subTotal, '0', '.', '.') }} đ</span></span>
+                <input type="hidden" name="shipping_method" value="GHN">
+                <input type="hidden" name="fee_shipping" value="20000">
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <h2 class="order-title">Đơn hàng của bạn</h2>
+                    <div class="your-order-payment">
+                        <div class="your-order">
+
+                            <ul class="list_order">
+                                @foreach ($products as $product)
+                                    <li class="item_checkout mb-3 d-flex align-items-start">
+                                        <img class="__custom_image" width="80px"
+                                            src="{{ $product->image_cover ? $product->image_cover : '/no_image.jpg' }}"
+                                            alt="{{ $product->name }}">
+                                        <p class="__name_product_checkout"><span
+                                                class="d-block w-75">{{ $product->name }}</span></p>
+                                        <span>{{ number_format($product->price_sale !== null ? $product->price_sale : $product->price, '0', '.', '.') }}
+                                            đ</span>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
-                        <div class="row border-bottom mb-3">
-                            <span class="col-12 col-sm-6 cart__subtotal-title">Phí vận chuyển:</span>
-                            <span class="col-12 col-sm-6 text-right"><span id="freeShipping">20.000 đ</span></span>
+
+                        <div class="total">
+                            <div class="row border-bottom mb-3">
+                                <span class="col-12 col-sm-6 cart__subtotal-title">Tạm tính:</span>
+                                <span class="col-12 col-sm-6 text-right"><span data-sub-total="{{ $subTotal }}"
+                                        id="subTotal">{{ number_format($subTotal, '0', '.', '.') }} đ</span></span>
+                            </div>
+                            <div class="row border-bottom mb-3">
+                                <span class="col-12 col-sm-6 cart__subtotal-title">Phí vận chuyển:</span>
+                                <span class="col-12 col-sm-6 text-right"><span id="freeShipping">20.000 đ</span></span>
+                            </div>
+                            <div class="row border-bottom mb-3">
+                                <span class="col-12 col-sm-6 cart__subtotal-title">Tổng tiền:</span>
+                                <span class="col-12 col-sm-6 text-right"><span id="totalAmout">
+                                        {{ number_format($subTotal + 20000, '0', '.', '.') }} đ</span></span>
+                            </div>
                         </div>
-                        <div class="row border-bottom mb-3">
-                            <span class="col-12 col-sm-6 cart__subtotal-title">Tổng tiền:</span>
-                            <span class="col-12 col-sm-6 text-right"><span id="totalAmout">
-                                    {{ number_format($subTotal + 20000, '0', '.', '.') }} đ</span></span>
-                        </div>
-                    </div>
 
-                    <div class="your-payment">
-                        <h4 class="payment-title mb-3">Phương thức thanh toán</h4>
-                        <div class="payment-method">
-                            <div class="payment-accordion">
-                                <div id="accordion" class="payment-section">
+                        <div class="your-payment">
+                            <h4 class="payment-title color-black mb-3">Phương thức thanh toán</h4>
+                            <div class="payment-method">
+                                <div class="payment-accordion">
+                                    <div id="accordion" class="payment-section">
+                                        @foreach (config('checkout.payment.paymentCheckout') as $method)
+                                            <div class="card mb-2">
+                                                <div class="card-header d-flex">
+                                                    <input type="radio"
+                                                        {{ $method['value'] == 'ONLINE_VALUE' ? 'checked' : '' }}
+                                                        id="{{ $method['value'] }}" name="payment_method"
+                                                        value="{{ $method['method'] }}">
 
-                                    @foreach (config('checkout.payment.paymentCheckout') as $method)
-                                        <div class="card mb-2">
-                                            <div class="card-header d-flex">
-                                                <input type="radio" id="{{ $method['value'] }}" name="payment"
-                                                    value="{{ $method['method'] }}">
+                                                    <label for="{{ $method['value'] }}" class="mx-2 card-link w-100"
+                                                        data-bs-toggle="collapse" href="#{{ $method['method'] }}"
+                                                        role="button" aria-expanded="false"
+                                                        aria-controls="{{ $method['method'] }}">
+                                                        {{ $method['title'] }}
+                                                    </label>
+                                                </div>
 
-                                                <label for="{{ $method['value'] }}" class="mx-2 card-link w-100"
-                                                    data-bs-toggle="collapse" href="#{{ $method['method'] }}"
-                                                    role="button" aria-expanded="false"
-                                                    aria-controls="{{ $method['method'] }}">
-                                                    {{ $method['title'] }}
-                                                </label>
-                                            </div>
-
-                                            <div id="{{ $method['method'] }}" class="collapse" data-bs-parent="#accordion">
-                                                <div class="card-body">
-                                                    <p class="no-margin font-15">{{ $method['description'] }}</p>
+                                                <div id="{{ $method['method'] }}" class="collapse"
+                                                    data-bs-parent="#accordion">
+                                                    <div class="card-body">
+                                                        <p class="no-margin font-15">{{ $method['description'] }}</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    </div>
                                 </div>
-                            </div>
 
-
-                            <div class="row mt-3">
-                                <div class="form-group col-md-12 col-lg-12 col-xl-12">
-                                    <label for="input-company">Ghi chú đơn hàng</label>
-                                    <textarea class="form-control resize-both" name="note" rows="3"></textarea>
+                                <div class="row mt-3">
+                                    <div class="form-group col-md-12 col-lg-12 col-xl-12">
+                                        <label for="input-note">Ghi chú đơn hàng</label>
+                                        <textarea id="input-note" class="form-control resize-both" name="note" rows="3"></textarea>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="order-button-payment">
-                                <button class="btn w-100" value="Place order" type="submit">Tiến hành thanh toán</button>
+                                <div class="order-button-payment">
+                                    <button class="btn w-100" value="Place order" type="submit">Tiến hành thanh
+                                        toán</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
     <!--Scoll Top-->

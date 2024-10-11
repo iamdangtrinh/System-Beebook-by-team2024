@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\admin\couponController;
-use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\client\cartController;
+use App\Http\Controllers\client\checkoutController;
 use App\Http\Controllers\client\ClientController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +21,7 @@ Route::controller(CartController::class)->group(function () {
 //       Route::post('/coupon/delete', 'delete')->name('coupon.delete');
 // });
 
-
 Route::get('test', [cartController::class, 'viewcarttocart'])->name('cart.no.login');
-Route::get('checkout', [ClientController::class, 'checkOut'])->name('checkout.payment');
-Route::get('progressCheckout', [ClientController::class, 'checkOut'])->name('checkout.payment');
+
+Route::get('checkout', [checkoutController::class, 'index'])->name('checkout.index');
+Route::post('progressCheckout', [checkoutController::class, 'store'])->name('checkout.store');

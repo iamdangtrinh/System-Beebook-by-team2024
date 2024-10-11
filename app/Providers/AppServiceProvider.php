@@ -14,6 +14,9 @@ class AppServiceProvider extends ServiceProvider
         
         'App\Services\Interfaces\CouponServiceInterface' => 'App\Services\CouponService',
         'App\Repositories\Interfaces\CouponRepositoryInterface' => 'App\Repositories\CouponRepository',
+        
+        'App\Services\Interfaces\CheckoutServiceInterface' => 'App\Services\CheckoutService',
+        'App\Repositories\Interfaces\CheckoutRepositoryInterface' => 'App\Repositories\CheckoutRepository',
     ];
     /**
      * Register any application services.

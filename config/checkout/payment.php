@@ -11,7 +11,7 @@ return [
             'OFFLINE' => [
                   'method' => 'OFFLINE',
                   'value' => 'OFFLINE_VALUE',
-                  'title' => 'Thanh toán offline',
+                  'title' => 'Thanh toán khi nhận hàng',
                   'description' => 'Thanh toán bằng tiền mặt khi nhận hàng. Vui lòng nêu rõ trong phần GHI CHÚ nếu bạn không thể thanh toán bằng tiền lẻ.',
             ],
       ],
