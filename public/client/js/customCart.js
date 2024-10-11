@@ -195,7 +195,7 @@
             subTotal += Number(price) || 0;
         });
         jQuery(".subTotal").html(subTotal.toLocaleString("vi-VN") + " đ");
-        jQuery(".money").html(subTotal.toLocaleString("vi-VN") + " đ");
+        jQuery(".totalAmout").html(subTotal.toLocaleString("vi-VN") + " đ");
     };
 
     // xóa sản phẩm trong giỏ hàng

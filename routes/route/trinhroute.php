@@ -22,5 +22,6 @@ Route::controller(CartController::class)->group(function () {
 // });
 
 
-
+Route::get('test', [cartController::class, 'viewcarttocart'])->name('cart.no.login');
 Route::get('checkout', [ClientController::class, 'checkOut'])->name('checkout.payment');
+Route::get('progressCheckout', [ClientController::class, 'checkOut'])->name('checkout.payment');

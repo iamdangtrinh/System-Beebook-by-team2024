@@ -627,6 +627,7 @@ th {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
+  border-radius: 6px;
 }
 
 .btn:hover,
@@ -5295,8 +5296,7 @@ table {
 }
 
 .order-button-payment .btn {
-  font-size: 18px;
-  font-size: 20;
+  font-size: 16px;
   padding: 10px 20px;
 }
 

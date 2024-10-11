@@ -16,7 +16,6 @@
             $subTotal += $product->price;
         }
     }
-
 @endphp
 
 @section('body')
@@ -54,7 +53,14 @@
         .checkout {
             border-radius: 6px
         }
-        
+
+        .select2-container .select2-selection--single {
+            height: 40px !important;
+        }
+
+        .select2-container--default .select2-selection--single {
+            border: var(--bs-border-width) solid var(--bs-border-color) !important;
+        }
     </style>
 
     <!--Page Title-->
@@ -70,28 +76,27 @@
     <div class="container">
         <div class="row billing-fields">
             {{--  đơn hàng --}}
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
+            {{-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
                 <div class="checkout bg-light-gray padding-20px-all">
                     <form>
+                        <h2 class="login-title mb-3">Chi tiết đơn hàng</h2>
+
                         <fieldset>
-                            <h2 class="login-title mb-3">Chi tiết đơn hàng</h2>
-                            <div class="row mb-3">
-                                <div class="form-group col-md-12 col-lg-12 col-xl-12">
-                                    <label for="input-firstname">Họ và tên</label>
-                                    <input class="form-control" name="firstname" value="" id="input-firstname"
-                                        type="text">
-                                </div>
+                            <div class="form-group mb-3 col-md-12 col-lg-12 col-xl-12 required">
+                                <label for="provincer">Thành phố/Tỉnh</label>
+                                <input class="form-control setupSelect2" name="provincer" value="" id="provincer"
+                                    type="text">
                             </div>
                             <div class="row mb-3">
-                                <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                    <label for="input-email">Địa chỉ email</label>
-                                    <input class="form-control" name="email" value="" id="input-email"
-                                        type="email">
+                                <div class="form-group col-md-12 col-lg-6 col-xl-6 required">
+                                    <label for="district">Quận/Huyện</label>
+                                    <input class="form-control setupSelect2" name="district" value="" id="district"
+                                        type="text">
                                 </div>
-                                <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                    <label for="input-telephone">Số điện thoại </label>
-                                    <input class="form-control" name="phone" value="" id="input-telephone"
-                                        type="tel">
+                                <div class="form-group col-md-12 col-lg-6 col-xl-6 required">
+                                    <label for="ward">Xã/Phường</label>
+                                    <input class="form-control setupSelect2" name="ward" value="" id="ward"
+                                        type="text">
                                 </div>
                             </div>
                         </fieldset>
@@ -100,7 +105,7 @@
                             <div class="row mb-3">
                                 <div class="form-group col-md-12 col-lg-12 col-xl-12 required">
                                     <label for="input-address-1">Địa chỉ</label>
-                                    <input class="form-control" name="address_1" value="" id="input-address-1"
+                                    <input class="form-control" name="address" value="" id="input-address-autocomplte"
                                         type="text">
                                 </div>
                             </div>
@@ -110,16 +115,16 @@
                             <div class="row mb-3">
                                 <div class="form-group col-md-12 col-lg-12 col-xl-12">
                                     <label for="input-company">Ghi chú đơn hàng</label>
-                                    <textarea class="form-control resize-both" rows="3"></textarea>
+                                    <textarea class="form-control resize-both" name="note" rows="3"></textarea>
                                 </div>
                             </div>
                         </fieldset>
                     </form>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- đơn hàng --}}
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 <h2 class="order-title">Đơn hàng của bạn</h2>
                 <div class="your-order-payment">
                     <div class="your-order">
@@ -132,7 +137,7 @@
                                         alt="{{ $product->name }}">
                                     <p class="__name_product_checkout"><span
                                             class="d-block w-75">{{ $product->name }}</span></p>
-                                    <span>{{ number_format($product->price_sale !== null ? $product->price_sale : $product->sale, '0', '.', '.') }}
+                                    <span>{{ number_format($product->price_sale !== null ? $product->price_sale : $product->price, '0', '.', '.') }}
                                         đ</span>
                                 </li>
                             @endforeach
@@ -142,74 +147,60 @@
                     <div class="total">
                         <div class="row border-bottom mb-3">
                             <span class="col-12 col-sm-6 cart__subtotal-title">Tạm tính:</span>
-                            <span class="col-12 col-sm-6 text-right"><span
+                            <span class="col-12 col-sm-6 text-right"><span data-sub-total="{{ $subTotal }}"
                                     id="subTotal">{{ number_format($subTotal, '0', '.', '.') }} đ</span></span>
                         </div>
                         <div class="row border-bottom mb-3">
                             <span class="col-12 col-sm-6 cart__subtotal-title">Phí vận chuyển:</span>
-                            <span class="col-12 col-sm-6 text-right"><span id="freeShipping">0 đ</span></span>
+                            <span class="col-12 col-sm-6 text-right"><span id="freeShipping">20.000 đ</span></span>
                         </div>
                         <div class="row border-bottom mb-3">
                             <span class="col-12 col-sm-6 cart__subtotal-title">Tổng tiền:</span>
-                            <span class="col-12 col-sm-6 text-right"><span id="totalAmout">0 đ</span></span>
+                            <span class="col-12 col-sm-6 text-right"><span id="totalAmout">
+                                    {{ number_format($subTotal + 20000, '0', '.', '.') }} đ</span></span>
                         </div>
                     </div>
 
                     <div class="your-payment">
-                        <h2 class="payment-title mb-3">payment method</h2>
+                        <h4 class="payment-title mb-3">Phương thức thanh toán</h4>
                         <div class="payment-method">
                             <div class="payment-accordion">
                                 <div id="accordion" class="payment-section">
-                                    <div class="card mb-2">
-                                        <div class="card-header">
-                                            <a class="card-link" data-bs-toggle="collapse" href="#collapseOne"
-                                                role="button" aria-expanded="false" aria-controls="collapseOne">
-                                                Direct Bank Transfer
-                                            </a>
-                                        </div>
-                                        <div id="collapseOne" class="collapse" data-bs-parent="#accordion">
-                                            <div class="card-body">
-                                                <p class="no-margin font-15">Make your payment directly into our bank
-                                                    account. Please use your Order ID as the payment reference. Your order
-                                                    won't be shipped until the funds have cleared in our account.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card mb-2">
-                                        <div class="card-header">
-                                            <a class="collapsed card-link" data-bs-toggle="collapse" href="#collapseTwo"
-                                                role="button" aria-expanded="false" aria-controls="collapseTwo">
-                                                Cheque Payment
-                                            </a>
-                                        </div>
-                                        <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
-                                            <div class="card-body">
-                                                <p class="no-margin font-15">Please send your cheque to Store Name, Store
-                                                    Street, Store Town, Store State / County, Store Postcode.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card mb-2">
-                                        <div class="card-header">
-                                            <a class="collapsed card-link" data-bs-toggle="collapse"
-                                                href="#collapseThree" role="button" aria-expanded="false"
-                                                aria-controls="collapseThree">
-                                                PayPal
-                                            </a>
-                                        </div>
-                                        <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
-                                            <div class="card-body">
-                                                <p class="no-margin font-15">Pay via PayPal; you can pay with your credit
-                                                    card if you don't have a PayPal account.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
+                                    @foreach (config('checkout.payment.paymentCheckout') as $method)
+                                        <div class="card mb-2">
+                                            <div class="card-header d-flex">
+                                                <input type="radio" id="{{ $method['value'] }}" name="payment"
+                                                    value="{{ $method['method'] }}">
+
+                                                <label for="{{ $method['value'] }}" class="mx-2 card-link w-100"
+                                                    data-bs-toggle="collapse" href="#{{ $method['method'] }}"
+                                                    role="button" aria-expanded="false"
+                                                    aria-controls="{{ $method['method'] }}">
+                                                    {{ $method['title'] }}
+                                                </label>
+                                            </div>
+
+                                            <div id="{{ $method['method'] }}" class="collapse" data-bs-parent="#accordion">
+                                                <div class="card-body">
+                                                    <p class="no-margin font-15">{{ $method['description'] }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+
+                            <div class="row mt-3">
+                                <div class="form-group col-md-12 col-lg-12 col-xl-12">
+                                    <label for="input-company">Ghi chú đơn hàng</label>
+                                    <textarea class="form-control resize-both" name="note" rows="3"></textarea>
+                                </div>
                             </div>
 
                             <div class="order-button-payment">
-                                <button class="btn" value="Place order" type="submit">Tiến hành thanh toán</button>
+                                <button class="btn w-100" value="Place order" type="submit">Tiến hành thanh toán</button>
                             </div>
                         </div>
                     </div>
@@ -232,4 +223,12 @@
     <script src="{{ asset('/') }}client/js/popper.min.js"></script>
     <script src="{{ asset('/') }}client/js/lazysizes.js"></script>
     <script src="{{ asset('/') }}client/js/main.js"></script>
+
+    <script src="{{ asset('/') }}client/js/customCheckout.js"></script>
+
+    {{-- lo dash --}}
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @endsection
