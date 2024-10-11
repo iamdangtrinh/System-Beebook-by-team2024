@@ -60,15 +60,17 @@ class CheckoutService implements CheckoutServiceInterface
       {
             DB::beginTransaction();
             try {
-                  $payload = $request->except(['_token']);
-
-                  $payload['id_user'] = 1;
-                  $payload['total_amount'] = 200000;
-                  $payload['address'] = 1;
-                  $payload['phone'] = 1;
-                  $payload['name'] = 1;
-
-                  return $this->CheckoutRepository->create($payload);
+                  // $payload = $request->except(['_token']);
+                  // // if (Auth::user()) {
+                  // $payload['id_user'] = 1;
+                  // $payload['total_amount'] = 200000;
+                  // $payload['address'] = 1;
+                  // $payload['phone'] = 1;
+                  // $payload['name'] = 1;
+                  // return $this->CheckoutRepository->create($payload);
+                  // } else {
+                  //       return redirect('/sign-in')->with('error', 'Vui lòng đăng nhập để thực hiện!');
+                  // }
                   DB::commit();
                   return true;
             } catch (\Exception $exception) {

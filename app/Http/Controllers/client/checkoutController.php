@@ -6,24 +6,38 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\CheckoutServiceInterface as CheckoutService;
 use App\Repositories\Interfaces\CheckoutRepositoryInterface as CheckoutRepository;
+use App\Services\Interfaces\CartServiceInterface as CartService;
+
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
 
 class CheckoutController extends Controller
 {
     protected $CheckoutService;
     protected $CheckoutRepository;
+    protected $CartService;
     public function __construct(
         CheckoutService $CheckoutService,
-        CheckoutRepository $CheckoutRepository
+        CheckoutRepository $CheckoutRepository,
+        CartService $CartService
     ) {
         $this->CheckoutService = $CheckoutService;
         $this->CheckoutRepository = $CheckoutRepository;
+        $this->CartService = $CartService;
     }
 
     public function index()
     {
-        return view('Client.checkout');
+        // if (Auth::user()) {
+        $result = $this->CartService->findCartByUser(20);
+        return view('Client.checkout', compact(['result']));
+        // } else {
+        //     return redirect('/sign-in')->with('error', 'Vui lòng đăng nhập để thực hiện!');
+        // }
     }
+
+    public function cartToCheckout(Request $request) {}
 
     // tạo view cart
     public function create() {}
@@ -31,8 +45,18 @@ class CheckoutController extends Controller
     // mua hàng
     public function store(Request $request)
     {
+        $productId = isset($_COOKIE['productChecked']) ? base64_decode($_COOKIE['productChecked']) : '';
+        $productIds = array_filter(explode(',', $productId));
+        $products = Product::whereIn('id', $productIds)->get();
+
+        dd($products);
+
         $result = $this->CheckoutService->create($request);
         return $result;
+        // if (Auth::user()) {
+        // } else {
+        //     return redirect('/sign-in')->with('error', 'Vui lòng đăng nhập để thực hiện!');
+        // }
     }
 
     // tạo view hiển thị giỏ hàng

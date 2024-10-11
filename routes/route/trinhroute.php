@@ -5,6 +5,7 @@ use App\Http\Controllers\client\cartController;
 use App\Http\Controllers\client\checkoutController;
 use App\Http\Controllers\client\ClientController;
 use Illuminate\Support\Facades\Route;
+use App\Payments\Casso;
 
 Route::controller(CartController::class)->group(function () {
       Route::get('/cart', 'index')->name('cart.index');
@@ -23,5 +24,9 @@ Route::controller(CartController::class)->group(function () {
 
 Route::get('test', [cartController::class, 'viewcarttocart'])->name('cart.no.login');
 
+Route::post('precheckout', [checkoutController::class, 'cartToCheckout'])->name('checkout.pre');
+
 Route::get('checkout', [checkoutController::class, 'index'])->name('checkout.index');
 Route::post('progressCheckout', [checkoutController::class, 'store'])->name('checkout.store');
+
+Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index');

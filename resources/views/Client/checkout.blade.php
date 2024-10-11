@@ -1,22 +1,17 @@
+{{-- mã giảm giá --}}
+{{-- <h5 class="title_coupon">Khuyến mãi</h5>
+                        <form action="#" id="formCouponCode" method="post">
+                            <div class="form-group">
+                                <label for="coupon">Nhập mã phiếu giảm giá của bạn nếu bạn có.</label>
+                                <input type="text" id="couponCode" name="coupon">
+                            </div>
+                            <div class="actionRow">
+                                <button type="button" class="btn sendCouponCode btn w-100">Áp dụng</button>
+                            </div>
+                        </form> --}}
+
 <title>@yield('title', 'Thanh toán')</title>
 @extends('Client.components.header')
-
-@php
-    use App\Models\Product;
-    $productId = isset($_COOKIE['productChecked']) ? base64_decode($_COOKIE['productChecked']) : '';
-    $productIds = array_filter(explode(',', $productId));
-    $products = Product::whereIn('id', $productIds)->get();
-
-    $subTotal = 0;
-
-    foreach ($products as $product) {
-        if ($product->price_sale !== null) {
-            $subTotal += $product->price_sale;
-        } else {
-            $subTotal += $product->price;
-        }
-    }
-@endphp
 
 @section('body')
     <style>
@@ -135,17 +130,22 @@
                     <h2 class="order-title">Đơn hàng của bạn</h2>
                     <div class="your-order-payment">
                         <div class="your-order">
-
+                            @php
+                                $subTotal = 0;
+                            @endphp
                             <ul class="list_order">
-                                @foreach ($products as $product)
+                                @foreach ($result as $product)
+                                    @php
+                                        $subTotal += $product['quantity'] * $product['price'];
+                                    @endphp
                                     <li class="item_checkout mb-3 d-flex align-items-start">
-                                        <img class="__custom_image" width="80px"
-                                            src="{{ $product->image_cover ? $product->image_cover : '/no_image.jpg' }}"
-                                            alt="{{ $product->name }}">
-                                        <p class="__name_product_checkout"><span
-                                                class="d-block w-75">{{ $product->name }}</span></p>
-                                        <span>{{ number_format($product->price_sale !== null ? $product->price_sale : $product->price, '0', '.', '.') }}
-                                            đ</span>
+                                        <img 
+                                            class="__custom_image" 
+                                            width="80px"
+                                            src="{{ $product['image_cover'] ? $product['image_cover'] : '/no_image.jpg' }}"
+                                            alt="{{ $product['name'] }}">
+                                        <p class="__name_product_checkout"> <strong> {{ $product['quantity'] }} </strong> x <span class="w-75">{{ $product['name'] }}</span></p>
+                                        <span>{{ number_format( $product['quantity'] * $product['price'], '0', '.', '.') }} đ</span>
                                     </li>
                                 @endforeach
                             </ul>
