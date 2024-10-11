@@ -252,13 +252,13 @@ $config['ResourceType'][] = Array(
 		'allowedExtensions' => 'bmp,gif,jpeg,jpg,png, webp, mp4',
 		'deniedExtensions' => '');
 
-$config['ResourceType'][] = Array(
-		'name' => 'Flash',
-		'url' => $baseUrl . 'flash',
-		'directory' => $baseDir . 'flash',
-		'maxSize' => 0,
-		'allowedExtensions' => 'swf,flv',
-		'deniedExtensions' => '');
+// $config['ResourceType'][] = Array(
+// 		'name' => 'Flash',
+// 		'url' => $baseUrl . 'flash',
+// 		'directory' => $baseDir . 'flash',
+// 		'maxSize' => 0,
+// 		'allowedExtensions' => 'swf,flv',
+// 		'deniedExtensions' => '');
 
 /*
  Due to security issues with Apache modules, it is recommended to leave the
