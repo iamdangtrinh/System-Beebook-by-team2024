@@ -4,7 +4,7 @@ use App\Http\Controllers\client\ManagerUserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/sign-in', [ManagerUserController::class, 'SignIn']);
-Route::post('/sign-in', [ManagerUserController::class, 'handleSignIn']);
+Route::get('/sign-up', [ManagerUserController::class, 'SignUp']);
 
 // Route::post('user', [UserController::class, 'store'])->name('user.store');
 // Route::get('user/{id}', [UserController::class, 'show'])->name('user.show');

@@ -13,7 +13,6 @@ class SignInRequest extends FormRequest
     {
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -31,7 +30,6 @@ class SignInRequest extends FormRequest
             ],
         ];
     }
-
     /**
      * Custom validation messages.
      */
