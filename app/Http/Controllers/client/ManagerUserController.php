@@ -11,7 +11,7 @@ class ManagerUserController extends Controller
     public function SignIn(){
         return view('Client.signIn' );
     }
-    public function handleSignIn(SignInRequest $request) {
-        return 1123;
+    public function SignUp(){
+        return view('client.SignUp');
     }
 }

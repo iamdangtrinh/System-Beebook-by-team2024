@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Services\Interfaces\UserServiceInterface;
 // use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
@@ -41,20 +42,32 @@ class UserService implements UserServiceInterface
         return $users;
     }
 
-    public function create($request)
+    public function create()
     {
-        DB::beginTransaction();
-        try {
-            $payload = $request->except(['_token', 'send', 'repassword']);
-            $payload['password'] = Hash::make($payload['password']);
-            $user = $this->userRepository->create($payload);
-            DB::commit();
-            return true;
-        } catch (\Exception $exception) {
-            DB::rollBack();
-            echo $exception->getMessage();
-            return false;
-        }
+        dd('hello');
+        // $user = User::create($data);
+        //     DB::commit();
+        //     return response()->json([
+        //         'success' => true,
+        //         'data' => $user,
+        //         'message' => 'User created successfully',
+        //     ], 201);
+        // DB::beginTransaction();
+        // try {
+        //     $user = User::create($data);
+        //     DB::commit();
+        //     return response()->json([
+        //         'success' => true,
+        //         'data' => $user,
+        //         'message' => 'User created successfully',
+        //     ], 201);
+        // } catch (\Exception $exception) {
+        //     DB::rollBack();
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => $exception->getMessage(),
+        //     ], 500);
+        // }
     }
     public function update($id, $request)
     {
