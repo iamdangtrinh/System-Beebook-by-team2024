@@ -36,7 +36,7 @@
                             <div class="w-100" style="border-bottom: 1px solid rgb(34, 33, 33)"></div>
                         </div>
                         {{-- Form Đăng Nhập --}}
-                        <form class="d-flex flex-column gap-3"  >
+                        <form wire:submit='handleSignIn' class="d-flex flex-column gap-3"  >
                             {{-- Email --}}
                             <div class="col-12 position-relative">
                                 <div class="form-group">
@@ -53,6 +53,10 @@
                                     @error('password') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
+                            @if(session('SignInFailed'))
+                                <span class="error text-danger"> {{ session('SignInFailed') }}</span>
+                               
+                        @endif
                             {{-- Remember me và Quên mật khẩu --}}
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex gap-1">
@@ -64,7 +68,10 @@
                                 </div>
                             </div>
                             {{-- Nút Đăng Nhập --}}
-                            <button wire:click="handleSignIn"  wire:loading.attr="disabled" type="button" class="btn border-0 pt-lg-3   rounded-1 pb-lg-3 fs-6">Đăng Nhập</button>
+                            <button  wire:loading.attr="disabled" type="submit"
+                            class="btn border-0 pt-lg-3 rounded-1 pb-lg-3 fs-6"
+                            @if($errors->any()) disabled @endif>Đăng Nhập
+                        </button>
                         </form>
                         <div class="d-flex gap-1 justify-content-center">
                             <p>Bạn chưa có tài khoản?</p>
