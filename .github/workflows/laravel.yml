@@ -47,5 +47,5 @@ jobs:
           chown -R www-data:www-data bootstrap/cache
 
           # Khởi động lại dịch vụ web (Nginx hoặc Apache)
-          systemctl restart nginx
+          # systemctl restart nginx
         EOF
