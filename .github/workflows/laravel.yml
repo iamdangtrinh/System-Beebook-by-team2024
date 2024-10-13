@@ -46,6 +46,15 @@ jobs:
           chown -R www-data:www-data storage
           chown -R www-data:www-data bootstrap/cache
 
+          # Đặt quyền cho thư mục storage và bootstrap/cache
+          sudo chown -R www-data:www-data storage
+          sudo chown -R www-data:www-data bootstrap/cache
+          
+          # Đảm bảo quyền ghi cho các thư mục
+          sudo chmod -R 775 storage
+          sudo chmod -R 775 bootstrap/cache
+
+
           # Khởi động lại dịch vụ web (Nginx hoặc Apache)
           # systemctl restart nginx
         EOF
