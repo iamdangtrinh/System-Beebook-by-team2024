@@ -28,7 +28,7 @@ jobs:
           cd /www/wwwroot/beebook.site
 
           # Pull code từ GitHub repository
-          git pull origin main
+          git pull
           
           # Cài đặt các phụ thuộc Laravel
           composer install --no-dev --optimize-autoloader

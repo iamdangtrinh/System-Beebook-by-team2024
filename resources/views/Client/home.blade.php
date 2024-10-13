@@ -1,9 +1,8 @@
 @extends('Client.components.header')
 <title>@yield('title', 'Trang chủ')</title>
 @section('body')
-CI CD thành công
     <!--Body Content-->
-    <div id="page-content">
+    <div id="page-content" class="CI CD thành công">
         <!--Image Banners-->
         <div class="imgBnrOuter">
             <div class="container">
