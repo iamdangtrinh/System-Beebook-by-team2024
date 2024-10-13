@@ -1,7 +1,7 @@
-TEST CICD
 @extends('Client.components.header')
 <title>@yield('title', 'Trang chủ')</title>
 @section('body')
+CI CD thành công
     <!--Body Content-->
     <div id="page-content">
         <!--Image Banners-->
