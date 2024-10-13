@@ -19,12 +19,14 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+    - name: Check SSH access  # Kiểm tra kết nối SSH trước
+      run: ssh -o StrictHostKeyChecking=no root@157.10.45.131 "echo 'SSH connection successful'"
+
     - name: Deploy to Server
       run: |
         ssh -o StrictHostKeyChecking=no root@157.10.45.131 << 'EOF'
-          # Chuyển tới thư mục chứa dự án Laravel trên máy chủ
           cd /www/wwwroot/beebook.site
-          
+
           # Pull code từ GitHub repository
           git pull origin main
           
@@ -34,13 +36,13 @@ jobs:
           # Chạy lệnh Laravel migrate để cập nhật database
           php artisan migrate --force
 
-          # Chạy lệnh để clear cache, config, và views
+          # Clear cache, config, views
           php artisan cache:clear
           php artisan config:clear
           php artisan config:cache
           php artisan view:clear
 
-          # Đặt quyền cho thư mục storage và bootstrap/cache
+          # Đặt quyền cho thư mục
           chown -R www-data:www-data storage
           chown -R www-data:www-data bootstrap/cache
 
