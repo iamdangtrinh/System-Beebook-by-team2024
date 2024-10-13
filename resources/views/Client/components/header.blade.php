@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="" lang="en">
+<html class="no-js" lang="en">
 
 @php
     define('CSS_VER', '1.0.1');

@@ -68,6 +68,7 @@ swiper {
 .categorySlide .swiper-wrapper {
     padding: 10px 0 20px;
     background-color: transparent;
+    height: auto;
 }
 
 .categorySlide .swiper-slide img {
@@ -142,4 +143,8 @@ a {
     .title_coupon {
         margin-top: 20px;
     }
+}
+
+.imgBnrOuter {
+    margin-top: 20px;
 }
