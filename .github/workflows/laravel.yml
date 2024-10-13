@@ -13,7 +13,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-
+      with:
+        token: ${{ secrets.GITHUB }}
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.5.4
       with:
@@ -36,7 +37,7 @@ jobs:
           git branch
 
           # Thử pull lại mã nguồn
-          git pull origin main
+          git pull https://${{ secrets.GITHUB }}@github.com/iamdangtrinh/System-Beebook-by-team2024.git
           
           # Cài đặt các phụ thuộc Laravel
           composer install --no-dev --optimize-autoloader
