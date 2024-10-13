@@ -1,76 +1,49 @@
-name: Laravel CI
+name: CI/CD Laravel Deployment
 
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - main  # Chạy khi có thay đổi trên nhánh main
 
 jobs:
-  laravel-cicd:
-
+  deploy:
+    name: Deploy Laravel Application to aaPanel Server
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: testing_db
-          MYSQL_USER: user
-          MYSQL_PASSWORD: password
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping --silent"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.4
       with:
-        php-version: 8.2
-        extensions: mbstring, intl, pdo, bcmath, gd, curl
-        coverage: none
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Install Composer dependencies
-      run: composer install --prefer-dist --no-interaction --no-scripts --no-progress
-
-    - name: Copy .env.example to .env
-      run: cp .env.example .env
-
-    - name: Generate application key
-      run: php artisan key:generate
-
-    - name: Set up database configuration
+    - name: Deploy to Server
       run: |
-        php artisan config:clear
-        php artisan migrate --env=testing --force
+        ssh -o StrictHostKeyChecking=no user@your_server_ip << 'EOF'
+          # Chuyển tới thư mục chứa dự án Laravel trên máy chủ
+          cd /path/to/your/laravel/project
+          
+          # Pull code từ GitHub repository
+          git pull origin main
+          
+          # Cài đặt các phụ thuộc Laravel
+          composer install --no-dev --optimize-autoloader
+          
+          # Chạy lệnh Laravel migrate để cập nhật database
+          php artisan migrate --force
 
-    - name: Run PHPUnit tests
-      run: vendor/bin/phpunit --testdox
+          # Chạy lệnh để clear cache, config, và views
+          php artisan cache:clear
+          php artisan config:clear
+          php artisan config:cache
+          php artisan view:clear
 
-    - name: Login to Docker Hub
-      uses: docker/login-action@v3
-      with:
-          username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-    - name: Build and push
-      uses: docker/build-push-action@v6
-      with:
-          context:   # Đường dẫn đến thư mục chứa Dockerfile
-          file: Dockerfile  # Đường dẫn đến Dockerfile
-          push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/clockbox:latest
-    
+          # Đặt quyền cho thư mục storage và bootstrap/cache
+          chown -R www-data:www-data storage
+          chown -R www-data:www-data bootstrap/cache
 
-    # - name: Run code style checks (optional)
-    #   run: composer run-script check-style
+          # Khởi động lại dịch vụ web (Nginx hoặc Apache)
+          systemctl restart nginx
+        EOF
