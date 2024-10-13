@@ -14,7 +14,6 @@ Route::controller(CartController::class)->group(function () {
       Route::post('/cart/delete', 'delete')->name('cart.delete');
 });
 
-
 // Route::controller(couponController::class)->group(function () {
 //       Route::get('/coupon', 'index')->name('coupon.index');
 //       Route::post('/coupon/update', 'update')->name('coupon.update');
@@ -23,8 +22,6 @@ Route::controller(CartController::class)->group(function () {
 // });
 
 Route::get('test', [cartController::class, 'viewcarttocart'])->name('cart.no.login');
-
-Route::post('precheckout', [checkoutController::class, 'cartToCheckout'])->name('checkout.pre');
 
 Route::get('checkout', [checkoutController::class, 'index'])->name('checkout.index');
 Route::post('progressCheckout', [checkoutController::class, 'store'])->name('checkout.store');

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Services\Interfaces\CheckoutServiceInterface;
 // use App\Models\User;
 use App\Repositories\Interfaces\CheckoutRepositoryInterface as CheckoutRepository;
+use App\Repositories\Interfaces\BillDetailRepositoryInterface as BillDetailRepository;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -18,9 +19,11 @@ use Illuminate\Support\Facades\Auth;
 class CheckoutService implements CheckoutServiceInterface
 {
       protected $CheckoutRepository;
-      public function __construct(CheckoutRepository $CheckoutRepository)
+      protected $BillDetailRepository;
+      public function __construct(CheckoutRepository $CheckoutRepository, BillDetailRepository $BillDetailRepository)
       {
             $this->CheckoutRepository = $CheckoutRepository;
+            $this->BillDetailRepository = $BillDetailRepository;
       }
 
       private function paginateSelect()
@@ -60,14 +63,23 @@ class CheckoutService implements CheckoutServiceInterface
       {
             DB::beginTransaction();
             try {
-                  // $payload = $request->except(['_token']);
-                  // // if (Auth::user()) {
-                  // $payload['id_user'] = 1;
-                  // $payload['total_amount'] = 200000;
-                  // $payload['address'] = 1;
-                  // $payload['phone'] = 1;
-                  // $payload['name'] = 1;
-                  // return $this->CheckoutRepository->create($payload);
+                  $payload = $request->except(['_token']);
+                  if (!empty($payload['checkout']) || $payload['checkout'] !== 'submit_checkout') {
+                        // $payload['id_user'] = 1;
+                        // $payload['total_amount'] = 2030000 ;
+                        // $id_bill = $this->CheckoutRepository->create($payload)->id;
+
+                        // $payload['id_product'] = 2;
+                        // $payload['id_bill'] = $id_bill;
+                        // $payload['image_cover'] = "No image";
+                        // $payload['quantity'] = 1;
+                        // $payload['price'] = 200000;
+                        // $this->BillDetailRepository->create($payload);
+
+                        echo '123';
+                  } else {
+                        echo 'ko duoc';
+                  }
                   // } else {
                   //       return redirect('/sign-in')->with('error', 'Vui lòng đăng nhập để thực hiện!');
                   // }

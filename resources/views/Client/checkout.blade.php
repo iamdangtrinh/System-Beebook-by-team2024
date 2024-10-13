@@ -71,24 +71,43 @@
     <div class="container">
         <div class="row billing-fields">
             {{--  đơn hàng --}}
-            {{-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
                 <div class="checkout bg-light-gray padding-20px-all">
-                    <form>
+                    <form action="{{ route('checkout.store') }}" method="post">
+                        @csrf
+
                         <h2 class="login-title mb-3">Chi tiết đơn hàng</h2>
+                        <fieldset>
+                            <div class="form-group mb-3 col-md-12 col-lg-12 col-xl-12">
+                                <label for="name">Họ và tên</label>
+                                <input class="form-control" name="name" value="" id="name" type="text">
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="form-group col-md-12 col-lg-6 col-xl-6">
+                                    <label for="phone">Số điện thoại</label>
+                                    <input class="form-control" name="phone" value="" id="phone" type="text">
+                                </div>
+                                <div class="form-group col-md-12 col-lg-6 col-xl-6">
+                                    <label for="email">Email</label>
+                                    <input class="form-control" name="email" value="" id="email" type="text">
+                                </div>
+                            </div>
+                        </fieldset>
 
                         <fieldset>
-                            <div class="form-group mb-3 col-md-12 col-lg-12 col-xl-12 required">
+                            <div class="form-group mb-3 col-md-12 col-lg-12 col-xl-12">
                                 <label for="provincer">Thành phố/Tỉnh</label>
                                 <input class="form-control setupSelect2" name="provincer" value="" id="provincer"
                                     type="text">
                             </div>
                             <div class="row mb-3">
-                                <div class="form-group col-md-12 col-lg-6 col-xl-6 required">
+                                <div class="form-group col-md-12 col-lg-6 col-xl-6">
                                     <label for="district">Quận/Huyện</label>
                                     <input class="form-control setupSelect2" name="district" value="" id="district"
                                         type="text">
                                 </div>
-                                <div class="form-group col-md-12 col-lg-6 col-xl-6 required">
+                                <div class="form-group col-md-12 col-lg-6 col-xl-6">
                                     <label for="ward">Xã/Phường</label>
                                     <input class="form-control setupSelect2" name="ward" value="" id="ward"
                                         type="text">
@@ -114,15 +133,11 @@
                                 </div>
                             </div>
                         </fieldset>
-                    </form>
                 </div>
-            </div> --}}
+            </div>
 
             {{-- đơn hàng --}}
-
-            <form action="{{ route('checkout.store') }}" method="post">
-                @csrf
-
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
                 <input type="hidden" name="shipping_method" value="GHN">
                 <input type="hidden" name="fee_shipping" value="20000">
 
@@ -139,13 +154,15 @@
                                         $subTotal += $product['quantity'] * $product['price'];
                                     @endphp
                                     <li class="item_checkout mb-3 d-flex align-items-start">
-                                        <img 
-                                            class="__custom_image" 
-                                            width="80px"
+                                        <img class="__custom_image" width="80px"
                                             src="{{ $product['image_cover'] ? $product['image_cover'] : '/no_image.jpg' }}"
                                             alt="{{ $product['name'] }}">
-                                        <p class="__name_product_checkout"> <strong> {{ $product['quantity'] }} </strong> x <span class="w-75">{{ $product['name'] }}</span></p>
-                                        <span>{{ number_format( $product['quantity'] * $product['price'], '0', '.', '.') }} đ</span>
+                                        <p class="__name_product_checkout"> <strong> {{ $product['quantity'] }}
+                                            </strong> x
+                                            <span class="w-75">{{ $product['name'] }}</span>
+                                        </p>
+                                        <span>{{ number_format($product['quantity'] * $product['price'], '0', '.', '.') }}
+                                            đ</span>
                                     </li>
                                 @endforeach
                             </ul>
@@ -159,7 +176,8 @@
                             </div>
                             <div class="row border-bottom mb-3">
                                 <span class="col-12 col-sm-6 cart__subtotal-title">Phí vận chuyển:</span>
-                                <span class="col-12 col-sm-6 text-right"><span id="freeShipping">20.000 đ</span></span>
+                                <span class="col-12 col-sm-6 text-right"><span id="freeShipping">20.000
+                                        đ</span></span>
                             </div>
                             <div class="row border-bottom mb-3">
                                 <span class="col-12 col-sm-6 cart__subtotal-title">Tổng tiền:</span>
@@ -208,13 +226,15 @@
                                 </div>
 
                                 <div class="order-button-payment">
-                                    <button class="btn w-100" value="Place order" type="submit">Tiến hành thanh
+                                    <button class="btn w-100" value="submit_checkout" name="checkout"
+                                        type="submit">Tiến hành thanh
                                         toán</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </form>
         </div>
     </div>

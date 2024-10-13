@@ -45,15 +45,12 @@ class CheckoutController extends Controller
     // mua hàng
     public function store(Request $request)
     {
-        $productId = isset($_COOKIE['productChecked']) ? base64_decode($_COOKIE['productChecked']) : '';
-        $productIds = array_filter(explode(',', $productId));
-        $products = Product::whereIn('id', $productIds)->get();
-
-        dd($products);
-
+        // $productId = isset($_COOKIE['productChecked']) ? base64_decode($_COOKIE['productChecked']) : '';
+        // $productIds = array_filter(explode(',', $productId));
+        // $products = Product::whereIn('id', $productIds)->get();
+        // if (Auth::user()) {
         $result = $this->CheckoutService->create($request);
         return $result;
-        // if (Auth::user()) {
         // } else {
         //     return redirect('/sign-in')->with('error', 'Vui lòng đăng nhập để thực hiện!');
         // }

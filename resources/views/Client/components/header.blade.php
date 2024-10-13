@@ -6,15 +6,16 @@
 @endphp
 
 <head>
+    @yield('title')
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf_token" content="{{ csrf_token() }}" />
-    <title>@yield('title') </title>
-
     <meta name="description" content="Sách tiếng Việt - Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:url" content="/" />
+    <meta property="og:type" content="Sách tiếng Việt - Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách." />
+    <meta property="og:image" content="{{ asset('/') }}client/images/favicon.png" />
     <link rel="shortcut icon" href="{{ asset('/') }}client/images/favicon.png" />
-    <!-- Plugins CSS -->
     <link rel="stylesheet" href="{{ asset('/') }}client/css/plugins.css?ver=@php echo CSS_VER @endphp">
     <!-- Bootstap CSS -->
     <link rel="stylesheet" href="{{ asset('/') }}client/css/bootstrap.min.css?ver=@php echo CSS_VER @endphp">
@@ -32,8 +33,9 @@
     {{-- toast message end --}}
 
     {{-- swiper start --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="stylesheet"
+        href="{{ asset('/') }}client/js/lib/swiper/swiper-bundle.min.css?ver=@php echo CSS_VER @endphp" />
+    <script src="{{ asset('/') }}client/js/lib/swiper/swiper-bundle.min.js?ver=@php echo CSS_VER @endphp"></script>
     {{-- swiper end --}}
 
     <script>
@@ -189,7 +191,7 @@
                     <!--Mobile Logo-->
                     <div class="col-4 col-sm-3 col-md-3 col-lg-2">
                         <div class="site-cart">
-                            <a href="{{route('cart.index')}}" class="site-header__cart" title="Cart">
+                            <a href="{{ route('cart.index') }}" class="site-header__cart" title="Cart">
                                 <i class="icon anm anm-bag-l"></i>
                                 <span id="CartCount" class="site-header__cart-count"
                                     data-cart-render="item_count">2</span>
