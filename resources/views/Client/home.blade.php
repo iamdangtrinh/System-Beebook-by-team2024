@@ -1,3 +1,4 @@
+TEST CICD
 @extends('Client.components.header')
 <title>@yield('title', 'Trang chủ')</title>
 @section('body')
