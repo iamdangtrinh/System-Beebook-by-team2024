@@ -20,23 +20,12 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Check SSH access  # Kiểm tra kết nối SSH trước
-      run: ssh -o StrictHostKeyChecking=no root@157.10.45.131 "echo 'SSH connection successful'"
-
     - name: Deploy to Server
       run: |
         ssh -o StrictHostKeyChecking=no root@157.10.45.131 << 'EOF'
           cd /www/wwwroot/beebook.site
 
-          git log -1 --oneline  # Kiểm tra commit cuối cùng để chắc chắn rằng mã mới đã được pull
-
-          # Kiểm tra trạng thái Git
-          git status
-
-          # Kiểm tra nhánh hiện tại
-          git branch
-
-          # Thử pull lại mã nguồn
+          # pull source
           git pull https://${{ secrets.GITHUB }}@github.com/iamdangtrinh/System-Beebook-by-team2024.git
           
           # Cài đặt các phụ thuộc Laravel
@@ -46,9 +35,6 @@ jobs:
           php artisan migrate --force
 
           # Clear cache, config, views
-          php artisan cache:clear
-          php artisan config:clear
-          php artisan config:cache
-          php artisan view:clear
+          php artisan optimize:clear
 
         EOF
