@@ -2,7 +2,7 @@
 <title>@yield('title', 'Trang chủ')</title>
 @section('body')
     <!--Body Content-->
-    <div id="page-content" class="CI CD thành công">
+    <div id="page-content">
         <!--Image Banners-->
         <div class="imgBnrOuter">
             <div class="container">
