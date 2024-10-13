@@ -3,7 +3,7 @@ name: CI/CD Laravel Deployment
 on:
   push:
     branches:
-      - main  # Chạy khi có thay đổi trên nhánh main ok
+      - main  # Chạy khi có thay đổi trên nhánh main
 
 jobs:
   deploy:
