@@ -23,7 +23,7 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no root@157.10.45.131 << 'EOF'
           # Chuyển tới thư mục chứa dự án Laravel trên máy chủ
-          cd /path/to/your/laravel/project
+          cd /www/wwwroot/beebook.site
           
           # Pull code từ GitHub repository
           git pull origin main
