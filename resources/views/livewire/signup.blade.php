@@ -59,7 +59,7 @@
                                 </div>
                             </div>
                             {{-- Nút Đăng Nhập --}}
-                            <button wire:click="handleSignUp"  wire:loading.attr="disabled" type="button" class="btn border-0 pt-lg-3   rounded-1 pb-lg-3 fs-6">Đăng Ký</button>
+                            <button wire:click="handleSignUp"  wire:loading.attr="disabled" @if($errors->any()) disabled @endif type="button" class="btn border-0 pt-lg-3   rounded-1 pb-lg-3 fs-6">Đăng Ký</button>
                         </form>
                         <div class="d-flex gap-1 justify-content-center">
                             <p>Bạn đã có tài khoản?</p>

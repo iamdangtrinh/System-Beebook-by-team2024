@@ -21,12 +21,18 @@ class Signin extends Component
     public function handleSignIn(){
         $this->validate();  
         // handle Sign in
-        $user = Auth::attempt(['email'=>$this->email, 'password'=>$this->password]);
-        if ($user === true) {
-              redirect('/');      
+        $checkStatus=User::where('status','active')->first();
+        if ($checkStatus) {
+            $user = Auth::attempt(['email'=>$this->email, 'password'=>$this->password,'status'=>'active']);
+            if ($user === true) {
+                  redirect('/');      
+            }else{
+                session()->flash('SignInFailed','Tài khoản hoặc mật khẩu của bạn không đúng!');
+            }
         }else{
-            session()->flash('SignInFailed','Tài khoản hoặc mật khẩu của bạn không đúng !');
+            session()->flash('errorSignIn','Tài khoản của bạn đã bị khóa !');
         }
+       
     }
     public function render()
     {

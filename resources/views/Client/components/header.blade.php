@@ -80,12 +80,11 @@
                                 aria-hidden="true"></i></span>
                         <ul class="customer-links list-inline">
                           @if (Auth::check())
-                          <li><a href="/logout">Logout</a></li>
+                          <li><a href="{{ asset('/logout') }}">Logout</a></li>
                           @else
-                          <li><a href="/sign-up">Create Account</a></li>
-                          <li><a href="/sign-in">Login</a></li>
-                          @endif
-                         
+                          <li><a href="{{ asset('/sign-in') }}">Login</a></li>
+                          <li><a href="{{ asset('/sign-up') }}">Create Account</a></li>
+                          @endif 
                             <li><a href="wishlist.html">Wishlist</a></li>
                         </ul>
                     </div>

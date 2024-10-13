@@ -17,18 +17,18 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="d-flex gap-3 flex-column">
                         <div class="d-flex gap-3">
-                            <button  type="button" class="w-100 border-1 pt-2 pb-2 rounded-1 fs-6">
+                            <a href="{{ asset('/auth/facebook') }}" style="background: white !important; border:1px solid grey" class="btn  w-100 border-1 pt-2 pb-2 rounded-1 fs-6">
                                 <div class="d-flex justify-content-center align-items-center gap-2 text-center">
                                     <img style="width: 25px" src="/client/images/manager-user/logo_facebook.png" />
                                     <p>Facebook</p>
                                 </div>
-                            </button>
-                            <button type="button" class="w-100 border-1 pt-2 pb-2 rounded-1 fs-6">
+                            </a>
+                            <a style="background: white !important; border:1px solid grey" href="/auth/google"  class="btn w-100 border-1 pt-2 pb-2 rounded-1 fs-6">
                                 <div class="d-flex justify-content-center align-items-center gap-2 text-center">
                                     <img style="width: 25px" src="/client/images/manager-user/logo_google.png" />
                                     <p>Google</p>
                                 </div>
-                            </button>
+                            </a>
                         </div>
                         <div class="d-flex gap-1">
                             <div class="w-100" style="border-bottom: 1px solid rgb(34, 33, 33)"></div>
@@ -57,6 +57,11 @@
                                 <span class="error text-danger"> {{ session('SignInFailed') }}</span>
                                
                         @endif
+                        @if(session('errorSignIn'))
+                        <span class="error text-danger"> {{ session('errorSignIn') }}</span>
+                       
+                             @endif
+                        
                             {{-- Remember me và Quên mật khẩu --}}
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex gap-1">

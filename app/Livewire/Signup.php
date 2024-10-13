@@ -39,9 +39,9 @@ class Signup extends Component
         try {
            User::create([
                 'name' => $this->name,
-                                    'email' => $this->email, // Sử dụng $this->email
-                                    'phone' => $this->phone, // Sử dụng $this->phone
-                                    'password' => Hash::make($this->password_confirm) // Mã hóa mật khẩu trước khi lưu
+                'email' => $this->email, // Sử dụng $this->email
+                'phone' => $this->phone, // Sử dụng $this->phone
+                'password' => Hash::make($this->password_confirm) // Mã hóa mật khẩu trước khi lưu
             ]);
             redirect('/sign-in');
         } catch (\Throwable $th) {
