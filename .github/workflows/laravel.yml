@@ -27,8 +27,16 @@ jobs:
         ssh -o StrictHostKeyChecking=no root@157.10.45.131 << 'EOF'
           cd /www/wwwroot/beebook.site
 
-          # Pull code từ GitHub repository
-          git pull
+          git log -1 --oneline  # Kiểm tra commit cuối cùng để chắc chắn rằng mã mới đã được pull
+
+          # Kiểm tra trạng thái Git
+          git status
+
+          # Kiểm tra nhánh hiện tại
+          git branch
+
+          # Thử pull lại mã nguồn
+          git pull origin main
           
           # Cài đặt các phụ thuộc Laravel
           composer install --no-dev --optimize-autoloader
