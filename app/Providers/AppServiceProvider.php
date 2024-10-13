@@ -17,6 +17,9 @@ class AppServiceProvider extends ServiceProvider
         
         'App\Services\Interfaces\CheckoutServiceInterface' => 'App\Services\CheckoutService',
         'App\Repositories\Interfaces\CheckoutRepositoryInterface' => 'App\Repositories\CheckoutRepository',
+        
+        'App\Services\Interfaces\BillDetailServiceInterface' => 'App\Services\BillDetailService',
+        'App\Repositories\Interfaces\BillDetailRepositoryInterface' => 'App\Repositories\BillDetailRepository',
     ];
     /**
      * Register any application services.

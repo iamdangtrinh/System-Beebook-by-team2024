@@ -4,7 +4,7 @@
 @section('body')
     <!--Body Content-->
     <div id="page-content">
-        <form action="{{route('checkout.pre')}}" method="post">
+        <form action="{{route('checkout.index')}}" method="get">
             <!--Page Title-->
             <div class="page section-header text-center">
                 <div class="page-title">
