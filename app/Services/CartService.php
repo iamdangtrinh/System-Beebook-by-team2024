@@ -49,7 +49,7 @@ class CartService implements CartServiceInterface
             // Khởi tạo mảng chứa các ID sản phẩm từ giỏ hàng
             $proIdArr = array_column($carts, 'product_id');
             // Truy vấn sản phẩm từ cơ sở dữ liệu dựa trên các product_id
-            $products = Product::whereIn('id', $proIdArr)->get();
+            $products = Product::whereIn('id', $proIdArr)->get() ?? [];
             // Tạo một mảng để lưu kết hợp dữ liệu từ giỏ hàng và sản phẩm
             $cart = [];
             foreach ($products as $product) {
