@@ -22,7 +22,11 @@ class Signin extends Component
         $this->validate();  
         // handle Sign in
         $user = Auth::attempt(['email'=>$this->email, 'password'=>$this->password]);
-        dd($user);
+        if ($user === true) {
+              redirect('/');      
+        }else{
+            session()->flash('SignInFailed','Tài khoản hoặc mật khẩu của bạn không đúng !');
+        }
     }
     public function render()
     {

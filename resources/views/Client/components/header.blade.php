@@ -79,8 +79,13 @@
                         <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al"
                                 aria-hidden="true"></i></span>
                         <ul class="customer-links list-inline">
-                            <li><a href="/sign-in">Login</a></li>
-                            <li><a href="register.html">Create Account</a></li>
+                          @if (Auth::check())
+                          <li><a href="/logout">Logout</a></li>
+                          @else
+                          <li><a href="/sign-up">Create Account</a></li>
+                          <li><a href="/sign-in">Login</a></li>
+                          @endif
+                         
                             <li><a href="wishlist.html">Wishlist</a></li>
                         </ul>
                     </div>

@@ -45,7 +45,6 @@ class Signup extends Component
             ]);
             redirect('/sign-in');
         } catch (\Throwable $th) {
-            
         }
     }
     public function render()
