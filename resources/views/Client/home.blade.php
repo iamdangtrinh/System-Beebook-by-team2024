@@ -1,3 +1,4 @@
+<title>@yield('title', 'Trang chủ')</title>
 @extends('Client.components.header')
 @section('body')
     <!--Body Content-->
