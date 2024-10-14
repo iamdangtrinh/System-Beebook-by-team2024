@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Payments\Casso;
 use Illuminate\Support\Facades\Cache;
 
-Route::controller(CartController::class)->group(function () {
+Route::controller(cartController::class)->group(function () {
       Route::get('/cart', 'index')->name('cart.index');
       Route::post('/cart/update', 'update')->name('cart.update');
       Route::post('/cart/addtocart', 'store')->name('cart.store');
