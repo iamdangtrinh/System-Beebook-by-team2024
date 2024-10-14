@@ -1,3 +1,4 @@
+<title>@yield('title', 'Chi tiết sách '.$product->name)</title>
 @extends('Client.components.header')
 @section('body')
 <div id="page-content">
@@ -7,7 +8,7 @@
         <div class="bredcrumbWrap">
             <div class="container breadcrumbs">
                 <a href="index.html" title="Back to the home page">Trang chủ</a><span
-                    aria-hidden="true">›</span><span>Chi tiết sản phẩm {{$product->name}}</span>
+                    aria-hidden="true">›</span><span>Chi tiết sách {{$product->name}}</span>
             </div>
         </div>
         <!--End Breadcrumb-->
@@ -138,20 +139,16 @@
                             <div class="prInfoRow">
                                 <div class="product-stock">
                                     @if($product->quantity > 5)
-                                    <span class="instock">Còn {{$product->quantity}} sản phẩm</span>
+                                    <span class="instock">Còn {{$product->quantity}} quyển sách</span>
                                     @elseif($product->quantity > 0 && $product->quantity <= 5)
-                                        <span class="outstock">Còn {{$product->quantity}} sản phẩm</span>
+                                        <span class="outstock">Còn {{$product->quantity}} quyển sách</span>
                                         @else
                                         <span class="outstock">Hết hàng</span>
                                         @endif
                                 </div>
                                 <div class="product-sku">Lượt xem: <span class="variant-sku">{{$product->views}}</span></div>
                                 <div class="product-review">
-                                    <a class="reviewLink" href="#comments">
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            <i class="font-13 fa {{ $i <= $averageRating ? 'fa-star' : 'fa-star-o' }}"></i>
-                                            @endfor
-                                    </a>
+                                    <a class="reviewLink">@for ($i = 1; $i <= 5; $i++)<i class="font-13 fa {{ $i <= $averageRating ? 'fa-star' : 'fa-star-o' }}"></i>@endfor</a>
                                     <span class="spr-summary-actions-togglereviews">{{ $commentCount }} bình luận</span>
                                 </div>
 
@@ -185,7 +182,7 @@
                                 class="product-form product-form-product-template hidedropdown"
                                 enctype="multipart/form-data">
                                 <p class="infolinks"><a href="#sizechart" class="sizelink btn">Thông tin chi tiết</a>
-                                    <a href="#productInquiry" class="emaillink btn">Hỏi về sản phẩm</a>
+                                    <a href="#productInquiry" class="emaillink btn">Hỏi về sách</a>
                                 </p>
                                 <!-- Product Action -->
                                 <div class="product-action clearfix">
@@ -221,10 +218,10 @@
                         <!--Product Tabs-->
                         <div class="tabs-listing">
                             <div class="tab-container">
-                                <h3 class="acor-ttl active" rel="tab1">Mô tả sản phẩm</h3>
+                                <h3 class="acor-ttl active" rel="tab1">Mô tả sách</h3>
                                 <div id="tab1" class="tab-content">
                                     <div class="product-description rte">
-                                        {{$product->description}}
+                                    {!! str_replace(['{', '}'], '', $product->description) !!}
                                     </div>
                                 </div>
                                 <h3 class="acor-ttl" rel="tab2">Thông tin chi tiết</h3>
@@ -234,6 +231,22 @@
                                             <tr>
                                                 <th>Size</th>
                                                 <td>XS</td>
+                                            </tr>
+                                            @foreach($product_meta as $meta)
+                                            @if($meta->product_key == "form")
+                                            <tr>
+                                                <th>Hình thức</th>
+                                                <td>{{$meta->product_value}}</td>
+                                            </tr>
+                                            @endif
+                                            @endforeach
+                                            <tr>
+                                                <th>Năm XB</th>
+                                                <td>{{$product->year}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Trọng lượng (gr)</th>
+                                                <td>{{$product->weight}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -248,8 +261,8 @@
                 <!--Related Product Slider-->
                 <div class="related-product grid-products">
                     <header class="section-header">
-                        <h2 class="section-header__title text-center h2"><span>Sản phẩm tương tự</span></h2>
-                        <p class="sub-heading">Có thể bạn quan tâm, dưới đây là các sản phẩm tương tự để bạn có thể dễ dàng chọn lựa.</p>
+                        <h2 class="section-header__title text-center h2"><span>Sách tương tự</span></h2>
+                        <p class="sub-heading">Có thể bạn quan tâm, dưới đây là các sách tương tự để bạn có thể dễ dàng chọn lựa.</p>
                     </header>
                     <div class="productPageSlider row">
                         @foreach($product_same as $pro)
@@ -306,16 +319,12 @@
                     </div>
                 </div>
                 <!--End Related Product Slider-->
-                <div id="shopify-product-reviews" >
+                <div id="shopify-product-reviews">
                     <div id="comments" class="spr-container">
                         <div class="spr-header clearfix">
                             <div class="spr-summary">
                                 <span class="product-review">
-                                    <a class="reviewLink">
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            <i class="font-13 fa {{ $i <= $averageRating ? 'fa-star' : 'fa-star-o' }}"></i>
-                                            @endfor
-                                    </a>
+                                    <a class="reviewLink">@for ($i = 1; $i <= 5; $i++)<i class="font-13 fa {{ $i <= $averageRating ? 'fa-star' : 'fa-star-o' }}"></i>@endfor</a>
                                     <span class="spr-summary-actions-togglereviews">{{ $commentCount }} bình luận</span>
                                 </span>
                                 <span class="spr-summary-actions">
@@ -332,16 +341,18 @@
                                     <fieldset class="spr-form-review">
                                         <div class="spr-form-review-rating">
                                             <label class="spr-form-label">Rating</label>
-                                            <div class="spr-form-input spr-starrating">
-                                                <div class="product-review"><a
-                                                        class="reviewLink" href="#"><i
-                                                            class="fa fa-star-o"></i><i
-                                                            class="font-13 fa fa-star-o"></i><i
-                                                            class="font-13 fa fa-star-o"></i><i
-                                                            class="font-13 fa fa-star-o"></i><i
-                                                            class="font-13 fa fa-star-o"></i></a>
-                                                </div>
-                                            </div>
+                                            <span class="star-rating">
+                                                <label for="rate-1" style="--i:1"><i class="fa fa-star"></i></label>
+                                                <input type="radio" name="rating" id="rate-1" value="1">
+                                                <label for="rate-2" style="--i:2"><i class="fa fa-star"></i></label>
+                                                <input type="radio" name="rating" id="rate-2" value="2">
+                                                <label for="rate-3" style="--i:3"><i class="fa fa-star"></i></label>
+                                                <input type="radio" name="rating" id="rate-3" value="3">
+                                                <label for="rate-4" style="--i:4"><i class="fa fa-star"></i></label>
+                                                <input type="radio" name="rating" id="rate-4" value="4">
+                                                <label for="rate-5" style="--i:5"><i class="fa fa-star"></i></label>
+                                                <input type="radio" name="rating" id="rate-5" value="5">
+                                            </span>
                                         </div>
 
                                         <div class="spr-form-review-body">
@@ -360,11 +371,13 @@
                                     <fieldset class="spr-form-actions">
                                         <input type="submit"
                                             class="spr-button spr-button-primary button button-primary btn btn-primary"
-                                            value="Submit Review">
+                                            value="Gửi bình luận">
                                     </fieldset>
                                 </form>
                             </div>
                             <div class="spr-reviews">
+                                @if(!$comments)
+                                @foreach($comments as $comment)
                                 <div class="spr-review">
                                     <div class="spr-review-header">
                                         <span
@@ -374,22 +387,19 @@
                                                     class="font-13 fa fa-star"></i><i
                                                     class="font-13 fa fa-star"></i><i
                                                     class="font-13 fa fa-star"></i><i
-                                                    class="font-13 fa fa-star"></i></span></span>
-                                        <h3 class="spr-review-header-title">Lorem ipsum
-                                            dolor sit amet</h3>
+                                                    class="font-13 fa fa-star"></i></span></span></br>
                                         <span
-                                            class="spr-review-header-byline"><strong>dsacc</strong>
-                                            on <strong>Apr 09, 2019</strong></span>
+                                            class="spr-review-header-byline"><strong>{{$comment->user->name}}</strong>
+                                            {{ $comment->created_at->format('d/m/Y') }}</span>
                                     </div>
                                     <div class="spr-review-content">
-                                        <p class="spr-review-content-body">Lorem ipsum dolor
-                                            sit amet, consectetur adipiscing elit, sed do
-                                            eiusmod tempor incididunt ut labore et dolore
-                                            magna aliqua. Ut enim ad minim veniam, quis
-                                            nostrud exercitation ullamco laboris nisi ut
-                                            aliquip ex ea commodo consequat.</p>
+                                        <p class="spr-review-content-body">{{$comment->content}}</p>
                                     </div>
                                 </div>
+                                @endforeach
+                                @else
+                                <p>Chưa có bình luận. Hãy là người đầu tiên bình luận về sách này nào!</p>
+                                @endif
                             </div>
                         </div>
                     </div>

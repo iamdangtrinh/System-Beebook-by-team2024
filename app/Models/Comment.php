@@ -24,4 +24,7 @@ class Comment extends Model
     public function Product() {
         return $this->belongsTo(Product::class,'id_product', 'id');
     }
+    public function User() {
+        return $this->belongsTo(User::class,'id_user', 'id');
+    }
 }
