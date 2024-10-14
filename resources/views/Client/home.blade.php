@@ -953,11 +953,11 @@
 
         // category
         var swiper = new Swiper(".categorySlide", {
-            slidesPerView: 1,
-            // spaceBetween: 10,
-            // autoplay: {
-            //     delay: 1500
-            // },
+            slidesPerView: 4,
+            spaceBetween: 10,
+            autoplay: {
+                delay: 1500
+            },
             breakpoints: {
                 400: {
                     slidesPerView: 4,
