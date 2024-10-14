@@ -11,7 +11,7 @@ class ManagerUserController extends Controller
         return view('Client.signIn' );
     }
     public function SignUp(){
-        return view('client.SignUp');
+        return view('client.signUp');
     }
     public function  LogOut() {
         Auth::logout();

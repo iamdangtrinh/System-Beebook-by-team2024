@@ -14,8 +14,6 @@ class Signin extends Component
     #[Validate('email',message:'Email không đúng định dạng')] 
     public $email = '';
     #[Validate('required',message:'Mật khẩu không được để rỗng')] 
-    #[Validate('min:8',message:'Mật khẩu chứa ít nhất 8 ký tự')] 
-    #[Validate('regex:/^(?=.*[0-9])(?=.*[@$!%*#?&])(?=.*[A-Z]).*$/', message: 'Mật khẩu phải chứa ít nhất 1 số, 1 ký tự đặc biệt, và 1 ký tự hoa')]
     public $password = '';
     // $validatedData = $this->validate((new SignInRequest())->rules(), (new SignInRequest())->messages());
     public function handleSignIn(){
@@ -31,8 +29,7 @@ class Signin extends Component
             }
         }else{
             session()->flash('errorSignIn','Tài khoản của bạn đã bị khóa !');
-        }
-       
+        }  
     }
     public function render()
     {
