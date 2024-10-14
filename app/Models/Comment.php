@@ -5,23 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductMeta extends Model
+class Comment extends Model
 {
     use HasFactory;
-    protected $table = 'product_meta';
+    protected $table = 'comments';
     protected $primaryKey = 'id';
 
     protected $fillable = [
         'id',
         'id_product',
-        'product_key',
-        'product_value',
+        'id_user',
+        'rating',
+        'content',
         'created_at',
         'updated_at',
     ];
 
-    public function products()
-    {
-        return $this->belongsTo(Product::class, 'id_product', 'id');
+    public function Product() {
+        return $this->belongsTo(Product::class,'id_product', 'id');
     }
 }
