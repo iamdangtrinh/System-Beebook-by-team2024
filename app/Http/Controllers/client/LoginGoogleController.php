@@ -14,11 +14,8 @@ use Illuminate\Support\Facades\Hash;
 class LoginGoogleController extends Controller
 {
     public function redirectToGoogle()
-
     {
-
         return Socialite::driver('google')->redirect();
-
     }
     public function handleGoogleCallback()
     {
@@ -50,7 +47,7 @@ class LoginGoogleController extends Controller
                     'name' => $googleUser->name,
                     'email' => $googleUser->email,
                     'google_id' => $googleUser->id,
-                    'password' => Hash::make(Str::random(16)), // Đặt mật khẩu ngẫu nhiên
+                    'password' => Hash::make(Str::random(16)),
                 ]);
                 Auth::login($user);
             return redirect('/');
