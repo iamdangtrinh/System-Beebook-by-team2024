@@ -43,4 +43,26 @@ class Product extends Model
     {
         return $this->belongsTo(CartModel::class, 'id_product', 'id');
     }
+    public function comments() {
+        return $this->hasMany(Comment::class, 'id_product', 'id');
+    }
+    public function countComments() {
+        return $this->comments()->count(); // Đếm số bình luận
+    }
+
+    public function averageRating() {
+        return $this->comments()->avg('rating'); // Tính trung bình rating
+    }
+    public function author()
+    {
+        return $this->belongsTo(Taxonomy::class, 'author', 'id');
+    }
+    public function publisher()
+    {
+        return $this->belongsTo(Taxonomy::class, 'publisher', 'id');
+    }
+    public function manufacturer()
+    {
+        return $this->belongsTo(Taxonomy::class, 'manufacturer', 'id');
+    }
 }

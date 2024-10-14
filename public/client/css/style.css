@@ -3678,6 +3678,10 @@ h1.product-single__title,
   color: #447900;
 }
 
+.product-template__container .prInfoRow .outstock {
+  color: #CE2626;
+}
+
 .product-template__container .prInfoRow .spr-badge-caption {
   color: #424242;
   padding-left: 5px;
