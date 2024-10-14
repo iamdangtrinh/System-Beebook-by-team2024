@@ -46,7 +46,7 @@
                             <div class="col-12">
                                 <div class="form-group position-relative">
                                     <label for="CustomerPassword">Mật khẩu</label>
-                                    <input wire:model.live="password" class="rounded-1" placeholder="Mật khẩu" id="CustomerPassword">
+                                    <input type="password" wire:model.live="password" class="rounded-1" placeholder="Mật khẩu" id="CustomerPassword">
                                     @error('password') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
@@ -54,12 +54,12 @@
                             <div class="col-12">
                                 <div class="form-group position-relative">
                                     <label for="CustomerPassword">Xác nhận mật khẩu</label>
-                                    <input wire:model.live="password_confirm" class="rounded-1" placeholder="Xác nhận mật khẩu" id="CustomerPassword">
+                                    <input type="password" wire:model.live="password_confirm" class="rounded-1" placeholder="Xác nhận mật khẩu" id="CustomerPassword">
                                     @error('password_confirm') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             {{-- Nút Đăng Nhập --}}
-                            <button wire:click="handleSignUp"  wire:loading.attr="disabled" @if($errors->any()) disabled @endif type="button" class="btn border-0 pt-lg-3   rounded-1 pb-lg-3 fs-6">Đăng Ký</button>
+                            <button wire:click="handleSignUp"  wire:loading.attr="disabled" @if($errors->any()) disabled @endif type="button" class="btn pt-lg-3   rounded-1 pb-lg-3 fs-6">Đăng Ký</button>
                         </form>
                         <div class="d-flex gap-1 justify-content-center">
                             <p>Bạn đã có tài khoản?</p>

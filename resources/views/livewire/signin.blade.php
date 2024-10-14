@@ -49,7 +49,7 @@
                             <div class="col-12">
                                 <div class="form-group position-relative">
                                     <label for="CustomerPassword">Mật khẩu</label>
-                                    <input wire:model.live="password" class="rounded-1" placeholder="Mật khẩu" id="CustomerPassword">
+                                    <input type="password" wire:model.live="password" class="rounded-1" placeholder="Mật khẩu" id="CustomerPassword">
                                     @error('password') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
@@ -59,9 +59,7 @@
                         @endif
                         @if(session('errorSignIn'))
                         <span class="error text-danger"> {{ session('errorSignIn') }}</span>
-                       
                              @endif
-                        
                             {{-- Remember me và Quên mật khẩu --}}
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex gap-1">
@@ -73,8 +71,8 @@
                                 </div>
                             </div>
                             {{-- Nút Đăng Nhập --}}
-                            <button  wire:loading.attr="disabled" type="submit"
-                            class="btn border-0 pt-lg-3 rounded-1 pb-lg-3 fs-6"
+                            <button   type="submit"
+                            class="btn  pt-lg-3 rounded-1 pb-lg-3 fs-6"
                             @if($errors->any()) disabled @endif>Đăng Nhập
                         </button>
                         </form>

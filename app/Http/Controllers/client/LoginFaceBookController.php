@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Exception;
 use App\Models\User;
@@ -51,9 +50,7 @@ class LoginFaceBookController extends Controller
                 return redirect('/');
             }
         } catch (Exception $e) {
-
             dd($e->getMessage());
-
         }
 
     }
