@@ -10,10 +10,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf_token" content="{{ csrf_token() }}" />
-    <meta name="description" content="Sách tiếng Việt - Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách.">
+    <meta name="description"
+        content="Sách tiếng Việt - Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:url" content="/" />
-    <meta property="og:type" content="Sách tiếng Việt - Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách." />
+    <meta property="og:type"
+        content="Sách tiếng Việt - Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách." />
     <meta property="og:image" content="{{ asset('/') }}client/images/favicon.png" />
     <link rel="shortcut icon" href="{{ asset('/') }}client/images/favicon.png" />
     <link rel="stylesheet" href="{{ asset('/') }}client/css/plugins.css?ver=@php echo CSS_VER @endphp">
@@ -39,14 +41,14 @@
     {{-- swiper end --}}
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N7WWXVQLYT"></script>
+    {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-N7WWXVQLYT"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'G-N7WWXVQLYT');
-    </script>
+    </script> --}}
 
     <script>
         let loading = `<i class="removeLoading fa fa-spinner fa-spin" style="font-size:24px"></i>`;
@@ -59,7 +61,7 @@
         <!--Top Header-->
         <div class="top-header">
             <div class="container">
-                <div class="row">
+                <div class="row align-items-center">
                     <div class="col-10 col-sm-8 col-md-5 col-lg-8">
                         <p class="phone-no"><i class="anm anm-phone-s"></i> +440 0(111) 044 833</p>
                     </div>
@@ -72,12 +74,12 @@
                         <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al"
                                 aria-hidden="true"></i></span>
                         <ul class="customer-links list-inline">
-                          @if (Auth::check())
-                          <li><a href="{{ asset('/logout') }}">Logout</a></li>
-                          @else
-                          <li><a href="{{ asset('/sign-in') }}">Login</a></li>
-                          <li><a href="{{ asset('/sign-up') }}">Create Account</a></li>
-                          @endif 
+                            @if (Auth::check())
+                                <li><a href="{{ asset('/logout') }}">Logout</a></li>
+                            @else
+                                <li><a href="{{ asset('/sign-in') }}">Login</a></li>
+                                <li><a href="{{ asset('/sign-up') }}">Create Account</a></li>
+                            @endif
                             <li><a href="wishlist.html">Wishlist</a></li>
                         </ul>
                     </div>
@@ -93,7 +95,7 @@
                     <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
                         <a href="{{ asset('/') }}">
                             <img src="{{ asset('/') }}client/images/logo.svg" alt="Belle Multipurpose Html Template"
-                                title="Belle Multipurpose Html Template" />
+                                title="Logo" />
                         </a>
                     </div>
                     <!--End Desktop Logo-->
@@ -108,14 +110,10 @@
                         <!--Desktop Menu-->
                         <nav class="grid__item" id="AccessibleNav"><!-- for mobile -->
                             <ul id="siteNav" class="site-nav medium center hidearrow">
-                                <li class="lvl1 parent megamenu"><a href="#">Home <i
-                                            class="anm anm-angle-down-l"></i></a>
-                                </li>
-                                <li class="lvl1 parent megamenu"><a href="#">Shop <i
-                                            class="anm anm-angle-down-l"></i></a>
-                                </li>
-                                <li class="lvl1 parent dropdown"><a href="#">Product <i
-                                            class="anm anm-angle-down-l"></i></a>
+                                <li class="lvl1 parent megamenu"><a href="#">Home <i class="anm anm-angle-down-l"></i></a></li>
+                                <li class="lvl1 parent megamenu"><a href="#">Shop <i class="anm anm-angle-down-l"></i></a></li>
+
+                                <li class="lvl1 parent dropdown"><a href="#">Product <i class="anm anm-angle-down-l"></i></a>
                                     <ul class="dropdown">
                                         <li><a href="cart-variant1.html" class="site-nav">Cart Page <i
                                                     class="anm anm-angle-right-l"></i></a>
@@ -184,8 +182,19 @@
                         <div class="site-cart">
                             <a href="{{ route('cart.index') }}" class="site-header__cart" title="Cart">
                                 <i class="icon anm anm-bag-l"></i>
-                                <span id="CartCount" class="site-header__cart-count"
-                                    data-cart-render="item_count">2</span>
+                                <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">
+                                    {{-- đếm cart --}}
+                                    @php
+                                        if (\Auth::check()) {
+                                            $user = \Auth::user();
+                                            $cartItems = \DB::table('carts')->select(['id'])->where('user_id', $user->id)->get();
+                                            $cartCount = $cartItems->count();
+                                        } else {
+                                            $cartCount = session()->has('cart') ? count(session()->get('cart')) : 0;
+                                        }
+                                    @endphp
+                                    {{ $cartCount }}
+                                </span>
                             </a>
                         </div>
                         <div class="site-header__search">
@@ -205,66 +214,12 @@
                 <li class="lvl1 parent megamenu"><a href="index.html">Home <i class="anm anm-plus-l"></i></a>
                     <ul>
                         <li><a href="#" class="site-nav">Home Group 1<i class="anm anm-plus-l"></i></a>
-                            <ul>
-                                <li><a href="index.html" class="site-nav">Home 1 - Classic</a></li>
-                                <li><a href="home2-default.html" class="site-nav">Home 2 - Default</a></li>
-                                <li><a href="home15-funiture.html" class="site-nav">Home 15 - Furniture </a></li>
-                                <li><a href="home3-boxed.html" class="site-nav">Home 3 - Boxed</a></li>
-                                <li><a href="home4-fullwidth.html" class="site-nav">Home 4 - Fullwidth</a></li>
-                                <li><a href="home5-cosmetic.html" class="site-nav">Home 5 - Cosmetic</a></li>
-                                <li><a href="home6-modern.html" class="site-nav">Home 6 - Modern</a></li>
-                                <li><a href="home7-shoes.html" class="site-nav last">Home 7 - Shoes</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#" class="site-nav">Home Group 2<i class="anm anm-plus-l"></i></a>
-                            <ul>
-                                <li><a href="home8-jewellery.html" class="site-nav">Home 8 - Jewellery</a></li>
-                                <li><a href="home9-parallax.html" class="site-nav">Home 9 - Parallax</a></li>
-                                <li><a href="home10-minimal.html" class="site-nav">Home 10 - Minimal</a></li>
-                                <li><a href="home11-grid.html" class="site-nav">Home 11 - Grid</a></li>
-                                <li><a href="home12-category.html" class="site-nav">Home 12 - Category</a></li>
-                                <li><a href="home13-auto-parts.html" class="site-nav">Home 13 - Auto Parts</a></li>
-                                <li><a href="home14-bags.html" class="site-nav last">Home 14 - Bags</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#" class="site-nav">New Sections<i class="anm anm-plus-l"></i></a>
-                            <ul>
-                                <li><a href="home11-grid.html" class="site-nav">Image Gallery</a></li>
-                                <li><a href="home5-cosmetic.html" class="site-nav">Featured Product</a></li>
-                                <li><a href="home7-shoes.html" class="site-nav">Columns with Items</a></li>
-                                <li><a href="home6-modern.html" class="site-nav">Text columns with images</a></li>
-                                <li><a href="home2-default.html" class="site-nav">Products Carousel</a></li>
-                                <li><a href="home9-parallax.html" class="site-nav last">Parallax Banner</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#" class="site-nav">New Features<i class="anm anm-plus-l"></i></a>
-                            <ul>
-                                <li><a href="home13-auto-parts.html" class="site-nav">Top Information Bar </a></li>
-                                <li><a href="#" class="site-nav">Age Varification </a></li>
-                                <li><a href="#" class="site-nav">Footer Blocks</a></li>
-                                <li><a href="#" class="site-nav">2 New Megamenu style</a></li>
-                                <li><a href="#" class="site-nav">Show Total Savings </a></li>
-                                <li><a href="#" class="site-nav">New Custom Icons</a></li>
-                                <li><a href="#" class="site-nav last">Auto Currency</a></li>
-                            </ul>
                         </li>
                     </ul>
                 </li>
                 <li class="lvl1 parent megamenu"><a href="#">Shop <i class="anm anm-plus-l"></i></a>
                     <ul>
-                        <li><a href="#" class="site-nav">Shop Pages<i class="anm anm-plus-l"></i></a>
-                            <ul>
-                                <li><a href="shop-left-sidebar.html" class="site-nav">Left Sidebar</a></li>
-                                <li><a href="shop-right-sidebar.html" class="site-nav">Right Sidebar</a></li>
-                                <li><a href="shop-fullwidth.html" class="site-nav">Fullwidth</a></li>
-                                <li><a href="shop-grid-3.html" class="site-nav">3 items per row</a></li>
-                                <li><a href="shop-grid-4.html" class="site-nav">4 items per row</a></li>
-                                <li><a href="shop-grid-5.html" class="site-nav">5 items per row</a></li>
-                                <li><a href="shop-grid-6.html" class="site-nav">6 items per row</a></li>
-                                <li><a href="shop-grid-7.html" class="site-nav">7 items per row</a></li>
-                                <li><a href="shop-listview.html" class="site-nav last">Product Listview</a></li>
-                            </ul>
-                        </li>
+
                         <li><a href="#" class="site-nav">Shop Features<i class="anm anm-plus-l"></i></a>
                             <ul>
                                 <li><a href="shop-left-sidebar.html" class="site-nav">Product Countdown </a></li>
