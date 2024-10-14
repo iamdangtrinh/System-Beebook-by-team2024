@@ -6,6 +6,7 @@ use App\Http\Controllers\client\checkoutController;
 use App\Http\Controllers\client\ClientController;
 use Illuminate\Support\Facades\Route;
 use App\Payments\Casso;
+use Illuminate\Support\Facades\Cache;
 
 Route::controller(CartController::class)->group(function () {
       Route::get('/cart', 'index')->name('cart.index');
@@ -27,3 +28,9 @@ Route::get('checkout', [checkoutController::class, 'index'])->name('checkout.ind
 Route::post('progressCheckout', [checkoutController::class, 'store'])->name('checkout.store');
 
 Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index');
+
+Route::get('/redis-test', function () {
+      Cache::store('redis')->put('test_key', 'Hello Redis', 10);
+      return Cache::store('redis')->get('test_key');
+  });
+  
