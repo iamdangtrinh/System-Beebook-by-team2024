@@ -4,7 +4,7 @@
 @section('body')
     <!--Body Content-->
     <div id="page-content">
-        <form action="{{route('checkout.index')}}" method="get">
+        {{-- <form action="{{route('checkout.index')}}" method=""> --}}
             <!--Page Title-->
             <div class="page section-header text-center">
                 <div class="page-title">
@@ -173,7 +173,7 @@
                     </div>
                 @endif
             </div>
-        </form>
+        {{-- </form> --}}
     </div>
 
     <!--Footer-->

@@ -56,6 +56,11 @@
         .select2-container--default .select2-selection--single {
             border: var(--bs-border-width) solid var(--bs-border-color) !important;
         }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 40px !important;
+        }
+
     </style>
 
     <!--Page Title-->
@@ -97,9 +102,11 @@
 
                         <fieldset>
                             <div class="form-group mb-3 col-md-12 col-lg-12 col-xl-12">
-                                <label for="provincer">Thành phố/Tỉnh</label>
-                                <input class="form-control setupSelect2" name="provincer" value="" id="provincer"
-                                    type="text">
+                                <label for="province">Thành phố/Tỉnh</label>
+                                <select class="form-control setupSelect2" name="province" value="" id="province">
+                                    <option value="">Chọn thành phố/Tỉnh</option>
+                                </select>
+
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-md-12 col-lg-6 col-xl-6">

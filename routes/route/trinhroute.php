@@ -24,8 +24,8 @@ Route::controller(cartController::class)->group(function () {
 
 Route::get('test', [cartController::class, 'viewcarttocart'])->name('cart.no.login');
 
-Route::get('checkout', [checkoutController::class, 'index'])->name('checkout.index')->middleware('CheckLogin');
-Route::post('progressCheckout', [checkoutController::class, 'store'])->name('checkout.store');
+Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('progressCheckout', [CheckoutController::class, 'store'])->name('checkout.store');
 
 Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index');
 
