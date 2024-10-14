@@ -21,7 +21,7 @@ return new class extends Migration
             // $table->unsignedBigInteger('city_id')->nullable();
             // $table->unsignedBigInteger('province_id')->nullable();
             // $table->unsignedBigInteger('ward_id')->nullable();
-            $table->string('address', 255);
+            $table->string('address', 255)->nullable();
             // $table->foreign('city_id')->references('id')->on('cities')->onDelete('set null');
             // $table->foreign('province_id')->references('id')->on('provinces')->onDelete('set null');
             // $table->foreign('ward_id')->references('id')->on('wards')->onDelete('set null');
