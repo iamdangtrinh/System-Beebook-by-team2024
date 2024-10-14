@@ -12,8 +12,9 @@
                         <div class="swiper mySwiper">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
-                                    <img src="https://cdn0.fahasa.com/media/magentothem/banner7/Banner2_9_0924_840x320.jpg"
-                                        alt="">
+                                    <a href="login"><img
+                                            src="https://cdn0.fahasa.com/media/magentothem/banner7/Banner2_9_0924_840x320.jpg"
+                                            alt=""></a>
                                 </div>
                                 <div class="swiper-slide">
                                     <img src="https://cdn0.fahasa.com/media/magentothem/banner7/MCbooks_KC_Slide_840x320.jpg"
