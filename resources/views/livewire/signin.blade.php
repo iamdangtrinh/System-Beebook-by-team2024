@@ -10,20 +10,30 @@
         <div class="container">
             <div class="row">
                 {{-- image --}}
-                <div  class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <img class="w-100" src="/client/images/manager-user/banner_sign_in.png" />
-                </div> 
+                </div>
                 {{-- form --}}
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="d-flex gap-3 flex-column">
+
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+
                         <div class="d-flex gap-3">
-                            <a href="{{ asset('/auth/facebook') }}" style="background: white !important; border:1px solid grey" class="btn  w-100 border-1 pt-2 pb-2 rounded-1 fs-6">
+                            <a href="{{ asset('/auth/facebook') }}"
+                                style="background: white !important; border:1px solid grey"
+                                class="btn  w-100 border-1 pt-2 pb-2 rounded-1 fs-6">
                                 <div class="d-flex justify-content-center align-items-center gap-2 text-center">
                                     <img style="width: 25px" src="/client/images/manager-user/logo_facebook.png" />
                                     <p>Facebook</p>
                                 </div>
                             </a>
-                            <a style="background: white !important; border:1px solid grey" href="/auth/google"  class="btn w-100 border-1 pt-2 pb-2 rounded-1 fs-6">
+                            <a style="background: white !important; border:1px solid grey" href="/auth/google"
+                                class="btn w-100 border-1 pt-2 pb-2 rounded-1 fs-6">
                                 <div class="d-flex justify-content-center align-items-center gap-2 text-center">
                                     <img style="width: 25px" src="/client/images/manager-user/logo_google.png" />
                                     <p>Google</p>
@@ -36,30 +46,35 @@
                             <div class="w-100" style="border-bottom: 1px solid rgb(34, 33, 33)"></div>
                         </div>
                         {{-- Form Đăng Nhập --}}
-                        <form wire:submit='handleSignIn' class="d-flex flex-column gap-3"  >
+                        <form wire:submit='handleSignIn' class="d-flex flex-column gap-3">
                             {{-- Email --}}
                             <div class="col-12 position-relative">
                                 <div class="form-group">
                                     <label for="CustomerEmail">Email</label>
-                                    <input wire:model.live="email" class="rounded-1"  placeholder="Email" id="CustomerEmail" autocorrect="off" autocapitalize="off" autofocus="">
-                                    @error('email') <span class="error text-danger">{{ $message }}</span> @enderror
+                                    <input wire:model.live="email" class="rounded-1" placeholder="Email"
+                                        id="CustomerEmail" autocorrect="off" autocapitalize="off" autofocus="">
+                                    @error('email')
+                                        <span class="error text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             {{-- Mật khẩu --}}
                             <div class="col-12">
                                 <div class="form-group position-relative">
                                     <label for="CustomerPassword">Mật khẩu</label>
-                                    <input type="password" wire:model.live="password" class="rounded-1" placeholder="Mật khẩu" id="CustomerPassword">
-                                    @error('password') <span class="error text-danger">{{ $message }}</span> @enderror
+                                    <input type="password" wire:model.live="password" class="rounded-1"
+                                        placeholder="Mật khẩu" id="CustomerPassword">
+                                    @error('password')
+                                        <span class="error text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
-                            @if(session('SignInFailed'))
+                            @if (session('SignInFailed'))
                                 <span class="error text-danger"> {{ session('SignInFailed') }}</span>
-                               
-                        @endif
-                        @if(session('errorSignIn'))
-                        <span class="error text-danger"> {{ session('errorSignIn') }}</span>
-                             @endif
+                            @endif
+                            @if (session('errorSignIn'))
+                                <span class="error text-danger"> {{ session('errorSignIn') }}</span>
+                            @endif
                             {{-- Remember me và Quên mật khẩu --}}
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex gap-1">
@@ -71,10 +86,9 @@
                                 </div>
                             </div>
                             {{-- Nút Đăng Nhập --}}
-                            <button   type="submit"
-                            class="btn  pt-lg-3 rounded-1 pb-lg-3 fs-6"
-                            @if($errors->any()) disabled @endif>Đăng Nhập
-                        </button>
+                            <button type="submit" class="btn  pt-lg-3 rounded-1 pb-lg-3 fs-6"
+                                @if ($errors->any()) disabled @endif>Đăng Nhập
+                            </button>
                         </form>
                         <div class="d-flex gap-1 justify-content-center">
                             <p>Bạn chưa có tài khoản?</p>
@@ -85,5 +99,5 @@
             </div>
         </div>
     </div>
-    
+
 </div>

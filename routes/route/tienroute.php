@@ -5,7 +5,7 @@ use App\Http\Controllers\client\LoginGoogleController;
 use App\Http\Controllers\client\LoginFaceBookController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['checkLogin'])->group(function () {
+Route::middleware(['CheckAuth'])->group(function () {
 Route::get('/sign-in', [ManagerUserController::class, 'SignIn']);
 Route::get('/sign-up', [ManagerUserController::class, 'SignUp']);
 });
