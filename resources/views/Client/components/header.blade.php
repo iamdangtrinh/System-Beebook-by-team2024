@@ -61,7 +61,7 @@
         <!--Top Header-->
         <div class="top-header">
             <div class="container">
-                <div class="row align-items-center">
+                <div class="d-flex align-items-center">
                     <div class="col-10 col-sm-8 col-md-5 col-lg-8">
                         <p class="phone-no"><i class="anm anm-phone-s"></i> +440 0(111) 044 833</p>
                     </div>
@@ -74,15 +74,37 @@
                         <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al"
                                 aria-hidden="true"></i></span>
                             <ul id="siteNav" class="site-nav medium center hidearrow">
-                                <li class="lvl1 parent dropdown"><a href="#">Product <i class="anm anm-angle-down-l"></i></a>
-                                    <ul class="dropdown">
-                                        <li><a href="cart-variant1.html" class="site-nav">Cart Page </a>
+                                <li class="lvl1 parent dropdown ">
+                                    <i class="icon anm anm-user-circle"></i>
+                                    <ul class="dropdown" style="top:33px">
+                                        @if (Auth::check())
+                                    <li><a href="#" class="site-nav"> 
+                                        <i class="icon anm anm-user-circle"></i>
+                                        Hồ sơ
+                                    </a>
                                         </li>
-                                        <li><a href="compare-variant1.html" class="site-nav">Compare Product </a>
+                                        <li><a href="#" class="site-nav">
+                                        <i class="icon anm anm-cart-r"></i>
+                                            Đơn hàng của tôi </a>
                                         </li>
+                                        <li><a href="#" class="site-nav">
+                                        <i class="icon anm anm-heart-r"></i>
+                                            Sản phẩm yêu thích </a>
+                                        </li>
+                                        <li><a href="/logout" class="site-nav">
+                                        <i class="icon anm anm-sign-out-ar"></i>
+                                            Đăng xuất </a>
+                                        </li>
+                                        @else
+                                        <li><a href="{{asset('/sign-in')}}" class="site-nav">Đăng nhập </a>
+                                        </li>
+                                        <li><a href="{{asset('/sign-up')}}" class="site-nav">Đăng ký </a>
+                                        </li>
+
+                                        @endif
                                     </ul>
                                 </li>
-                                <li><a href="wishlist.html">Wishlist</a></li>
+                                <li><a class="text-white" href="wishlist.html">Wishlist</a></li>
                             </ul>
                     </div>
                 </div>
@@ -203,6 +225,7 @@
                             <button type="button" class="search-trigger"><i
                                     class="icon anm anm-search-l"></i></button>
                         </div>
+                        
                         
                     </div>
                 </div>
