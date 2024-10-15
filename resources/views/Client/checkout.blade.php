@@ -128,6 +128,11 @@
                                     <label for="input-address-1">Địa chỉ</label>
                                     <input class="form-control" name="address" value="" id="input-address-autocomplte"
                                         type="text">
+
+                                        <select class="form-control" name="address" value="" id="select-address-autocomplte">
+                                            
+                                        </select>
+
                                 </div>
                             </div>
                         </fieldset>

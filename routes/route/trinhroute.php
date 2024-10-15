@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\couponController;
 use App\Http\Controllers\client\cartController;
 use App\Http\Controllers\client\checkoutController;
 use App\Http\Controllers\client\ClientController;
+use App\Http\Controllers\client\getLocationGHNContronller;
 use Illuminate\Support\Facades\Route;
 use App\Payments\Casso;
 use Illuminate\Support\Facades\Cache;
@@ -21,6 +22,13 @@ Route::controller(cartController::class)->group(function () {
 //       Route::post('/coupon/addtocoupon', 'store')->name('coupon.store');
 //       Route::post('/coupon/delete', 'delete')->name('coupon.delete');
 // });
+
+Route::controller(getLocationGHNContronller::class)->group(function () {
+      Route::get('/provincer', 'getProvincer')->name('provincer.index');
+      Route::get('/district/{id}', 'getDistrict')->name('district.index');
+      Route::get('/ward/{id}', 'getWard')->name('ward.index');
+});
+
 
 Route::get('test', [cartController::class, 'viewcarttocart'])->name('cart.no.login');
 

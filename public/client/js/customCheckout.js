@@ -9,9 +9,10 @@
     };
 
     DT.inputAddress = () => {
-        $("#input-address-autocomplte").on("change", function () {
+        $("#input-address-autocomplte").on("input", function () {
             let _this = $(this);
-            DT.autoComplteAddressGoongApi(_this.val());
+            const getLocation = _.debounce(() => DT.autoComplteAddressGoongApi(_this.val()),1500);
+            getLocation();
         });
     };
 
@@ -21,9 +22,14 @@
             url: `https://rsapi.goong.io/Place/AutoComplete?api_key=3llMTBYg6lewfO3NctgGOQWkynPkZojFyNm6HBpp&radius=20000&input=${input}`,
             data: "",
             success: function (response) {
+                let html = "";
                 response.predictions.map((item) => {
+                    html += `<option value="${item.description}">${item.description}</option>`;
+
                     console.log(item.description);
+                    $("#select-address-autocomplte").html(html);
                 });
+
             },
             error: function () {},
             complte: function () {},
@@ -33,37 +39,46 @@
     DT.CALCFreeShipping = () => {
         DT.getProvincer();
 
-        $('#province').on('change', function() {
+        $("#province").on("change", function () {
             let _this = $(this);
-            if(_this.val() !== '') {
-                DT.getDistrict(_this.val())
+            if (_this.val() !== "") {
+                DT.getDistrict(_this.val());
             }
-        })
+        });
     };
 
     // get provincer
     DT.getProvincer = () => {
         $.ajax({
             type: "GET",
-            url: `https://online-gateway.ghn.vn/shiip/public-api/master-data/province`,
-            headers: {
-                token: "ed187595-1fec-11ef-a9c4-9e9a72686e07",
-            },
+            url: `provincer`,
             success: function (response) {
-                let html = '';
-                response.data.map(item => {
-                    html += `<option value="${item.ProvinceID}">${item.ProvinceName}</option>`
-                })
+                let html = "";
+                response.data.map((item) => {
+                    html += `<option value="${item.ProvinceID}">${item.ProvinceName}</option>`;
+                });
 
-                $('#province').append(html);
+                $("#province").append(html);
             },
         });
     };
 
     DT.getDistrict = (provinceID) => {
-        console.log('====================================');
         console.log(provinceID);
-        console.log('====================================');
+
+        $.ajax({
+            type: "GET",
+            url: `district/${provinceID}`,
+            success: function (response) {
+                let html = "";
+                response.data.map((item) => {
+                    html += `<option value="${item.ProvinceID}">${item.ProvinceName}</option>`;
+                });
+
+                $("#province").append(html);
+            },
+        });
+
     };
 
     DT.getWard = () => {};
