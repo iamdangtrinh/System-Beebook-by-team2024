@@ -371,6 +371,6 @@
         <!--End Mobile Menu-->
     </div>
     <!--End Header-->
-    @yield('body')
+    
 
     
