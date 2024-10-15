@@ -7,6 +7,7 @@ on:
 
 jobs:
   deploy:
+
     name: Deploy Laravel Application to aaPanel Server
     runs-on: ubuntu-latest
 
@@ -19,6 +20,10 @@ jobs:
       uses: webfactory/ssh-agent@v0.5.4
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Run Unit Tests
+      run: |
+        php artisan test --coverage
 
     - name: Deploy to Server
       run: |
