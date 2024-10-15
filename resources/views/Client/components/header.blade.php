@@ -73,15 +73,17 @@
                     <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
                         <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al"
                                 aria-hidden="true"></i></span>
-                        <ul class="customer-links list-inline">
-                            @if (Auth::check())
-                                <li><a href="{{ asset('/logout') }}">Logout</a></li>
-                            @else
-                                <li><a href="{{ asset('/sign-in') }}">Login</a></li>
-                                <li><a href="{{ asset('/sign-up') }}">Create Account</a></li>
-                            @endif
-                            <li><a href="wishlist.html">Wishlist</a></li>
-                        </ul>
+                            <ul id="siteNav" class="site-nav medium center hidearrow">
+                                <li class="lvl1 parent dropdown"><a href="#">Product <i class="anm anm-angle-down-l"></i></a>
+                                    <ul class="dropdown">
+                                        <li><a href="cart-variant1.html" class="site-nav">Cart Page </a>
+                                        </li>
+                                        <li><a href="compare-variant1.html" class="site-nav">Compare Product </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="wishlist.html">Wishlist</a></li>
+                            </ul>
                     </div>
                 </div>
             </div>
@@ -201,6 +203,7 @@
                             <button type="button" class="search-trigger"><i
                                     class="icon anm anm-search-l"></i></button>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -346,3 +349,5 @@
     </div>
     <!--End Header-->
     @yield('body')
+
+    
