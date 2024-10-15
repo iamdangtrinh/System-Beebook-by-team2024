@@ -187,7 +187,7 @@
                                     @php
                                         if (\Auth::check()) {
                                             $user = \Auth::user();
-                                            $cartItems = \DB::table('carts')->select(['id'])->where('user_id', $user->id)->get();
+                                            $cartItems = \DB::table('carts')->select(['id'])->where('id_user', $user->id)->get();
                                             $cartCount = $cartItems->count();
                                         } else {
                                             $cartCount = session()->has('cart') ? count(session()->get('cart')) : 0;

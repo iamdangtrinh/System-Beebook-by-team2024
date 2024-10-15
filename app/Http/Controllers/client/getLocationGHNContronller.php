@@ -20,16 +20,16 @@ class getLocationGHNContronller extends Controller
             return $this->sendRequestGHN('province');
       }
       
-      public function getDistrict() {
-            return $this->sendRequestGHN('district', 269);
+      public function getDistrict(Request $request) {
+            return $this->sendRequestGHN('district?province_id=', $request->id);
       }
-      public function getWard() {
-            return $this->sendRequestGHN('province');
+      public function getWard(Request $request) {
+            return $this->sendRequestGHN('ward?district_id=', $request->id);
       }
 
       protected function sendRequestGHN($endpoint, $id = "")
       {
-            $ch = curl_init($this->URL_API . $endpoint. $id);
+            $ch = curl_init($this->URL_API . $endpoint .$id);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                   'Content-Type: application/json',
