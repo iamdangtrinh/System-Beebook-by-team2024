@@ -765,10 +765,11 @@ textarea:-ms-input-placeholder {
 
 .top-header {
   color: #fff;
-  padding-top: 8px;
-  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  
   background: #CE2626;
-  height: 38px;
+  height: 40px;
 }
 
 .top-header a {
