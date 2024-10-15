@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\client\ClientController;
 use App\Http\Controllers\admin\AdminController;
 
@@ -16,6 +17,7 @@ Route::get('/blogarticle', [ClientController::class, 'blogarticle']);
 Route::get('/bloggridview', [ClientController::class, 'bloggridview']);
 Route::get('/productshippingmessage', [ClientController::class, 'productshippingmessage']);
 Route::get('/shortdescription', [ClientController::class, 'shortdescription']);
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
 //admin
 
 Route::prefix('admin')->group(function () {
