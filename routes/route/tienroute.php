@@ -19,3 +19,5 @@ Route::get('auth/facebook/callback',[LoginFaceBookController::class,'handleFaceb
 
 // Logout
 Route::get('/logout', [ManagerUserController::class, 'LogOut']);
+// profile
+Route::get('/profile', [ManagerUserController::class, 'Profile']);

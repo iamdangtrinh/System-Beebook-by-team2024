@@ -6,7 +6,6 @@ use App\Models\User;
 use Livewire\Attributes\Validate; 
 use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
-use App\Services\UserService;
 
 class Signup extends Component
 {
