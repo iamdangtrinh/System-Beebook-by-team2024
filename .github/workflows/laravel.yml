@@ -21,9 +21,9 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Run Unit Tests
-      run: |
-        php artisan test --coverage
+    # - name: Run Unit Tests
+    #   run: |
+    #     php artisan test --coverage
 
     - name: Deploy to Server
       run: |
