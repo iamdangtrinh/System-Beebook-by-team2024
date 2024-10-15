@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class ManagerUserController extends Controller
 {
@@ -16,5 +17,8 @@ class ManagerUserController extends Controller
     public function  LogOut() {
         Auth::logout();
         return redirect('/sign-in');
+    }
+    public function Profile(){
+        return view('Client.profile')->with('success','hello');
     }
 }

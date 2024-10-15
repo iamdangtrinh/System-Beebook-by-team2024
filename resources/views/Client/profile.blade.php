@@ -1,9 +1,7 @@
 @extends('Client.components.header')
-<title>
-    @yield('title', 'Đăng ký')
-</title>
+<title>@yield('title', 'Hồ sơ')</title>
 @section('body')
 @livewireStyles
-@livewire('signup')
+@livewire('profile')
 @livewireScripts
 @endsection
