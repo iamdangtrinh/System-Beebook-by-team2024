@@ -133,8 +133,8 @@ class ProductsSeeder extends Seeder
                 'quantity' => rand(0, 1000), // Số lượng tồn kho ngẫu nhiên
                 'url_video' => null,
                 'views' => rand(0, 5000), // Số lượt xem ngẫu nhiên
-                'price' => rand(10000, 1000000) / 100, // Giá ngẫu nhiên
-                'price_sale' => rand(0, 1) ? rand(5000, 500000) / 100 : null, // Giá khuyến mãi ngẫu nhiên
+                'price' => rand(10000, 1000000), // Giá ngẫu nhiên
+                'price_sale' => rand(0, 1) ? rand(5000, 500000) : null, // Giá khuyến mãi ngẫu nhiên
                 'hot' => rand(0, 1) ? true : false,
                 'meta_seo' => $name,
                 'description_seo' => $name,

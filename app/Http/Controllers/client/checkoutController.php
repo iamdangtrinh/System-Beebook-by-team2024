@@ -29,12 +29,8 @@ class CheckoutController extends Controller
 
     public function index()
     {
-        // if (Auth::user()) {
         $result = $this->CartService->findCartByUser(20);
         return view('Client.checkout', compact(['result']));
-        // } else {
-        //     return redirect('/sign-in')->with('error', 'Vui lòng đăng nhập để thực hiện!');
-        // }
     }
 
     public function cartToCheckout(Request $request) {}
@@ -45,15 +41,8 @@ class CheckoutController extends Controller
     // mua hàng
     public function store(Request $request)
     {
-        // $productId = isset($_COOKIE['productChecked']) ? base64_decode($_COOKIE['productChecked']) : '';
-        // $productIds = array_filter(explode(',', $productId));
-        // $products = Product::whereIn('id', $productIds)->get();
-        // if (Auth::user()) {
         $result = $this->CheckoutService->create($request);
         return $result;
-        // } else {
-        //     return redirect('/sign-in')->with('error', 'Vui lòng đăng nhập để thực hiện!');
-        // }
     }
 
     // tạo view hiển thị giỏ hàng
@@ -82,20 +71,6 @@ class CheckoutController extends Controller
         } else {
             return "Xóa sản phẩm thất bại!";
         }
-    }
-
-    public function deleteSoft($id)
-    {
-        $seo = config('apps.cart.delete');
-        $cart = $this->CheckoutRepository->delete($id);
-    }
-
-    public function destroy($id)
-    {
-        if ($this->CheckoutService->destroy($id)) {
-            return redirect()->route('cart.index')->with('success', 'Delete cart success');
-        }
-        return redirect()->route('cart.index')->with('error', 'Delete cart error, please again');
     }
 
     public function viewcarttocart()

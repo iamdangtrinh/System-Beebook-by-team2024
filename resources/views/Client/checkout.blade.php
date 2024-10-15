@@ -60,7 +60,6 @@
         .select2-container--default .select2-selection--single .select2-selection__rendered {
             line-height: 40px !important;
         }
-
     </style>
 
     <!--Page Title-->
@@ -85,17 +84,20 @@
                         <fieldset>
                             <div class="form-group mb-3 col-md-12 col-lg-12 col-xl-12">
                                 <label for="name">Họ và tên</label>
-                                <input class="form-control" name="name" value="" id="name" type="text">
+                                <input class="form-control" name="name" value="{{ old('name') ?? Auth::user()->name }}"
+                                    id="name" type="text">
                             </div>
 
                             <div class="row mb-3">
                                 <div class="form-group col-md-12 col-lg-6 col-xl-6">
                                     <label for="phone">Số điện thoại</label>
-                                    <input class="form-control" name="phone" value="" id="phone" type="text">
+                                    <input class="form-control" name="phone"
+                                        value="{{ old('phone') ?? Auth::user()->phone }}" id="phone" type="text">
                                 </div>
                                 <div class="form-group col-md-12 col-lg-6 col-xl-6">
                                     <label for="email">Email</label>
-                                    <input class="form-control" name="email" value="" id="email" type="text">
+                                    <input class="form-control" name="email"
+                                        value="{{ old('email') ?? Auth::user()->email }}" id="email" type="text">
                                 </div>
                             </div>
                         </fieldset>
@@ -111,13 +113,15 @@
                             <div class="row mb-3">
                                 <div class="form-group col-md-12 col-lg-6 col-xl-6">
                                     <label for="district">Quận/Huyện</label>
-                                    <input class="form-control setupSelect2" name="district" value="" id="district"
-                                        type="text">
+                                        <select class="form-control setupSelect2" name="district" value="" id="district">
+                                            <option value="">Chọn Quận/Huyện</option>
+                                        </select>
                                 </div>
                                 <div class="form-group col-md-12 col-lg-6 col-xl-6">
                                     <label for="ward">Xã/Phường</label>
-                                    <input class="form-control setupSelect2" name="ward" value="" id="ward"
-                                        type="text">
+                                        <select class="form-control setupSelect2" name="ward" value="" id="ward">
+                                            <option value="">Chọn Xã/Phường</option>
+                                        </select>
                                 </div>
                             </div>
                         </fieldset>
@@ -129,9 +133,9 @@
                                     <input class="form-control" name="address" value="" id="input-address-autocomplte"
                                         type="text">
 
-                                        <select class="form-control" name="address" value="" id="select-address-autocomplte">
+                                    {{-- <select class="form-control" name="address" value="" id="select-address-autocomplte">
                                             
-                                        </select>
+                                        </select> --}}
 
                                 </div>
                             </div>
@@ -171,7 +175,11 @@
                                             alt="{{ $product['name'] }}">
                                         <p class="__name_product_checkout"> <strong> {{ $product['quantity'] }}
                                             </strong> x
-                                            <span class="w-75">{{ $product['name'] }}</span>
+                                            <span class="w-75">
+                                                @foreach ($product->cartProduct as $cartProduct)
+                                                    {{ $cartProduct->name }}
+                                                @endforeach
+                                            </span>
                                         </p>
                                         <span>{{ number_format($product['quantity'] * $product['price'], '0', '.', '.') }}
                                             đ</span>
@@ -227,13 +235,6 @@
                                                 </div>
                                             </div>
                                         @endforeach
-                                    </div>
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="form-group col-md-12 col-lg-12 col-xl-12">
-                                        <label for="input-note">Ghi chú đơn hàng</label>
-                                        <textarea id="input-note" class="form-control resize-both" name="note" rows="3"></textarea>
                                     </div>
                                 </div>
 

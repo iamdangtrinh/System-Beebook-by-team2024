@@ -17,11 +17,9 @@ use Illuminate\Support\Facades\Auth;
 class CartService implements CartServiceInterface
 {
     protected $CartRepository;
-    private $isAuthenticated;
     public function __construct(CartRepository $CartRepository)
     {
         $this->CartRepository = $CartRepository;
-        $this->isAuthenticated = Auth::user();
     }
 
     private function paginateSelect()
@@ -37,12 +35,9 @@ class CartService implements CartServiceInterface
 
     public function findCartByUser($perPage = 20)
     {
-        if ($this->isAuthenticated) {
-            $cart = $this->CartRepository->findCart(
-                $this->paginateSelect(),
-                1,
-                $perPage
-            );
+        $cart = [];
+        if (Auth::check()) {
+           $cart = $this->CartRepository->findCart($this->paginateSelect(), Auth::user()->id, $perPage);
         } else {
             // Lấy giỏ hàng từ session
             $carts = session()->get('cart', []);
@@ -79,7 +74,7 @@ class CartService implements CartServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->except(['_token']);
-            if ($this->isAuthenticated) {
+            if (Auth::check()) {
                 if (!$payload['id_product']) {
                     abort(404);
                 }
@@ -135,8 +130,8 @@ class CartService implements CartServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->except(['_token']);
-            if ($this->isAuthenticated) {
-                $payload['id_user'] = '1';
+            if (Auth::check()) {
+                $payload['id_user'] = Auth::user()->id;
                 $response = $this->CartRepository->updateQuantityCart($payload);
             } else {
                 // cập nhật giỏ hàng khi chưa có đăng nhập
@@ -167,7 +162,7 @@ class CartService implements CartServiceInterface
             $payload = $request->except(['_token']);
             $id_product = $payload['id_product'];
             // xóa khi có đăng nhập
-            if ($this->isAuthenticated) {
+            if (Auth::check()) {
                 $response = $this->CartRepository->delete($payload['id_cart']);
             } else {
                 $cart = $request->session()->get('cart', []);
