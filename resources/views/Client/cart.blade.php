@@ -1,5 +1,5 @@
 <title>@yield('title', 'Giỏ hàng')</title>
-@extends('Client.components.header')
+@extends('layout.client')
 
 @section('body')
     <!--Body Content-->
@@ -174,6 +174,11 @@
         {{-- </form> --}}
     </div>
 
+    </div>
+
+    <!--Footer-->
+
+    <!--End Footer-->
     <!--Scoll Top-->
     <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
     <!--End Scoll Top-->

@@ -11,7 +11,7 @@
                         </form> --}}
 
 <title>@yield('title', 'Thanh toán')</title>
-@extends('Client.components.header')
+@extends('layout.client')
 
 @section('body')
     <style>
