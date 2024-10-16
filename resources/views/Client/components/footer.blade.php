@@ -1,4 +1,3 @@
-
 <footer id="footer" class="footer-3">
     <div class="site-footer">
         <div class="container">
@@ -57,8 +56,7 @@
                                     <p>Be the first to hear about new trending and offers and see how you've helped.</p>
                                     <div class="input-group">
                                         <input type="email" class="input-group__field newsletter__input"
-                                            name="EMAIL" value="" placeholder="Email address"
-                                            required="">
+                                            name="EMAIL" value="" placeholder="Email address" required="">
                                         <span class="input-group__btn">
                                             <button type="submit" class="btn newsletter__submit" name="commit"
                                                 id="Subscribe"><span
@@ -100,55 +98,15 @@
     </div>
 </footer>
 
-<script>
-        jQuery(document).ready(function() {
-            jQuery('.closepopup').on('click', function() {
-                jQuery('#popup-container').fadeOut();
-                jQuery('#modalOverly').fadeOut();
-            });
-        });
+<!-- Including Jquery -->
+<script src="{{ asset('/') }}client/js/vendor/jquery-3.3.1.min.js"></script>
+<script src="{{ asset('/') }}client/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="{{ asset('/') }}client/js/vendor/wow.min.js"></script>
+<!-- Including Javascript -->
+<script src="{{ asset('/') }}client/js/bootstrap.min.js"></script>
+<script src="{{ asset('/') }}client/js/plugins.js"></script>
+<script src="{{ asset('/') }}client/js/popper.min.js"></script>
+<script src="{{ asset('/') }}client/js/lazysizes.js"></script>
+<script src="{{ asset('/') }}client/js/main.js"></script>
 
-        jQuery(document).mouseup(function(e) {
-            var container = jQuery('#popup-container');
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                container.fadeOut();
-                jQuery('#modalOverly').fadeIn(200);
-                jQuery('#modalOverly').hide();
-            }
-        });
 
-        // banner
-        var swiper = new Swiper(".mySwiper", {
-            slidesPerView: "auto",
-            autoplay: {
-                delay: 2500
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-        });
-
-        // category
-        var swiper = new Swiper(".categorySlide", {
-            slidesPerView: 4,
-            spaceBetween: 10,
-            autoplay: {
-                delay: 1500
-            },
-            breakpoints: {
-                400: {
-                    slidesPerView: 4,
-                    spaceBetween: 20,
-                },
-                768: {
-                    slidesPerView: 6,
-                    spaceBetween: 20,
-                },
-                1024: {
-                    slidesPerView: 8,
-                    spaceBetween: 20,
-                },
-            },
-        });
-    </script>
