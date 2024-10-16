@@ -83,7 +83,9 @@ class CheckoutService implements CheckoutServiceInterface
                         foreach ($carts as $cart) {
                               $total_amount += $cart->price;
                         }
+                        
                         $payload['price'] = 200000;
+
                         $payload['total_amount'] = $total_amount;
                         
                         $payload['id_product'] = 2;
