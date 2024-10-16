@@ -1,7 +1,7 @@
 name: CI/CD Laravel Deployment
 
 on:
-  push:
+  pull_request:
     branches:
       - Pro  # Chạy khi có thay đổi trên nhánh main
 
