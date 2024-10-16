@@ -1,8 +1,8 @@
 name: CI/CD Laravel Deployment
 
 on:
-  pull_request:
-    branches:
+  push:
+    pull_request:
       - Pro  # Chạy khi có thay đổi trên nhánh main
 
 jobs:
