@@ -23,6 +23,7 @@ class BillModel extends Model
         "discount",
         "fee_shipping",
         "address",
+        "email",
         "phone",
         "name",
         "note",

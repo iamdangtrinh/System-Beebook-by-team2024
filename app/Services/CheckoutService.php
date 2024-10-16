@@ -6,6 +6,8 @@ use App\Services\Interfaces\CheckoutServiceInterface;
 // use App\Models\User;
 use App\Repositories\Interfaces\CheckoutRepositoryInterface as CheckoutRepository;
 use App\Repositories\Interfaces\BillDetailRepositoryInterface as BillDetailRepository;
+use App\Services\Interfaces\CartServiceInterface as CartService;
+
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -20,10 +22,13 @@ class CheckoutService implements CheckoutServiceInterface
 {
       protected $CheckoutRepository;
       protected $BillDetailRepository;
-      public function __construct(CheckoutRepository $CheckoutRepository, BillDetailRepository $BillDetailRepository)
+      protected $CartService;
+
+      public function __construct(CheckoutRepository $CheckoutRepository, BillDetailRepository $BillDetailRepository, CartService $CartService)
       {
             $this->CheckoutRepository = $CheckoutRepository;
             $this->BillDetailRepository = $BillDetailRepository;
+            $this->CartService = $CartService;
       }
 
       private function paginateSelect()
@@ -39,6 +44,7 @@ class CheckoutService implements CheckoutServiceInterface
                   "discount",
                   "fee_shipping",
                   "address",
+                  "email",
                   "phone",
                   "name",
                   "note",
@@ -65,24 +71,34 @@ class CheckoutService implements CheckoutServiceInterface
             try {
                   $payload = $request->except(['_token']);
                   if (!empty($payload['checkout']) || $payload['checkout'] !== 'submit_checkout') {
-                        // $payload['id_user'] = 1;
-                        // $payload['total_amount'] = 2030000 ;
-                        // $id_bill = $this->CheckoutRepository->create($payload)->id;
+                        if ($payload['payment_method'] == "ONLINE") {
+                              // sang trang thanh toán online
+                              // echo "TT ONLINE";
+                        }
 
-                        // $payload['id_product'] = 2;
-                        // $payload['id_bill'] = $id_bill;
-                        // $payload['image_cover'] = "No image";
-                        // $payload['quantity'] = 1;
-                        // $payload['price'] = 200000;
-                        // $this->BillDetailRepository->create($payload);
+                        $payload['id_user'] = Auth::user()->id;
+                        $carts = $this->CartService->findCartByUser(20);
+                        
+                        $total_amount = 0;
+                        foreach ($carts as $cart) {
+                              $total_amount += $cart->price;
+                        }
+                        
+                        $payload['price'] = 200000;
 
-                        echo '123';
+                        $payload['total_amount'] = $total_amount;
+                        
+                        $payload['id_product'] = 2;
+                        $payload['image_cover'] = "No image";
+                        $payload['quantity'] = 1;
+
+
+                        $id_bill = $this->CheckoutRepository->create($payload)->id;
+                        $payload['id_bill'] = $id_bill;
+                        $this->BillDetailRepository->create($payload);
                   } else {
                         echo 'ko duoc';
                   }
-                  // } else {
-                  //       return redirect('/sign-in')->with('error', 'Vui lòng đăng nhập để thực hiện!');
-                  // }
                   DB::commit();
                   return true;
             } catch (\Exception $exception) {

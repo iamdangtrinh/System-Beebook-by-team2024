@@ -812,16 +812,7 @@
     </div>
     <!-- End Newsletter Popup -->
 
-    <!-- Including Jquery -->
-    <script src="{{ asset('/') }}client/js/vendor/jquery-3.3.1.min.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/wow.min.js"></script>
-    <!-- Including Javascript -->
-    <script src="{{ asset('/') }}client/js/bootstrap.min.js"></script>
-    <script src="{{ asset('/') }}client/js/plugins.js"></script>
-    <script src="{{ asset('/') }}client/js/popper.min.js"></script>
-    <script src="{{ asset('/') }}client/js/lazysizes.js"></script>
-    <script src="{{ asset('/') }}client/js/main.js"></script>
+    
 
     <!--For Newsletter Popup-->
     <script>
@@ -876,8 +867,4 @@
             },
         });
     </script>
-    </div>
-    </body>
-
-    </html>
 @endsection

@@ -1,7 +1,8 @@
-@extends('Client.components.header')
+
 <title>
     @yield('title', 'Đăng nhập')
 </title>
+@extends('layout.client')
 @section('body')
 @livewireStyles
 @livewire('signin')

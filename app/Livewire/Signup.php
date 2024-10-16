@@ -6,6 +6,9 @@ use App\Models\User;
 use Livewire\Attributes\Validate; 
 use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\verifySignUp;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class Signup extends Component
 {
@@ -36,14 +39,16 @@ class Signup extends Component
     public function handleSignUp(){
         $this->validate();
         try {
-           User::create([
+           $user=User::create([
                 'name' => $this->name,
                 'email' => $this->email, // Sử dụng $this->email
                 'phone' => $this->phone, // Sử dụng $this->phone
                 'password' => Hash::make($this->password_confirm) // Mã hóa mật khẩu trước khi lưu
             ]);
+            Mail::to($this->email)->send(new verifySignUp($user->id));
             redirect('/sign-in');
         } catch (\Throwable $th) {
+            dd($th->getMessage());
         }
     }
     public function render()

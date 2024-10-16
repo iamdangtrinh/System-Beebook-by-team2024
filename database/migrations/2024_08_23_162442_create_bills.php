@@ -14,14 +14,16 @@ return new class extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_user');
-            $table->enum('status', ['new', 'shipping', 'success', 'cancel']);
+            $table->enum('status', ['new', 'shipping', 'success', 'cancel', 'refund']);
             $table->string('reason_cancel')->nullable();
             $table->decimal('total_amount', 15, 0);
             $table->string('payment_method');
+            $table->string('payment_status')->nullable();
             $table->string('shipping_method');
-            $table->decimal('discount', 15, 0)->nullable();
             $table->decimal('fee_shipping', 15, 0)->nullable();
+            $table->decimal('discount', 15, 0)->nullable();
             $table->string('address', 255);
+            $table->string('email');
             $table->string('phone');
             $table->string('name');
             $table->text('note')->nullable();

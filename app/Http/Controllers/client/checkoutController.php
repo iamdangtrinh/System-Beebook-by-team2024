@@ -54,23 +54,12 @@ class CheckoutController extends Controller
 
     public function update(Request $request)
     {
-        $result = $this->CheckoutService->updateCart($request);
-
-        if ($result) {
-            return "Cập nhật số lượng sản phẩm thành công!";
-        } else {
-            return "Cập nhật số lượng sản phẩm thất bại!";
-        }
+        
     }
 
     public function delete(Request $request)
     {
-        $result = $this->CheckoutService->destroy($request);
-        if ($result) {
-            return "Xóa sản phẩm thành công!";
-        } else {
-            return "Xóa sản phẩm thất bại!";
-        }
+     
     }
 
     public function viewcarttocart()

@@ -68,7 +68,9 @@ class Profile extends Component
         } 
     }
     public function updatedAvatar($value)  {
-        $this->handleUpLoadImage($value);
+        if ($value) {
+            $this->handleUpLoadImage($value);
+        }
     }
     public function handleUpLoadImage($value){
         $this->validate(
@@ -79,12 +81,14 @@ class Profile extends Component
             ]
         );
         if ($value) {
-            $value->store('client','public');
+          $path = $value->store('uploads','public');
+            
+            // dd($originalName);
+            // $value->move(public_path('uploads'), $originalName);
             // $fileName = time() . '.' . $value->extension();
-            // $path = public_path('/public/client/images/avatar/' . $fileName);
             // // Lưu tệp hình ảnh
             // // Lưu vào thư mục public/client/images/avatar
-            // User::where('id',Auth::user()->id)->update(['avatar' => $path]); 
+            User::where('id',Auth::user()->id)->update(['avatar' => $path]); 
             session()->flash('success', 'Cập nhật ảnh đại diện thành công!');
         }
     }

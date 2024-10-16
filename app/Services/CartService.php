@@ -75,9 +75,7 @@ class CartService implements CartServiceInterface
         try {
             $payload = $request->except(['_token']);
             if (Auth::check()) {
-                if (!$payload['id_product']) {
-                    abort(404);
-                }
+                $payload['id_user'] = Auth::user()->id;
                 $response = $this->CartRepository->addToCart($payload);
             } else {
                 // kiểm tra giỏ hàng có tồn tại hay không
@@ -89,6 +87,7 @@ class CartService implements CartServiceInterface
                 // Cập nhật số lượng
                 if (isset($cart[$productId])) {
                     $cart[$productId]['quantity'] += $quantityToAdd; // Cộng thêm số lượng mới
+                    return $response = "Cập nhật giỏ hàng thành công";
                 } else {
                     // Nếu sản phẩm chưa có, thêm mới vào giỏ hàng
                     $cart[$productId] = [
@@ -97,11 +96,12 @@ class CartService implements CartServiceInterface
                         'product_price' => $productPrice,
                     ];
                 }
-
                 session()->put('cart', $cart);
+                return $response = "Thêm sản phẩm vào giỏ hàng thành công";
             }
             DB::commit();
-            return true;
+
+            return redirect('cart')->with('success', $response);
         } catch (\Exception $exception) {
             DB::rollBack();
             echo $exception->getMessage();

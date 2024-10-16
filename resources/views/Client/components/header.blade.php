@@ -73,39 +73,38 @@
                     <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
                         <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al"
                                 aria-hidden="true"></i></span>
-                            <ul id="siteNav" class="site-nav medium center hidearrow">
-                                <li class="lvl1 parent dropdown ">
-                                    <i class="icon anm anm-user-circle"></i>
-                                    <ul class="dropdown" style="top:33px">
-                                        @if (Auth::check())
-                                    <li><a href="#" class="site-nav"> 
-                                        <i class="icon anm anm-user-circle"></i>
-                                        Hồ sơ
-                                    </a>
+                        <ul id="siteNav" class="site-nav medium center hidearrow">
+                            <li class="lvl1 parent dropdown ">
+                                <i class="icon anm anm-user-circle"></i>
+                                <ul class="dropdown" style="top:33px">
+                                    @if (Auth::check())
+                                        <li><a href="/profile" class="site-nav">
+                                                <i class="icon anm anm-user-circle"></i>
+                                                Hồ sơ
+                                            </a>
                                         </li>
                                         <li><a href="#" class="site-nav">
-                                        <i class="icon anm anm-cart-r"></i>
-                                            Đơn hàng của tôi </a>
+                                                <i class="icon anm anm-cart-r"></i>
+                                                Đơn hàng của tôi </a>
                                         </li>
                                         <li><a href="#" class="site-nav">
-                                        <i class="icon anm anm-heart-r"></i>
-                                            Sản phẩm yêu thích </a>
+                                                <i class="icon anm anm-heart-r"></i>
+                                                Sản phẩm yêu thích </a>
                                         </li>
                                         <li><a href="/logout" class="site-nav">
-                                        <i class="icon anm anm-sign-out-ar"></i>
-                                            Đăng xuất </a>
+                                                <i class="icon anm anm-sign-out-ar"></i>
+                                                Đăng xuất </a>
                                         </li>
-                                        @else
-                                        <li><a href="{{asset('/sign-in')}}" class="site-nav">Đăng nhập </a>
+                                    @else
+                                        <li><a href="{{ asset('/sign-in') }}" class="site-nav">Đăng nhập </a>
                                         </li>
-                                        <li><a href="{{asset('/sign-up')}}" class="site-nav">Đăng ký </a>
+                                        <li><a href="{{ asset('/sign-up') }}" class="site-nav">Đăng ký </a>
                                         </li>
-
-                                        @endif
-                                    </ul>
-                                </li>
-                                <li><a class="text-white" href="wishlist.html">Wishlist</a></li>
-                            </ul>
+                                    @endif
+                                </ul>
+                            </li>
+                            <li><a class="text-white" href="wishlist.html">Wishlist</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -118,7 +117,7 @@
                     <!--Desktop Logo-->
                     <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
                         <a href="{{ asset('/') }}">
-                            <img src="{{ asset('/') }}client/images/logo.svg" alt="Belle Multipurpose Html Template"
+                            <img src="{{ asset('/') }}client/images/logo.png" height="50px" alt="Bee book"
                                 title="Logo" />
                         </a>
                     </div>
@@ -134,10 +133,13 @@
                         <!--Desktop Menu-->
                         <nav class="grid__item" id="AccessibleNav"><!-- for mobile -->
                             <ul id="siteNav" class="site-nav medium center hidearrow">
-                                <li class="lvl1 parent megamenu"><a href="#">Home <i class="anm anm-angle-down-l"></i></a></li>
-                                <li class="lvl1 parent megamenu"><a href="#">Shop <i class="anm anm-angle-down-l"></i></a></li>
+                                <li class="lvl1 parent megamenu"><a href="#">Home <i
+                                            class="anm anm-angle-down-l"></i></a></li>
+                                <li class="lvl1 parent megamenu"><a href="#">Shop <i
+                                            class="anm anm-angle-down-l"></i></a></li>
 
-                                <li class="lvl1 parent dropdown"><a href="#">Product <i class="anm anm-angle-down-l"></i></a>
+                                <li class="lvl1 parent dropdown"><a href="#">Product <i
+                                            class="anm anm-angle-down-l"></i></a>
                                     <ul class="dropdown">
                                         <li><a href="cart-variant1.html" class="site-nav">Cart Page <i
                                                     class="anm anm-angle-right-l"></i></a>
@@ -196,8 +198,8 @@
                     <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
                         <div class="logo">
                             <a href="{{ asset('/') }}">
-                                <img src="{{ asset('/') }}client/images/logo.svg"
-                                    alt="Belle Multipurpose Html Template" title="Belle Multipurpose Html Template" />
+                                <img src="{{ asset('/') }}client/images/logo.png" alt="Bee book"
+                                    title="Bee book" />
                             </a>
                         </div>
                     </div>
@@ -211,7 +213,10 @@
                                     @php
                                         if (\Auth::check()) {
                                             $user = \Auth::user();
-                                            $cartItems = \DB::table('carts')->select(['id'])->where('id_user', $user->id)->get();
+                                            $cartItems = \DB::table('carts')
+                                                ->select(['id'])
+                                                ->where('id_user', $user->id)
+                                                ->get();
                                             $cartCount = $cartItems->count();
                                         } else {
                                             $cartCount = session()->has('cart') ? count(session()->get('cart')) : 0;
@@ -225,8 +230,8 @@
                             <button type="button" class="search-trigger"><i
                                     class="icon anm anm-search-l"></i></button>
                         </div>
-                        
-                        
+
+
                     </div>
                 </div>
             </div>
@@ -243,71 +248,9 @@
                         </li>
                     </ul>
                 </li>
-                <li class="lvl1 parent megamenu"><a href="#">Shop <i class="anm anm-plus-l"></i></a>
-                    <ul>
-
-                        <li><a href="#" class="site-nav">Shop Features<i class="anm anm-plus-l"></i></a>
-                            <ul>
-                                <li><a href="shop-left-sidebar.html" class="site-nav">Product Countdown </a></li>
-                                <li><a href="shop-right-sidebar.html" class="site-nav">Infinite Scrolling</a></li>
-                                <li><a href="shop-grid-3.html" class="site-nav">Pagination - Classic</a></li>
-                                <li><a href="shop-grid-6.html" class="site-nav">Pagination - Load More</a></li>
-                                <li><a href="product-labels.html" class="site-nav">Dynamic Product Labels</a></li>
-                                <li><a href="product-swatches-style.html" class="site-nav">Product Swatches </a></li>
-                                <li><a href="product-hover-info.html" class="site-nav">Product Hover Info</a></li>
-                                <li><a href="shop-grid-3.html" class="site-nav">Product Reviews</a></li>
-                                <li><a href="shop-left-sidebar.html" class="site-nav last">Discount Label </a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
                 <li class="lvl1 parent megamenu"><a href="product-layout-1.html">Product <i
                             class="anm anm-plus-l"></i></a>
                     <ul>
-                        <li><a href="product-layout-1.html" class="site-nav">Product Page<i
-                                    class="anm anm-plus-l"></i></a>
-                            <ul>
-                                <li><a href="product-layout-1.html" class="site-nav">Product Layout 1</a></li>
-                                <li><a href="product-layout-2.html" class="site-nav">Product Layout 2</a></li>
-                                <li><a href="product-layout-3.html" class="site-nav">Product Layout 3</a></li>
-                                <li><a href="product-with-left-thumbs.html" class="site-nav">Product With Left
-                                        Thumbs</a></li>
-                                <li><a href="product-with-right-thumbs.html" class="site-nav">Product With Right
-                                        Thumbs</a></li>
-                                <li><a href="product-with-bottom-thumbs.html" class="site-nav last">Product With
-                                        Bottom Thumbs</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="short-description.html" class="site-nav">Product Features<i
-                                    class="anm anm-plus-l"></i></a>
-                            <ul>
-                                <li><a href="short-description.html" class="site-nav">Short Description</a></li>
-                                <li><a href="product-countdown.html" class="site-nav">Product Countdown</a></li>
-                                <li><a href="product-video.html" class="site-nav">Product Video</a></li>
-                                <li><a href="product-quantity-message.html" class="site-nav">Product Quantity
-                                        Message</a></li>
-                                <li><a href="product-visitor-sold-count.html" class="site-nav">Product Visitor/Sold
-                                        Count </a></li>
-                                <li><a href="product-zoom-lightbox.html" class="site-nav last">Product Zoom/Lightbox
-                                    </a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#" class="site-nav">Product Features<i class="anm anm-plus-l"></i></a>
-                            <ul>
-                                <li><a href="product-with-variant-image.html" class="site-nav">Product with Variant
-                                        Image</a></li>
-                                <li><a href="product-with-color-swatch.html" class="site-nav">Product with Color
-                                        Swatch</a></li>
-                                <li><a href="product-with-image-swatch.html" class="site-nav">Product with Image
-                                        Swatch</a></li>
-                                <li><a href="product-with-dropdown.html" class="site-nav">Product with Dropdown</a>
-                                </li>
-                                <li><a href="product-with-rounded-square.html" class="site-nav">Product with Rounded
-                                        Square</a></li>
-                                <li><a href="swatches-style.html" class="site-nav last">Product Swatches All Style</a>
-                                </li>
-                            </ul>
-                        </li>
                         <li><a href="#" class="site-nav">Product Features<i class="anm anm-plus-l"></i></a>
                             <ul>
                                 <li><a href="product-accordion.html" class="site-nav">Product Accordion</a></li>
@@ -371,6 +314,3 @@
         <!--End Mobile Menu-->
     </div>
     <!--End Header-->
-    
-
-    

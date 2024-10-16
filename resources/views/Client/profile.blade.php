@@ -1,4 +1,4 @@
-@extends('Client.components.header')
+@extends('layout.client')
 <title>@yield('title', 'Hồ sơ')</title>
 @section('body')
 @livewireStyles

@@ -23,6 +23,13 @@
                             <i class="icon anm anm-truck-l icon-large"></i> &nbsp;<strong>Congratulations!</strong> You've
                             got free shipping!
                         </div> --}}
+
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
                         <div class="table-responsive">
                             <table class="table table-bordered" style="white-space: nowrap;">
                                 <thead class="cart__row cart__header">
@@ -67,7 +74,7 @@
 
                                                 {{-- Hình ảnh và tên --}}
                                                 <td class="cart__image-wrapper cart-flex-item">
-                                                    <a href="{{ $isAuthenticated ? $product->slug : $product['slug'] }}">
+                                                    <a href="san-pham/{{ $isAuthenticated ? $product->slug : $product['slug'] }}">
                                                         <img class="cart__image"
                                                             src="{{ $isAuthenticated ? ($product->image_cover ? asset($product->image_cover) : asset('no_image.jpg')) : ($product['image_cover'] ? asset($product['image_cover']) : asset('no_image.jpg')) }}"
                                                             alt="{{ $isAuthenticated ? $product->name : $product['name'] }}">
@@ -173,33 +180,7 @@
         </div>
         {{-- </form> --}}
     </div>
-
-    </div>
-
-    <!--Footer-->
-
-    <!--End Footer-->
-    <!--Scoll Top-->
-    <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
-    <!--End Scoll Top-->
-    <!-- Including Jquery -->
-    <script src="{{ asset('/') }}client/js/vendor/jquery-3.3.1.min.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/jquery.cookie.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/wow.min.js"></script>
-    <!-- Including Javascript -->
-    <script src="{{ asset('/') }}client/js/bootstrap.min.js"></script>
-    <script src="{{ asset('/') }}client/js/plugins.js"></script>
-    <script src="{{ asset('/') }}client/js/popper.min.js"></script>
-    <script src="{{ asset('/') }}client/js/lazysizes.js"></script>
-    <script src="{{ asset('/') }}client/js/main.js"></script>
-
-    <script src="{{ asset('/') }}client/js/customCoupon.js"></script>
     <script src="{{ asset('/') }}client/js/customCart.js"></script>
     <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
 
-    </div>
-    </body>
-
-    </html>
 @endsection
