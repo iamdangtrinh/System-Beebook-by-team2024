@@ -8,30 +8,58 @@
         });
     };
 
+    DT.setupSelect2Tag = () => {
+        $(".setupSelect2").each(function () {
+            $(this).select2({
+                tags: true,
+            });
+        });
+    };
+
     DT.inputAddress = () => {
-        $("#input-address-autocomplte").on("input", function () {
+        $("#select-address-autocomplete").select2({
+            placeholder: "Select an address",
+            allowClear: true,
+
+            ajax: {
+                url: function (params) {
+                    console.log(params.term);
+                    const getLocation = _.debounce(
+                        () => DT.autoCompleteAddressGoongApi(params.term),
+                        1500
+                    );
+                    getLocation()
+                },
+                success: function (response) {
+                    
+                },
+            },
+        });
+
+        $("#select-address-autocomplete").on("select2:select", function () {
             let _this = $(this);
+
+            console.log(_this.val());
+
             const getLocation = _.debounce(
-                () => DT.autoComplteAddressGoongApi(_this.val()),
+                () => DT.autoCompleteAddressGoongApi(_this.val()),
                 1500
             );
             getLocation();
         });
     };
 
-    DT.autoComplteAddressGoongApi = (input) => {
+    DT.autoCompleteAddressGoongApi = (input) => {
         $.ajax({
             type: "get",
-            url: `https://rsapi.goong.io/Place/AutoComplete?api_key=3llMTBYg6lewfO3NctgGOQWkynPkZojFyNm6HBpp&radius=20000&input=${input}`,
+            url: `https://rsapi.goong.io/Place/AutoComplete?api_key=3llMTBYg6lewfO3NctgGOQWkynPkZojFyNm6HBpp&more_compound=true&radius=20000&input=${input}`,
             data: "",
             success: function (response) {
                 let html = "";
                 response.predictions.map((item) => {
                     html += `<option value="${item.description}">${item.description}</option>`;
-
-                    console.log(item.description);
-                    $("#select-address-autocomplte").html(html);
                 });
+                $("#select-address-autocomplete").html(html);
             },
             error: function () {},
             complte: function () {},
@@ -105,8 +133,9 @@
 
     $(document).ready(function () {
         DT.setupSelect2();
+        // DT.setupSelect2Tag();
         DT.inputAddress();
         DT.CALCFreeShipping();
-        // DT.autoComplteAddressGoongApi();
+        // DT.autoCompleteAddressGoongApi();
     });
 })(jQuery);

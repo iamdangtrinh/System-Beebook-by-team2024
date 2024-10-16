@@ -172,8 +172,8 @@
                 DT.updateTotalAmount();
             },
             error: function (response) {
+                _this.closest("tr").find(".cart__qty-input").val(quantityMax);
                 toastr.error(response.responseJSON.errors.quantity);
-                console.log(response);
             },
             complete: function (response) {
                 if (_this !== "") {
@@ -282,7 +282,7 @@
             let productChecked = [];
             $("input.inputCheckCart:checked").each(function () {
                 let _this = $(this);
-                let val = _this.closest('tr').find('.cart__qty-input').val()
+                let val = _this.closest("tr").find(".cart__qty-input").val();
                 productChecked.push(`${_this.val()}-${val}`);
             });
             DT.setCookie("productChecked", productChecked, 1);

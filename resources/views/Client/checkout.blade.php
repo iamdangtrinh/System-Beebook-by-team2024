@@ -113,15 +113,15 @@
                             <div class="row mb-3">
                                 <div class="form-group col-md-12 col-lg-6 col-xl-6">
                                     <label for="district">Quận/Huyện</label>
-                                        <select class="form-control setupSelect2" name="district" value="" id="district">
-                                            <option value="">Chọn Quận/Huyện</option>
-                                        </select>
+                                    <select class="form-control setupSelect2" name="district" value="" id="district">
+                                        <option value="">Chọn Quận/Huyện</option>
+                                    </select>
                                 </div>
                                 <div class="form-group col-md-12 col-lg-6 col-xl-6">
                                     <label for="ward">Xã/Phường</label>
-                                        <select class="form-control setupSelect2" name="ward" value="" id="ward">
-                                            <option value="">Chọn Xã/Phường</option>
-                                        </select>
+                                    <select class="form-control setupSelect2" name="ward" value="" id="ward">
+                                        <option value="">Chọn Xã/Phường</option>
+                                    </select>
                                 </div>
                             </div>
                         </fieldset>
@@ -130,12 +130,13 @@
                             <div class="row mb-3">
                                 <div class="form-group col-md-12 col-lg-12 col-xl-12 required">
                                     <label for="input-address-1">Địa chỉ</label>
-                                    <input class="form-control" name="address" value="" id="input-address-autocomplte"
-                                        type="text">
+                                    {{-- <input class="form-control" name="address" value="" id=""
+                                        type="text"> --}}
 
-                                    {{-- <select class="form-control" name="address" value="" id="select-address-autocomplte">
-                                            
-                                        </select> --}}
+                                    <select class="form-control setupSelect2" name="address" value=""
+                                        id="select-address-autocomplete">
+
+                                    </select>
 
                                 </div>
                             </div>
