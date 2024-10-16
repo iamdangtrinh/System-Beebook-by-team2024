@@ -9,11 +9,11 @@ use App\Models\User;
 class ManagerUserController extends Controller
 {
     public function SignIn(){
-        return view('Client.signIn' );
+        return view('Client.SignIn' );
     }
     public function SignUp(){
         
-        return view('Client.signUp');
+        return view('Client.SignUp');
     }
     public function  LogOut() {
         Auth::logout();
