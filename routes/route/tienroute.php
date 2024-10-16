@@ -21,3 +21,6 @@ Route::get('auth/facebook/callback',[LoginFaceBookController::class,'handleFaceb
 Route::get('/logout', [ManagerUserController::class, 'LogOut']);
 // profile
 Route::get('/profile', [ManagerUserController::class, 'Profile']);
+
+// verify
+Route::get('/verify-signup/{id}',[ManagerUserController::class,'HandleVerifySignUp']);

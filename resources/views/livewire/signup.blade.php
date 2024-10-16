@@ -6,7 +6,7 @@
             </div>
         </div>
     </div>
-    <div class="h-100 d-flex align-items-center justify-content-center">
+    <div class=" d-flex align-items-center justify-content-center">
         <div class="container">
             <div class="row">
                 {{-- image --}}

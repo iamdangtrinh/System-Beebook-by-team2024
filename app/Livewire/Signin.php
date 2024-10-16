@@ -23,7 +23,7 @@ class Signin extends Component
         if ($checkStatus) {
             $user = Auth::attempt(['email'=>$this->email, 'password'=>$this->password,'status'=>'active']);
             if ($user === true) {
-                  redirect('/');      
+                  redirect('/profile');      
             }else{
                 session()->flash('SignInFailed','Tài khoản hoặc mật khẩu của bạn không đúng!');
             }

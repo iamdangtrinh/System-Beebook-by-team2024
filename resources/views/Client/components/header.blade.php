@@ -78,7 +78,7 @@
                                 <i class="icon anm anm-user-circle"></i>
                                 <ul class="dropdown" style="top:33px">
                                     @if (Auth::check())
-                                        <li><a href="#" class="site-nav">
+                                        <li><a href="/profile" class="site-nav">
                                                 <i class="icon anm anm-user-circle"></i>
                                                 Hồ sơ
                                             </a>
