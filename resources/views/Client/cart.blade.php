@@ -173,33 +173,7 @@
         </div>
         {{-- </form> --}}
     </div>
-
-    </div>
-
-    <!--Footer-->
-
-    <!--End Footer-->
-    <!--Scoll Top-->
-    <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
-    <!--End Scoll Top-->
-    <!-- Including Jquery -->
-    <script src="{{ asset('/') }}client/js/vendor/jquery-3.3.1.min.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/jquery.cookie.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/wow.min.js"></script>
-    <!-- Including Javascript -->
-    <script src="{{ asset('/') }}client/js/bootstrap.min.js"></script>
-    <script src="{{ asset('/') }}client/js/plugins.js"></script>
-    <script src="{{ asset('/') }}client/js/popper.min.js"></script>
-    <script src="{{ asset('/') }}client/js/lazysizes.js"></script>
-    <script src="{{ asset('/') }}client/js/main.js"></script>
-
-    <script src="{{ asset('/') }}client/js/customCoupon.js"></script>
     <script src="{{ asset('/') }}client/js/customCart.js"></script>
     <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
 
-    </div>
-    </body>
-
-    </html>
 @endsection

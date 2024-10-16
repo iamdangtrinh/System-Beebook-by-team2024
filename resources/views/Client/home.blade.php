@@ -867,8 +867,4 @@
             },
         });
     </script>
-    </div>
-    </body>
-
-    </html>
 @endsection
