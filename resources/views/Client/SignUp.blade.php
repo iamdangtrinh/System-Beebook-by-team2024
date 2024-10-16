@@ -1,4 +1,5 @@
-@extends('Client.components.header')
+@extends('layout.client')
+
 <title>
     @yield('title', 'Đăng ký')
 </title>

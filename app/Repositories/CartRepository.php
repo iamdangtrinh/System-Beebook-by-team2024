@@ -51,11 +51,12 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
             ->first();
 
         if ($userExist) {
-            // $this->model->create($payload);
+            $userExist->quantity += $payload['quantity'];
+            $userExist->save();
             return "Cập nhật giỏ hàng thành công";
         } else {
-                $this->model->create($payload);
-            return "thêm sản phẩm vào giỏ hàng thành công";
+            $this->model->create($payload);
+            return "Thêm sản phẩm vào giỏ hàng thành công";
         }
     }
 }

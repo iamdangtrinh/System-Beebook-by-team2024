@@ -16,7 +16,7 @@ class CheckLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::user()) {
+        if (!Auth::check()) {
             return redirect('sign-in')->with('error', 'Vui lòng đăng nhập để mua hàng!');
         }
         return $next($request);

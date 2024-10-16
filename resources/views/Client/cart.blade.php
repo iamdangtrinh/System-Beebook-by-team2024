@@ -23,6 +23,13 @@
                             <i class="icon anm anm-truck-l icon-large"></i> &nbsp;<strong>Congratulations!</strong> You've
                             got free shipping!
                         </div> --}}
+
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
                         <div class="table-responsive">
                             <table class="table table-bordered" style="white-space: nowrap;">
                                 <thead class="cart__row cart__header">
@@ -67,7 +74,7 @@
 
                                                 {{-- Hình ảnh và tên --}}
                                                 <td class="cart__image-wrapper cart-flex-item">
-                                                    <a href="{{ $isAuthenticated ? $product->slug : $product['slug'] }}">
+                                                    <a href="san-pham/{{ $isAuthenticated ? $product->slug : $product['slug'] }}">
                                                         <img class="cart__image"
                                                             src="{{ $isAuthenticated ? ($product->image_cover ? asset($product->image_cover) : asset('no_image.jpg')) : ($product['image_cover'] ? asset($product['image_cover']) : asset('no_image.jpg')) }}"
                                                             alt="{{ $isAuthenticated ? $product->name : $product['name'] }}">

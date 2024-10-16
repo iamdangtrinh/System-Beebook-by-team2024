@@ -32,7 +32,7 @@ Route::controller(getLocationGHNContronller::class)->group(function () {
 
 Route::get('test', [cartController::class, 'viewcarttocart'])->name('cart.no.login');
 
-Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware('CheckLogin');
 
 Route::post('progressCheckout', [CheckoutController::class, 'store'])->name('checkout.store');
 
