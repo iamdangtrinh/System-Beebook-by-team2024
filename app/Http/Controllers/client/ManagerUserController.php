@@ -9,7 +9,7 @@ use App\Models\User;
 class ManagerUserController extends Controller
 {
     public function SignIn(){
-        return view('Client.SignIn' );
+        return view('Client.signIn' );
     }
     public function SignUp(){
         
