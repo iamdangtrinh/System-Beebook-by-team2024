@@ -1,8 +1,8 @@
  <!-- Include phần header -->
-    @include('client.components.header')
+    @include('Client.components.header')
     @yield('body')
     <!-- Include phần footer -->
-    @include('client.components.footer')
+    @include('Client.components.footer')
 
     <!-- Include script nếu cần -->
 </body>
