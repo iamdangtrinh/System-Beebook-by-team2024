@@ -71,20 +71,6 @@ class cartController extends Controller
         }
     }
 
-    public function deleteSoft($id)
-    {
-        $seo = config('apps.cart.delete');
-        $cart = $this->CartRepository->delete($id);
-    }
-
-    public function destroy($id)
-    {
-        if ($this->CartService->destroy($id)) {
-            return redirect()->route('cart.index')->with('success', 'Delete cart success');
-        }
-        return redirect()->route('cart.index')->with('error', 'Delete cart error, please again');
-    }
-
     public function viewcarttocart()
     {
         return view('addtocart');
