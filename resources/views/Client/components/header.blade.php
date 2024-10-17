@@ -64,24 +64,24 @@
 <body class="template belle">
     <div class="pageWrapper">
         <!--Top Header-->
-        <div class="top-header">
-            <div class="container">
+        <div  style="background-color: #CE2626" class="top d-lg-block d-md-block d-sm-none">
+            <div class="container d-lg-block d-md-block d-sm-none"  >
                 <div class="d-flex align-items-center">
                     <div class="col-10 col-sm-8 col-md-5 col-lg-8">
-                        <p class="phone-no"><i class="anm anm-phone-s"></i> +440 0(111) 044 833</p>
+                        <p style="font-size:13px" class="phone-no text-white"><i class="anm anm-phone-s"></i> +440 0(111) 044 833</p>
                     </div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 d-none d-lg-none d-md-block d-lg-block">
+                    {{-- <div class="col-sm-4 col-md-4 col-lg-4 d-none d-lg-none d-md-block d-lg-block">
                         <div class="text-center">
                             <p class="top-header_middle-text"> Worldwide Express Shipping</p>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
-                        <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al"
-                                aria-hidden="true"></i></span>
-                        <ul id="siteNav" class="site-nav medium center hidearrow">
+                        {{-- <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al"
+                                aria-hidden="true"></i></span> --}}
+                        <ul id="siteNav" class="site-nav medium center hidearrow d-flex align-items-center justify-content-end">
                             <li class="lvl1 parent dropdown ">
                                 <i class="icon anm anm-user-circle"></i>
-                                <ul class="dropdown" style="top:33px">
+                                <ul class="dropdown" style="top:28px">
                                     @if (Auth::check())
                                         <li><a href="/profile" class="site-nav">
                                                 <i class="icon anm anm-user-circle"></i>

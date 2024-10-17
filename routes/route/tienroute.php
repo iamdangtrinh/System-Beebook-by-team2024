@@ -21,8 +21,12 @@ Route::get('auth/facebook/callback',[LoginFaceBookController::class,'handleFaceb
 // Logout
 Route::get('/logout', [ManagerUserController::class, 'LogOut']);
 // profile
-Route::middleware(('CheckLogin'))->group(function() { 
+Route::middleware(['CheckLogin'])->group(function() { 
     Route::get('/profile', [ManagerUserController::class, 'Profile']);
 });
 // verify
 Route::get('/verify-signup/{id}',[ManagerUserController::class,'HandleVerifySignUp']);
+// reset password 
+Route::get('/reset-password',[ManagerUserController::class,'ResetPassword']);
+// redirect form confirm password
+Route::get('/confirm-password/{token}',[ManagerUserController::class, 'HandleConfrm']);

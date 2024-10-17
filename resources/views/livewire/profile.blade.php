@@ -6,7 +6,7 @@
         <div class="bg-white w-100" style="box-shadow: 0 0 40px rgba(0, 0, 0, 0.1); border-radius: 8px">
                 <h1 style="font-weight: bold; color: #C92127; padding: 18px 20px 12px 20px; border-bottom: 1px solid #F6F6F6 ">TÀI KHOẢN</h1>
                 <div style="padding: 8px 10px" class="d-flex flex-column gap-1">
-                    <a href="/profile" class="hover-item">Thông tin tài khoản 1</a>
+                    <a href="/profile" class="hover-item">Thông tin tài khoản</a>
                     <a href="" class="hover-item" >Sổ địa chỉ</a>
                     <a href="" class="hover-item" >Đơn hàng của tôi</a>
                     <a href="" class="hover-item" >Ví vocher</a>
@@ -58,13 +58,13 @@
                     <div class="form-group">
                         <label for="CustomerName">Tỉnh/Thành phố</label>
                        <select name="" id="" wire:model.change="province">     
-                        @if (Auth::user()->city_id === null)
+                        @if (Auth::user()->id_city === null)
                             <option >Vui lòng chọn thành phố</option>     
                             @foreach ($dataProvince as $item)
                             <option value={{$item['ProvinceID']}}>{{$item['ProvinceName']}}</option>
                             @endforeach
                         @else
-                        <option value={{Auth::user()->city_id}}  >{{$userProvince['ProvinceName']}}</option>     
+                        <option value={{Auth::user()->id_city}}  >{{$userProvince['ProvinceName']}}</option>     
                             @foreach ($dataProvince as $item)
                             <option value={{$item['ProvinceID']}}>{{$item['ProvinceName']}}</option>
                             @endforeach                           
@@ -76,8 +76,8 @@
                     <div class="form-group">
                         <label for="CustomerName">Quận huyện</label>
                         <select name="" id="" wire:model.change = 'district' >
-                            @if (Auth::user()->province_id !== null)
-                            <option value={{Auth::user()->province_id}}>{{$userDistrict['DistrictName']}}</option>
+                            @if (Auth::user()->id_province !== null)
+                            <option value={{Auth::user()->id_province}}>{{$userDistrict['DistrictName']}}</option>
                             @forEach ($dataDistrict as $item)
                             <option value={{$item['DistrictID']}}>{{$item['DistrictName']}}</option>
                             @endforeach 
@@ -98,12 +98,12 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 position-relative">
                     <div class="form-group">
                         <label for="CustomerName">Phường/Xã</label>
-                        <select name="" id="" wire:model="ward">
-                            @if (Auth::user()->ward_id !== null) 
+                        <select name="" id="" wire:model.change="ward">
+                            @if (Auth::user()->id_ward !== null) 
                                 @if ($dataWard === [])
                                     <option >Vui lòng chọn phường xã</option>
                                 @else 
-                                <option value={{Auth::user()->ward_id}}>{{ $userWard['WardName'] }}</option>
+                                <option value={{Auth::user()->id_ward}}>{{ $userWard['WardName'] }}</option>
                                 @foreach ($dataWard as $item)
                                 <option value="{{ $item['WardCode'] }}">{{ $item['WardName'] }}</option>
                             @endforeach
@@ -120,7 +120,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-6 position-relative">
+                <div class="col-lg-6 col-md-6 col-sm-12  position-relative">
                     <div class="form-group">
                         <label for="CustomerName">Địa chỉ</label>
                         <input wire:model.live="address" class="rounded-1" id="CustomerEmail" autocorrect="off" autocapitalize="off" >
@@ -130,11 +130,18 @@
                 </div>
                 <div class="d-flex align-items-center gap-3 pt-2" > 
                     <button 
-                     @if ($errors->any() || $dataToUpdate === [] ) 
-                      disabled 
-                      @endif 
-                       type="submit" class="btn" >Cập nhật</button>
-                <a  href=""  class="btn "  >Xóa Tài Khoản</a>
+                    @if ($errors->any() || 
+                         ($name === Auth::user()->name && 
+                          $phone === Auth::user()->phone && 
+                          $email === Auth::user()->email && 
+                          $address === Auth::user()->address && 
+                          $province === Auth::user()->id_city && 
+                          $district === Auth::user()->id_province && 
+                          $ward === Auth::user()->id_ward)) 
+                        disabled 
+                    @endif 
+                    type="submit" class="btn">Cập nhật</button>
+                <a wire:click="confirmDelete"  class="btn "  >Xóa Tài Khoản</a>
                 </div>
                 @if (session('success'))
                 <span class="success text-success"> {{ session('success') }}</span>
@@ -147,6 +154,8 @@
     </div>
    </div>
 </div>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </div>
 <style>
     .hover-item {
@@ -184,5 +193,24 @@ items.forEach(item => {
     item.classList.add('active');
   }
 });
+document.addEventListener('livewire:initialized',()=>{
+    @this.on('swal',(event)=>{
+        const data=event;
+        swal.fire({
+            icon: 'warning',
+            title: 'Bạn có muốn xóa?',
+            text: 'Nếu bạn xóa, hành động này không thể hoàn tác!',
+            showCancelButton: true,
+            reverseButtons: true,
+            confirmButtonColor: 'red',
+            cancelButtonColor: 'red',
+            confirmButtonText: 'Xác nhận xóa'
+        }).then((result)=>{
+            if (result.isConfirmed) {
+                @this.dispatch('hanldeDeleted')
+            }
+        })
+    })
+})
 </script>
 </div>

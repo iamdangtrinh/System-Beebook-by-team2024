@@ -82,7 +82,7 @@
                                     <label for="remember">Ghi nhớ</label>
                                 </div>
                                 <div>
-                                    <a class="text-primary" href="#">Quên mật khẩu?</a>
+                                    <a class="text-primary" href="/reset-password">Quên mật khẩu?</a>
                                 </div>
                             </div>
                             {{-- Nút Đăng Nhập --}}
