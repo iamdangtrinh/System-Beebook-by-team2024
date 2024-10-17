@@ -17,33 +17,13 @@
     };
 
     DT.inputAddress = () => {
-        $("#select-address-autocomplete").select2({
-            placeholder: "Select an address",
-            allowClear: true,
-
-            ajax: {
-                url: function (params) {
-                    console.log(params.term);
-                    const getLocation = _.debounce(
-                        () => DT.autoCompleteAddressGoongApi(params.term),
-                        1500
-                    );
-                    getLocation()
-                },
-                success: function (response) {
-                    
-                },
-            },
-        });
-
-        $("#select-address-autocomplete").on("select2:select", function () {
+        $("#input-address-autocomplete").on("input", function () {
             let _this = $(this);
-
             console.log(_this.val());
 
             const getLocation = _.debounce(
                 () => DT.autoCompleteAddressGoongApi(_this.val()),
-                1500
+                1000
             );
             getLocation();
         });
@@ -55,11 +35,18 @@
             url: `https://rsapi.goong.io/Place/AutoComplete?api_key=3llMTBYg6lewfO3NctgGOQWkynPkZojFyNm6HBpp&more_compound=true&radius=20000&input=${input}`,
             data: "",
             success: function (response) {
+                console.log(response);
                 let html = "";
                 response.predictions.map((item) => {
-                    html += `<option value="${item.description}">${item.description}</option>`;
+                    html += `<li class="list-group-item cursor-pointer" data-value="${item.description}">${item.description}</li>`;
                 });
-                $("#select-address-autocomplete").html(html);
+                $("#showListLocation").html(html);
+
+                $(".list-group-item").on("click", function (e) {
+                    const _this = $(this);
+                    $('#input-address-autocomplete').val(_this.data('value'));
+                    $('.list-group-item').remove()
+                });
             },
             error: function () {},
             complte: function () {},

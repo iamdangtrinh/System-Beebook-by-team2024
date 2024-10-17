@@ -81,6 +81,16 @@
                         @csrf
 
                         <h2 class="login-title mb-3">Chi tiết đơn hàng</h2>
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        <span class="d-block">{{ $error }}</span>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         <fieldset>
                             <div class="form-group mb-3 col-md-12 col-lg-12 col-xl-12">
                                 <label for="name">Họ và tên</label>
@@ -128,16 +138,15 @@
 
                         <fieldset>
                             <div class="row mb-3">
-                                <div class="form-group col-md-12 col-lg-12 col-xl-12 required">
-                                    <label for="input-address-1">Địa chỉ</label>
-                                    {{-- <input class="form-control" name="address" value="" id=""
-                                        type="text"> --}}
+                                <div class="form-group col-md-12 col-lg-12 col-xl-12">
+                                    <div class="position-relative">
+                                        <label for="input-address">Địa chỉ</label>
+                                        <input class="form-control" name="address" value=""
+                                            id="input-address-autocomplete" type="text">
 
-                                    <select class="form-control setupSelect2" name="address" value=""
-                                        id="select-address-autocomplete">
-
-                                    </select>
-
+                                        <ul id="showListLocation" class="list-group position-absolute w-100">
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </fieldset>
@@ -255,18 +264,6 @@
     <!--Scoll Top-->
     <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
     <!--End Scoll Top-->
-
-    <!-- Including Jquery -->
-    <script src="{{ asset('/') }}client/js/vendor/jquery-3.3.1.min.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/jquery.cookie.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/wow.min.js"></script>
-    <!-- Including Javascript -->
-    <script src="{{ asset('/') }}client/js/bootstrap.min.js"></script>
-    <script src="{{ asset('/') }}client/js/plugins.js"></script>
-    <script src="{{ asset('/') }}client/js/popper.min.js"></script>
-    <script src="{{ asset('/') }}client/js/lazysizes.js"></script>
-    <script src="{{ asset('/') }}client/js/main.js"></script>
 
     <script src="{{ asset('/') }}client/js/customCheckout.js"></script>
 
