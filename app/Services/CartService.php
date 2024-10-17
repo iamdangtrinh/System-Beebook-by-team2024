@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Http\Requests\CreateCart;
 use App\Models\Product;
 use App\Services\Interfaces\CartServiceInterface;
 use App\Repositories\Interfaces\CartRepositoryInterface as CartRepository;
+use Database\Seeders\CartSeeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -87,7 +89,7 @@ class CartService implements CartServiceInterface
                 // Cập nhật số lượng
                 if (isset($cart[$productId])) {
                     $cart[$productId]['quantity'] += $quantityToAdd; // Cộng thêm số lượng mới
-                    return $response = "Cập nhật giỏ hàng thành công";
+                    $response = "Cập nhật giỏ hàng thành công";
                 } else {
                     // Nếu sản phẩm chưa có, thêm mới vào giỏ hàng
                     $cart[$productId] = [
@@ -95,12 +97,11 @@ class CartService implements CartServiceInterface
                         'quantity' => $quantityToAdd,
                         'product_price' => $productPrice,
                     ];
+                    $response = "Thêm sản phẩm vào giỏ hàng thành công";
                 }
                 session()->put('cart', $cart);
-                return $response = "Thêm sản phẩm vào giỏ hàng thành công";
             }
             DB::commit();
-
             return redirect('cart')->with('success', $response);
         } catch (\Exception $exception) {
             DB::rollBack();
