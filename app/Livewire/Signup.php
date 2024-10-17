@@ -46,7 +46,8 @@ class Signup extends Component
                 'password' => Hash::make($this->password_confirm) // Mã hóa mật khẩu trước khi lưu
             ]);
             Mail::to($this->email)->send(new verifySignUp($user->id));
-            redirect('/sign-in');
+            // redirect('/sign-in');
+            session()->flash('success-sign-up','Đăng ký thành công, vui lòng kiểm tra email để kích hoạt tài khoản');
         } catch (\Throwable $th) {
             dd($th->getMessage());
         }

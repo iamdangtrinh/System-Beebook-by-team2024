@@ -10,6 +10,7 @@ Route::get('/sign-in', [ManagerUserController::class, 'SignIn']);
 Route::get('/sign-up', [ManagerUserController::class, 'SignUp']);
 });
 
+
 // Login with google
 Route::get('auth/google',[LoginGoogleController::class,'redirectToGoogle']);
 Route::get('auth/google/callback',[LoginGoogleController::class,'handleGoogleCallback']);
@@ -20,7 +21,8 @@ Route::get('auth/facebook/callback',[LoginFaceBookController::class,'handleFaceb
 // Logout
 Route::get('/logout', [ManagerUserController::class, 'LogOut']);
 // profile
-Route::get('/profile', [ManagerUserController::class, 'Profile']);
-
+Route::middleware(('CheckLogin'))->group(function() { 
+    Route::get('/profile', [ManagerUserController::class, 'Profile']);
+});
 // verify
 Route::get('/verify-signup/{id}',[ManagerUserController::class,'HandleVerifySignUp']);
