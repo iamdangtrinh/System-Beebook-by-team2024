@@ -22,10 +22,13 @@ class CreateCart extends FormRequest
      */
     public function rules(): array
     {
-
         return [
-            'quantity' =>'numeric|required',
-            'id_product' =>'numeric|required',
+            'quantity' => [
+                'required',
+                'integer',
+                'min:1',
+                $this->validateQuantityProduct(),
+                ]
         ];
     }
 
@@ -40,11 +43,11 @@ class CreateCart extends FormRequest
         };
     }
 
-    public function messages(): array
+   public function messages(): array
     {
         return [
             'quantity.required' => 'Vui lòng nhập số lượng sản phẩm.',
-            'quantity.numeric' => 'Số lượng sản phẩm phải là số.',
+            'quantity.integer' => 'Số lượng phải là một số nguyên.',
             'quantity.min' => 'Số lượng sản phẩm phải lớn hơn hoặc bằng 1.',
         ];
     }

@@ -130,9 +130,11 @@
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-12 col-12">
 
-                            @if (session('error'))
+                            @if ($errors->any())
                                 <div class="alert alert-danger">
-                                    {{ session('error') }}
+                                    @foreach ($errors->all() as $error)
+                                        {{ $error }}
+                                    @endforeach
                                 </div>
                             @endif
 
@@ -203,7 +205,7 @@
                                     </p>
                                     <!-- Product Action -->
                                     <form action={{ route('cart.store') }} method="post">
-                                        <div class="product-action clearfix">
+                                        <div class="product-action">
                                             <div class="product-form__item--quantity">
                                                 <div class="wrapQtyBtn">
                                                     <div class="qtyField">
@@ -222,7 +224,6 @@
                                                 <input type="hidden"
                                                     value="{{ $product->price_sale !== null ? $product->price_sale : $product->price }}"
                                                     name="price">
-                                                {{-- <input type="hidden" value="1" name="quantity"> --}}
                                                 <button type="submit" name="addToCart">Thêm vào giỏ hàng</button>
                                             </div>
                                         </div>

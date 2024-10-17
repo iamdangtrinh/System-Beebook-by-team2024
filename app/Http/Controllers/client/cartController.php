@@ -35,7 +35,7 @@ class cartController extends Controller
     public function create() {}
 
     //   tạo giỏ hàng nếu có đăng nhạp
-    public function store(cartRequest $request)
+    public function store(CreateCart $request)
     {
         // nếu có đăng nhập
         $result = $this->CartService->create($request);

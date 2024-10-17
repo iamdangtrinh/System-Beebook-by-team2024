@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\cartModel;
+use App\Models\Product;
 use App\Repositories\Interfaces\CartRepositoryInterface;
 use App\Repositories\BaseRepository;
 
@@ -45,15 +46,32 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
 
     public function addToCart($payload)
     {
+
+
         $userExist = $this->model
             ->where('id_user', '=', $payload['id_user'])
             ->where('id_product', '=', $payload['id_product'])
             ->first();
 
         if ($userExist) {
-            $userExist->quantity += $payload['quantity'];
+
+            $product_quantity = Product::select(['quantity'])->find($payload['id_product']);
+
+            if ($userExist->quantity >= $product_quantity->quantity) {
+                $userExist->quantity = $product_quantity->quantity;
+                $response = [
+                    'status' => 'error',
+                    'data' => "Rất tiếc, bạn chỉ có thể mua tối đa " . $product_quantity->quantity . " sản phẩm"
+                ];
+            } else {
+                $userExist->quantity += $payload['quantity'];
+                $response = [
+                    'status' => 'success',
+                    'data' => "Cập nhật giỏ hàng thành công"
+                ];
+            }
             $userExist->save();
-            return "Cập nhật giỏ hàng thành công";
+            return $response;
         } else {
             $this->model->create($payload);
             return "Thêm sản phẩm vào giỏ hàng thành công";

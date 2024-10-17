@@ -29,6 +29,11 @@
                                 {{ session('success') }}
                             </div>
                         @endif
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
 
                         <div class="table-responsive">
                             <table class="table table-bordered" style="white-space: nowrap;">

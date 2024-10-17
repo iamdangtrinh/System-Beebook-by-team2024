@@ -39,7 +39,7 @@ class CartService implements CartServiceInterface
     {
         $cart = [];
         if (Auth::check()) {
-           $cart = $this->CartRepository->findCart($this->paginateSelect(), Auth::user()->id, $perPage);
+            $cart = $this->CartRepository->findCart($this->paginateSelect(), Auth::user()->id, $perPage);
         } else {
             // Lấy giỏ hàng từ session
             $carts = session()->get('cart', []);
@@ -80,6 +80,7 @@ class CartService implements CartServiceInterface
                 $payload['id_user'] = Auth::user()->id;
                 $response = $this->CartRepository->addToCart($payload);
             } else {
+                $product_quantity = Product::select(['quantity'])->find($payload['id_product']);
                 // kiểm tra giỏ hàng có tồn tại hay không
                 $cart = $request->session()->get('cart', []);
                 $productId = $payload['id_product'];
@@ -89,7 +90,24 @@ class CartService implements CartServiceInterface
                 // Cập nhật số lượng
                 if (isset($cart[$productId])) {
                     $cart[$productId]['quantity'] += $quantityToAdd; // Cộng thêm số lượng mới
-                    $response = "Cập nhật giỏ hàng thành công";
+                    // Nếu số lượng sản phẩm trong giỏ hàng lớn hơn hoặc bằng số lượng tối đa
+                    if ($cart[$productId]['quantity'] >= $product_quantity->quantity) {
+                        // Cập nhật số lượng sản phẩm trong giỏ hàng về số lượng tối đa
+                        $cart[$productId]['quantity'] = $product_quantity->quantity;
+
+                        $response = [
+                            'status' => 'error',
+                            'data' => "Rất tiếc, bạn chỉ có thể mua tối đa " . $product_quantity->quantity . " sản phẩm"
+                        ];
+                    } else {
+                        // Nếu số lượng sản phẩm trong giỏ hàng nhỏ hơn số lượng tối đa, bạn có thể cập nhật
+                        $cart[$productId]['quantity'] += $product_quantity->quantity;
+
+                        $response = [
+                            'status' => 'success',
+                            'data' => "Cập nhật giỏ hàng thành công."
+                        ];
+                    }
                 } else {
                     // Nếu sản phẩm chưa có, thêm mới vào giỏ hàng
                     $cart[$productId] = [
@@ -97,12 +115,15 @@ class CartService implements CartServiceInterface
                         'quantity' => $quantityToAdd,
                         'product_price' => $productPrice,
                     ];
-                    $response = "Thêm sản phẩm vào giỏ hàng thành công";
+                    $response = [
+                        'status' => 'success',
+                        'data' => "Thêm sản phẩm vào giỏ hàng thành công."
+                    ];
                 }
                 session()->put('cart', $cart);
             }
             DB::commit();
-            return redirect('cart')->with('success', $response);
+            return redirect('cart')->with($response['status'], $response['data']);
         } catch (\Exception $exception) {
             DB::rollBack();
             echo $exception->getMessage();
