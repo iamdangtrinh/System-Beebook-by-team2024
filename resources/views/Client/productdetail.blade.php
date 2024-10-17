@@ -1,7 +1,5 @@
-<title>
-    @yield('title', 'Chi tiết sách ' . $product->name)</title>
+<title>@yield('title', 'Chi tiết sách ' . $product->name)</title>
 @extends('layout.client')
-
 @section('body')
     <div id="page-content">
         <!--MainContent-->
@@ -41,11 +39,11 @@
                                 </div>
                                 <div class="product-thumb product-thumb-1">
                                     <div id="gallery" class="product-dec-slider-1 product-tab-left">
-                                        <a data-image="{{ asset('/') . $product->image_cover }}"
-                                            data-zoom-image="{{ asset('/') . $product->image_cover }}"
+                                        <a data-image="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
+                                            data-zoom-image="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
                                             class="slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true"
                                             tabindex="-1">
-                                            <img class="blur-up lazyload" src="{{ asset('/') . $product->image_cover }}"
+                                            <img class="blur-up lazyload" src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
                                                 alt="" />
                                         </a>
                                         @foreach ($product_meta as $meta)
@@ -158,10 +156,7 @@
                                             class="variant-sku">{{ $product->views }}</span></div>
                                     <div class="product-review">
                                         <a class="reviewLink">
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                <i
-                                                    class="font-13 fa {{ $i <= $averageRating ? 'fa-star' : 'fa-star-o' }}"></i>
-                                            @endfor
+                                            @for ($i = 1; $i <= 5; $i++)<i class="font-13 fa {{ $i <= $averageRating ? 'fa-star' : 'fa-star-o' }}"></i>@endfor
                                         </a>
                                         <span class="spr-summary-actions-togglereviews">{{ $commentCount }} bình
                                             luận</span>
@@ -355,10 +350,7 @@
                                 <div class="spr-summary">
                                     <span class="product-review">
                                         <a class="reviewLink">
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                <i
-                                                    class="font-13 fa {{ $i <= $averageRating ? 'fa-star' : 'fa-star-o' }}"></i>
-                                            @endfor
+                                        @for ($i = 1; $i <= 5; $i++)<i class="font-13 fa {{ $i <= $averageRating ? 'fa-star' : 'fa-star-o' }}"></i>@endfor
                                         </a>
                                         <span class="spr-summary-actions-togglereviews">{{ $commentCount }} bình
                                             luận</span>
@@ -523,5 +515,4 @@
             </div>
         </div>
     </div>
-
 @endsection
