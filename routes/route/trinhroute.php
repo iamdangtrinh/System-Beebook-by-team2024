@@ -27,6 +27,7 @@ Route::controller(getLocationGHNContronller::class)->group(function () {
       Route::get('/provincer', 'getProvincer')->name('provincer.index');
       Route::get('/district/{id}', 'getDistrict')->name('district.index');
       Route::get('/ward/{id}', 'getWard')->name('ward.index');
+      Route::post('/feeshipping', 'feeShipping')->name('feeShipping.index');
 });
 
 

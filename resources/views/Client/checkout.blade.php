@@ -93,19 +93,19 @@
 
                         <fieldset>
                             <div class="form-group mb-3 col-md-12 col-lg-12 col-xl-12">
-                                <label for="name">Họ và tên</label>
+                                <label for="name">Họ và tên <span class="text-danger">*</span> </label>
                                 <input class="form-control" name="name" value="{{ old('name') ?? Auth::user()->name }}"
                                     id="name" type="text">
                             </div>
 
                             <div class="row mb-3">
                                 <div class="form-group col-md-12 col-lg-6 col-xl-6">
-                                    <label for="phone">Số điện thoại</label>
+                                    <label for="phone">Số điện thoại <span class="text-danger">*</span> </label>
                                     <input class="form-control" name="phone"
                                         value="{{ old('phone') ?? Auth::user()->phone }}" id="phone" type="text">
                                 </div>
                                 <div class="form-group col-md-12 col-lg-6 col-xl-6">
-                                    <label for="email">Email</label>
+                                    <label for="email">Email <span class="text-danger">*</span> </label>
                                     <input class="form-control" name="email"
                                         value="{{ old('email') ?? Auth::user()->email }}" id="email" type="text">
                                 </div>
@@ -114,23 +114,19 @@
 
                         <fieldset>
                             <div class="form-group mb-3 col-md-12 col-lg-12 col-xl-12">
-                                <label for="province">Thành phố/Tỉnh</label>
+                                <label for="province">Thành phố/Tỉnh <span class="text-danger">*</span> </label>
                                 <select class="form-control setupSelect2" name="province" value="" id="province">
-                                    <option value="">Chọn thành phố/Tỉnh</option>
                                 </select>
-
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-md-12 col-lg-6 col-xl-6">
-                                    <label for="district">Quận/Huyện</label>
+                                    <label for="district">Quận/Huyện <span class="text-danger">*</span> </label>
                                     <select class="form-control setupSelect2" name="district" value="" id="district">
-                                        <option value="">Chọn Quận/Huyện</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-12 col-lg-6 col-xl-6">
-                                    <label for="ward">Xã/Phường</label>
+                                    <label for="ward">Xã/Phường <span class="text-danger">*</span> </label>
                                     <select class="form-control setupSelect2" name="ward" value="" id="ward">
-                                        <option value="">Chọn Xã/Phường</option>
                                     </select>
                                 </div>
                             </div>
@@ -140,7 +136,7 @@
                             <div class="row mb-3">
                                 <div class="form-group col-md-12 col-lg-12 col-xl-12">
                                     <div class="position-relative">
-                                        <label for="input-address">Địa chỉ</label>
+                                        <label for="input-address">Địa chỉ <span class="text-danger">*</span> </label>
                                         <input class="form-control" name="address" value=""
                                             id="input-address-autocomplete" type="text">
 

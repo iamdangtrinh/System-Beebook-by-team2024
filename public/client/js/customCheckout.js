@@ -23,7 +23,7 @@
 
             const getLocation = _.debounce(
                 () => DT.autoCompleteAddressGoongApi(_this.val()),
-                1000
+                1500
             );
             getLocation();
         });
@@ -44,8 +44,8 @@
 
                 $(".list-group-item").on("click", function (e) {
                     const _this = $(this);
-                    $('#input-address-autocomplete').val(_this.data('value'));
-                    $('.list-group-item').remove()
+                    $("#input-address-autocomplete").val(_this.data("value"));
+                    $(".list-group-item").remove();
                 });
             },
             error: function () {},
@@ -55,16 +55,9 @@
 
     DT.CALCFreeShipping = () => {
         DT.getProvincer();
-
-        $("#province").on("change", function () {
-            let _this = $(this);
-            if (_this.val() !== "") {
-                DT.getDistrict(_this.val());
-            }
-        });
     };
 
-    // get provincer
+    // get tỉnh
     DT.getProvincer = () => {
         $.ajax({
             type: "GET",
@@ -75,11 +68,18 @@
                     html += `<option value="${item.ProvinceID}">${item.ProvinceName}</option>`;
                 });
 
-                $("#province").append(html);
+                $("#province").html(html);
+                $("#province").on("change", function () {
+                    let _this = $(this);
+                    if (_this.val() !== "") {
+                        DT.getDistrict(_this.val());
+                    }
+                });
             },
         });
     };
 
+    // quận
     DT.getDistrict = (provinceID) => {
         $.ajax({
             type: "GET",
@@ -101,6 +101,7 @@
         });
     };
 
+    // xã
     DT.getWard = (districtID) => {
         $.ajax({
             type: "GET",
@@ -110,8 +111,33 @@
                 response.data.map((item) => {
                     html += `<option value="${item.WardCode}">${item.WardName}</option>`;
                 });
-
                 $("#ward").html(html);
+                $("#ward").on("change", function () {
+                    let _this = $(this);
+                    if (_this.val() !== "") {
+                        // console.log($("#province").val());
+                        // console.log($("#district").val());
+                        // console.log($("#ward").val());
+                        let data = {
+                            to_district_id: $("#district").val(),
+                            to_ward_code: $("#ward").val(),
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: "feeshipping",
+                            headers: {
+                                "X-CSRF-TOKEN": $(
+                                    'meta[name="csrf_token"]'
+                                ).attr("content"),
+                            },
+                            data: data,
+                            success: function (response) {
+                                console.log(response);
+                            },
+                        });
+                    }
+                });
             },
         });
     };

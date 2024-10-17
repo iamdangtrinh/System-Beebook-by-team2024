@@ -21,6 +21,9 @@ class CheckoutRequest extends FormRequest
      */
     public function rules(): array
     {
+
+        dd($_POST);
+
         return [
             'name' => 'required',
             'email' => 'required|email',
