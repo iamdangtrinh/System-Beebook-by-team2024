@@ -129,6 +129,15 @@
                             <!--End Product Feature-->
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-12 col-12">
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                </div>
+                            @endif
+
                             <div class="product-single__meta">
                                 <h1 class="product-single__title">{{ $product->name }}</h1>
                                 <div class="product-nav clearfix">
@@ -195,31 +204,30 @@
                                         <a href="#productInquiry" class="emaillink btn">Hỏi về sách</a>
                                     </p>
                                     <!-- Product Action -->
-                                    <div class="product-action clearfix">
-                                        <div class="product-form__item--quantity">
-                                            <div class="wrapQtyBtn">
-                                                <div class="qtyField">
-                                                    <a class="qtyBtn minus" href="javascript:void(0);"><i
-                                                            class="fa anm anm-minus-r" aria-hidden="true"></i></a>
-                                                    <input type="text" id="Quantity" name="quantity" value="1"
-                                                        class="product-form__input qty">
-                                                    <a class="qtyBtn plus" href="javascript:void(0);"><i
-                                                            class="fa anm anm-plus-r" aria-hidden="true"></i></a>
+                                    <form action={{ route('cart.store') }} method="post">
+                                        <div class="product-action">
+                                            <div class="product-form__item--quantity">
+                                                <div class="wrapQtyBtn">
+                                                    <div class="qtyField">
+                                                        <a class="qtyBtn minus" href="javascript:void(0);"><i
+                                                                class="fa anm anm-minus-r" aria-hidden="true"></i></a>
+                                                        <input type="text" id="Quantity" name="quantity"
+                                                            value="1" class="product-form__input qty">
+                                                        <a class="qtyBtn plus" href="javascript:void(0);"><i
+                                                                class="fa anm anm-plus-r" aria-hidden="true"></i></a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="product-form__item--submit">
-                                            <form action={{ route('cart.store') }} method="post">
+                                            <div class="product-form__item--submit">
                                                 @csrf
                                                 <input type="hidden" value="{{ $product->id }}" name="id_product">
                                                 <input type="hidden"
                                                     value="{{ $product->price_sale !== null ? $product->price_sale : $product->price }}"
                                                     name="price">
-                                                <input type="hidden" value="1" name="quantity">
-                                                <button>Thêm vào giỏ hàng</button>
-                                            </form>
+                                                <button type="submit" name="addToCart">Thêm vào giỏ hàng</button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
                                     <!-- End Product Action -->
                                 </div>
                                 <div class="display-table shareRow">

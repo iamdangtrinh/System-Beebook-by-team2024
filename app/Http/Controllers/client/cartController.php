@@ -4,6 +4,7 @@ namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\cartRequest;
+use App\Http\Requests\CreateCart;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\CartServiceInterface as CartService;
 use App\Repositories\Interfaces\CartRepositoryInterface as CartRepository;
@@ -34,7 +35,7 @@ class cartController extends Controller
     public function create() {}
 
     //   tạo giỏ hàng nếu có đăng nhạp
-    public function store(Request $request)
+    public function store(CreateCart $request)
     {
         // nếu có đăng nhập
         $result = $this->CartService->create($request);
