@@ -43,7 +43,7 @@ class ManagerUserController extends Controller
     public function ResetPassword(){
         return view('Client.resetPassword');
     }
-    public function HandleConfrm($token){
+    public function HandleConfirm($token){
         return view('Client.confirmPassword',compact('token'));
     }
 }

@@ -29,4 +29,4 @@ Route::get('/verify-signup/{id}',[ManagerUserController::class,'HandleVerifySign
 // reset password 
 Route::get('/reset-password',[ManagerUserController::class,'ResetPassword']);
 // redirect form confirm password
-Route::get('/confirm-password/{token}',[ManagerUserController::class, 'HandleConfrm']);
+Route::get('/confirm-password/{token}',[ManagerUserController::class, 'HandleConfirm']);

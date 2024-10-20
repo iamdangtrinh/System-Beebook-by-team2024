@@ -4,6 +4,6 @@
 @extends('layout.client')
 @section('body')
 @livewireStyles
-<livewire:confirm-password :token="$token" />
+<livewire:confirm-password :token=$token />
 @livewireScripts
 @endsection
