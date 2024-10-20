@@ -15,6 +15,18 @@
 
         <div id="ProductSection-product-template" class="product-template__container prstyle2 container">
             <!--#ProductSection-product-template-->
+            @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Thành công!</strong> {{ session('success') }}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+            @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Không thành công!</strong> {{ session('error') }}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
             <div class="product-single product-single-1">
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-12 col-12">
@@ -127,15 +139,6 @@
                         <!--End Product Feature-->
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-12">
-
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            @foreach ($errors->all() as $error)
-                            {{ $error }}
-                            @endforeach
-                        </div>
-                        @endif
-
                         <div class="product-single__meta">
                             <h1 class="product-single__title">{{ $product->name }}</h1>
                             <div class="product-nav clearfix">
@@ -249,8 +252,9 @@
                                     <table>
                                         <tbody>
                                             <tr>
-                                                <th>Size</th>
-                                                <td>XS</td>
+                                                <th>Tác giả</th>
+                                                <td>1</td>
+                                                <!-- <td>product->author->name</td> -->
                                             </tr>
                                             @foreach ($product_meta as $meta)
                                             @if ($meta->product_key == 'form')
@@ -258,16 +262,30 @@
                                                 <th>Hình thức</th>
                                                 <td>{{ $meta->product_value }}</td>
                                             </tr>
+                                            @elseif($meta->product_key == 'number_of_pages')
+                                            <tr>
+                                                <th>Số trang</th>
+                                                <td>{{ $meta->product_value }}</td>
+                                            </tr>
+                                            @elseif($meta->product_key == 'size')
+                                            <tr>
+                                                <th>Kích thước bao bì</th>
+                                                <td>{{ $meta->product_value }} cm</td>
+                                            </tr>
                                             @endif
                                             @endforeach
+                                            @if($product->year)
                                             <tr>
                                                 <th>Năm XB</th>
                                                 <td>{{ $product->year }}</td>
                                             </tr>
+                                            @endif
+                                            @if($product->weight)
                                             <tr>
                                                 <th>Trọng lượng (gr)</th>
                                                 <td>{{ $product->weight }}</td>
                                             </tr>
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
@@ -362,45 +380,7 @@
                         </div>
                         <div class="spr-content">
                             <div class="spr-form clearfix">
-                                <form method="post" action="#" id="new-review-form" class="new-review-form">
-                                    <h3 class="spr-form-title">Viết bình luận</h3>
-                                    <fieldset class="spr-form-review">
-                                        <div class="spr-form-review-rating">
-                                            <label class="spr-form-label">Rating</label>
-                                            <span class="star-rating">
-                                                <label for="rate-1" style="--i:1"><i
-                                                        class="fa fa-star"></i></label>
-                                                <input type="radio" name="rating" id="rate-1" value="1">
-                                                <label for="rate-2" style="--i:2"><i
-                                                        class="fa fa-star"></i></label>
-                                                <input type="radio" name="rating" id="rate-2" value="2">
-                                                <label for="rate-3" style="--i:3"><i
-                                                        class="fa fa-star"></i></label>
-                                                <input type="radio" name="rating" id="rate-3" value="3">
-                                                <label for="rate-4" style="--i:4"><i
-                                                        class="fa fa-star"></i></label>
-                                                <input type="radio" name="rating" id="rate-4" value="4">
-                                                <label for="rate-5" style="--i:5"><i
-                                                        class="fa fa-star"></i></label>
-                                                <input type="radio" name="rating" id="rate-5" value="5">
-                                            </span>
-                                        </div>
-
-                                        <div class="spr-form-review-body">
-                                            <label class="spr-form-label" for="review_body_10508262282">Nội
-                                                dung</label>
-                                            <div class="spr-form-input">
-                                                <textarea class="spr-form-input spr-form-input-textarea " id="review_body_10508262282" data-product-id="10508262282"
-                                                    name="content" rows="10" placeholder="Viết bình luận ở đây"></textarea>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <fieldset class="spr-form-actions">
-                                        <input type="submit"
-                                            class="spr-button spr-button-primary button button-primary btn btn-primary"
-                                            value="Gửi bình luận">
-                                    </fieldset>
-                                </form>
+                            @livewire('product-comment-form', ['idProduct' => $product->id])
                             </div>
                             <div class="spr-reviews">
                                 @if ($comments && $comments->count() > 0)
@@ -441,6 +421,8 @@
         <!-- Photoswipe Gallery -->
         <script src="{{ asset('/') }}client/js/vendor/photoswipe.min.js"></script>
         <script src="{{ asset('/') }}client/js/vendor/photoswipe-ui-default.min.js"></script>
+        <script src="{{ asset('/') }}client/js/customCheckForm.js"></script>
+        <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
         <script>
             $(function() {
                 var $pswp = $('.pswp')[0],
