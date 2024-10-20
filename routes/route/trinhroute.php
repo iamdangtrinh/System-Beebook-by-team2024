@@ -36,8 +36,10 @@ Route::get('test', [cartController::class, 'viewcarttocart'])->name('cart.no.log
 Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware('CheckLogin');
 
 Route::post('progressCheckout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::get('thank-you/{id}', [CheckoutController::class, 'thankyou'])->name('thankyou.index');
 
 Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index');
+
 
 Route::get('/redis-test', function () {
       Cache::store('redis')->put('test_key', 'Hello Redis', 10);

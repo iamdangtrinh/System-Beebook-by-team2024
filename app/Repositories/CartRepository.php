@@ -6,6 +6,7 @@ use App\Models\cartModel;
 use App\Models\Product;
 use App\Repositories\Interfaces\CartRepositoryInterface;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class cartModelService
@@ -46,8 +47,6 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
 
     public function addToCart($payload)
     {
-
-
         $userExist = $this->model
             ->where('id_user', '=', $payload['id_user'])
             ->where('id_product', '=', $payload['id_product'])
@@ -74,7 +73,16 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
             return $response;
         } else {
             $this->model->create($payload);
-            return "Thêm sản phẩm vào giỏ hàng thành công";
+
+            return $response = [
+                'status' => 'success',
+                'data' => "Thêm sản phẩm vào giỏ hàng thành công"
+            ];
         }
+    }
+
+    public function deleteAll() {
+        $query = $this->model->where('id_user', Auth::user()->id)->delete();
+        return $query;
     }
 }

@@ -67,4 +67,10 @@ class CheckoutController extends Controller
     {
         return view('addtocart');
     }
+    
+    public function thankyou() {
+        return view('Client.thankyou', compact([
+
+        ]));
+    }
 }

@@ -2,14 +2,11 @@
 
 namespace App\Services;
 
-use App\Http\Requests\CreateCart;
 use App\Models\Product;
 use App\Services\Interfaces\CartServiceInterface;
 use App\Repositories\Interfaces\CartRepositoryInterface as CartRepository;
-use Database\Seeders\CartSeeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -194,6 +191,20 @@ class CartService implements CartServiceInterface
                 }
                 $request->session()->put('cart', $cart);
             }
+            DB::commit();
+            return true;
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            echo $exception->getMessage();
+            return false;
+        }
+    }
+
+    public function destroyAll()
+    {
+        DB::beginTransaction();
+        try {
+            $response = $this->CartRepository->deleteAll();
             DB::commit();
             return true;
         } catch (\Exception $exception) {

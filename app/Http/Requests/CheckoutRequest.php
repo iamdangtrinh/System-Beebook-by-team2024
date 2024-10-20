@@ -21,16 +21,10 @@ class CheckoutRequest extends FormRequest
      */
     public function rules(): array
     {
-
-        dd($_POST);
-
         return [
             'name' => 'required',
             'email' => 'required|email',
-            'phone' => 'required|integer',
-            'province' => 'required',
-            'district' => 'required',
-            'ward' => 'required',
+            'phone' => 'required|numeric',
             'address' => 'required',
         ];
     }
@@ -42,10 +36,7 @@ class CheckoutRequest extends FormRequest
             'email.required' => 'Vui lòng nhập email của bạn.',
             'email.email' => 'Địa chỉ email không đúng định dạng.',
             'phone.required' => 'Vui lòng nhập số điện thoại nhận hàng',
-            'phone.integer' => 'Số điện thoại không đúng định dạng',
-            'province.required' => 'Vui lòng nhập thành phố/ tỉnh',
-            'district.required' => 'Vui lòng nhập quận/huyện',
-            'ward.required' => 'Vui lòng nhập xã/phường',
+            'phone.numeric' => 'Số điện thoại không đúng định dạng',
             'address.required' => 'Vui lòng nhập địa chỉ giao hàng',
         ];
     }

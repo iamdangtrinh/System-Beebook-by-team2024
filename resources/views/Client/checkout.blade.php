@@ -84,9 +84,9 @@
 
                         @if ($errors->any())
                             <div class="alert alert-danger">
-                                    @foreach ($errors->all() as $error)
-                                        <span class="d-block">{{ $error }}</span>
-                                    @endforeach
+                                @foreach ($errors->all() as $error)
+                                    <span class="d-block">{{ $error }}</span>
+                                @endforeach
                                 </ul>
                             </div>
                         @endif
@@ -112,7 +112,7 @@
                             </div>
                         </fieldset>
 
-                        <fieldset>
+                        {{-- <fieldset>
                             <div class="form-group mb-3 col-md-12 col-lg-12 col-xl-12">
                                 <label for="province">Thành phố/Tỉnh <span class="text-danger">*</span> </label>
                                 <select class="form-control setupSelect2" name="province" value="" id="province">
@@ -130,7 +130,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </fieldset>
+                        </fieldset> --}}
 
                         <fieldset>
                             <div class="row mb-3">
@@ -161,7 +161,6 @@
             {{-- đơn hàng --}}
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
                 <input type="hidden" name="shipping_method" value="GHN">
-                <input type="hidden" name="fee_shipping" value="20000">
 
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <h2 class="order-title">Đơn hàng của bạn</h2>
@@ -202,13 +201,23 @@
                             </div>
                             <div class="row border-bottom mb-3">
                                 <span class="col-12 col-sm-6 cart__subtotal-title">Phí vận chuyển:</span>
-                                <span class="col-12 col-sm-6 text-right"><span id="freeShipping">20.000
-                                        đ</span></span>
+                                <span class="col-12 col-sm-6 text-right"><span id="freeShipping">
+                                        @if ($subTotal < 1000000)
+                                            20.000đ
+                                            @php
+                                                $subTotal += 20000;
+                                            @endphp
+                                            <input type="hidden" name="fee_shipping" value="20000">
+                                        @else
+                                            <input type="hidden" name="fee_shipping" value="0">
+                                            Miễn phí vận chuyển
+                                        @endif
+                                    </span></span>
                             </div>
                             <div class="row border-bottom mb-3">
                                 <span class="col-12 col-sm-6 cart__subtotal-title">Tổng tiền:</span>
                                 <span class="col-12 col-sm-6 text-right"><span id="totalAmout">
-                                        {{ number_format($subTotal + 20000, '0', '.', '.') }} đ</span></span>
+                                        {{ number_format($subTotal, '0', '.', '.') }} đ</span></span>
                             </div>
                         </div>
 

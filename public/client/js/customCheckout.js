@@ -23,7 +23,7 @@
 
             const getLocation = _.debounce(
                 () => DT.autoCompleteAddressGoongApi(_this.val()),
-                1500
+                1200
             );
             getLocation();
         });
@@ -148,7 +148,7 @@
         DT.setupSelect2();
         // DT.setupSelect2Tag();
         DT.inputAddress();
-        DT.CALCFreeShipping();
+        // DT.CALCFreeShipping();
         // DT.autoCompleteAddressGoongApi();
     });
 })(jQuery);
