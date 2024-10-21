@@ -20,6 +20,10 @@ class AdminController extends Controller
     {
         return view('admin.blogs');
     }
+    public function article()
+    {
+        return view('admin.article');
+    }
 
     public function dashboard_3()
     {
