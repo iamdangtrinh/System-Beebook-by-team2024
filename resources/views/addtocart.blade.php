@@ -17,10 +17,6 @@
         <input type="text" value="3" name="quantity">
         <button>Gửi</button>
     </form>
-
-
     {{ dd(session()->get('cart')) }}
-
 </body>
-
 </html>

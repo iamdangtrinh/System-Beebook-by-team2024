@@ -6,7 +6,7 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\Attributes\Validate; 
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
 
 class Signin extends Component
 {
@@ -19,17 +19,19 @@ class Signin extends Component
     public function handleSignIn(){
         $this->validate();  
         // handle Sign in
-        $checkStatus=User::where('status','active')->first();
-        if ($checkStatus) {
-            $user = Auth::attempt(['email'=>$this->email, 'password'=>$this->password,'status'=>'active']);
-            if ($user === true) {
-                  redirect('/profile');      
-            }else{
+            if (User::where('status','active')->whereNotNull('email_verified_at')->first()) {
+                $user = Auth::attempt(['email'=>$this->email, 'password'=>$this->password,'status'=>'active']);
+                if ($user === true) {
+                redirect('/profile');      
+                }else{
                 session()->flash('SignInFailed','Tài khoản hoặc mật khẩu của bạn không đúng!');
+                }
+            }else if(User::where('status','inactive')->whereNotNull('email_verified_at')->first()){
+                session()->flash('errorSignIn','Tài khoản của bạn đã bị khóa !');
+            }else{
+                session()->flash('errorSignIn','Tài khoản của bạn chưa được kích hoạt !');
             }
-        }else{
-            session()->flash('errorSignIn','Tài khoản của bạn đã bị khóa !');
-        }  
+        
     }
     public function render()
     {

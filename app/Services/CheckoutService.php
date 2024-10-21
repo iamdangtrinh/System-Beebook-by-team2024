@@ -73,32 +73,49 @@ class CheckoutService implements CheckoutServiceInterface
                   if (!empty($payload['checkout']) || $payload['checkout'] !== 'submit_checkout') {
                         if ($payload['payment_method'] == "ONLINE") {
                               // sang trang thanh toán online
-                              // echo "TT ONLINE";
+                              dd("TT ONLINE");
+
+                              
+
                         }
 
-                        $payload['id_user'] = Auth::user()->id;
-                        $carts = $this->CartService->findCartByUser(20);
-                        
+                        // lấy sp từ giỏ hàng
+                        $carts = $this->CartService->findCartByUser(100);
+                        // số tiền là 0
                         $total_amount = 0;
+                        $billDetails = [];
+                        // $payload['payment_method'];
                         foreach ($carts as $cart) {
-                              $total_amount += $cart->price;
+                              $total_amount += $cart->quantity * $cart->price;
+                              $billDetails[] = [
+                                    'id_product' => $cart->id_product,
+                                    'quantity' => $cart->quantity,
+                                    'price' => $cart->price,
+                              ];
+                        }
+
+                        // tính phí vận chuyển
+                        if ($total_amount < 1000000) {
+                              $total_amount += 20000;
+                              $payload['fee_shipping'] = 20000;
+                        } else {
+                              $payload['fee_shipping'] = 0;
                         }
                         
-                        $payload['price'] = 200000;
-
                         $payload['total_amount'] = $total_amount;
-                        
-                        $payload['id_product'] = 2;
-                        $payload['image_cover'] = "No image";
-                        $payload['quantity'] = 1;
-
-
+                        $payload['id_user'] = Auth::user()->id;
+                        // tạo bills
                         $id_bill = $this->CheckoutRepository->create($payload)->id;
-                        $payload['id_bill'] = $id_bill;
-                        $this->BillDetailRepository->create($payload);
-                  } else {
-                        echo 'ko duoc';
-                  }
+                        // Lưu từng chi tiết sản phẩm vào bảng bill_details
+                        foreach ($billDetails as $billDetail) {
+                              $billDetail['id_bill'] = $id_bill;
+                              $this->BillDetailRepository->create($billDetail);
+                        }
+                        // xóa giỏ hàng trong database
+                        $carts = $this->CartService->destroyAll();
+                        // chuyển sang trang thank you
+                        return redirect()->route('thankyou.index', ['id' => md5($id_bill)])->with('success', "Bạn đã đặt hàng thành công");
+                  };
                   DB::commit();
                   return true;
             } catch (\Exception $exception) {

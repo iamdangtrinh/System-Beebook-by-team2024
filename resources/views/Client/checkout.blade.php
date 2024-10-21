@@ -81,63 +81,68 @@
                         @csrf
 
                         <h2 class="login-title mb-3">Chi tiết đơn hàng</h2>
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    <span class="d-block">{{ $error }}</span>
+                                @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         <fieldset>
                             <div class="form-group mb-3 col-md-12 col-lg-12 col-xl-12">
-                                <label for="name">Họ và tên</label>
+                                <label for="name">Họ và tên <span class="text-danger">*</span> </label>
                                 <input class="form-control" name="name" value="{{ old('name') ?? Auth::user()->name }}"
                                     id="name" type="text">
                             </div>
 
                             <div class="row mb-3">
                                 <div class="form-group col-md-12 col-lg-6 col-xl-6">
-                                    <label for="phone">Số điện thoại</label>
+                                    <label for="phone">Số điện thoại <span class="text-danger">*</span> </label>
                                     <input class="form-control" name="phone"
                                         value="{{ old('phone') ?? Auth::user()->phone }}" id="phone" type="text">
                                 </div>
                                 <div class="form-group col-md-12 col-lg-6 col-xl-6">
-                                    <label for="email">Email</label>
+                                    <label for="email">Email <span class="text-danger">*</span> </label>
                                     <input class="form-control" name="email"
                                         value="{{ old('email') ?? Auth::user()->email }}" id="email" type="text">
                                 </div>
                             </div>
                         </fieldset>
 
-                        <fieldset>
+                        {{-- <fieldset>
                             <div class="form-group mb-3 col-md-12 col-lg-12 col-xl-12">
-                                <label for="province">Thành phố/Tỉnh</label>
+                                <label for="province">Thành phố/Tỉnh <span class="text-danger">*</span> </label>
                                 <select class="form-control setupSelect2" name="province" value="" id="province">
-                                    <option value="">Chọn thành phố/Tỉnh</option>
                                 </select>
-
                             </div>
                             <div class="row mb-3">
                                 <div class="form-group col-md-12 col-lg-6 col-xl-6">
-                                    <label for="district">Quận/Huyện</label>
+                                    <label for="district">Quận/Huyện <span class="text-danger">*</span> </label>
                                     <select class="form-control setupSelect2" name="district" value="" id="district">
-                                        <option value="">Chọn Quận/Huyện</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-12 col-lg-6 col-xl-6">
-                                    <label for="ward">Xã/Phường</label>
+                                    <label for="ward">Xã/Phường <span class="text-danger">*</span> </label>
                                     <select class="form-control setupSelect2" name="ward" value="" id="ward">
-                                        <option value="">Chọn Xã/Phường</option>
                                     </select>
                                 </div>
                             </div>
-                        </fieldset>
+                        </fieldset> --}}
 
                         <fieldset>
                             <div class="row mb-3">
-                                <div class="form-group col-md-12 col-lg-12 col-xl-12 required">
-                                    <label for="input-address-1">Địa chỉ</label>
-                                    {{-- <input class="form-control" name="address" value="" id=""
-                                        type="text"> --}}
+                                <div class="form-group col-md-12 col-lg-12 col-xl-12">
+                                    <div class="position-relative">
+                                        <label for="input-address">Địa chỉ <span class="text-danger">*</span> </label>
+                                        <input class="form-control" name="address" value=""
+                                            id="input-address-autocomplete" type="text">
 
-                                    <select class="form-control setupSelect2" name="address" value=""
-                                        id="select-address-autocomplete">
-
-                                    </select>
-
+                                        <ul id="showListLocation" class="list-group position-absolute w-100">
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </fieldset>
@@ -156,7 +161,6 @@
             {{-- đơn hàng --}}
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
                 <input type="hidden" name="shipping_method" value="GHN">
-                <input type="hidden" name="fee_shipping" value="20000">
 
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <h2 class="order-title">Đơn hàng của bạn</h2>
@@ -197,13 +201,23 @@
                             </div>
                             <div class="row border-bottom mb-3">
                                 <span class="col-12 col-sm-6 cart__subtotal-title">Phí vận chuyển:</span>
-                                <span class="col-12 col-sm-6 text-right"><span id="freeShipping">20.000
-                                        đ</span></span>
+                                <span class="col-12 col-sm-6 text-right"><span id="freeShipping">
+                                        @if ($subTotal < 1000000)
+                                            20.000đ
+                                            @php
+                                                $subTotal += 20000;
+                                            @endphp
+                                            <input type="hidden" name="fee_shipping" value="20000">
+                                        @else
+                                            <input type="hidden" name="fee_shipping" value="0">
+                                            Miễn phí vận chuyển
+                                        @endif
+                                    </span></span>
                             </div>
                             <div class="row border-bottom mb-3">
                                 <span class="col-12 col-sm-6 cart__subtotal-title">Tổng tiền:</span>
                                 <span class="col-12 col-sm-6 text-right"><span id="totalAmout">
-                                        {{ number_format($subTotal + 20000, '0', '.', '.') }} đ</span></span>
+                                        {{ number_format($subTotal, '0', '.', '.') }} đ</span></span>
                             </div>
                         </div>
 
@@ -255,18 +269,6 @@
     <!--Scoll Top-->
     <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
     <!--End Scoll Top-->
-
-    <!-- Including Jquery -->
-    <script src="{{ asset('/') }}client/js/vendor/jquery-3.3.1.min.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/jquery.cookie.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/wow.min.js"></script>
-    <!-- Including Javascript -->
-    <script src="{{ asset('/') }}client/js/bootstrap.min.js"></script>
-    <script src="{{ asset('/') }}client/js/plugins.js"></script>
-    <script src="{{ asset('/') }}client/js/popper.min.js"></script>
-    <script src="{{ asset('/') }}client/js/lazysizes.js"></script>
-    <script src="{{ asset('/') }}client/js/main.js"></script>
 
     <script src="{{ asset('/') }}client/js/customCheckout.js"></script>
 

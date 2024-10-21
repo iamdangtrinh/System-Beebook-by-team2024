@@ -33,12 +33,12 @@ return [
     'facebook' => [
         'client_id' => '2954297904719467',
         'client_secret' => '5b2fc767f3dec616bc9ec54c95d31227',
-        'redirect' => env('APP_URL').'/auth/facebook/callback', 
+        'redirect' => env('APP_URL').'auth/facebook/callback', 
     ],
     'google' => [
         'client_id' => '762772242743-l49pndifif3e8dlqbcosvpbfoatab0an.apps.googleusercontent.com',
         'client_secret' => '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',
-        'redirect' => env('APP_URL').'/auth/google/callback', 
+        'redirect' => env('APP_URL').'auth/google/callback', 
     ],
 
 ];

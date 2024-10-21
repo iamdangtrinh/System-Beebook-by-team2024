@@ -4,6 +4,7 @@ namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\cartRequest;
+use App\Http\Requests\CreateCart;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\CartServiceInterface as CartService;
 use App\Repositories\Interfaces\CartRepositoryInterface as CartRepository;
@@ -34,7 +35,7 @@ class cartController extends Controller
     public function create() {}
 
     //   tạo giỏ hàng nếu có đăng nhạp
-    public function store(Request $request)
+    public function store(CreateCart $request)
     {
         // nếu có đăng nhập
         $result = $this->CartService->create($request);
@@ -68,20 +69,6 @@ class cartController extends Controller
         } else {
             return "Xóa sản phẩm thất bại!";
         }
-    }
-
-    public function deleteSoft($id)
-    {
-        $seo = config('apps.cart.delete');
-        $cart = $this->CartRepository->delete($id);
-    }
-
-    public function destroy($id)
-    {
-        if ($this->CartService->destroy($id)) {
-            return redirect()->route('cart.index')->with('success', 'Delete cart success');
-        }
-        return redirect()->route('cart.index')->with('error', 'Delete cart error, please again');
     }
 
     public function viewcarttocart()

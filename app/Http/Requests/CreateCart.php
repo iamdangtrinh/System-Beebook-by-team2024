@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
 
-class cartRequest extends FormRequest
+class CreateCart extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,10 @@ class cartRequest extends FormRequest
         return [
             'quantity' => [
                 'required',
-                'numeric',
+                'integer',
                 'min:1',
                 $this->validateQuantityProduct(),
-            ],
+                ]
         ];
     }
 
@@ -43,11 +43,11 @@ class cartRequest extends FormRequest
         };
     }
 
-    public function messages(): array
+   public function messages(): array
     {
         return [
             'quantity.required' => 'Vui lòng nhập số lượng sản phẩm.',
-            'quantity.numeric' => 'Số lượng sản phẩm phải là số.',
+            'quantity.integer' => 'Số lượng phải là một số nguyên.',
             'quantity.min' => 'Số lượng sản phẩm phải lớn hơn hoặc bằng 1.',
         ];
     }

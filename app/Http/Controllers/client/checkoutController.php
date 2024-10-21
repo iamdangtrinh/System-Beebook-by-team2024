@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CheckoutRequest;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\CheckoutServiceInterface as CheckoutService;
 use App\Repositories\Interfaces\CheckoutRepositoryInterface as CheckoutRepository;
@@ -39,7 +40,7 @@ class CheckoutController extends Controller
     public function create() {}
 
     // mua hàng
-    public function store(Request $request)
+    public function store(CheckoutRequest $request)
     {
         $result = $this->CheckoutService->create($request);
         return $result;
@@ -65,5 +66,11 @@ class CheckoutController extends Controller
     public function viewcarttocart()
     {
         return view('addtocart');
+    }
+    
+    public function thankyou() {
+        return view('Client.thankyou', compact([
+
+        ]));
     }
 }

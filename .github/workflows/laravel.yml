@@ -4,7 +4,6 @@ on:
   push:
     pull_request:
       - Pro  # Chạy khi có thay đổi trên nhánh main
-
 jobs:
   deploy:
 

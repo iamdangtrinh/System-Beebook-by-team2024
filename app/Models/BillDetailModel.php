@@ -15,8 +15,8 @@ class BillDetailModel extends Model
         "id",
         "id_product",
         "id_bill",
-        "name",
-        "image_cover",
+        // "name",
+        // "image_cover",
         "quantity",
         "price",
     ];

@@ -58,6 +58,11 @@
                                     @error('password_confirm') <span class="error text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
+                            @if (session('success-sign-up'))
+                            <div class="alert alert-success">
+                                {{ session('success-sign-up') }}
+                            </div>
+                        @endif
                             {{-- Nút Đăng Nhập --}}
                             <button wire:click="handleSignUp"  wire:loading.attr="disabled" @if($errors->any()) disabled @endif type="button" class="btn pt-lg-3   rounded-1 pb-lg-3 fs-6">Đăng Ký</button>
                         </form>

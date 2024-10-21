@@ -29,6 +29,11 @@
                                 {{ session('success') }}
                             </div>
                         @endif
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
 
                         <div class="table-responsive">
                             <table class="table table-bordered" style="white-space: nowrap;">
@@ -84,7 +89,7 @@
                                                 <td class="cart__meta small--text-left cart-flex-item">
                                                     <div class="list-view-item__title">
                                                         <a class="name_product"
-                                                            href="{{ $isAuthenticated ? $product->slug : $product['slug'] }}">
+                                                            href="san-pham/{{ $isAuthenticated ? $product->slug : $product['slug'] }}">
                                                             {{ $isAuthenticated ? $product->name : $product['name'] }}</a>
                                                     </div>
                                                     <span class="price_product mt-2 fw-bold d-block">

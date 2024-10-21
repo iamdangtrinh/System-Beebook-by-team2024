@@ -6,7 +6,7 @@
         <div class="bg-white w-100" style="box-shadow: 0 0 40px rgba(0, 0, 0, 0.1); border-radius: 8px">
                 <h1 style="font-weight: bold; color: #C92127; padding: 18px 20px 12px 20px; border-bottom: 1px solid #F6F6F6 ">TÀI KHOẢN</h1>
                 <div style="padding: 8px 10px" class="d-flex flex-column gap-1">
-                    <a href="/profile" class="hover-item">Thông tin tài khoản 1</a>
+                    <a href="/profile" class="hover-item">Thông tin tài khoản</a>
                     <a href="" class="hover-item" >Sổ địa chỉ</a>
                     <a href="" class="hover-item" >Đơn hàng của tôi</a>
                     <a href="" class="hover-item" >Ví vocher</a>
@@ -23,7 +23,7 @@
                         <label for="file-upload" style="cursor: pointer;">
                             <img 
                                  style="width: 100px; height: 100px; border-radius: 50%; border: 1px solid black" 
-                                 src="{{ Auth::user()->avatar !== '' ? asset('storage/'.Auth::User()->avatar) : asset('/client/images/manager-user/no_avt.png') }}" 
+                                 src={{ Auth::user()->avatar !== null ? asset('storage/'.Auth::User()->avatar) : "/client/images/manager-user/no_avt.png" }}
                                  alt="User Avatar">
                         </label>
                         <input type="file" wire:model.change="avatar" id="file-upload" wire:model.live="avatar" style="display: none;" accept="image/*">
@@ -35,21 +35,21 @@
                     <div class="col-12 position-relative">
                        <div class="form-group">
                            <label for="CustomerName">Họ tên</label>
-                           <input wire:model.live="name" value={{Auth::User()->name}} class="rounded-1"   id="CustomerEmail" autocorrect="off" autocapitalize="off" >
+                           <input wire:model.live="name" class="rounded-1"   id="CustomerEmail" autocorrect="off" autocapitalize="off" >
                        </div>
                        @error('name') <span class="error text-danger">{{ $message }}</span> @enderror
                    </div>
                    <div class="col-12 position-relative">
                     <div class="form-group">
                         <label for="CustomerName">Số điện thoại</label>
-                        <input wire:model.live="phone" class="rounded-1"  value={{Auth::User()->phone}} id="CustomerEmail" autocorrect="off" autocapitalize="off" >
+                        <input wire:model.live="phone" class="rounded-1"   id="CustomerEmail" autocorrect="off" autocapitalize="off" >
                     </div>
                     @error('phone') <span class="error text-danger">{{ $message }}</span> @enderror
                 </div>
                 <div class="col-12 position-relative">
                     <div class="form-group">
                         <label for="CustomerName">Email</label>
-                        <input wire:model.live="email" class="rounded-1" value={{Auth::User()->email}} id="CustomerEmail" autocorrect="off" autocapitalize="off" >
+                        <input wire:model.live="email" class="rounded-1"  id="CustomerEmail" autocorrect="off" autocapitalize="off" >
                     </div>
                     @error('email') <span class="error text-danger">{{ $message }}</span> @enderror
                 </div>
@@ -57,39 +57,91 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 position-relative">
                     <div class="form-group">
                         <label for="CustomerName">Tỉnh/Thành phố</label>
-                       <select name="" id="" >
-                        <option value="123">123</option>
-                        <option value="124">123</option>
-                        <option value="123">123</option>
+                       <select name="" id="" wire:model.change="province">     
+                        @if (Auth::user()->id_city === null)
+                            <option >Vui lòng chọn thành phố</option>     
+                            @foreach ($dataProvince as $item)
+                            <option value={{$item['ProvinceID']}}>{{$item['ProvinceName']}}</option>
+                            @endforeach
+                        @else
+                        <option value={{Auth::user()->id_city}}  >{{$userProvince['ProvinceName']}}</option>     
+                            @foreach ($dataProvince as $item)
+                            <option value={{$item['ProvinceID']}}>{{$item['ProvinceName']}}</option>
+                            @endforeach                           
+                        @endif                       
                        </select>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 position-relative">
                     <div class="form-group">
                         <label for="CustomerName">Quận huyện</label>
-                        <input  class="rounded-1"  placeholder="Họ tên" id="CustomerEmail" autocorrect="off" autocapitalize="off" >
+                        <select name="" id="" wire:model.change = 'district' >
+                            @if (Auth::user()->id_province !== null)
+                            <option value={{Auth::user()->id_province}}>{{$userDistrict['DistrictName']}}</option>
+                            @forEach ($dataDistrict as $item)
+                            <option value={{$item['DistrictID']}}>{{$item['DistrictName']}}</option>
+                            @endforeach 
+                            @else
+                            @if ($dataDistrict === [])
+                                <option > Vui lòng chọn quận huyện</option>
+                                @else
+                                @forEach ($dataDistrict as $item)
+                            <option value={{$item['DistrictID']}}>{{$item['DistrictName']}}</option>
+                            @endforeach 
+                            @endif                          
+                            @endif  
+                        </select>
                     </div>
                 </div>
                </div>
                <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 position-relative">
                     <div class="form-group">
-                        <label for="CustomerName">Địa chỉ</label>
-                        <input  class="rounded-1"  placeholder="Họ tên" id="CustomerEmail" autocorrect="off" autocapitalize="off" >
+                        <label for="CustomerName">Phường/Xã</label>
+                        <select name="" id="" wire:model.change="ward">
+                            @if (Auth::user()->id_ward !== null) 
+                                @if ($dataWard === [])
+                                    <option >Vui lòng chọn phường xã</option>
+                                @else 
+                                <option value={{Auth::user()->id_ward}}>{{ $userWard['WardName'] }}</option>
+                                @foreach ($dataWard as $item)
+                                <option value="{{ $item['WardCode'] }}">{{ $item['WardName'] }}</option>
+                            @endforeach
+                                @endif
+                                @else
+                                @if ($dataWard === [])
+                                <option >Vui lòng chọn phường xã</option>
+                            @else 
+                            @foreach ($dataWard as $item)
+                            <option value="{{ $item['WardCode'] }}">{{ $item['WardName'] }}</option>
+                        @endforeach
+                            @endif
+                            @endif
+                        </select>
                     </div>
-                </div>  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 position-relative">
-                    <div class="form-group">
-                        <label for="CustomerName">Trạng thái</label>
-                        <input  class="rounded-1"  placeholder="Họ tên" id="CustomerEmail" autocorrect="off" autocapitalize="off" >
-                    </div>
-               </div>
                 </div>
-                <div class="d-flex align-items-center gap-3" > 
-                <a  href=""  class="btn "  >Xóa Tài Khoản</a>
-                <button 
-                 @if ($errors->any() || Auth::User()->name === $this->name ) 
-                  disabled 
-                  @endif href="" type="submit" class="btn" >Cập nhật</button>
+                <div class="col-lg-6 col-md-6 col-sm-12  position-relative">
+                    <div class="form-group">
+                        <label for="CustomerName">Địa chỉ</label>
+                        <input wire:model.live="address" class="rounded-1" id="CustomerEmail" autocorrect="off" autocapitalize="off" >
+                    </div>
+                    @error('email') <span class="error text-danger">{{ $message }}</span> @enderror
+                </div>
+                </div>
+                <div class="d-flex align-items-center gap-3 pt-2" > 
+                    <button 
+                    @if ($errors->any() || 
+                         ($name === Auth::user()->name && 
+                          $phone === Auth::user()->phone && 
+                          $email === Auth::user()->email && 
+                          $address === Auth::user()->address && 
+                          $province === Auth::user()->id_city && 
+                          $district === Auth::user()->id_province && 
+                          $ward === Auth::user()->id_ward)) 
+                        disabled 
+                    @endif 
+                    type="submit" class="btn">Cập nhật</button>
+                <a wire:click="confirmDelete"  class="btn "  >Xóa Tài Khoản</a>
                 </div>
                 @if (session('success'))
                 <span class="success text-success"> {{ session('success') }}</span>
@@ -102,6 +154,8 @@
     </div>
    </div>
 </div>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </div>
 <style>
     .hover-item {
@@ -112,7 +166,6 @@
   padding: 10px;
    
 }
-
 .hover-item:hover {
   color: #C92127;
   text-decoration: none;
@@ -140,6 +193,24 @@ items.forEach(item => {
     item.classList.add('active');
   }
 });
-
+document.addEventListener('livewire:initialized',()=>{
+    @this.on('swal',(event)=>{
+        const data=event;
+        swal.fire({
+            icon: 'warning',
+            title: 'Bạn có muốn xóa?',
+            text: 'Nếu bạn xóa, hành động này không thể hoàn tác!',
+            showCancelButton: true,
+            reverseButtons: true,
+            confirmButtonColor: 'red',
+            cancelButtonColor: 'red',
+            confirmButtonText: 'Xác nhận xóa'
+        }).then((result)=>{
+            if (result.isConfirmed) {
+                @this.dispatch('hanldeDeleted')
+            }
+        })
+    })
+})
 </script>
 </div>

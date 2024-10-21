@@ -17,33 +17,13 @@
     };
 
     DT.inputAddress = () => {
-        $("#select-address-autocomplete").select2({
-            placeholder: "Select an address",
-            allowClear: true,
-
-            ajax: {
-                url: function (params) {
-                    console.log(params.term);
-                    const getLocation = _.debounce(
-                        () => DT.autoCompleteAddressGoongApi(params.term),
-                        1500
-                    );
-                    getLocation()
-                },
-                success: function (response) {
-                    
-                },
-            },
-        });
-
-        $("#select-address-autocomplete").on("select2:select", function () {
+        $("#input-address-autocomplete").on("input", function () {
             let _this = $(this);
-
             console.log(_this.val());
 
             const getLocation = _.debounce(
                 () => DT.autoCompleteAddressGoongApi(_this.val()),
-                1500
+                1200
             );
             getLocation();
         });
@@ -55,11 +35,18 @@
             url: `https://rsapi.goong.io/Place/AutoComplete?api_key=3llMTBYg6lewfO3NctgGOQWkynPkZojFyNm6HBpp&more_compound=true&radius=20000&input=${input}`,
             data: "",
             success: function (response) {
+                console.log(response);
                 let html = "";
                 response.predictions.map((item) => {
-                    html += `<option value="${item.description}">${item.description}</option>`;
+                    html += `<li class="list-group-item cursor-pointer" data-value="${item.description}">${item.description}</li>`;
                 });
-                $("#select-address-autocomplete").html(html);
+                $("#showListLocation").html(html);
+
+                $(".list-group-item").on("click", function (e) {
+                    const _this = $(this);
+                    $("#input-address-autocomplete").val(_this.data("value"));
+                    $(".list-group-item").remove();
+                });
             },
             error: function () {},
             complte: function () {},
@@ -68,16 +55,9 @@
 
     DT.CALCFreeShipping = () => {
         DT.getProvincer();
-
-        $("#province").on("change", function () {
-            let _this = $(this);
-            if (_this.val() !== "") {
-                DT.getDistrict(_this.val());
-            }
-        });
     };
 
-    // get provincer
+    // get tỉnh
     DT.getProvincer = () => {
         $.ajax({
             type: "GET",
@@ -88,11 +68,18 @@
                     html += `<option value="${item.ProvinceID}">${item.ProvinceName}</option>`;
                 });
 
-                $("#province").append(html);
+                $("#province").html(html);
+                $("#province").on("change", function () {
+                    let _this = $(this);
+                    if (_this.val() !== "") {
+                        DT.getDistrict(_this.val());
+                    }
+                });
             },
         });
     };
 
+    // quận
     DT.getDistrict = (provinceID) => {
         $.ajax({
             type: "GET",
@@ -114,6 +101,7 @@
         });
     };
 
+    // xã
     DT.getWard = (districtID) => {
         $.ajax({
             type: "GET",
@@ -123,8 +111,33 @@
                 response.data.map((item) => {
                     html += `<option value="${item.WardCode}">${item.WardName}</option>`;
                 });
-
                 $("#ward").html(html);
+                $("#ward").on("change", function () {
+                    let _this = $(this);
+                    if (_this.val() !== "") {
+                        // console.log($("#province").val());
+                        // console.log($("#district").val());
+                        // console.log($("#ward").val());
+                        let data = {
+                            to_district_id: $("#district").val(),
+                            to_ward_code: $("#ward").val(),
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: "feeshipping",
+                            headers: {
+                                "X-CSRF-TOKEN": $(
+                                    'meta[name="csrf_token"]'
+                                ).attr("content"),
+                            },
+                            data: data,
+                            success: function (response) {
+                                console.log(response);
+                            },
+                        });
+                    }
+                });
             },
         });
     };
@@ -135,7 +148,7 @@
         DT.setupSelect2();
         // DT.setupSelect2Tag();
         DT.inputAddress();
-        DT.CALCFreeShipping();
+        // DT.CALCFreeShipping();
         // DT.autoCompleteAddressGoongApi();
     });
 })(jQuery);
