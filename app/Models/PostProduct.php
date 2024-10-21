@@ -13,11 +13,9 @@ class PostProduct extends Model
 
     protected $fillable = [
         'id',
-        'type',
-        'name',
-        'slug',
+        'id_post',
+        'id_product',
         'created_at',
         'updated_at',
-        'deleted_at',
     ];
 }

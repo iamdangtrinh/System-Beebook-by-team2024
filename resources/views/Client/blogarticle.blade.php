@@ -10,7 +10,7 @@
     <!--Page Title-->
     <div class="page section-header text-center mb-0">
         <div class="page-title">
-            <div class="wrapper"><h1 class="page-width">Blog Article</h1></div>
+            <div class="wrapper"><h1 class="page-width">{{$getPost['title']}}</h1></div>
           </div>
     </div>
     <!--End Page Title-->
@@ -26,12 +26,13 @@
             <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">
                 <div class="blog--list-view">
                     <div class="article"> 
+                      
                         <!-- Article Image --> 
                          <a class="article_featured-image" href="#"><img class="blur-up lazyload" data-src="{{asset('/')}}client/images/blog/blog-post-1.jpg" src="{{asset('/')}}client/images/blog/blog-post-1.jpg" alt="It's all about how you wear"></a> 
-                        <h1><a href="blog-left-sidebar.html">It's all about how you wear</a></h1>
+                        <h1><a href="blog-left-sidebar.html">{{$getPost['title']}}</a></h1>
                         <ul class="publish-detail">                      
                             <li><i class="anm anm-user-al" aria-hidden="true"></i>  User</li>
-                            <li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">May 02, 2017</time></li>
+                            <li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">{{$getPost['updated_at']}}</time></li>
                             <li>
                                 <ul class="inline-list">   
                                     <li><i class="icon anm anm-comments-l"></i> <a href="#"> 0 comments</a></li>
@@ -39,8 +40,7 @@
                             </li>
                         </ul>
                         <div class="rte"> 
-                            <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de.</p>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            <p>{{$getProduct['name']}}</p>
                             <h3>Sample Text Listing</h3>
                             <ul class="list-items">
                                 <li>Donec et lacus mattis ipsum feugiat interdum non id sapien.</li>
@@ -81,36 +81,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="formFeilds contact-form form-vertical">
-                      <form method="post" action="#" id="comment_form" accept-charset="UTF-8" class="comment-form">
-                          <h2>Leave a comment</h2>
-                          <div class="row">
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                <input type="text" id="ContactFormName" name="contact[name]" placeholder="Name" value="" required="">
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                <div class="form-group">
-                                <input type="email" id="ContactFormEmail" name="contact[email]" placeholder="Email" value="" required="">                        	
-                                </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="form-group">
-                                <textarea required="" rows="10" id="ContactFormMessage" name="contact[body]" placeholder="Your Message"></textarea>
-                                </div>
-                            </div>  
-                          </div>
-                          <div class="row">
-                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                <p class="fine-print">Please note, comments must be approved before they are published</p>
-                                <input type="submit" class="btn" value="Send Message">
-                            </div>
-                         </div>
-                     </form>
-                    </div>
+                    
                 </div>
             </div>
             <!--End Main Content-->
