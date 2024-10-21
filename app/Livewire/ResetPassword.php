@@ -36,9 +36,6 @@ class ResetPassword extends Component
                     ]);
                 }
                 $this->token = PasswordResetToken::where('email',$this->email)->first()['token'];
-                if ($this->token !== null) {
-
-                }
                 Mail::to($this->email)->send(new ResetPasswordMail($this->token));
                 session()->flash('successReset','Vui lòng kiểm tra email để đổi mật khẩu');
             }else{

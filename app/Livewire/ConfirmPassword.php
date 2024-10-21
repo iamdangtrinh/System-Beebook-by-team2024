@@ -5,9 +5,6 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use App\Models\PasswordResetToken;
 use App\Models\User;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendPassword; 
 use Illuminate\Support\Facades\Hash;
 
 class ConfirmPassword extends Component
@@ -29,14 +26,13 @@ class ConfirmPassword extends Component
 
     public function handleConfirm(){
         $getMailByToken = PasswordResetToken::where('token',$this->token)->first();
-        $newPass = Str::random(10);
         if ($getMailByToken['email']) {
             try {
                 User::where('email', $getMailByToken['email'])->update([
-                    'password' => Hash::make($newPass)
+                    'password' => Hash::make($this->password_confirm)
                 ]);
                 PasswordResetToken::where('email', $getMailByToken['email'])->delete();
-                Mail::to($getMailByToken['email'])->send(new SendPassword($newPass));
+                // Mail::to($getMailByToken['email'])->send(new SendPassword($newPass));
                 redirect(env('APP_URL').'sign-in');
             } catch (\Throwable $th) {
                 //throw $th;
