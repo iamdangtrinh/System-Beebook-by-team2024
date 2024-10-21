@@ -23,7 +23,7 @@
                     @error('password_confirm') <span class="error text-danger">{{ $message }}</span> @enderror
                 </div>
             </div>
-            <button type="submit" class="btn  pt-lg-3 rounded-1 pb-lg-3 fs-6">Xác nhận
+            <button type="submit"  @if ($errors->any() || $password === '' || $password_confirm === '') disabled @endif  class="btn  pt-lg-3 rounded-1 pb-lg-3 fs-6">Xác nhận
         </button>
         </form>
        </div>
