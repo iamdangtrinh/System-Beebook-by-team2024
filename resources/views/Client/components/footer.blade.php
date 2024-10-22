@@ -108,5 +108,14 @@
 <script src="{{ asset('/') }}client/js/popper.min.js"></script>
 <script src="{{ asset('/') }}client/js/lazysizes.js"></script>
 <script src="{{ asset('/') }}client/js/main.js"></script>
-
-
+<script>
+    // const images = document.querySelectorAll('img');
+    // console.log(images);
+    // // Duyệt qua từng thẻ img
+    // images.forEach(img => {
+    //     img.onerror = function() {
+    //         this.onerror = null; // Ngăn ngừa vòng lặp vô hạn
+    //         this.src = '/no_image.jpg'; // Thay thế hình ảnh bị lỗi
+    //     };
+    // });
+</script>
