@@ -297,7 +297,7 @@
                 <!--End-product-single-->
 
                 <!--Related Product Slider-->
-                <div class="related-product grid-products">
+                <div class="related-product grid-products mt-3">
                     <header class="section-header">
                         <h2 class="section-header__title text-center h2"><span>Sách tương tự</span></h2>
                         <p class="sub-heading">Có thể bạn quan tâm, dưới đây là các sách tương tự để bạn có thể dễ dàng
@@ -311,8 +311,8 @@
                                 <!-- start product image -->
                                 <a href="{{ asset('san-pham/' . $pro->slug) }}" class="grid-view-item__link">
                                     <!-- image -->
-                                    <img class="primary lazyload" data-src="{{ asset('/') . $pro->image_cover }}"
-                                        src="{{ asset('/') . $pro->image_cover }}" alt="image"
+                                    <img class="primary lazyload" data-src="{{ asset($pro->image_cover ? $pro->image_cover : 'no_image.jpg') }}"
+                                        src="{{ asset($pro->image_cover ? $pro->image_cover : 'no_image.jpg') }}" alt="image"
                                         title="product">
                                     <!-- End image -->
                                 </a>
@@ -379,38 +379,7 @@
                             </div>
                         </div>
                         <div class="spr-content">
-                            <div class="spr-form clearfix">
-                            @livewire('product-comment-form', ['idProduct' => $product->id])
-                            </div>
-                            <div class="spr-reviews">
-                                @if ($comments && $comments->count() > 0)
-                                @foreach ($comments as $comment)
-                                <div class="spr-review">
-                                    <div class="spr-review-header">
-                                        <span class="product-review spr-starratings spr-review-header-starratings">
-                                            <span class="reviewLink">
-                                                @for ($i = 0; $i < $comment->rating; $i++)
-                                                    <i class="fa fa-star"></i>
-                                                    @endfor
-                                                    @for ($i = $comment->rating; $i < 5; $i++)
-                                                        <i class="fa fa-star-o"></i>
-                                                        @endfor
-                                            </span>
-                                        </span></br>
-                                        <span class="spr-review-header-byline">
-                                            <strong>{{ $comment->user->name }}</strong>
-                                            {{ $comment->created_at->format('d/m/Y') }}
-                                        </span>
-                                    </div>
-                                    <div class="spr-review-content">
-                                        <p class="spr-review-content-body">{{ $comment->content }}</p>
-                                    </div>
-                                </div>
-                                @endforeach
-                                @else
-                                <p>Chưa có bình luận. Hãy là người đầu tiên bình luận về sách này nào!</p>
-                                @endif
-                            </div>
+                            @livewire('product-comment-form', ['idProduct' => $product->id,'slugProduct => $product->slug'])
                         </div>
                     </div>
                 </div>
@@ -421,7 +390,6 @@
         <!-- Photoswipe Gallery -->
         <script src="{{ asset('/') }}client/js/vendor/photoswipe.min.js"></script>
         <script src="{{ asset('/') }}client/js/vendor/photoswipe-ui-default.min.js"></script>
-        <script src="{{ asset('/') }}client/js/customCheckForm.js"></script>
         <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
         <script>
             $(function() {

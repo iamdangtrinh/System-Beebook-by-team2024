@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Attributes\Validate; 
 use Livewire\Component;
+use Illuminate\Support\Facades\Session;
 use App\Models\Comment;
 
 class ProductCommentForm extends Component
@@ -16,12 +17,16 @@ class ProductCommentForm extends Component
     public $content;
 
     public $id_product;
+    public $slug_product;
     public $id_user;
+    public $comments = [];
 
-    public function mount($idProduct)
+    public function mount($idProduct,$slugProduct)
     {
         $this->id_product = $idProduct;
+        $this->slug_product = $slugProduct;
         $this->id_user = 1;
+        $this->fetchComments();
     }
 
     public function submit()
@@ -34,12 +39,23 @@ class ProductCommentForm extends Component
             'rating' => $this->rating,
             'content' => $this->content,
         ]);
+        Session::flash('comment_success', 'Bình luận thành công!');
+
+        // Fetch the latest comments after submitting
+        $this->fetchComments();
 
         // Reset form fields
         $this->reset(['rating', 'content']);
-
-        $this->dispatchBrowserEvent('toast', ['message' => 'Bình luận thành công']);
     }
+
+    public function fetchComments()
+    {
+        // Fetch comments from the database
+        $this->comments = Comment::where('id_product', $this->id_product)
+                                  ->latest()
+                                  ->get();
+    }
+
     public function render()
     {
         return view('livewire.product-comment-form');
