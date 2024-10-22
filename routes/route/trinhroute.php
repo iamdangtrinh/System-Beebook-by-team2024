@@ -16,13 +16,6 @@ Route::controller(cartController::class)->group(function () {
       Route::post('/cart/delete', 'delete')->name('cart.delete');
 });
 
-// Route::controller(couponController::class)->group(function () {
-//       Route::get('/coupon', 'index')->name('coupon.index');
-//       Route::post('/coupon/update', 'update')->name('coupon.update');
-//       Route::post('/coupon/addtocoupon', 'store')->name('coupon.store');
-//       Route::post('/coupon/delete', 'delete')->name('coupon.delete');
-// });
-
 Route::controller(getLocationGHNContronller::class)->group(function () {
       Route::get('/provincer', 'getProvincer')->name('provincer.index');
       Route::get('/district/{id}', 'getDistrict')->name('district.index');
@@ -30,16 +23,10 @@ Route::controller(getLocationGHNContronller::class)->group(function () {
       Route::post('/feeshipping', 'feeShipping')->name('feeShipping.index');
 });
 
-
-Route::get('test', [cartController::class, 'viewcarttocart'])->name('cart.no.login');
-
 Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware('CheckLogin');
-
 Route::post('progressCheckout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('thank-you/{id}', [CheckoutController::class, 'thankyou'])->name('thankyou.index');
-
 Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index');
-
 
 Route::get('/redis-test', function () {
       Cache::store('redis')->put('test_key', 'Hello Redis', 10);
