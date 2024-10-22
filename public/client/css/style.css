@@ -1861,6 +1861,9 @@ textarea:-ms-input-placeholder {
 .grid-products .item .product-image img {
   display: inline-block;
   width: 100%;
+  height: 200px;
+  object-fit: contain; /* Đảm bảo ảnh không bị cắt và giữ nguyên tỷ lệ */
+  object-position: center;
   margin: 0 auto;
   vertical-align: middle;
   -ms-transition: all ease-out 0.4s;
@@ -2212,7 +2215,7 @@ textarea:-ms-input-placeholder {
 
 .variants.add {
   position: absolute;
-  bottom: -50px;
+  bottom: -70px;
   -ms-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
