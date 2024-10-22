@@ -40,7 +40,7 @@
                             </li>
                         </ul>
                         <div class="rte"> 
-                            <p>{{$getProduct['name']}}</p>
+                            <p></p>
                             <h3>Sample Text Listing</h3>
                             <ul class="list-items">
                                 <li>Donec et lacus mattis ipsum feugiat interdum non id sapien.</li>
