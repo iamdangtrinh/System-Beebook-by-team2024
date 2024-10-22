@@ -121,7 +121,7 @@ class ProductsSeeder extends Seeder
             $status = Arr::random($statuses);
             $parent_id = rand(1,21); // Giả sử các danh mục đã có từ 1 đến số lượng danh mục hiện có
             $author = $taxonomiesCount > 0 ? rand(1, $taxonomiesCount) : null;
-            $publisher = $taxonomiesCount > 0 ? rand(1, $taxonomiesCount) : null;
+            $translator = $taxonomiesCount > 0 ? rand(1, $taxonomiesCount) : null;
             $manufacturer = $taxonomiesCount > 0 ? rand(1, $taxonomiesCount) : null;
 
             DB::table('products')->insert([
@@ -142,9 +142,9 @@ class ProductsSeeder extends Seeder
                 'weight' => 200,
                 'language' => 'Tiếng anh',
 
-                'author' => $author,
-                'publisher' => $publisher,
-                'manufacturer' => $manufacturer,
+                'id_author' => $author,
+                'id_translator' => $translator,
+                'id_manufacturer' => $manufacturer,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
