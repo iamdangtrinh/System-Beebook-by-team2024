@@ -77,28 +77,34 @@ class CartService implements CartServiceInterface
                 $payload['id_user'] = Auth::user()->id;
                 $response = $this->CartRepository->addToCart($payload);
             } else {
-                $product_quantity = Product::select(['quantity'])->find($payload['id_product']);
+                $product = Product::select(['quantity', 'price', 'price_sale'])->find($payload['id_product']);
+
+                $price = $product->price_sale !== null ? $product->price_sale : $product->price;
+
                 // kiểm tra giỏ hàng có tồn tại hay không
                 $cart = $request->session()->get('cart', []);
                 $productId = $payload['id_product'];
                 $quantityToAdd = $payload['quantity'];
-                $productPrice = $payload['price'];
+                $productPrice = $price;
 
                 // Cập nhật số lượng
                 if (isset($cart[$productId])) {
                     $cart[$productId]['quantity'] += $quantityToAdd; // Cộng thêm số lượng mới
+
                     // Nếu số lượng sản phẩm trong giỏ hàng lớn hơn hoặc bằng số lượng tối đa
-                    if ($cart[$productId]['quantity'] >= $product_quantity->quantity) {
+                    if ($cart[$productId]['quantity'] >= $product->quantity) {
                         // Cập nhật số lượng sản phẩm trong giỏ hàng về số lượng tối đa
-                        $cart[$productId]['quantity'] = $product_quantity->quantity;
+                        $cart[$productId]['quantity'] = $product->quantity;
 
                         $response = [
                             'status' => 'error',
-                            'data' => "Rất tiếc, bạn chỉ có thể mua tối đa " . $product_quantity->quantity . " sản phẩm"
+                            'data' => "Rất tiếc, bạn chỉ có thể mua tối đa " . $product->quantity . " sản phẩm"
                         ];
                     } else {
+                    var_dump($cart[$productId]['quantity'], $product->quantity);
+
                         // Nếu số lượng sản phẩm trong giỏ hàng nhỏ hơn số lượng tối đa, bạn có thể cập nhật
-                        $cart[$productId]['quantity'] += $product_quantity->quantity;
+                        $cart[$productId]['quantity'] += $product->quantity;
 
                         $response = [
                             'status' => 'success',
@@ -112,11 +118,13 @@ class CartService implements CartServiceInterface
                         'quantity' => $quantityToAdd,
                         'product_price' => $productPrice,
                     ];
+
                     $response = [
                         'status' => 'success',
                         'data' => "Thêm sản phẩm vào giỏ hàng thành công."
                     ];
                 }
+
                 session()->put('cart', $cart);
             }
             DB::commit();
