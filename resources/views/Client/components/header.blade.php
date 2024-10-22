@@ -124,7 +124,7 @@
                     <!--Desktop Logo-->
                     <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
                         <a href="{{ asset('/') }}">
-                            <img src="{{ asset('/') }}client/images/logo.png" height="50px" alt="Bee book"
+                            <img src="{{ asset('/') }}client/images/logo.webp" height="50px" alt="Bee book"
                                 title="Logo" />
                         </a>
                     </div>
@@ -204,7 +204,7 @@
                     <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
                         <div class="logo">
                             <a href="{{ asset('/') }}">
-                                <img src="{{ asset('/') }}client/images/logo.png" alt="Bee book"
+                                <img src="{{ asset('/') }}client/images/logo.webp" alt="Bee book"
                                     title="Bee book" />
                             </a>
                         </div>
