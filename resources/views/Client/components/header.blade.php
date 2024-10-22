@@ -64,11 +64,12 @@
 <body class="template belle">
     <div class="pageWrapper">
         <!--Top Header-->
-        <div  style="background-color: #CE2626" class="top d-lg-block d-md-block d-sm-none">
-            <div class="container d-lg-block d-md-block d-sm-none"  >
+        <div style="background-color: #CE2626" class="top d-lg-block d-md-block d-sm-none">
+            <div class="container d-lg-block d-md-block d-sm-none">
                 <div class="d-flex align-items-center">
                     <div class="col-10 col-sm-8 col-md-5 col-lg-8">
-                        <p style="font-size:13px" class="phone-no text-white"><i class="anm anm-phone-s"></i> +440 0(111) 044 833</p>
+                        <p style="font-size:13px" class="phone-no text-white"><i class="anm anm-phone-s"></i> +440
+                            0(111) 044 833</p>
                     </div>
                     {{-- <div class="col-sm-4 col-md-4 col-lg-4 d-none d-lg-none d-md-block d-lg-block">
                         <div class="text-center">
@@ -78,7 +79,8 @@
                     <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
                         {{-- <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al"
                                 aria-hidden="true"></i></span> --}}
-                        <ul id="siteNav" class="site-nav medium center hidearrow d-flex align-items-center justify-content-end">
+                        <ul id="siteNav"
+                            class="site-nav medium center hidearrow d-flex align-items-center justify-content-end">
                             <li class="lvl1 parent dropdown ">
                                 <i class="icon anm anm-user-circle"></i>
                                 <ul class="dropdown" style="top:28px">
@@ -140,7 +142,7 @@
                             <ul id="siteNav" class="site-nav medium center hidearrow">
                                 <li class="lvl1 parent megamenu"><a href="/">Trang chủ<i
                                             class="anm anm-angle-down-l"></i></a></li>
-                                <li class="lvl1 parent megamenu"><a href="{{route('product.index')}}">Cửa hàng<i class="anm anm-angle-down-l"></i></a></li>
+                                <li class="lvl1 parent megamenu"><a href="{{ route('product.index') }}">Cửa hàng</a></li>
 
                                 <li class="lvl1 parent dropdown"><a href="#">Product <i
                                             class="anm anm-angle-down-l"></i></a>
@@ -244,7 +246,6 @@
 
         <!--Mobile Menu-->
         <div class="mobile-nav-wrapper" role="navigation">
-            <div class="closemobileMenu"><i class="icon anm anm-times-l pull-right"></i> Close Menu</div>
             <ul id="MobileNav" class="mobile-nav">
                 <li class="lvl1 parent megamenu"><a href="index.html">Home <i class="anm anm-plus-l"></i></a>
                     <ul>
@@ -252,21 +253,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="lvl1 parent megamenu"><a href="product-layout-1.html">Product <i
-                            class="anm anm-plus-l"></i></a>
-                    <ul>
-                        <li><a href="#" class="site-nav">Product Features<i class="anm anm-plus-l"></i></a>
-                            <ul>
-                                <li><a href="product-accordion.html" class="site-nav">Product Accordion</a></li>
-                                <li><a href="product-pre-orders.html" class="site-nav">Product Pre-orders </a></li>
-                                <li><a href="product-labels-detail.html" class="site-nav">Product Labels</a></li>
-                                <li><a href="product-discount.html" class="site-nav">Product Discount In %</a></li>
-                                <li><a href="product-shipping-message.html" class="site-nav">Product Shipping
-                                        Message</a></li>
-                                <li><a href="product-shipping-message.html" class="site-nav last">Size Guide </a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                <li class="lvl1 parent megamenu"><a href="{{ route('product.index') }}">Của hàng</a>
                 </li>
                 <li class="lvl1 parent megamenu"><a href="about-us.html">Pages <i class="anm anm-plus-l"></i></a>
                     <ul>
@@ -300,17 +287,7 @@
                                     class="lbl nm_label1">New</span></a></li>
                     </ul>
                 </li>
-                <li class="lvl1 parent megamenu"><a href="blog-left-sidebar.html">Blog <i
-                            class="anm anm-plus-l"></i></a>
-                    <ul>
-                        <li><a href="blog-left-sidebar.html" class="site-nav">Left Sidebar</a></li>
-                        <li><a href="blog-right-sidebar.html" class="site-nav">Right Sidebar</a></li>
-                        <li><a href="blog-fullwidth.html" class="site-nav">Fullwidth</a></li>
-                        <li><a href="blog-grid-view.html" class="site-nav">Gridview</a></li>
-                        <li><a href="blog-article.html" class="site-nav">Article</a></li>
-                    </ul>
-                </li>
-                <li class="lvl1"><a href="#"><b>Buy Now!</b></a>
+                <li class="lvl1"><a href="blog-left-sidebar.html">Blog</a>
                 </li>
             </ul>
         </div>
