@@ -38,22 +38,22 @@ return new class extends Migration
             // Define foreign keys if applicable
             $table->foreign('id_category')->references('id')->on('categories_product')->onDelete('cascade');
             
-            $table->unsignedBigInteger('author')->nullable();
-            $table->unsignedBigInteger('publisher')->nullable();
-            $table->unsignedBigInteger('manufacturer')->nullable();
+            $table->unsignedBigInteger('id_author')->nullable();
+            $table->unsignedBigInteger('id_translator')->nullable();
+            $table->unsignedBigInteger('id_manufacturer')->nullable();
 
             // Add foreign key constraints
-            $table->foreign('author')
+            $table->foreign('id_author')
                 ->references('id')
                 ->on('taxonomy')
                 ->onDelete('set null');
 
-            $table->foreign('publisher')
+            $table->foreign('id_translator')
                 ->references('id')
                 ->on('taxonomy')
                 ->onDelete('set null');
 
-            $table->foreign('manufacturer')
+            $table->foreign('id_manufacturer')
                 ->references('id')
                 ->on('taxonomy')
                 ->onDelete('set null');
