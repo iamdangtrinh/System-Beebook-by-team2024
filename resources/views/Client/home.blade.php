@@ -1,4 +1,3 @@
-
 @extends('layout.client')
 @section('body')
     <!--Body Content-->
@@ -122,9 +121,8 @@
                                         <div class="product-image">
                                             <a href="" class="grid-view-item__link">
                                                 <img class="primary"
-                                                    data-src="{{ asset('/') }}client/images/product-images/home15-product1.jpg"
                                                     src="{{ asset('/') }}client/images/product-images/home15-product1.jpg"
-                                                    alt="image" title="product">
+                                                    alt="image">
                                             </a>
                                             <form class="variants add add_to_cart" action="#"
                                                 onclick="window.location.href='cart.html'"method="post">
@@ -761,7 +759,7 @@
     <!--End Body Content-->
 
     <!--Footer-->
-  
+
     <!--End Footer-->
     <!--Scoll Top-->
     <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
@@ -812,7 +810,7 @@
     </div>
     <!-- End Newsletter Popup -->
 
-    
+
 
     <!--For Newsletter Popup-->
     <script>
