@@ -34,9 +34,9 @@ class Product extends Model
         'created_at',
         'updated_at',
         'deleted_at',
-        'author',
-        'publisher',
-        'manufacturer'
+        'id_author',
+        'id_translator',
+        'id_manufacturer'
     ];
 
     public function cart()
@@ -59,14 +59,14 @@ class Product extends Model
     }
     public function author()
     {
-        return $this->belongsTo(Taxonomy::class, 'author', 'id');
+        return $this->belongsTo(Taxonomy::class, 'id_author', 'id');
     }
     public function publisher()
     {
-        return $this->belongsTo(Taxonomy::class, 'publisher', 'id');
+        return $this->belongsTo(Taxonomy::class, 'id_translator', 'id');
     }
     public function manufacturer()
     {
-        return $this->belongsTo(Taxonomy::class, 'manufacturer', 'id');
+        return $this->belongsTo(Taxonomy::class, 'id_manufacturer', 'id');
     }
 }

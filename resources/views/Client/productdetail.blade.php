@@ -253,8 +253,8 @@
                                         <tbody>
                                             <tr>
                                                 <th>Tác giả</th>
-                                                <td>1</td>
-                                                <!-- <td>product->author->name</td> -->
+                                                <!-- <td>1</td> -->
+                                                <td>{{$product->author->name}}</td>
                                             </tr>
                                             @foreach ($product_meta as $meta)
                                             @if ($meta->product_key == 'form')
