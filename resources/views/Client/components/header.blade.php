@@ -138,7 +138,7 @@
                         <!--Desktop Menu-->
                         <nav class="grid__item" id="AccessibleNav"><!-- for mobile -->
                             <ul id="siteNav" class="site-nav medium center hidearrow">
-                                <li class="lvl1 parent megamenu"><a href="{{route('home.index')}}">Trang chủ<i
+                                <li class="lvl1 parent megamenu"><a href="/">Trang chủ<i
                                             class="anm anm-angle-down-l"></i></a></li>
                                 <li class="lvl1 parent megamenu"><a href="{{route('product.index')}}">Cửa hàng<i class="anm anm-angle-down-l"></i></a></li>
 
