@@ -222,7 +222,7 @@
                                             <input type="hidden"
                                                 value="{{ $product->price_sale !== null ? $product->price_sale : $product->price }}"
                                                 name="price">
-                                            <button type="submit" name="addToCart">Thêm vào giỏ hàng</button>
+                                            <button type="submit" class="btn btn-addto-cart" name="addToCart">Thêm vào giỏ hàng</button>
                                         </div>
                                     </div>
                                 </form>
