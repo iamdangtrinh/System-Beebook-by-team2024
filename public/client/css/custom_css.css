@@ -184,3 +184,6 @@ a {
 .imgBnrOuter {
     margin-top: 20px;
 }
+.cursor-pointer {
+    cursor: pointer;
+}

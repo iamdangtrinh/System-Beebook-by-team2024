@@ -8,7 +8,7 @@
                 <div style="padding: 8px 10px" class="d-flex flex-column gap-1">
                     <a href="/profile" class="hover-item">Thông tin tài khoản</a>
                     <a href="" class="hover-item" >Sổ địa chỉ</a>
-                    <a href="" class="hover-item" >Đơn hàng của tôi</a>
+                    <a href="{{route('order.index')}}" class="hover-item" >Đơn hàng của tôi</a>
                     <a href="" class="hover-item" >Ví vocher</a>
                     <a href="" class="hover-item" >Sách theo bộ</a>
                   </div>

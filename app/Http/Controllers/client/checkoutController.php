@@ -4,6 +4,7 @@ namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CheckoutRequest;
+use App\Models\BillModel;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\CheckoutServiceInterface as CheckoutService;
 use App\Repositories\Interfaces\CheckoutRepositoryInterface as CheckoutRepository;
@@ -53,24 +54,25 @@ class CheckoutController extends Controller
         return response()->json($cart);
     }
 
-    public function update(Request $request)
-    {
-        
-    }
+    public function update(Request $request) {}
 
-    public function delete(Request $request)
-    {
-     
-    }
+    public function delete(Request $request) {}
 
     public function viewcarttocart()
     {
         return view('addtocart');
     }
-    
-    public function thankyou() {
-        return view('Client.thankyou', compact([
 
-        ]));
+    public function thankyou()
+    {
+        // lấy url hiện tại
+        $path = $_SERVER['REQUEST_URI'];
+        // cắt chuỗi
+        $parts = explode('thank-you/', $path);
+        $code = $parts[1] ?? null;
+        $idBill = base64_decode($code);
+        $resultBill = BillModel::where('id', $idBill)->firstOrFail();
+
+        return view('Client.thankyou', compact(['resultBill']));
     }
 }

@@ -74,11 +74,9 @@ class CheckoutService implements CheckoutServiceInterface
                         if ($payload['payment_method'] == "ONLINE") {
                               // sang trang thanh toán online
                               dd("TT ONLINE");
-
                               
 
                         }
-
                         // lấy sp từ giỏ hàng
                         $carts = $this->CartService->findCartByUser(100);
                         // số tiền là 0
@@ -106,6 +104,7 @@ class CheckoutService implements CheckoutServiceInterface
                         $payload['id_user'] = Auth::user()->id;
                         // tạo bills
                         $id_bill = $this->CheckoutRepository->create($payload)->id;
+                        
                         // Lưu từng chi tiết sản phẩm vào bảng bill_details
                         foreach ($billDetails as $billDetail) {
                               $billDetail['id_bill'] = $id_bill;
@@ -114,9 +113,9 @@ class CheckoutService implements CheckoutServiceInterface
                         // xóa giỏ hàng trong database
                         $carts = $this->CartService->destroyAll();
                         // chuyển sang trang thank you
-                        return redirect()->route('thankyou.index', ['id' => md5($id_bill)])->with('success', "Bạn đã đặt hàng thành công");
                   };
                   DB::commit();
+                  return redirect()->route('thankyou.index', ['id' => base64_encode($id_bill)])->with('success', "Bạn đã đặt hàng thành công");
                   return true;
             } catch (\Exception $exception) {
                   DB::rollBack();

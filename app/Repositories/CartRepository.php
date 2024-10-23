@@ -52,15 +52,16 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
             ->where('id_product', '=', $payload['id_product'])
             ->first();
 
+        $product = Product::select(['quantity', 'price', 'price_sale'])->find($payload['id_product']);
+        $price = $product->price_sale !== null ? $product->price_sale : $product->price;
+        $payload['price'] = $price;
         if ($userExist) {
 
-            $product_quantity = Product::select(['quantity'])->find($payload['id_product']);
-
-            if ($userExist->quantity >= $product_quantity->quantity) {
-                $userExist->quantity = $product_quantity->quantity;
+            if ($userExist->quantity >= $product->quantity) {
+                $userExist->quantity = $product->quantity;
                 $response = [
                     'status' => 'error',
-                    'data' => "Rất tiếc, bạn chỉ có thể mua tối đa " . $product_quantity->quantity . " sản phẩm"
+                    'data' => "Rất tiếc, bạn chỉ có thể mua tối đa " . $product->quantity . " sản phẩm"
                 ];
             } else {
                 $userExist->quantity += $payload['quantity'];
@@ -81,7 +82,8 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
         }
     }
 
-    public function deleteAll() {
+    public function deleteAll()
+    {
         $query = $this->model->where('id_user', Auth::user()->id)->delete();
         return $query;
     }

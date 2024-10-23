@@ -137,7 +137,7 @@
                                 <div class="form-group col-md-12 col-lg-12 col-xl-12">
                                     <div class="position-relative">
                                         <label for="input-address">Địa chỉ <span class="text-danger">*</span> </label>
-                                        <input class="form-control" name="address" value=""
+                                        <input class="form-control" name="address" value="{{ old('address') ?? Auth::user()->address }}"
                                             id="input-address-autocomplete" type="text">
 
                                         <ul id="showListLocation" class="list-group position-absolute w-100">
