@@ -53,12 +53,6 @@
     <script>
         let loading = `<i class="removeLoading fa fa-spinner fa-spin" style="font-size:24px"></i>`;
     </script>
-
-    <style>
-        .cursor-pointer {
-            cursor: pointer;
-        }
-    </style>
 </head>
 
 <body class="template belle">

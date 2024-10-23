@@ -28,6 +28,10 @@ Route::post('progressCheckout', [CheckoutController::class, 'store'])->name('che
 Route::get('thank-you/{id}', [CheckoutController::class, 'thankyou'])->name('thankyou.index');
 Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index');
 
+
+// đơn hàng
+Route::get('your-order', [checkoutController::class, 'index'])->name('order.index')->middleware('CheckLogin');
+
 Route::get('/redis-test', function () {
       Cache::store('redis')->put('test_key', 'Hello Redis', 10);
       return Cache::store('redis')->get('test_key');
