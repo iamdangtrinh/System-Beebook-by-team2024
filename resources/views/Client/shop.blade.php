@@ -225,7 +225,7 @@
                             </div>
                             @endforeach
                             @else
-                            Chưa có sản phẩm. Chúng tôi sẽ cố gắng cập nhật trong thời gian sớm nhất!
+                            <p>Chưa có sản phẩm. Chúng tôi sẽ cố gắng cập nhật thêm nhiều sách trong tương lai!</p>
                             @endif
                         </div>
                     </div>

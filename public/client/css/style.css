@@ -3967,7 +3967,7 @@ h1.product-single__title,
 }
 
 #sizechart table tr th {
-  background: #000;
+  background: #6c757d;
   color: #fff;
   border: 0 !important;
 }
@@ -3975,7 +3975,6 @@ h1.product-single__title,
 #sizechart table tr th,
 #sizechart table tr td {
   padding: 7px 12px;
-  text-align: center;
   font-size: 12px;
   border: 1px solid #e8e9eb;
 }
@@ -4173,6 +4172,7 @@ table {
 
 .prFeatures {
   padding: 20px 0;
+  font-size: 12px;
 }
 
 .prFeatures .feature {

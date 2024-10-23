@@ -61,7 +61,7 @@ class Product extends Model
     {
         return $this->belongsTo(Taxonomy::class, 'id_author', 'id');
     }
-    public function publisher()
+    public function translator()
     {
         return $this->belongsTo(Taxonomy::class, 'id_translator', 'id');
     }
