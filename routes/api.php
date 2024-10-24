@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use SePay\SePay\Http\Controllers\SePayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+Route::group([
+    'prefix' => 'api/sepay',
+    'as' => 'sepay.',
+    'middleware' => ['api'],
+], function () {
+    Route::any('/payment', [SePayController::class, 'webhook'])->name('webhook');
 });

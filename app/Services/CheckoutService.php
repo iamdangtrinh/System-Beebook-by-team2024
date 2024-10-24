@@ -125,7 +125,7 @@ class CheckoutService implements CheckoutServiceInterface
                   };
                   DB::commit();
                   // chuyển sang trang thank you
-                  // return redirect()->route('thankyou.index', ['id' => base64_encode($id_bill)])->with('success', "Bạn đã đặt hàng thành công");
+                  return redirect()->route('thankyou.index', ['id' => base64_encode($id_bill)])->with('success', "Bạn đã đặt hàng thành công");
                   return true;
             } catch (\Exception $exception) {
                   DB::rollBack();
