@@ -117,7 +117,7 @@
                         class="d-inline-flex align-items-center btn btn-outline-primary rounded me-2 mb-2 me-sm-3"><i
                             class="me-2 icon an an-angle-left-r"></i>Tiếp tục mua hàng</a>
                     <button type="button" class="d-inline-flex align-items-center btn rounded me-2 mb-2 me-sm-3"><i
-                            class="me-2 icon an an-print"></i>In hoá đơn</button>
+                            class="me-2 icon an an-print"></i>Tải hoá đơn</button>
                     <button type="button" class="d-inline-flex align-items-center btn rounded me-2 mb-2 me-sm-3"><i
                             class="me-2 icon an an-sync-ar"></i>Mua lại</button>
                 </div>
