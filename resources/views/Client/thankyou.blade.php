@@ -31,9 +31,17 @@
             padding: 0 15px;
             margin: 0 0 5px;
         }
+
+        
+        .billing-details span,
+        .shipping-details span {
+            font-weight: 700;
+            width: 200px;
+            display: inline-block;
+        }
     </style>
 
-    <div class="checkout-success-content py-2 mt-3">
+    <div class="container checkout-success-content py-2 mt-3">
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="checkout-scard card border-0 rounded">
@@ -55,86 +63,32 @@
                         </p>
                         <p class="card-text text-order badge bg-success my-3">Đơn hàng của bạn: <b>{{ $resultBill->id }}</b>
                         </p>
-                        <p class="card-text mb-0">Ngày đặt hàng: {{ date('H:i:s d-m-Y', strtotime($resultBill->created_at)) }}</p>
+                        <p class="card-text mb-0">Thời gian đặt hàng:
+                            {{ date('H:i:s d-m-Y', strtotime($resultBill->created_at)) }}</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-                <div class="checkout-item-ordered">
-                    <h2 class="fs-6 mb-3">Tóm tắt đơn hàng</h2>
-                    <div class="table-content table-responsive order-table mb-4">
-                        <table class="table table-bordered align-middle table-hover text-center mb-0">
-                            <thead>
-                                <tr>
-                                    <th class="fw-bold">Image</th>
-                                    <th class="text-start fw-600">Product Name</th>
-                                    <th class="fw-600">Price</th>
-                                    <th class="fw-600">Qty</th>
-                                    <th class="fw-600">Subtotal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="pro-img"><a href="product-layout1.html"><img class="primary blur-up lazyload"
-                                                src="assets/images/products/100x120.jpg" alt="image" title="product"
-                                                width="80" /></a></td>
-                                    <td class="pro-name text-start">
-                                        <div class="cart__meta-text">
-                                            Color: Navy<br>Size: Large<br>
-                                        </div>
-                                    </td>
-                                    <td class="pro-price">$150.00</td>
-                                    <td class="pro-qty">3</td>
-                                    <td class="pro-total fw-500">$450.00</td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="4" class="item subtotal text-end fw-bolder">Subtotal:</td>
-                                    <td class="fw-500 last">$59.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4" class="item tax text-end fw-bolder">Tax:</td>
-                                    <td class="fw-500 last">$4.87</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4" class="item discount text-end fw-bolder">Discount:</td>
-                                    <td class="fw-500 last">$0.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4" class="item shipping text-end fw-bolder">Shipping:</td>
-                                    <td class="fw-500 last">$5.00</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4" class="item total text-end fw-bolder">Grand Total:</td>
-                                    <td class="fw-500 last">$68.87</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="ship-info-details shipping-method-details">
                     <div class="row g-0">
                         <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                             <div class="shipping-details mb-4 mb-sm-0 clearfix">
-                                <h3>Shipping Address</h3>
-                                <p>No 40 Gallaxy Enque Street 133/2,</p>
-                                <p>New York,</p>
-                                <p>USA</p>
-                                <p>00004-1988</p>
+                                <h3>Địa chỉ giao hàng</h3>
+                                <p><span class="__custom_shipping">Họ và tên:</span> {{ $resultBill->name }}</p>
+                                <p><span class="__custom_shipping">Địa chỉ email:</span> {{ $resultBill->email }}</p>
+                                <p><span class="__custom_shipping">Địa chỉ:</span> {{ $resultBill->address }}</p>
+                                <p><span class="__custom_shipping">Số điện thoại:</span> {{ $resultBill->phone }}</p>
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                             <div class="billing-details clearfix">
-                                <h3>Billing Address</h3>
-                                <p>No 40 Gallaxy Enque Street 133/2,</p>
-                                <p>New York,</p>
-                                <p>USA</p>
-                                <p>00004-1988</p>
+                                <h3>Địa chỉ thanh toán</h3>
+                                <p><span class="__custom_shipping">Họ và tên:</span> {{ Auth::user()->name }}</p>
+                                <p><span class="__custom_shipping">Địa chỉ email:</span> {{ Auth::user()->email }}</p>
+                                <p><span class="__custom_shipping">Địa chỉ:</span> {{ Auth::user()->address }}</p>
+                                <p><span class="__custom_shipping">Số điện thoại:</span> {{ Auth::user()->phone }}</p>
                             </div>
                         </div>
                     </div>
@@ -143,16 +97,16 @@
                     <div class="row g-0">
                         <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                             <div class="shipping-details mb-4 mb-sm-0 clearfix">
-                                <h3>Shipping Method</h3>
-                                <p>Flat Rate - Fixeds</p>
-                                <p>Delivery Date: N/A</p>
+                                <h3>Phương thức vận chuyển</h3>
+                                <p> <span class="__custom_shipping">Phương thức vận chuyển: </span> {{$resultBill->shipping_method}} </p>
+                                <p> <span class="__custom_shipping">Phí vận chuyển: </span> {{$resultBill->fee_shipping}} </p>
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                             <div class="billing-details clearfix">
-                                <h3>Payment Method</h3>
-                                <p>Check / Money order</p>
-                                <p>Cash on delivery</p>
+                                <h3>Phương thức thanh toán</h3>
+                                <p> <span class="__custom_shipping">Phương thức thanh toán: </span> {{$resultBill->payment_method}}</p>
+                                <p> <span class="__custom_shipping">Trạng thái thanh toán: </span> {{$resultBill->payment_status}}</p>
                             </div>
                         </div>
                     </div>
