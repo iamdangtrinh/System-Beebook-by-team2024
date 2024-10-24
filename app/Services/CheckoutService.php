@@ -71,14 +71,20 @@ class CheckoutService implements CheckoutServiceInterface
             try {
                   $payload = $request->except(['_token']);
                   if (!empty($payload['checkout']) || $payload['checkout'] !== 'submit_checkout') {
+                        $carts = $this->CartService->findCartByUser(100);
+                        if (count($carts) === 0) {
+                              return redirect()->route('product.index')->with('error', "Vui lòng thêm sản phẩm vào giỏ hàng");
+                        }
+
                         if ($payload['payment_method'] == "ONLINE") {
                               // sang trang thanh toán online
-                              dd("TT ONLINE");
-                              
+                              // dd("TT ONLINE");
+
 
                         }
                         // lấy sp từ giỏ hàng
-                        $carts = $this->CartService->findCartByUser(100);
+
+
                         // số tiền là 0
                         $total_amount = 0;
                         $billDetails = [];
@@ -99,12 +105,12 @@ class CheckoutService implements CheckoutServiceInterface
                         } else {
                               $payload['fee_shipping'] = 0;
                         }
-                        
+
                         $payload['total_amount'] = $total_amount;
                         $payload['id_user'] = Auth::user()->id;
                         // tạo bills
                         $id_bill = $this->CheckoutRepository->create($payload)->id;
-                        
+
                         // Lưu từng chi tiết sản phẩm vào bảng bill_details
                         foreach ($billDetails as $billDetail) {
                               $billDetail['id_bill'] = $id_bill;
@@ -112,9 +118,10 @@ class CheckoutService implements CheckoutServiceInterface
                         }
                         // xóa giỏ hàng trong database
                         $carts = $this->CartService->destroyAll();
-                        // chuyển sang trang thank you
+                        // gửi email đơn hàng
                   };
                   DB::commit();
+                  // chuyển sang trang thank you
                   return redirect()->route('thankyou.index', ['id' => base64_encode($id_bill)])->with('success', "Bạn đã đặt hàng thành công");
                   return true;
             } catch (\Exception $exception) {
