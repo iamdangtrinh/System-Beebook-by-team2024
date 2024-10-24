@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Mail;
 /**
  * Class CheckoutService
  * @package App\Services
@@ -121,10 +121,11 @@ class CheckoutService implements CheckoutServiceInterface
                         // trừ số lượng sản phẩm theo đơn hàng
                                                 
                         // gửi email đơn hàng
+                        Mail::to($payload['email']) ->send(new \App\Mail\sendEmailOrder($id_bill));
                   };
                   DB::commit();
                   // chuyển sang trang thank you
-                  return redirect()->route('thankyou.index', ['id' => base64_encode($id_bill)])->with('success', "Bạn đã đặt hàng thành công");
+                  // return redirect()->route('thankyou.index', ['id' => base64_encode($id_bill)])->with('success', "Bạn đã đặt hàng thành công");
                   return true;
             } catch (\Exception $exception) {
                   DB::rollBack();
