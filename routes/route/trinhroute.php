@@ -29,6 +29,9 @@ Route::get('thank-you/{id}', [CheckoutController::class, 'thankyou'])->name('tha
 Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index');
 
 
+// Route::match(['get', 'post'], '/order', [CheckoutController::class, 'index'])->name('order.index');
+Route::get('/order/{id}', [CheckoutController::class, 'show'])->name('order.show');
+
 // đơn hàng
 Route::get('your-order', [checkoutController::class, 'index'])->name('order.index')->middleware('CheckLogin');
 

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+
 /**
  * Class CheckoutService
  * @package App\Services
@@ -76,15 +77,6 @@ class CheckoutService implements CheckoutServiceInterface
                               return redirect()->route('product.index')->with('error', "Vui lòng thêm sản phẩm vào giỏ hàng");
                         }
 
-                        if ($payload['payment_method'] == "ONLINE") {
-                              // sang trang thanh toán online
-                              // dd("TT ONLINE");
-
-
-                        }
-                        // lấy sp từ giỏ hàng
-
-
                         // số tiền là 0
                         $total_amount = 0;
                         $billDetails = [];
@@ -119,11 +111,15 @@ class CheckoutService implements CheckoutServiceInterface
                         // xóa giỏ hàng trong database
                         $carts = $this->CartService->destroyAll();
                         // trừ số lượng sản phẩm theo đơn hàng
-                                                
+
                         // gửi email đơn hàng
-                        Mail::to($payload['email']) ->send(new \App\Mail\sendEmailOrder($id_bill));
+                        Mail::to($payload['email'])->send(new \App\Mail\sendEmailOrder($id_bill));
                   };
                   DB::commit();
+                  if ($payload['payment_method'] == "ONLINE") {
+                        // sang trang thanh toán online
+                        return redirect()->route('order.show', ['id' => $id_bill]);
+                  }
                   // chuyển sang trang thank you
                   return redirect()->route('thankyou.index', ['id' => base64_encode($id_bill)])->with('success', "Bạn đã đặt hàng thành công");
                   return true;
