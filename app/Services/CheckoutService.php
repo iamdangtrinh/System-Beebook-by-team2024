@@ -118,6 +118,8 @@ class CheckoutService implements CheckoutServiceInterface
                         }
                         // xóa giỏ hàng trong database
                         $carts = $this->CartService->destroyAll();
+                        // trừ số lượng sản phẩm theo đơn hàng
+                                                
                         // gửi email đơn hàng
                   };
                   DB::commit();
