@@ -50,7 +50,7 @@ class LoginFaceBookController extends Controller
                 return redirect('/');
             }
         } catch (Exception $e) {
-            dd($e->getMessage());
+           return redirect('/login');
         }
 
     }

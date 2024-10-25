@@ -58,11 +58,11 @@ define('CSS_VER', '1.0.1');
 <body class="template belle">
     <div class="pageWrapper">
         <!--Top Header-->
-        <div style="background-color: #CE2626" class="top d-lg-block d-md-block d-sm-none">
-            <div class="container d-lg-block d-md-block d-sm-none">
-                <div class="d-flex align-items-center">
-                    <div class="col-10 col-sm-8 col-md-5 col-lg-8">
-                        <p style="font-size:13px" class="phone-no text-white"><i class="anm anm-phone-s"></i> +440
+        <div style="background-color: #CE2626" class="top ">
+            <div class="container ">
+                <div class="row d-flex align-items-center">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-8  ">
+                        <p style="font-size:13px; text-align: center" class="phone-no text-white text-xl-start text-lg-start text-md-center text-sm-center "><i class="anm anm-phone-s"></i> +440
                             0(111) 044 833</p>
                     </div>
                     {{-- <div class="col-sm-4 col-md-4 col-lg-4 d-none d-lg-none d-md-block d-lg-block">
@@ -70,14 +70,12 @@ define('CSS_VER', '1.0.1');
                             <p class="top-header_middle-text"> Worldwide Express Shipping</p>
                         </div>
                     </div> --}}
-                    <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
-                        {{-- <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al"
-                                aria-hidden="true"></i></span> --}}
-                        <ul id="siteNav"
+                    <div class="col-0 col-sm-0 col-md-0 col-lg-4 text-right ">
+                        <ul id="siteNav" class="d-none d-lg-block"
                             class="site-nav medium center hidearrow d-flex align-items-center justify-content-end">
                             <li class="lvl1 parent dropdown ">
                                 <i class="icon anm anm-user-circle"></i>
-                                <ul class="dropdown" style="top:28px">
+                                <ul class="dropdown" style="top:30px">
                                     @if (Auth::check())
                                     <li><a href="/profile" class="site-nav">
                                             <i class="icon anm anm-user-circle"></i>
@@ -268,6 +266,34 @@ define('CSS_VER', '1.0.1');
                     </ul>
                 </li>
                 <li class="lvl1"><a href="blog-left-sidebar.html">Blog</a>
+                </li>
+                <li class="lvl1 parent megamenu"><a href="index.html">Tài Khoản <i class="anm anm-plus-l"></i></a>
+                    <ul>
+                        @if (Auth::check())
+                        <li><a href="/profile" class="site-nav">
+                                <i class="icon anm anm-user-circle"></i>
+                                Hồ sơ
+                            </a>
+                        </li>
+                        <li><a href="#" class="site-nav">
+                                <i class="icon anm anm-cart-r"></i>
+                                Đơn hàng của tôi </a>
+                        </li>
+                        <li><a href="#" class="site-nav">
+                                <i class="icon anm anm-heart-r"></i>
+                                Sản phẩm yêu thích </a>
+                        </li>
+                        <li><a href="/logout" class="site-nav">
+                                <i class="icon anm anm-sign-out-ar"></i>
+                                Đăng xuất </a>
+                        </li>
+                    @else
+                        <li><a href="{{ asset('/sign-in') }}" class="site-nav">Đăng nhập </a>
+                        </li>
+                        <li><a href="{{ asset('/sign-up') }}" class="site-nav">Đăng ký </a>
+                        </li>
+                    @endif
+                    </ul>
                 </li>
             </ul>
         </div>

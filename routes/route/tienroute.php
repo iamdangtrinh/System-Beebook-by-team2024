@@ -4,12 +4,13 @@ use App\Http\Controllers\client\ManagerUserController;
 use App\Http\Controllers\client\LoginGoogleController;
 use App\Http\Controllers\client\LoginFaceBookController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admin\ManagerUserAdmin;
 
 Route::middleware(['CheckAuth'])->group(function () {
 Route::get('/sign-in', [ManagerUserController::class, 'SignIn']);
 Route::get('/sign-up', [ManagerUserController::class, 'SignUp']);
-});
 
+});
 
 // Login with google
 Route::get('auth/google',[LoginGoogleController::class,'redirectToGoogle']);
@@ -17,7 +18,6 @@ Route::get('auth/google/callback',[LoginGoogleController::class,'handleGoogleCal
 // Login with facebook
 Route::get('auth/facebook',[LoginFaceBookController::class,'redirectToFacebook']);
 Route::get('auth/facebook/callback',[LoginFaceBookController::class,'handleFacebookCallback']); 
-
 // Logout
 Route::get('/logout', [ManagerUserController::class, 'LogOut']);
 // profile
@@ -30,3 +30,7 @@ Route::get('/verify-signup/{id}',[ManagerUserController::class,'HandleVerifySign
 Route::get('/reset-password',[ManagerUserController::class,'ResetPassword']);
 // redirect form confirm password
 Route::get('/confirm-password/{token}',[ManagerUserController::class, 'HandleConfirm']);
+// admin
+Route::middleware(['checkLogin'])->group(function (){
+    Route::get('/dashboard/user',[ManagerUserAdmin::class,'Index']);
+});
