@@ -167,7 +167,7 @@
                             <div class="rte"> 
                                 <p>{{ $blog['post_type']}} </p>
                                  </div>
-                            <p><a href="#" class="btn btn-secondary btn--small">Read more <i class="fa fa-caret-right" aria-hidden="true"></i></a></p>
+                            <p><a href="#" class="btn btn-secondary btn--small">Xem Chi Tiết <i class="fa fa-caret-right" aria-hidden="true"></i></a></p>
                         </div>
                         @endforeach
                        

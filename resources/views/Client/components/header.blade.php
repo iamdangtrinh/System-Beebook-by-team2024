@@ -183,11 +183,9 @@
                                 <li class="lvl1 parent dropdown"><a href="#">Blog <i
                                             class="anm anm-angle-down-l"></i></a>
                                     <ul class="dropdown">
-                                        <li><a href="blog-left-sidebar.html" class="site-nav">Left Sidebar</a></li>
-                                        <li><a href="blog-right-sidebar.html" class="site-nav">Right Sidebar</a></li>
-                                        <li><a href="blog-fullwidth.html" class="site-nav">Fullwidth</a></li>
-                                        <li><a href="blog-grid-view.html" class="site-nav">Gridview</a></li>
-                                        <li><a href="blog-article.html" class="site-nav">Article</a></li>
+                                        <li><a href="/post/blog" class="site-nav">Blog</a></li>
+                                        <li><a href="/post/review" class="site-nav">Review</a></li>
+                                        
                                     </ul>
                                 </li>
                             </ul>

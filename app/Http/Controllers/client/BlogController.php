@@ -10,15 +10,12 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    public function index() {
-        $blog = BlogModel::where('post_type', 'blog')->limit(1);
-
-        // Lấy một bài viết review
-        $review = BlogModel::where('post_type', 'review')->limit(1);
-        
-        // Kết hợp cả hai truy vấn
-        $blogs = $blog->union($review)->get();
-        // Truyền dữ liệu sang view
+    public function indexBlog() {
+        $blogs = BlogModel::where('post_type', 'blog')->get();
+        return view('Client.blog', compact('blogs'));
+    }
+    public function indexReview() {
+        $blogs = BlogModel::where('post_type', 'review')->get();
         return view('Client.blog', compact('blogs'));
     }
     public function show($slug) {
