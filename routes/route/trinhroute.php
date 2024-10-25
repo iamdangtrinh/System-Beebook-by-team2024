@@ -29,6 +29,7 @@ Route::get('thank-you/{id}', [CheckoutController::class, 'thankyou'])->name('tha
 Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index');
 
 
+// hiển thị qr thanh toán đơn hàng
 // Route::match(['get', 'post'], '/order', [CheckoutController::class, 'index'])->name('order.index');
 Route::get('/order/{id}', [CheckoutController::class, 'show'])->name('order.show');
 

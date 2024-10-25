@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SePay Demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Thanh toán</title>
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -43,7 +43,7 @@
                             </tr>
                             <tr>
                                 <td>Nội dung CK:</td>
-                                <td><b>DH{{ $order_details->id }}</b></td>
+                                <td><b>BEE {{ $order_details->id }}</b></td>
                             </tr>
                         </tbody>
                     </table>
@@ -54,9 +54,7 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('/') }}client/js/bootstrap.min.js"></script>
 </body>
-
-
 
 </html>
