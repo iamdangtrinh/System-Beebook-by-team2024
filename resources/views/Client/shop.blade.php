@@ -1,4 +1,14 @@
+@if(Route::is('product.category'))
+<title>@yield('title', 'Danh mục '.$category->name)</title>
+@elseif(Route::is('product.hot'))
+<title>@yield('title', 'Sản phẩm nổi bật')</title>
+@elseif(Route::is('product.author'))
+<title>@yield('title','Tác giả: '.$author->name)</title>
+@elseif(Route::is('product.manufacturer'))
+<title>@yield('title', $manufacturer->name)</title>
+@else
 <title>@yield('title', 'Cửa hàng')</title>
+@endif
 @extends('layout.client')
 @section('body')
 <div id="page-content">
@@ -18,6 +28,10 @@
         Danh mục: {{$category->name}}
         @elseif(Route::is('product.hot'))
         Sản phẩm nổi bật
+        @elseif(Route::is('product.author'))
+        Sách theo tác giả: {{$author->name}}
+        @elseif(Route::is('product.manufacturer'))
+        {{$manufacturer->name}}
         @else
         Cửa hàng
         @endif
