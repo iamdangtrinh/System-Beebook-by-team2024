@@ -11,9 +11,8 @@ use App\Http\Controllers\client\BlogController;
 
 Route::get('/', [ClientController::class, 'home']);
 Route::get('/shop', [ClientController::class, 'shop']);
-Route::get('/blogs', [ClientController::class, 'blogs']);
-Route::get('/blogarticle', [ClientController::class, 'blogarticle']);
-Route::get('/blogs', [BlogController::class, 'index']);
+Route::get('/post/blog', [BlogController::class, 'indexBlog']);
+Route::get('/post/review', [BlogController::class, 'indexReview']);
 Route::get('/productshippingmessage', [ClientController::class, 'productshippingmessage']);
 Route::get('/shortdescription', [ClientController::class, 'shortdescription']);
 Route::get('/posts/{slug}', [BlogController::class, 'show'])->name('posts.show');
