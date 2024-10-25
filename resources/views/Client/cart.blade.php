@@ -2,10 +2,7 @@
 @extends('layout.client')
 
 @section('body')
-    <!--Body Content-->
     <div id="page-content">
-        {{-- <form action="{{route('checkout.index')}}" method="POST"> --}}
-        <!--Page Title-->
         <div class="page section-header text-center">
             <div class="page-title">
                 <div class="wrapper">
@@ -61,9 +58,6 @@
                                                     ? $cartItem->quantity
                                                     : $cartItem['quantity'];
                                                 $idCart = $isAuthenticated ? $cartItem->id : 0;
-
-                                                // dd($products->cartProduct);
-
                                             @endphp
 
                                             @foreach ($products as $product)
@@ -179,7 +173,7 @@
                 <div class="__custom_cart_empty">
                     <img src="{{ asset('/') }}client/images/ico_emptycart.svg" alt="Cart empty">
                     <h4 class="">Chưa có sản phẩm trong giỏ hàng của bạn.</h4>
-                    <a href="/" class="btn rounded btn-medium">Mua sắm ngay</a>
+                    <a href="{{route('product.index')}}" class="btn rounded btn-medium">Mua sắm ngay</a>
                 </div>
             @endif
         </div>
