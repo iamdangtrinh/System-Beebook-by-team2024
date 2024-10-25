@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 // Route::post('/submit-review', [CommentController::class, 'add'])->name('comment.add');
 Route::get('san-pham/{slug}', [ProductController::class, 'detail'])->name('product.detail');
 Route::get('cua-hang', [ProductController::class, 'index'])->name('product.index');
+Route::get('san-pham-noi-bat', [ProductController::class, 'hot'])->name('product.hot');
 Route::get('/danh-muc/{slug}', [ProductController::class, 'category'])->name('product.category');
 Route::get('/tac-gia/{slug}', [ProductController::class, 'author'])->name('product.author');
 Route::get('/nha-xuat-ban/{slug}', [ProductController::class, 'manufacturer'])->name('product.manufacturer');

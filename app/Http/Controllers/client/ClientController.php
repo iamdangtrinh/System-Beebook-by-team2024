@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\CategoryProduct;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -10,7 +12,14 @@ class ClientController extends Controller
     
     public function home()
     {
-        return view('Client.home');
+        $categories = CategoryProduct::get();
+        $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
+        $saleProducts = Product::whereNotNull('price_sale')->inRandomOrder()->limit(8)->get();
+        return view('Client.home', compact([
+            'hotProducts',
+            'categories',
+            'saleProducts',
+        ]));
     }
     public function shop()
     {
