@@ -254,76 +254,24 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="grid-products">
-                        <div class="row">
-                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 item">
-                                <!-- start product image -->
-                                <div class="product-image">
-                                    <!-- start product image -->
-                                    <a href="product-layout-1.html" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="primary lazyload"
-                                            data-src="{{ asset('/') }}client/images/product-images/home15-product1.jpg"
-                                            src="{{ asset('/') }}client/images/product-images/home15-product1.jpg"
-                                            alt="image" title="product">
-                                        <!-- End image -->
-                                        <!-- Hover image -->
-                                        <img class="hover lazyload"
-                                            data-src="{{ asset('/') }}client/images/product-images/home15-product1-1.jpg"
-                                            src="{{ asset('/') }}client/images/product-images/home15-product1-1.jpg"
-                                            alt="image" title="product">
-                                        <!-- End hover image -->
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!-- Start product button -->
-                                    <form class="variants add" action="#"
-                                        onclick="window.location.href='cart.html'" method="post">
-                                        <button class="btn btn-addto-cart" type="button" tabindex="0">Add To
-                                            Cart</button>
-                                    </form>
-                                    <div class="button-set">
-                                        <a href="javascript:void(0)" title="Quick View"
-                                            class="quick-view-popup quick-view" data-toggle="modal"
-                                            data-target="#content_quickview">
-                                            <i class="icon anm anm-search-plus-r"></i>
-                                        </a>
-                                        <div class="wishlist-btn">
-                                            <a class="wishlist add-to-wishlist" href="#">
-                                                <i class="icon anm anm-heart-l"></i>
-                                            </a>
-                                        </div>
-                                        <div class="compare-btn">
-                                            <a class="compare add-to-compare" href="compare.html"
-                                                title="Add to Compare">
-                                                <i class="icon anm anm-random-r"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!-- end product button -->
-                                </div>
-                                <!-- end product image -->
-                                <!--start product details -->
-                                <div class="product-details text-center">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="product-layout-1.html">Chalkboard Side Table</a>
-                                    </div>
-                                    <!-- End product name -->
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="old-price">$500.00</span>
-                                        <span class="price">$600.00</span>
-                                    </div>
-                                    <!-- End product price -->
-                                </div>
-                                <!-- End product details -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                @foreach($blogs as $blog) 
+                 <div class="col-6 col-sm-6 col-md-4 col-lg-3 item"> 
+                     <!-- Article Image --> 
+                      <a class="article_featured-image" href="/posts/{{$blog['slug']}}"><img class="blur-up lazyload"  src="no_image.jpg" alt="It's all about how you wear"></a> 
+                     <h2 class="h3"><a href="blog-left-sidebar.html">{{ $blog['title'] }}</a></h2>
+                     <ul class="publish-detail">                      
+                         <li><i class="anm anm-eye" aria-hidden="true"></i>{{ $blog['views'] }}</li>
+                         <li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">{{ $blog['updated_at'] }}</time></li>
+                     </ul>
+                     <div class="rte"> 
+                         <p>{{ $blog['post_type']}} </p>
+                          </div>
+                     <p><a href="/posts/{{$blog['slug']}}" ></a></p>
+                 </div>
+                 @endforeach
+                
+                
+             </div>
         </div>
     </div>
     <!--End Hand-picked Items-->
