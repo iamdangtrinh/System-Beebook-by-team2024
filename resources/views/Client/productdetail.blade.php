@@ -343,14 +343,16 @@
                                 <!-- end product image -->
 
                                 <!-- Start product button -->
-                                <form class="variants add" action="#"
-                                    onclick="window.location.href='cart.html'" method="post">
-                                    <button class="btn btn-addto-cart" type="button" tabindex="0">Thêm vào giỏ
-                                        hàng</button>
+                                <form class="variants add add_to_cart" action="{{ route('cart.store') }}"
+                                    method="post">
+                                    @csrf
+                                    <input type="hidden" value="{{$pro->id}}" name="id_product">
+                                    <input type="hidden" value="1" name="quantity">
+                                    <button class="btn btn-addto-cart" type="submit" tabindex="">Thêm giỏ hàng</button>
                                 </form>
                                 <div class="button-set">
                                     <div class="wishlist-btn">
-                                        <a class="wishlist add-to-wishlist" href="wishlist.html">
+                                        <a class="wishlist add-to-wishlist" href="#">
                                             <i class="icon anm anm-heart-l"></i>
                                         </a>
                                     </div>
