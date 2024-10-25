@@ -30,6 +30,23 @@ class ProductController extends Controller
             'categories',
         ]));
     }
+    public function hot()
+    {
+        $products = Product::where('hot', 1)->get();
+        $categories = CategoryProduct::whereNull('parent_id')
+            ->where('status', 'active')
+            ->with(['children' => function ($query) {
+                $query->where('status', 'active');
+            }])->get();
+        $totalProducts = $products->count();
+        $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
+        return view('Client.shop', compact([
+            'products',
+            'totalProducts',
+            'hotProducts',
+            'categories',
+        ]));
+    }
     public function category($slug)
     {
         $category = CategoryProduct::where('slug', $slug)->firstOrFail();
