@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="{{ asset('/') }}client/js/lib/toastr.css?ver=@php echo CSS_VER @endphp">
 
     <!-- Hoãn tải JavaScript -->
-    <script src="{{ asset('/') }}client/js/jquery.min.js" defer></script>
+    <script src="{{ asset('/') }}client/js/jquery.min.js"></script>
     <script src="{{ asset('/') }}client/js/lib/toastr.js?ver=@php echo CSS_VER @endphp" defer></script>
     <script src="{{ asset('/') }}client/js/lib/sweetalert2.js?ver=@php echo CSS_VER @endphp" defer></script>
     <script src="{{ asset('/') }}client/js/lib/swiper/swiper-bundle.min.js?ver=@php echo CSS_VER @endphp" defer></script>
@@ -47,9 +47,6 @@
     </script> --}}
     <script>
         let loading = `<i class="removeLoading fa fa-spinner fa-spin" style="font-size:24px"></i>`;
-        console.log('====================================');
-        console.log("OKe");
-        console.log('====================================');
     </script>
 </head>
 
