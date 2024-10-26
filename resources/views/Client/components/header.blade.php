@@ -27,18 +27,11 @@ define('CSS_VER', '1.0.1');
     <link rel="stylesheet" href="{{ asset('/') }}client/css/responsive.css?ver=@php echo CSS_VER @endphp">
     <link rel="stylesheet" href="{{ asset('/') }}client/css/custom_css.css?ver=@php echo CSS_VER @endphp">
 
-    {{-- toast message start by trinh --}}
+    <!-- Hoãn tải JavaScript -->
     <script src="{{ asset('/') }}client/js/jquery.min.js"></script>
-    <link rel="stylesheet" href="{{ asset('/') }}client/js/lib/toastr.css?ver=@php echo CSS_VER @endphp">
-    <script defer src="{{ asset('/') }}client/js/lib/toastr.js?ver=@php echo CSS_VER @endphp"></script>
-    {{-- sweetalert2 --}}
-    <script defer src="{{ asset('/') }}client/js/lib/sweetalert2.js?ver=@php echo CSS_VER @endphp"></script>
-    {{-- toast message end --}}
-
-    {{-- swiper start --}}
-    <link rel="stylesheet" href="{{ asset('/') }}client/js/lib/swiper/swiper-bundle.min.css?ver=@php echo CSS_VER @endphp" />
-    <script src="{{ asset('/') }}client/js/lib/swiper/swiper-bundle.min.js?ver=@php echo CSS_VER @endphp"></script>
-    {{-- swiper end --}}
+    <script src="{{ asset('/') }}client/js/lib/toastr.js?ver=@php echo CSS_VER @endphp" defer></script>
+    <script src="{{ asset('/') }}client/js/lib/sweetalert2.js?ver=@php echo CSS_VER @endphp" defer></script>
+    <script src="{{ asset('/') }}client/js/lib/swiper/swiper-bundle.min.js?ver=@php echo CSS_VER @endphp" defer></script>
 
     <!-- Google tag (gtag.js) -->
     {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-N7WWXVQLYT"></script>
@@ -51,9 +44,6 @@ define('CSS_VER', '1.0.1');
     </script> --}}
     <script>
         let loading = `<i class="removeLoading fa fa-spinner fa-spin" style="font-size:24px"></i>`;
-        console.log('====================================');
-        console.log("OKe");
-        console.log('====================================');
     </script>
 </head>
 
