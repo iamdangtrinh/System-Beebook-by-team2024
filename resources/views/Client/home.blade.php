@@ -1,3 +1,4 @@
+<title>@yield('title', 'Trang chủ')</title>
 @extends('layout.client')
 @section('body')
 <!--Body Content-->
