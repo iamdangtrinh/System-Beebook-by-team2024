@@ -51,6 +51,9 @@ define('CSS_VER', '1.0.1');
     </script> --}}
     <script>
         let loading = `<i class="removeLoading fa fa-spinner fa-spin" style="font-size:24px"></i>`;
+        console.log('====================================');
+        console.log("OKe");
+        console.log('====================================');
     </script>
 </head>
 
