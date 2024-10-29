@@ -19,7 +19,7 @@ Route::get('/posts/{slug}', [BlogController::class, 'show'])->name('posts.show')
 //admin
 
 Route::prefix('admin')->group(function () {
-    Route::get('/', [AdminController::class, 'index']);
+    Route::get('/', [AdminController::class, 'index'])->name('overview.index');
     Route::get('/404', [AdminController::class, 'show404']);
     Route::get('/500', [AdminController::class, 'show500']);
     Route::get('/blogs', [AdminController::class, 'blogs']);

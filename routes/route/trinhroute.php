@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\couponController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\client\cartController;
 use App\Http\Controllers\client\checkoutController;
 use App\Http\Controllers\client\ClientController;
@@ -28,13 +30,16 @@ Route::post('progressCheckout', [CheckoutController::class, 'store'])->name('che
 Route::get('thank-you/{id}', [CheckoutController::class, 'thankyou'])->name('thankyou.index');
 Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index');
 
+Route::prefix('admin')->group(function () {
+      Route::get('/order', [OrderController::class, 'index'])->name('order.index');
+  });
 
 // hiển thị qr thanh toán đơn hàng
 // Route::match(['get', 'post'], '/order', [CheckoutController::class, 'index'])->name('order.index');
 Route::get('/order/{id}', [CheckoutController::class, 'show'])->name('order.show');
 
 // đơn hàng
-Route::get('your-order', [checkoutController::class, 'index'])->name('order.index')->middleware('CheckLogin');
+Route::get('your-order', [checkoutController::class, 'index'])->name('your-order.index')->middleware('CheckLogin');
 
 Route::get('/redis-test', function () {
       Cache::store('redis')->put('test_key', 'Hello Redis', 10);
