@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire;
 
 use App\Models\User;
@@ -14,36 +15,29 @@ class Profile extends Component
 {
     use WithFileUploads;
 
-    #[Validate('required', message: 'Họ tên không được để rỗng')] 
+    #[Validate('required', message: 'Họ tên không được để rỗng')]
     public $name;
 
-    #[Validate('required', message: 'Số điện thoại không được để rỗng')] 
+    #[Validate('required', message: 'Số điện thoại không được để rỗng')]
     #[Validate('regex:/^0[1-9]{1}[0-9]{8}$/', message: 'Số điện thoại không đúng định dạng')]
     public $phone = '';
 
-    #[Validate('required', message: 'Email không được để rỗng')] 
-    #[Validate('email', message: 'Email không đúng định dạng')] 
+    #[Validate('required', message: 'Email không được để rỗng')]
+    #[Validate('email', message: 'Email không đúng định dạng')]
     public $email = '';
 
     public $avatar;
     public $dataToUpdate = [];
-    public $dataProvince = [];
-    public $dataDistrict = [];
-    public $dataWard = [];
-    public $province = '';
-    public $district = '';
-    public $ward = '';
-    public $userProvince = '';
-    public $userDistrict = '';
-    public $userWard = '';
 
-    #[Validate('required', message: 'Địa chỉ không được để rỗng')] 
-    public $address ;
+    #[Validate('required', message: 'Địa chỉ không được để rỗng')]
+    public $address;
+    public $chooseAddress;
+    public $disabled = false;
+    public $result;
 
     public function mount()
     {
         // $this->province = Auth::user()->id_city;
-        $this->fetchDataFromApi();
         $this->setUserData();
     }
 
@@ -51,26 +45,11 @@ class Profile extends Component
     {
         $user = Auth::user();
         if ($user) {
-            $this->name = $user->name;
-            $this->phone = $user->phone;
-            $this->email = $user->email;
-            $this->address = $user->address;
-
-            if ($user->id_city) {
-                $this->fetchDataFromApiDistrict($user->id_city);
-                $this->userProvince = collect($this->dataProvince)->firstWhere('ProvinceID', $user->id_city);
-                 $this->province = $user->id_city;
-            }
-            if ($user->id_province) {
-                $this->fetchDataFromApiWard($user->id_province);
-                $this->userDistrict = collect($this->dataDistrict)->firstWhere('DistrictID', $user->id_province);
-            $this->district = $user->id_province;
-                
-            }
-            if ($user->id_ward) {
-                $this->userWard = collect($this->dataWard)->firstWhere('WardCode', $user->id_ward); 
-            $this->ward = $user->id_ward;
-            }
+            $this->result = User::where('id', $user->id)->first();
+            $this->name =  $this->result->name;
+            $this->phone =  $this->result->phone;
+            $this->email =  $this->result->email;
+            $this->address =  $this->result->address;
         }
     }
 
@@ -79,6 +58,8 @@ class Profile extends Component
         $this->validate();
         $user = Auth::user();
         $this->validateProfileChanges($user);
+        $this->setUserData();
+        $this->disabled = true;
     }
 
     protected function validateProfileChanges($user)
@@ -97,58 +78,27 @@ class Profile extends Component
             try {
                 User::where('id', Auth::user()->id)->update(['phone' => $this->phone]);
                 session()->flash('success', 'Cập nhật thông tin thành công.');
-            $this->phone = $user->phone;
+                $this->phone = $user->phone;
             } catch (\Throwable $th) {
                 session()->flash('error', 'Cập nhật thông tin không thành công.');
             }
         }
 
         if ($this->email !== $user->email) {
-
             $this->validateEmail();
             try {
                 User::where('id', Auth::user()->id)->update(['email' => $this->email]);
                 session()->flash('success', 'Cập nhật thông tin thành công.');
-            $this->email = $user->email;
-            } catch (\Throwable $th) {
-                session()->flash('error', 'Cập nhật thông tin không thành công.');
-            }
-        }
-        if ($this->province !== $user->id_city) {
-           
-            try {
-                User::where('id', Auth::user()->id)->update(['id_city' => $this->province]);
-                session()->flash('success', 'Cập nhật thông tin thành công.');
-            $this->province = $user->id_city;
-            } catch (\Throwable $th) {
-                session()->flash('error', 'Cập nhật thông tin không thành công.');
-            }
-        }
-        if ($this->district !== $user->province_id) {
-            try {
-                User::where('id', Auth::user()->id)->update(['id_province' => $this->district]);
-                session()->flash('success', 'Cập nhật thông tin thành công.');
-                 $this->district = $user->id_province;
-            } catch (\Throwable $th) {
-                session()->flash('error', 'Cập nhật thông tin không thành công.');
-            }
-        }
-        if ($this->ward !== $user->id_ward) {
-       
-            try {
-                User::where('id', Auth::user()->id)->update(['id_ward' => $this->ward]);
-                session()->flash('success', 'Cập nhật thông tin thành công.');
-            $this->ward = $user->id_ward;
+                $this->email = $user->email;
             } catch (\Throwable $th) {
                 session()->flash('error', 'Cập nhật thông tin không thành công.');
             }
         }
         if ($this->address !== $user->address) {
-      
             try {
                 User::where('id', Auth::user()->id)->update(['address' => $this->address]);
                 session()->flash('success', 'Cập nhật thông tin thành công.');
-            $this->address = $user->address;
+                $this->address = $user->address;
             } catch (\Throwable $th) {
                 session()->flash('error', 'Cập nhật thông tin không thành công.');
             }
@@ -191,63 +141,39 @@ class Profile extends Component
             session()->flash('success', 'Cập nhật ảnh đại diện thành công!');
         }
     }
-    public function fetchDataFromApi()
+    public function updatedAddress($value)
     {
-        $response = Http::withHeaders([
-            'Token' => 'ed187595-1fec-11ef-a9c4-9e9a72686e07',
-        ])->get('https://online-gateway.ghn.vn/shiip/public-api/master-data/province');
-
-        if ($response->successful()) {
-            $this->dataProvince = $response->json()['data'];
-        } else {
-            session()->flash('error', 'Không thể tải dữ liệu tỉnh thành.');
+        if ($value !== '') {
+            $response = Http::get("https://rsapi.goong.io/Place/AutoComplete?api_key=3llMTBYg6lewfO3NctgGOQWkynPkZojFyNm6HBpp&more_compound=true&radius=20000&input=" . $value);
+            if ($response->successful()) {
+                // $this->address = ;
+                $this->chooseAddress = $response['predictions'];
+            } else {
+                session()->flash('error', 'Không thể tải dữ liệu');
+            }
         }
-    }
-    public function updatedProvince()
-    {
-        $this->fetchDataFromApiDistrict($this->province);
-        if (Auth::user()->id_city !== $this->province ) {
-            $this->dataWard = [];
-        }
+        // dd($value);
     }
 
-    public function updatedDistrict()
+    public function addAddress($description)
     {
-        $this->fetchDataFromApiWard($this->district);
-        // dd($this->dataWard);
+        $this->address = $description;
+        $this->chooseAddress = [];
     }
 
-    public function fetchDataFromApiDistrict($province)
-    {
-        $response = Http::withHeaders([
-            'Token' => 'ed187595-1fec-11ef-a9c4-9e9a72686e07',
-        ])->get('https://online-gateway.ghn.vn/shiip/public-api/master-data/district?province_id='.$province);
-        if ($response->successful()) {
-            $this->dataDistrict = $response->json()['data'];
-        } else {
-            session()->flash('error', 'Không thể tải dữ liệu quận/huyện.');
-        }
-    }
-    public function fetchDataFromApiWard($district)
-    {
-        $response = Http::withHeaders([
-            'Token' => 'ed187595-1fec-11ef-a9c4-9e9a72686e07',
-        ])->get('https://online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id='.$district);
-        if ($response->successful()) {
-            $this->dataWard = $response->json()['data'];
-        } else {
-            session()->flash('error', 'Không thể tải dữ liệu .');
-        }
-    }
+
+
+
     public function confirmDelete()
     {
         // Gửi sự kiện để kích hoạt SweetAlert
         $this->dispatch('swal');
     }
     #[On('hanldeDeleted')]
-    public function deleted() {
+    public function deleted()
+    {
         try {
-            User::destroy('id',Auth::user()->id);
+            User::destroy('id', Auth::user()->id);
             redirect('/sign-in');
         } catch (\Throwable $th) {
             dd('Xóa không thành công');
