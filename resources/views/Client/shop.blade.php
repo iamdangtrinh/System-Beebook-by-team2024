@@ -1,14 +1,4 @@
-@if(Route::is('product.category'))
-<title>@yield('title', 'Danh mục '.$category->name)</title>
-@elseif(Route::is('product.hot'))
-<title>@yield('title', 'Sản phẩm nổi bật')</title>
-@elseif(Route::is('product.author'))
-<title>@yield('title','Tác giả: '.$author->name)</title>
-@elseif(Route::is('product.manufacturer'))
-<title>@yield('title', $manufacturer->name)</title>
-@else
-<title>@yield('title', 'Cửa hàng')</title>
-@endif
+<title>@yield('title', $title)</title>
 @extends('layout.client')
 @section('body')
 <div id="page-content">
@@ -24,17 +14,7 @@
     <!--End Collection Banner-->
 
     <h1 class="text-center mt-3">
-        @if(Route::is('product.category'))
-        Danh mục: {{$category->name}}
-        @elseif(Route::is('product.hot'))
-        Sản phẩm nổi bật
-        @elseif(Route::is('product.author'))
-        Sách theo tác giả: {{$author->name}}
-        @elseif(Route::is('product.manufacturer'))
-        {{$manufacturer->name}}
-        @else
-        Cửa hàng
-        @endif
+    {{ $title }}
     </h1>
 
 
@@ -210,7 +190,6 @@
                     <!--End Toolbar-->
                     <div class="grid-products grid--view-items">
                         <div class="row">
-
                             @if ($products && $products->count() > 0)
                             @foreach ($products as $product)
                             <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
@@ -279,11 +258,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="infinitpaginOuter">
-                        <div class="infinitpagin">
-                            <a href="#" class="btn loadMore">Xem thêm</a>
-                        </div>
-                    </div>
+                    {{ $products->links('vendor.pagination.custom') }}
                 </div>
                 <!--End Main Content-->
             </div>
