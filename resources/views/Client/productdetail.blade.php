@@ -56,7 +56,7 @@
                                         data-zoom-image="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
                                         class="slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true"
                                         tabindex="-1">
-                                        <img class="blur-up lazyload"
+                                        <img class="blur-up lazyload" style="height: 60px; object-fit: cover; object-position: center;" 
                                             src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
                                             alt="" />
                                     </a>
@@ -77,7 +77,7 @@
                                         data-zoom-image="{{ asset($image) }}"
                                         class="slick-slide slick-cloned" data-slick-index="-3"
                                         aria-hidden="true" tabindex="-1">
-                                        <img class="blur-up lazyload" src="{{ asset($image) }}"
+                                        <img class="blur-up lazyload" style="height: 60px; object-fit: cover; object-position: center;" src="{{ asset($image) }}"
                                             alt="Product Image" />
                                     </a>
                                     @endforeach
