@@ -3358,10 +3358,10 @@ body.tour-open .animated {
   font-size: 12px;
   border: 0;
 }
-.sidebar-content .wrapper,
+/* .sidebar-content .wrapper,
 .wrapper.sidebar-content {
   padding-right: 230px !important;
-}
+} */
 .body-small .sidebar-content .wrapper,
 .body-small .wrapper.sidebar-content {
   padding-right: 20px !important;
