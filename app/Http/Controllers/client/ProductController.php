@@ -175,6 +175,6 @@ class ProductController extends Controller
 
         $products = $query->paginate(12);
 
-        return view('products.partials.filtered-products', compact('products'))->render();
+        return view('Client.shop', compact('products'))->render();
     }
 }
