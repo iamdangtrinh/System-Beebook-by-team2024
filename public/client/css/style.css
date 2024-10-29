@@ -3263,7 +3263,7 @@ a.quick-view {
   color: #fff !important;
 }
 
-.pagination {
+/* .pagination {
   width: 100%;
   text-align: center;
   list-style: none;
@@ -3298,7 +3298,7 @@ a.quick-view {
 .pagination li a i {
   line-height: 28px;
   vertical-align: middle;
-}
+} */
 
 /* Countdown Timer On listing */
 .grid-products .item:hover .saleTime {

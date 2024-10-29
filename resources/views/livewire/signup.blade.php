@@ -1,17 +1,17 @@
 <div>
-    <div class="page section-header text-center">
+    <div class="page section-header text-center" style="margin-bottom: 0px !important">
         <div class="page-title">
-            <div class="wrapper">
+            <div class="wrapper" >
                 <h1 class="page-width">Đăng Ký</h1>
             </div>
         </div>
     </div>
     <div class=" d-flex align-items-center justify-content-center">
         <div class="container">
-            <div class="row">
+            <div class="row d-flex align-items-center">
                 {{-- image --}}
                 <div  class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <img class="w-100" src="/client/images/manager-user/banner_sign_in.png" />
+                    <img class="w-100" src="/client/images/manager-user/register.jpg" />
                 </div> 
                 {{-- form --}}
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">

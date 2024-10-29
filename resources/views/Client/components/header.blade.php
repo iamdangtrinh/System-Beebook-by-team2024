@@ -128,25 +128,32 @@ define('CSS_VER', '1.0.1');
                                             class="anm anm-angle-down-l"></i></a></li>
 
                                 @php
-                                $categories_header = \App\Models\CategoryProduct::where('parent_id', null)
-                                ->where('status', 'active')
-                                ->with(['children' => function($query) {
-                                $query->where('status', 'active');
-                                }])->get();
+                                    $categories_header = \App\Models\CategoryProduct::where('parent_id', null)
+                                        ->where('status', 'active')
+                                        ->with([
+                                            'children' => function ($query) {
+                                                $query->where('status', 'active');
+                                            },
+                                        ])
+                                        ->get();
                                 @endphp
 
                                 <li class="lvl1 parent dropdown"><a href="#">Danh mục <i class="anm anm-angle-down-l"></i></a>
                                     <ul class="dropdown">
                                         @foreach ($categories_header as $parentCategory)
-                                        <li><a href="{{ url('danh-muc/'.$parentCategory->slug) }}" class="site-nav">{{ $parentCategory->name }} <i class="anm anm-angle-right-l"></i></a>
-                                            @if ($parentCategory->children->isNotEmpty())
-                                            <ul class="dropdown">
-                                                @foreach ($parentCategory->children as $childCategory)
-                                                <li><a href="{{ url('danh-muc/'.$childCategory->slug) }}" class="site-nav">{{ $childCategory->name }}</a></li>
-                                                @endforeach
-                                            </ul>
-                                            @endif
-                                        </li>
+                                            <li><a href="{{ url('danh-muc/' . $parentCategory->slug) }}"
+                                                    class="site-nav">{{ $parentCategory->name }} <i
+                                                        class="anm anm-angle-right-l"></i></a>
+                                                @if ($parentCategory->children->isNotEmpty())
+                                                    <ul class="dropdown">
+                                                        @foreach ($parentCategory->children as $childCategory)
+                                                            <li><a href="{{ url('danh-muc/' . $childCategory->slug) }}"
+                                                                    class="site-nav">{{ $childCategory->name }}</a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </li>
@@ -262,29 +269,29 @@ define('CSS_VER', '1.0.1');
                 <li class="lvl1 parent megamenu"><a href="index.html">Tài Khoản <i class="anm anm-plus-l"></i></a>
                     <ul>
                         @if (Auth::check())
-                        <li><a href="/profile" class="site-nav">
-                                <i class="icon anm anm-user-circle"></i>
-                                Hồ sơ
-                            </a>
-                        </li>
-                        <li><a href="#" class="site-nav">
-                                <i class="icon anm anm-cart-r"></i>
-                                Đơn hàng của tôi </a>
-                        </li>
-                        <li><a href="#" class="site-nav">
-                                <i class="icon anm anm-heart-r"></i>
-                                Sản phẩm yêu thích </a>
-                        </li>
-                        <li><a href="/logout" class="site-nav">
-                                <i class="icon anm anm-sign-out-ar"></i>
-                                Đăng xuất </a>
-                        </li>
-                    @else
-                        <li><a href="{{ asset('/sign-in') }}" class="site-nav">Đăng nhập </a>
-                        </li>
-                        <li><a href="{{ asset('/sign-up') }}" class="site-nav">Đăng ký </a>
-                        </li>
-                    @endif
+                            <li><a href="/profile" class="site-nav">
+                                    <i class="icon anm anm-user-circle"></i>
+                                    Hồ sơ
+                                </a>
+                            </li>
+                            <li><a href="#" class="site-nav">
+                                    <i class="icon anm anm-cart-r"></i>
+                                    Đơn hàng của tôi </a>
+                            </li>
+                            <li><a href="#" class="site-nav">
+                                    <i class="icon anm anm-heart-r"></i>
+                                    Sản phẩm yêu thích </a>
+                            </li>
+                            <li><a href="/logout" class="site-nav">
+                                    <i class="icon anm anm-sign-out-ar"></i>
+                                    Đăng xuất </a>
+                            </li>
+                        @else
+                            <li><a href="{{ asset('/sign-in') }}" class="site-nav">Đăng nhập </a>
+                            </li>
+                            <li><a href="{{ asset('/sign-up') }}" class="site-nav">Đăng ký </a>
+                            </li>
+                        @endif
                     </ul>
                 </li>
             </ul>

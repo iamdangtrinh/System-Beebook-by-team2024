@@ -7,10 +7,7 @@
                 <h1 style="font-weight: bold; color: #C92127; padding: 18px 20px 12px 20px; border-bottom: 1px solid #F6F6F6 ">TÀI KHOẢN</h1>
                 <div style="padding: 8px 10px" class="d-flex flex-column gap-1">
                     <a href="/profile" class="hover-item">Thông tin tài khoản</a>
-                    <a href="" class="hover-item" >Sổ địa chỉ</a>
                     <a href="{{route('order.index')}}" class="hover-item" >Đơn hàng của tôi</a>
-                    <a href="" class="hover-item" >Ví vocher</a>
-                    <a href="" class="hover-item" >Sách theo bộ</a>
                   </div>
         </div>
     </div>
@@ -53,91 +50,38 @@
                     </div>
                     @error('email') <span class="error text-danger">{{ $message }}</span> @enderror
                 </div>
-               <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 position-relative">
-                    <div class="form-group">
-                        <label for="CustomerName">Tỉnh/Thành phố</label>
-                       <select name="" id="" wire:model.change="province">     
-                        @if (Auth::user()->id_city === null)
-                            <option >Vui lòng chọn thành phố</option>     
-                            @foreach ($dataProvince as $item)
-                            <option value={{$item['ProvinceID']}}>{{$item['ProvinceName']}}</option>
+                <div class="form-group col-md-12 col-lg-12 col-xl-12">
+                    <div class="position-relative">
+                        <label for="input-address">Địa chỉ </label>
+                        <input class="form-control" wire:model.live="address" 
+                            id="input-address-autocomplete" type="text">
+                        <ul class="list-group position-absolute w-100">
+                            @if ($chooseAddress)
+                            @foreach ($chooseAddress as  $value)
+                            <li wire:click="addAddress('{{ $value['description'] }}')" class="list-group-item cursor-pointer">
+                                {{ $value['description'] }}
+                            </li>
                             @endforeach
-                        @else
-                        <option value={{Auth::user()->id_city}}  >{{$userProvince['ProvinceName']}}</option>     
-                            @foreach ($dataProvince as $item)
-                            <option value={{$item['ProvinceID']}}>{{$item['ProvinceName']}}</option>
-                            @endforeach                           
-                        @endif                       
-                       </select>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 position-relative">
-                    <div class="form-group">
-                        <label for="CustomerName">Quận huyện</label>
-                        <select name="" id="" wire:model.change = 'district' >
-                            @if (Auth::user()->id_province !== null)
-                            <option value={{Auth::user()->id_province}}>{{$userDistrict['DistrictName']}}</option>
-                            @forEach ($dataDistrict as $item)
-                            <option value={{$item['DistrictID']}}>{{$item['DistrictName']}}</option>
-                            @endforeach 
-                            @else
-                            @if ($dataDistrict === [])
-                                <option > Vui lòng chọn quận huyện</option>
-                                @else
-                                @forEach ($dataDistrict as $item)
-                            <option value={{$item['DistrictID']}}>{{$item['DistrictName']}}</option>
-                            @endforeach 
-                            @endif                          
-                            @endif  
-                        </select>
-                    </div>
-                </div>
-               </div>
-               <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 position-relative">
-                    <div class="form-group">
-                        <label for="CustomerName">Phường/Xã</label>
-                        <select name="" id="" wire:model.change="ward">
-                            @if (Auth::user()->id_ward !== null) 
-                                @if ($dataWard === [])
-                                    <option >Vui lòng chọn phường xã</option>
-                                @else 
-                                <option value={{Auth::user()->id_ward}}>{{ $userWard['WardName'] }}</option>
-                                @foreach ($dataWard as $item)
-                                <option value="{{ $item['WardCode'] }}">{{ $item['WardName'] }}</option>
-                            @endforeach
-                                @endif
-                                @else
-                                @if ($dataWard === [])
-                                <option >Vui lòng chọn phường xã</option>
-                            @else 
-                            @foreach ($dataWard as $item)
-                            <option value="{{ $item['WardCode'] }}">{{ $item['WardName'] }}</option>
-                        @endforeach
                             @endif
-                            @endif
-                        </select>
+                        </ul>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12  position-relative">
+                {{-- <div class="col-12 position-relative">
                     <div class="form-group">
                         <label for="CustomerName">Địa chỉ</label>
-                        <input wire:model.live="address" class="rounded-1" id="CustomerEmail" autocorrect="off" autocapitalize="off" >
+                        <input wire:model.live="address" class="rounded-1"  id="CustomerEmail" autocorrect="off" autocapitalize="off" >
                     </div>
-                    @error('email') <span class="error text-danger">{{ $message }}</span> @enderror
-                </div>
-                </div>
+                    @error('address') <span class="error text-danger">{{ $message }}</span> @enderror
+                </div> --}}
                 <div class="d-flex align-items-center gap-3 pt-2" > 
                     <button 
                     @if ($errors->any() || 
-                         ($name === Auth::user()->name && 
-                          $phone === Auth::user()->phone && 
-                          $email === Auth::user()->email && 
-                          $address === Auth::user()->address && 
-                          $province === Auth::user()->id_city && 
-                          $district === Auth::user()->id_province && 
-                          $ward === Auth::user()->id_ward)) 
+                         ($name === $result->name && 
+                          $phone === $result->phone && 
+                          $email === $result->email && 
+                          $address === $result->address
+
+                          )) 
                         disabled 
                     @endif 
                     type="submit" class="btn">Cập nhật</button>

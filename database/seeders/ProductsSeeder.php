@@ -109,6 +109,8 @@ class ProductsSeeder extends Seeder
         "Đồng Quê Của Tôi"
     ];
 
+    protected $image_cover = ["userfiles/image/9786045563182.webp","userfiles/image/ronaldo.webp","userfiles/image/8931805364405.webp","userfiles/image/8936036315394.webp","userfiles/image/9786047783953.webp","duong-hoa-nhap-cua-mot-nguoi-viet-bia-userfiles/image/1.webp","userfiles/image/8935251420722.webp","userfiles/image/9786043358599.webp","userfiles/image/8935270704339_1.webp","userfiles/image/8935251419948.webp","userfiles/image/2_16_7.webp","b_a-userfiles/image/tr_c_33.webp","userfiles/image/nxbtre_full_03522024_035240.webp","userfiles/image/one_piece_ban_limited_mockup_tap_104.webp","userfiles/image/8936215851866.webp","userfiles/image/8936215851873.webp","userfiles/image/8935212369947_1.webp","userfiles/image/8935212370028_1.webp","userfiles/image/8935246943632.webp","userfiles/image/8935236435727.webp"];
+
     public function run(): void
     {
         $statuses = ['active', 'inactive'];
