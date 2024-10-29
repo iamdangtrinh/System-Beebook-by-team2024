@@ -1,5 +1,4 @@
-<div class="grid-products grid--view-items">
-    <div class="row" id="product-list">
+
         @if ($products && $products->count() > 0)
         @foreach ($products as $product)
         <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
@@ -67,6 +66,4 @@
         @else
         <p>Chưa có sản phẩm. Chúng tôi sẽ cố gắng cập nhật thêm nhiều sách trong tương lai!</p>
         @endif
-    </div>
-</div>
 {{ $products->links('vendor.pagination.custom') }}
