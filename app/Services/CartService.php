@@ -81,7 +81,7 @@ class CartService implements CartServiceInterface
 
                 $price = $product->price_sale !== null ? $product->price_sale : $product->price;
 
-                // kiểm tra giỏ hàng có tồn tại hay không
+                // Kiểm tra giỏ hàng có tồn tại hay không
                 $cart = $request->session()->get('cart', []);
                 $productId = $payload['id_product'];
                 $quantityToAdd = $payload['quantity'];
@@ -92,7 +92,7 @@ class CartService implements CartServiceInterface
                     $cart[$productId]['quantity'] += $quantityToAdd; // Cộng thêm số lượng mới
 
                     // Nếu số lượng sản phẩm trong giỏ hàng lớn hơn hoặc bằng số lượng tối đa
-                    if ($cart[$productId]['quantity'] >= $product->quantity) {
+                    if ($cart[$productId]['quantity'] > $product->quantity) {
                         // Cập nhật số lượng sản phẩm trong giỏ hàng về số lượng tối đa
                         $cart[$productId]['quantity'] = $product->quantity;
 
@@ -102,8 +102,6 @@ class CartService implements CartServiceInterface
                         ];
                     } else {
                         // Nếu số lượng sản phẩm trong giỏ hàng nhỏ hơn số lượng tối đa, bạn có thể cập nhật
-                        $cart[$productId]['quantity'] += $product->quantity;
-
                         $response = [
                             'status' => 'success',
                             'data' => "Cập nhật giỏ hàng thành công."
@@ -123,7 +121,8 @@ class CartService implements CartServiceInterface
                     ];
                 }
 
-                session()->put('cart', $cart);
+                // Lưu lại giỏ hàng vào session
+                $request->session()->put('cart', $cart);
             }
             DB::commit();
             return redirect('cart')->with($response['status'], $response['data']);
