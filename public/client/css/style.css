@@ -2223,7 +2223,7 @@ textarea:-ms-input-placeholder {
 }
 
 .product-image:hover .variants.add {
-  bottom: 5px;
+  bottom: -10px;
 }
 
 .button-set {

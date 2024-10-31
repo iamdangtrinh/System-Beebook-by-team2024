@@ -22,11 +22,6 @@
                         $this.find('span').text('Thêm vào yêu thích');
                     }
                 },
-                error: function (xhr, status, error) {
-                    console.error("Error:", error);
-                    console.log("Status:", status);
-                    console.log("Response Text:", xhr.responseText);
-                }
             });
         });
     });
