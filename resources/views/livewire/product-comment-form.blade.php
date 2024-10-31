@@ -1,4 +1,7 @@
 <div>
+    @if (!auth()->check())
+    Vui lòng đăng nhập để bình luận!
+    @else
     <div class="spr-form clearfix">
         <form wire:submit.prevent="submit" id="new-review-form" class="new-review-form">
             @csrf
@@ -44,6 +47,7 @@
             </fieldset>
         </form>
     </div>
+    @endif
     <div class="spr-reviews">
         @if ($comments && $comments->count() > 0)
         @foreach ($comments as $comment)
@@ -75,7 +79,6 @@
     </div>
     @if (session()->has('comment_success'))
     <script>
-        console.log('vo dc roi');
         toastr.success("{{ session('comment_success') }}");
     </script>
     @endif

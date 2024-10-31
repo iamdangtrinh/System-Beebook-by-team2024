@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Product extends Model
 {
@@ -68,5 +69,14 @@ class Product extends Model
     public function manufacturer()
     {
         return $this->belongsTo(Taxonomy::class, 'id_manufacturer', 'id');
+    }
+    public function isFavoritedByUser()
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return false;
+        }
+
+        return $user->favorite()->where('id_product', $this->id)->exists();
     }
 }

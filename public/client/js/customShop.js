@@ -26,7 +26,7 @@
 
         // Gửi yêu cầu Ajax
         $.ajax({
-            url: "filter-products",
+            url: "/filter-products",
             method: "GET",
             data: {
                 price_min: priceRanges.length > 0 ? Math.min(...priceRanges.map(p => p.min)) : null,
@@ -35,6 +35,7 @@
                 sort: sortValue // Thêm giá trị sắp xếp vào dữ liệu gửi đi
             },
             success: function (data) {
+                console.log(data);
                 $('#product-list').html(data); // Hiển thị sản phẩm đã lọc
             }
         });
