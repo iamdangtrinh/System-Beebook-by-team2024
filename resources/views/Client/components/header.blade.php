@@ -146,7 +146,7 @@ define('CSS_VER', '1.0.1');
                                 <li class="lvl1 parent dropdown"><a href="#">Danh mục <i
                                             class="anm anm-angle-down-l"></i></a>
                                     <ul class="dropdown">
-                                        @foreach ($categories_header as $parentCategory)
+                                        @foreach ($result_category as $parentCategory)
                                         @if ($parentCategory->children->isNotEmpty())
                                         <li><a href="{{ url('danh-muc/' . $parentCategory->slug) }}"
                                                 class="site-nav">{{ $parentCategory->name }} <i
@@ -159,9 +159,9 @@ define('CSS_VER', '1.0.1');
                                                 @endforeach
                                             </ul>
                                         </li>
-                                        @else
+                                        {{-- @else
                                         <li><a href="{{ url('danh-muc/' . $parentCategory->slug) }}"
-                                                class="site-nav">{{ $parentCategory->name }}</a></li>
+                                                class="site-nav">{{ $parentCategory->name }}</a></li> --}}
                                         @endif
                                         @endforeach
                                     </ul>
