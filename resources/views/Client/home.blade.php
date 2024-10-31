@@ -100,7 +100,7 @@
                                         <div class="button-set">
                                             <div class="wishlist-btn">
                                                 @if (!auth()->check())
-                                                <a class="wishlist add-to-wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích"><i
+                                                <a class="wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích"><i
                                                         class="icon anm anm-heart-l"></i></a>
                                                 @elseif($product->isFavoritedByUser())
                                                 <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích"><i
@@ -207,7 +207,7 @@
                                     <div class="button-set">
                                         <div class="wishlist-btn">
                                             @if (!auth()->check())
-                                            <a class="wishlist add-to-wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích"><i
+                                            <a class="wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích"><i
                                                     class="icon anm anm-heart-l"></i></a>
                                             @elseif($product->isFavoritedByUser())
                                             <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích"><i
