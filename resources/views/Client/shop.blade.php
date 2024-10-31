@@ -334,6 +334,8 @@
                                 <!-- End product details -->
                             </div>
                             @endforeach
+                            @elseif(!$products && Request::is('yeu-thich'))
+                            Chưa có sản phẩm yêu thích. Thêm vào ngay để dễ chọn lựa hơn nào!
                             @else
                             <p>Chưa có sản phẩm. Chúng tôi sẽ cố gắng cập nhật thêm nhiều sách trong tương lai!</p>
                             @endif
