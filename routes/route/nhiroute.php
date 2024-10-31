@@ -13,7 +13,7 @@ Route::get('/tac-gia/{slug}', [ProductController::class, 'author'])->name('produ
 Route::get('/nha-xuat-ban/{slug}', [ProductController::class, 'manufacturer'])->name('product.manufacturer');
 Route::get('/filter-products', [ProductController::class, 'filter'])->name('products.filter');
 Route::middleware('auth')->group(function () {
-    Route::post('/wishlist/add', [WishlistController::class, 'add'])->name('wishlist.add');
+    Route::post('/wishlist/toggle/{idproduct}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
     Route::post('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
-    Route::get('/wishlist', [WishlistController::class, 'getWishlist'])->name('wishlist.index');
+    Route::get('/yeu-thich', [WishlistController::class, 'getWishlist'])->name('wishlist.index');
 });

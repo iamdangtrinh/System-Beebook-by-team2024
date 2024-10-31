@@ -83,7 +83,7 @@ define('CSS_VER', '1.0.1');
                                             <i class="icon anm anm-cart-r"></i>
                                             Đơn hàng của tôi </a>
                                     </li>
-                                    <li><a href="#" class="site-nav">
+                                    <li><a href="{{ asset('/yeu-thich') }}" class="site-nav">
                                             <i class="icon anm anm-heart-r"></i>
                                             Sản phẩm yêu thích </a>
                                     </li>
@@ -99,7 +99,7 @@ define('CSS_VER', '1.0.1');
                                     @endif
                                 </ul>
                             </li>
-                            <li><a class="text-white" href="#">Yêu thích</a></li>
+                            <li><a class="text-white" href="{{ asset('/yeu-thich') }}">Yêu thích</a></li>
                         </ul>
                     </div>
                 </div>
