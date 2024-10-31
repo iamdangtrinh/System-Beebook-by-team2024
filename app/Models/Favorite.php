@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Favorite extends Model
 {
     use HasFactory;
-    protected $table = 'favorite';
+    protected $table = 'favorites';
     protected $primaryKey = 'id';
 
     protected $fillable = [
