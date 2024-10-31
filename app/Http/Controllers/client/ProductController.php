@@ -125,7 +125,7 @@ class ProductController extends Controller
     {
         $product = Product::with('author', 'translator', 'manufacturer')->where('slug', $slug)->firstOrFail();
         $product_meta = ProductMeta::where('id_product', $product->id)->get();
-        $product_same = Product::where('id_category', $product->id_category)->inRandomOrder()->limit(4)->get();
+        $product_same = Product::where('id_category', $product->id_category)->where('id', '!=', $product->id)->inRandomOrder()->limit(4)->get();
         $comments = Comment::where('id_product', $product->id)->latest()->get();
         $commentCount = $product->countComments(); // Đếm số bình luận
         $averageRating = $product->averageRating(); // Tính trung bình rating
