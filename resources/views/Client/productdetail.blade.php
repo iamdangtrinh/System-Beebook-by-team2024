@@ -242,18 +242,22 @@
                                 <div class="display-table-cell medium-up--one-third">
                                     <div class="wishlist-btn">
                                         @if (!auth()->check())
-                                        <a class="wishlist add-to-wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích"><i
-                                                class="icon anm anm-heart-l" aria-hidden="true"></i> <span>Đăng nhập để thêm vào
-                                                yêu thích</span></a>
+                                        <a class="wishlist add-to-wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích">
+                                            <i class="icon anm anm-heart-l" aria-hidden="true"></i>
+                                            <span>Đăng nhập để thêm vào yêu thích</span>
+                                        </a>
                                         @elseif($product->isFavoritedByUser())
-                                        <a class="wishlist add-to-wishlist" href="#" title="Thêm vào yêu thích"><i
-                                                class="icon anm anm-heart text-danger" aria-hidden="true"></i> <span>Đã thêm sản phẩm vào
-                                                yêu thích</span></a>
+                                        <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích">
+                                            <i class="icon anm anm-heart text-danger" aria-hidden="true"></i>
+                                            <span>Đã thêm sản phẩm vào yêu thích</span>
+                                        </a>
                                         @else
-                                        <a class="wishlist add-to-wishlist" href="#" title="Thêm vào yêu thích"><i
-                                                class="icon anm anm-heart-l" aria-hidden="true"></i> <span>Thêm vào
-                                                yêu thích</span></a>
+                                        <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích">
+                                            <i class="icon anm anm-heart-l" aria-hidden="true"></i>
+                                            <span>Thêm vào yêu thích</span>
+                                        </a>
                                         @endif
+
                                     </div>
                                 </div>
                             </div>
@@ -366,10 +370,10 @@
                                         <a class="wishlist add-to-wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích"><i
                                                 class="icon anm anm-heart-l"></i></a>
                                         @elseif($pro->isFavoritedByUser())
-                                        <a class="wishlist add-to-wishlist" href="#" title="Thêm vào yêu thích"><i
+                                        <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $pro->id }}" title="Thêm vào yêu thích"><i
                                                 class="icon anm anm-heart text-danger"></i></a>
                                         @else
-                                        <a class="wishlist add-to-wishlist" href="#" title="Thêm vào yêu thích"><i
+                                        <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $pro->id }}" title="Thêm vào yêu thích"><i
                                                 class="icon anm anm-heart-l"></i></a>
                                         @endif
                                     </div>
@@ -437,6 +441,7 @@
         <script src="{{ asset('/') }}client/js/vendor/photoswipe.min.js"></script>
         <script src="{{ asset('/') }}client/js/vendor/photoswipe-ui-default.min.js"></script>
         <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
+        <script src="{{ asset('/') }}client/js/customFavorite.js"></script>
         <script>
             $(function() {
                 var $pswp = $('.pswp')[0],

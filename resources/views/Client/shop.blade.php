@@ -194,7 +194,77 @@
                     <!--End Toolbar-->
                     <div class="grid-products grid--view-items">
                         <div class="row" id="product-list">
-                            @if ($products && $products->count() > 0)
+                            @if ($products && $products->count() > 0 && Request::is('yeu-thich'))
+                            @foreach ($products as $wishlist)
+                            <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
+                                <!-- start product image -->
+                                <div class="product-image">
+                                    <!-- start product image -->
+                                    <a href="{{ asset('san-pham/' . $wishlist->product->slug) }}"
+                                        class="grid-view-item__link">
+                                        <!-- image -->
+                                        <img class="primary lazyload"
+                                            data-src="{{ asset($wishlist->product->image_cover ? $wishlist->product->image_cover : 'no_image.jpg') }}"
+                                            src="{{ asset($wishlist->product->image_cover ? $wishlist->product->image_cover : 'no_image.jpg') }}"
+                                            alt="image" title="product">
+                                        <!-- End image -->
+                                    </a>
+                                    <!-- end product image -->
+
+                                    <!-- Start product button -->
+                                    <form class="variants add add_to_cart" action="{{ route('cart.store') }}"
+                                        method="post">
+                                        @csrf
+                                        <input type="hidden" value="{{$wishlist->product->id}}" name="id_product">
+                                        <input type="hidden" value="1" name="quantity">
+                                        <button class="btn btn-addto-cart" type="submit" tabindex="">Thêm giỏ hàng</button>
+                                    </form>
+                                    <div class="button-set">
+                                        <div class="wishlist-btn">
+                                            @if (!auth()->check())
+                                            <a class="wishlist add-to-wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích"><i
+                                                    class="icon anm anm-heart-l"></i></a>
+                                            @elseif($wishlist->product->isFavoritedByUser())
+                                            <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $wishlist->product->id }}" title="Thêm vào yêu thích"><i
+                                                    class="icon anm anm-heart text-danger"></i></a>
+                                            @else
+                                            <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $wishlist->product->id }}" title="Thêm vào yêu thích"><i
+                                                    class="icon anm anm-heart-l"></i></a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <!-- end product button -->
+                                </div>
+                                <!-- end product image -->
+                                <!--start product details -->
+                                <div class="product-details text-center">
+                                    <!-- product name -->
+                                    <div class="product-name">
+                                        <a
+                                            href="{{ asset('san-pham/' . $wishlist->product->slug) }}">{{ $wishlist->product->name }}</a>
+                                    </div>
+                                    <!-- End product name -->
+                                    <!-- product price -->
+                                    <div class="product-price">
+                                        @if (!$wishlist->product->price_sale)
+                                        <span
+                                            class="price">{{ number_format($wishlist->product->price, 0, ',', '.') }}
+                                            đ</span>
+                                        @else
+                                        <span
+                                            class="old-price">{{ number_format($wishlist->product->price, 0, ',', '.') }}
+                                            đ</span>
+                                        <span
+                                            class="price">{{ number_format($wishlist->product->price_sale, 0, ',', '.') }}
+                                            đ</span>
+                                        @endif
+                                    </div>
+                                    <!-- End product price -->
+                                </div>
+                                <!-- End product details -->
+                            </div>
+                            @endforeach
+                            @elseif($products && $products->count() > 0 && !Request::is('yeu-thich'))
                             @foreach ($products as $product)
                             <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
                                 <!-- start product image -->
@@ -221,10 +291,16 @@
                                     </form>
                                     <div class="button-set">
                                         <div class="wishlist-btn">
-                                            <a class="wishlist add-to-wishlist" href="#">
-                                                <i class="icon anm anm-heart-l"></i>
-                                                <!-- <i class="icon anm anm-heart"></i> -->
-                                            </a>
+                                            @if (!auth()->check())
+                                            <a class="wishlist add-to-wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích"><i
+                                                    class="icon anm anm-heart-l"></i></a>
+                                            @elseif($product->isFavoritedByUser())
+                                            <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích"><i
+                                                    class="icon anm anm-heart text-danger"></i></a>
+                                            @else
+                                            <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích"><i
+                                                    class="icon anm anm-heart-l"></i></a>
+                                            @endif
                                         </div>
                                     </div>
                                     <!-- end product button -->
@@ -271,4 +347,5 @@
     </div>
     <script src="{{ asset('/') }}client/js/vendor/jquery.cookie.js"></script>
     <script src="{{ asset('/') }}client/js/customShop.js"></script>
+    <script src="{{ asset('/') }}client/js/customFavorite.js"></script>
     @endsection

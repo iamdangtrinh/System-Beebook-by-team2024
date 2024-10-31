@@ -1,26 +1,31 @@
 (function ($) {
     $(document).ready(function () {
-        // Wishlist toggle for multiple products
         $('.add-to-wishlist').on('click', function (e) {
             e.preventDefault();
             let $this = $(this);
-            let productId = $this.data('product-id');
+            let idproduct = $this.data('product-id');
 
-            // Send AJAX request to add or remove product from wishlist
+            // Gửi yêu cầu AJAX để thêm hoặc xóa sản phẩm khỏi yêu thích
             $.ajax({
-                url: 'toggle-wishlist',
+                url: `/wishlist/toggle/${idproduct}`,
                 method: 'POST',
-                data: {
-                    product_id: productId,
-                    _token: '{{ csrf_token() }}' // Add CSRF token if needed
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf_token"]').attr("content"),
                 },
                 success: function (response) {
-                    // Toggle heart icon based on the response
-                    if (response.inWishlist) {
-                        $this.find('i').removeClass('anm-heart-l').addClass('anm-heart');
+                    // Thay đổi icon dựa vào trạng thái yêu thích
+                    if (response.status === 'added') {
+                        $this.find('i').removeClass('anm-heart-l').addClass('anm-heart text-danger');
+                        $this.find('span').text('Đã thêm sản phẩm vào yêu thích');
                     } else {
-                        $this.find('i').removeClass('anm-heart').addClass('anm-heart-l');
+                        $this.find('i').removeClass('anm-heart text-danger').addClass('anm-heart-l');
+                        $this.find('span').text('Thêm vào yêu thích');
                     }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                    console.log("Status:", status);
+                    console.log("Response Text:", xhr.responseText);
                 }
             });
         });

@@ -99,9 +99,16 @@
                                         </form>
                                         <div class="button-set">
                                             <div class="wishlist-btn">
-                                                <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}">
-                                                    <i class="icon anm {{ $product->inWishlist ? 'anm-heart' : 'anm-heart-l' }}"></i>
-                                                </a>
+                                                @if (!auth()->check())
+                                                <a class="wishlist add-to-wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích"><i
+                                                        class="icon anm anm-heart-l"></i></a>
+                                                @elseif($product->isFavoritedByUser())
+                                                <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích"><i
+                                                        class="icon anm anm-heart text-danger"></i></a>
+                                                @else
+                                                <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích"><i
+                                                        class="icon anm anm-heart-l"></i></a>
+                                                @endif
                                             </div>
                                         </div>
 
@@ -199,9 +206,16 @@
                                     </form>
                                     <div class="button-set">
                                         <div class="wishlist-btn">
-                                            <a class="wishlist add-to-wishlist" href="#">
-                                                <i class="icon anm anm-heart-l"></i>
-                                            </a>
+                                            @if (!auth()->check())
+                                            <a class="wishlist add-to-wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích"><i
+                                                    class="icon anm anm-heart-l"></i></a>
+                                            @elseif($product->isFavoritedByUser())
+                                            <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích"><i
+                                                    class="icon anm anm-heart text-danger"></i></a>
+                                            @else
+                                            <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích"><i
+                                                    class="icon anm anm-heart-l"></i></a>
+                                            @endif
                                         </div>
                                     </div>
                                     <!-- end product button -->
@@ -445,4 +459,5 @@
         },
     });
 </script>
+<script src="{{ asset('/') }}client/js/customFavorite.js"></script>
 @endsection
