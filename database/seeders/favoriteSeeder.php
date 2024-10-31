@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class favouriteSeeder extends Seeder
+class favoriteSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,7 +18,7 @@ class favouriteSeeder extends Seeder
         
         foreach ($users as $user) {
             foreach ($products as $product) {
-                DB::table('favourite')->insert([
+                DB::table('favorite')->insert([
                     'id_user' => $user->id,
                     'id_product' => $product->id,
                     'created_at' => now(),
