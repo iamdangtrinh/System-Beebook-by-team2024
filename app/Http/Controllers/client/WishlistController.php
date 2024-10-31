@@ -12,6 +12,10 @@ class WishlistController extends Controller
 {
     public function toggle($idproduct)
     {
+        if (!auth()->check()) {
+            session()->flash('error', 'Vui lòng đăng nhập để thêm sản phẩm vào yêu thích !');
+            return redirect('/sign-in');
+        }
         $user = auth()->user();
 
         // Kiểm tra sản phẩm đã có trong danh sách yêu thích hay chưa
