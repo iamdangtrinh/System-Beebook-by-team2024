@@ -90,13 +90,13 @@ class CheckoutService implements CheckoutServiceInterface
                               ];
                         }
 
-                        // tính phí vận chuyển
-                        if ($total_amount < 1000000) {
-                              $total_amount += 20000;
-                              $payload['fee_shipping'] = 20000;
-                        } else {
-                              $payload['fee_shipping'] = 0;
-                        }
+                        // // tính phí vận chuyển
+                        // if ($total_amount < 1000000) {
+                        //       $total_amount += 20000;
+                        //       $payload['fee_shipping'] = 20000;
+                        // } else {
+                        //       $payload['fee_shipping'] = 0;
+                        // }
 
                         $payload['total_amount'] = $total_amount;
                         $payload['id_user'] = Auth::user()->id;
