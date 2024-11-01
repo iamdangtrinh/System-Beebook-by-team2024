@@ -38,5 +38,10 @@ class SePayWebhookListener
         } else {
             // Xử lý tiền ra tài khoản
         }
+        
+         Mail::raw('hello', function ($message) {
+                    $message->to('dtrinhit04@gmail.com')
+                            ->subject('Hello Email');
+                });
     }
 }
