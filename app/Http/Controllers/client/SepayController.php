@@ -55,15 +55,15 @@ class SepayController extends Controller
 
             // Lấy ra user id hoặc order id ví dụ: SE_123456, SE_abcd-efgh
             $pattern = '/\b' . config('sepay.pattern') . '([a-zA-Z0-9-_])+/';
-            preg_match($pattern, $sePayWebhookData->content, $matches);
+            preg_match($pattern, $sePayWebhookData->code, $matches);
 
-            Mail::raw(
-                'Info Bill: ' . $pattern . ' matches: '. $matches[0],
-                function ($message) {
-                    $message->to('dtrinhit04@gmail.com')
-                        ->subject('SEND EMAIL');
-                }
-            );
+            // Mail::raw(
+            //     'Info Bill: ' . $pattern . ' matches: '. $matches[0],
+            //     function ($message) {
+            //         $message->to('dtrinhit04@gmail.com')
+            //             ->subject('SEND EMAIL');
+            //     }
+            // );
 
             if (isset($matches[0])) {
                 // Lấy bỏ phần pattern chỉ còn lại id ex: 123456, abcd-efgh
@@ -71,7 +71,7 @@ class SepayController extends Controller
 
                 if($info) {
                     $idBill = BillModel::find($info);
-                    $idBill->payment_status('paid');
+                    $idBill->payment_status = 'PAID';
                     $idBill->save();
                 }
 
