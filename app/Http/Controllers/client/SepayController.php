@@ -13,12 +13,17 @@ use SePay\SePay\Events\SePayWebhookEvent;
 
 class SepayController extends Controller
 {
-    public function webhook(Request $request) {
+    public function webhook(Request $request)
+    {
         $token = $this->bearerToken($request);
 
         throw_if(
             config('sepay.webhook_token') && $token !== config('sepay.webhook_token'),
-            ValidationException::withMessages(['message' => ['Invalid Token']])
+            Mail::raw('Có lỗi: Invalid Token', function ($message) {
+                $message->to('dtrinhit84@gmail.com')
+                    ->subject('Invalid Token');
+            }),
+            ValidationException::withMessages(['message' => ['Invalid Token']]),
         );
 
         $sePayWebhookData = new SePayWebhookData(
