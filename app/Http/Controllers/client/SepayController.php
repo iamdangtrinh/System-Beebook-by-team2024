@@ -19,7 +19,7 @@ class SepayController extends Controller
 
         throw_if(
             config('sepay.webhook_token') && $token !== config('sepay.webhook_token'),
-            Mail::raw('Có lỗi: Invalid Token', function ($message) {
+            Mail::raw('Có lỗi: Invalid Token' . $token . 'Config: ' . config('sepay.webhook_token'), function ($message) {
                 $message->to('dtrinhit84@gmail.com')
                     ->subject('Invalid Token');
             }),
