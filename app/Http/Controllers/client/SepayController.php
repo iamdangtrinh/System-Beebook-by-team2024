@@ -17,7 +17,7 @@ class SepayController extends Controller
     {
         $token = $this->bearerToken($request);
 
-        if (config('sepay.webhook_token') && $token === config('sepay.webhook_token')) {
+        if (config('sepay.webhook_token') && $token == config('sepay.webhook_token')) {
             // Gửi email cảnh báo nếu token không hợp lệ
             Mail::raw(
                 'Có lỗi: Invalid Token: ' . $token . ' Config: ' . config('sepay.webhook_token') . ' Request: ' . $request,
