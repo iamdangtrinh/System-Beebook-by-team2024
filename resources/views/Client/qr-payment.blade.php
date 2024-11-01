@@ -23,7 +23,7 @@
                 <div class="row mt-5" id="checkout_box">
                     <div class="col-md-6">
                         <p class="fw-bold">Cách 1: Mở app ngân hàng và quét mã QR</p>
-                        <img src="https://qr.sepay.vn/img?bank=MBBank&acc=0362094527&template=compact&amount={{ intval($order_details->total_amount) }}&des=BEE{{ $order_details->id }}"
+                        <img src="https://qr.sepay.vn/img?bank=MBBank&acc=0362094527&template=compact&amount={{ intval($order_details->total_amount) }}&des=BEE {{ $order_details->id }}"
                             class="img-fluid">
                     </div>
                     <div class="col-md-6">
