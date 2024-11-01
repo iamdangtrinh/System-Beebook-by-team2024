@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\client\SepayController as ClientSepayController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use SePay\SePay\Http\Controllers\SePayController;
@@ -24,5 +25,5 @@ Route::group([
     'as' => 'sepay.',
     'middleware' => ['api'],
 ], function () {
-    Route::any('/payment', [SePayController::class, 'webhook'])->name('webhook');
+    Route::any('/webhook', [ClientSepayController::class, 'webhook'])->name('webhook');
 });
