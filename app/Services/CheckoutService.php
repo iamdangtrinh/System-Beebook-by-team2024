@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 /**
@@ -71,61 +72,54 @@ class CheckoutService implements CheckoutServiceInterface
             DB::beginTransaction();
             try {
                   $payload = $request->except(['_token']);
-                  if (!empty($payload['checkout']) || $payload['checkout'] !== 'submit_checkout') {
-                        $carts = $this->CartService->findCartByUser(100);
-                        if (count($carts) === 0) {
-                              return redirect()->route('product.index')->with('error', "Vui lòng thêm sản phẩm vào giỏ hàng");
-                        }
-                        // số tiền là 0
-                        $total_amount = 0;
-                        $billDetails = [];
-                        // $payload['payment_method'];
-                        foreach ($carts as $cart) {
-                              $total_amount += $cart->quantity * $cart->price;
-                              $billDetails[] = [
-                                    'id_product' => $cart->id_product,
-                                    'quantity' => $cart->quantity,
-                                    'price' => $cart->price,
-                              ];
-                        }
+                  if (empty($payload['checkout']) || $payload['checkout'] !== 'submit_checkout') {
+                        return redirect()->route('product.index')->with('error', "Vui lòng thêm sản phẩm vào giỏ hàng");
+                  }
+                  $carts = $this->CartService->findCartByUser(Auth::id());
+                  if (count($carts) === 0) {
+                        return redirect()->route('product.index')->with('error', "Vui lòng thêm sản phẩm vào giỏ hàng");
+                  }
 
-                        // // tính phí vận chuyển
-                        if ($total_amount < 1000000) {
-                              $total_amount += 20000;
-                              $payload['fee_shipping'] = 20000;
-                        } else {
-                              $payload['fee_shipping'] = 0;
-                        }
+                  $total_amount = 0;
+                  $billDetails = [];
+                  foreach ($carts as $cart) {
+                        $total_amount += $cart->quantity * $cart->price;
+                        $billDetails[] = [
+                              'id_product' => $cart->id_product,
+                              'quantity' => $cart->quantity,
+                              'price' => $cart->price,
+                        ];
+                  }
 
-                        $payload['total_amount'] = $total_amount;
-                        $payload['id_user'] = Auth::user()->id;
-                        // tạo bills
-                        $id_bill = $this->CheckoutRepository->create($payload)->id;
+                  if ($total_amount < 1000000) {
+                        $total_amount += 20000;
+                        $payload['fee_shipping'] = 20000;
+                  } else {
+                        $payload['fee_shipping'] = 0;
+                  }
 
-                        // Lưu từng chi tiết sản phẩm vào bảng bill_details
-                        foreach ($billDetails as $billDetail) {
-                              $billDetail['id_bill'] = $id_bill;
-                              $this->BillDetailRepository->create($billDetail);
-                        }
-                        // xóa giỏ hàng trong database
-                        $carts = $this->CartService->destroyAll();
-                        // trừ số lượng sản phẩm theo đơn hàng
+                  $payload['total_amount'] = $total_amount;
+                  $payload['id_user'] = Auth::user()->id;
 
-                        // gửi email đơn hàng
-                  };
+                  $id_bill = $this->CheckoutRepository->create($payload)->id;
+
+                  foreach ($billDetails as $billDetail) {
+                        $billDetail['id_bill'] = $id_bill;
+                        $this->BillDetailRepository->create($billDetail);
+                  }
+
+                  $this->CartService->destroyAll();
+
+                  DB::commit();
                   if ($payload['payment_method'] == "ONLINE") {
-                        // sang trang thanh toán online
                         return redirect()->route('order.show', ['id' => $id_bill]);
                   } else if ($payload['payment_method'] == "OFFLINE") {
                         Mail::to($payload['email'])->send(new \App\Mail\sendEmailOrder($id_bill));
-                        return redirect()->route('thankyou.index', ['id' => base64_encode($id_bill)])->with('success', "Bạn đã đặt hàng thành công");
+                        return redirect()->route('thankyou.index', ['id' => $id_bill])->with('success', "Bạn đã đặt hàng thành công");
                   }
-                  DB::commit();
-                  // chuyển sang trang thank you
-                  return true;
             } catch (\Exception $exception) {
                   DB::rollBack();
-                  echo $exception->getMessage();
+                  Log::error($exception->getMessage());
                   return false;
             }
       }
