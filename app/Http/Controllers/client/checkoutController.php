@@ -70,35 +70,11 @@ class CheckoutController extends Controller
         // cắt chuỗi
         $parts = explode('thank-you/', $path);
         $code = $parts[1] ?? null;
-        $idBill = base64_decode($code);
+        $idBill = ($code);
         $resultBill = BillModel::where('id', $idBill)->firstOrFail();
 
         return view('Client.thankyou', compact(['resultBill']));
     }
-
-    // public function qrIndex(Request $request)
-    // {
-    //     $order_id = $request->input('id');
-
-    //     if ($request->isMethod('post') && $request->input('total')) {
-    //         $order_total = $request->input('total');
-
-    //         if (is_numeric($order_total)) {
-    //             // Cố định tên cho đơn hàng
-    //             $name = "Bee Book";
-
-    //             // // Tạo đơn hàng mới
-    //             // $order = Order::create([
-    //             //     'total' => $order_total,
-    //             //     'name' => $name,
-    //             // ]);
-
-    //             // Redirect đến trang checkout
-    //         }
-    //     }
-
-    //     return view('order.index', compact('order_id'));
-    // }
 
     public function show($id)
     {
