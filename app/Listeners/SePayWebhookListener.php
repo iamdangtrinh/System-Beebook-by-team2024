@@ -5,6 +5,7 @@ namespace App\Listeners;
 use App\Models\User;
 use SePay\SePay\Events\SePayWebhookEvent;
 use SePay\SePay\Notifications\SePayTopUpSuccessNotification;
+use Illuminate\Support\Facades\Mail;
 
 class SePayWebhookListener
 {
@@ -28,7 +29,8 @@ class SePayWebhookListener
             $user = User::query()->where('id', $event->info)->first();
             if ($user instanceof User) {
                 $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
-                redirect()->route('/')->with('success', "Bạn đã đặt hàng thành công");
+                Mail::to('dangtrinhit04@gmail.com')->send(new \App\Mail\sendEmailOrder(1));
+
             }
         } else {
             // Xử lý tiền ra tài khoản
