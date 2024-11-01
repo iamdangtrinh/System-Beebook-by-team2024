@@ -37,7 +37,7 @@ return new class extends Migration
 
             // Define foreign keys if applicable
             $table->foreign('id_category')->references('id')->on('categories_product')->onDelete('cascade');
-            
+
             $table->unsignedBigInteger('id_author')->nullable();
             $table->unsignedBigInteger('id_translator')->nullable();
             $table->unsignedBigInteger('id_manufacturer')->nullable();

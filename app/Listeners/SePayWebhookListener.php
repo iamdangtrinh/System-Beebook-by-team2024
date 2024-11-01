@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Models\BillModel;
 use App\Models\User;
 use SePay\SePay\Events\SePayWebhookEvent;
 use SePay\SePay\Notifications\SePayTopUpSuccessNotification;
@@ -24,18 +25,16 @@ class SePayWebhookListener
     {
         // Xử lý tiền vào tài khoản
         if ($event->sePayWebhookData->transferType === 'in') {
-            // Trường hợp $info là user id
 
-            $user = User::query()->where('id', $event->info)->first();
-            if ($user instanceof User) {
-                $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
-            }
-            Mail::raw('hello', function ($message) {
-                $message->to('dtrinhit84@gmail.com')
-                        ->subject('Hello Email');
-            });
-        } else {
-            // Xử lý tiền ra tài khoản
-        }
+            $emailBought = BillModel::select(['email'])->where('id', $event->info);
+            Mail::to($emailBought)->send(new \App\Mail\sendEmailOrder($event->info));
+            redirect()->route('thankyou.index', ['id' => base64_encode($event->info)])->with('success', "Bạn đã đặt hàng thành công");
+
+            // Trường hợp $info là user id
+            // $user = User::query()->where('id', $event->info)->first();
+            // if ($user instanceof User) {
+            //     $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
+            // }
+        } 
     }
 }
