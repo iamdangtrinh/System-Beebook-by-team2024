@@ -46,7 +46,7 @@ class SePayWebhookListener
 =======
             $emailBought = BillModel::select(['email'])->where('id', $event->info);
             Mail::to($emailBought)->send(new \App\Mail\sendEmailOrder($event->info));
-            redirect()->route('thankyou.index', ['id' => base64_encode($event->info)])->with('success', "Bạn đã đặt hàng thành công");
+            redirect()->route('thankyou.index', ['id' => ($event->info)]);
 
             // Trường hợp $info là user id
             // $user = User::query()->where('id', $event->info)->first();
