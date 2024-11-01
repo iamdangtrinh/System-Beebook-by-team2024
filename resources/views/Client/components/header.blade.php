@@ -78,7 +78,7 @@ define('CSS_VER', '1.0.1');
                                             <i class="icon anm anm-cart-r"></i>
                                             Đơn hàng của tôi </a>
                                     </li>
-                                    <li><a href="#" class="site-nav">
+                                    <li><a href="{{ asset('/yeu-thich') }}" class="site-nav">
                                             <i class="icon anm anm-heart-r"></i>
                                             Sản phẩm yêu thích </a>
                                     </li>
@@ -94,7 +94,7 @@ define('CSS_VER', '1.0.1');
                                     @endif
                                 </ul>
                             </li>
-                            <li><a class="text-white" href="#">Yêu thích</a></li>
+                            <li><a class="text-white" href="{{ asset('/yeu-thich') }}">Yêu thích</a></li>
                         </ul>
                     </div>
                 </div>
@@ -139,22 +139,31 @@ define('CSS_VER', '1.0.1');
                                 @endphp
 
                                 <li class="lvl1 parent dropdown"><a href="#">Danh mục <i class="anm anm-angle-down-l"></i></a>
-                                    <ul class="dropdown">
-                                        @foreach ($categories_header as $parentCategory)
-                                            <li><a href="{{ url('danh-muc/' . $parentCategory->slug) }}"
-                                                    class="site-nav">{{ $parentCategory->name }} <i
-                                                        class="anm anm-angle-right-l"></i></a>
-                                                @if ($parentCategory->children->isNotEmpty())
-                                                    <ul class="dropdown">
-                                                        @foreach ($parentCategory->children as $childCategory)
-                                                            <li><a href="{{ url('danh-muc/' . $childCategory->slug) }}"
-                                                                    class="site-nav">{{ $childCategory->name }}</a>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-                                                @endif
+                                    <ul class="dropdown" style="top:30px">
+                                        @if (Auth::check())
+                                            <li><a href="/profile" class="site-nav">
+                                                    <i class="icon anm anm-user-circle"></i>
+                                                    Hồ sơ
+                                                </a>
                                             </li>
-                                        @endforeach
+                                            <li><a href="#" class="site-nav">
+                                                    <i class="icon anm anm-cart-r"></i>
+                                                    Đơn hàng của tôi </a>
+                                            </li>
+                                            <li><a href="#" class="site-nav">
+                                                    <i class="icon anm anm-heart-r"></i>
+                                                    Sản phẩm yêu thích </a>
+                                            </li>
+                                            <li><a href="/logout" class="site-nav">
+                                                    <i class="icon anm anm-sign-out-ar"></i>
+                                                    Đăng xuất </a>
+                                            </li>
+                                        @else
+                                            <li><a href="{{ asset('/sign-in') }}" class="site-nav">Đăng nhập </a>
+                                            </li>
+                                            <li><a href="{{ asset('/sign-up') }}" class="site-nav">Đăng ký </a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </li>
 

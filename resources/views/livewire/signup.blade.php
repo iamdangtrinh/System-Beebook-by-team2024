@@ -11,7 +11,7 @@
             <div class="row d-flex align-items-center">
                 {{-- image --}}
                 <div  class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <img class="w-100" src="/client/images/manager-user/register.jpg" />
+                    <img class="w-100" src="/client/images/manager-user/register.webp" />
                 </div> 
                 {{-- form --}}
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">

@@ -14,7 +14,7 @@
     <!--End Collection Banner-->
 
     <h1 class="text-center mt-3">
-    {{ $title }}
+        {{ $title }}
     </h1>
 
 
@@ -55,50 +55,55 @@
                         </div>
                     </div>
                     <!--Categories-->
-                    <!--Price Filter-->
+                    <!-- Bộ lọc giá -->
                     <div class="sidebar_widget filterBox filter-widget">
                         <div class="widget-title">
                             <h2>Giá</h2>
                         </div>
-                        <form action="#" method="post" class="price-filter">
-                            <div id="slider-range"
-                                class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <p class="no-margin"><input id="amount" type="text"></p>
-                                </div>
-                                <div class="col-6 text-right margin-25px-top">
-                                    <button class="btn btn-secondary btn--small">Lọc</button>
-                                </div>
-                            </div>
-                        </form>
+                        <ul>
+                            <li>
+                                <input type="checkbox" name="price" value="0-150000" id="price1">
+                                <label for="price1"><span><span></span></span>0 đ - 150,000 đ</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" name="price" value="150000-300000" id="price2">
+                                <label for="price2"><span><span></span></span>150,000 đ - 300,000 đ</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" name="price" value="300000-500000" id="price3">
+                                <label for="price3"><span><span></span></span>300,000 đ - 500,000 đ</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" name="price" value="500000-700000" id="price4">
+                                <label for="price4"><span><span></span></span>500,000 đ - 700,000 đ</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" name="price" value="700000" id="price5">
+                                <label for="price5"><span><span></span></span>700,000 đ - Trở lên</label>
+                            </li>
+                        </ul>
                     </div>
-                    <!--End Price Filter-->
-                    <!--Brand-->
+
+                    <!-- Bộ lọc ngôn ngữ -->
                     <div class="sidebar_widget filterBox filter-widget">
                         <div class="widget-title">
                             <h2>Ngôn ngữ</h2>
                         </div>
                         <ul>
                             <li>
-                                <input type="checkbox" value="allen-vela" id="check1">
-                                <label for="check1"><span><span></span></span>Tiếng Việt</label>
+                                <input type="checkbox" name="language" value="Tiếng việt" id="language1">
+                                <label for="language1"><span><span></span></span>Tiếng Việt</label>
                             </li>
                             <li>
-                                <input type="checkbox" value="oxymat" id="check3">
-                                <label for="check3"><span><span></span></span>Tiếng Anh</label>
+                                <input type="checkbox" name="language" value="Tiếng anh" id="language2">
+                                <label for="language2"><span><span></span></span>Tiếng Anh</label>
                             </li>
                             <li>
-                                <input type="checkbox" value="vanelas" id="check4">
-                                <label for="check4"><span><span></span></span>Tiếng Trung</label>
+                                <input type="checkbox" name="language" value="Tiếng trung" id="language3">
+                                <label for="language3"><span><span></span></span>Tiếng Trung</label>
                             </li>
                         </ul>
                     </div>
-                    <!--End Brand-->
                     <!--Popular Products-->
                     <div class="sidebar_widget">
                         <div class="widget-title">
@@ -151,7 +156,7 @@
             <!--End Sidebar-->
             <!--Main Content-->
             <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">
-                <div class="productList product-load-more">
+                <div class="productList">
                     <!--Toolbar-->
 
                     @if (session('error'))
@@ -171,14 +176,13 @@
                                 <div class="col-4 col-md-4 col-lg-4 text-right">
                                     <div class="filters-toolbar__item">
                                         <label for="SortBy" class="hidden">Lọc</label>
-                                        <select name="SortBy" id="SortBy"
-                                            class="filters-toolbar__input filters-toolbar__input--sort">
-                                            <option value="title-ascending" selected="selected">Lọc</option>
-                                            <option>Bán chạy</option>
-                                            <option>Mới nhất</option>
-                                            <option>Cũ nhất</option>
-                                            <option>Giá cao tới thấp</option>
-                                            <option>Giá thấp tới cao</option>
+                                        <select name="SortBy" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort">
+                                            <option value="default" selected="selected">Lọc</option>
+                                            <option value="bestseller">Bán chạy</option>
+                                            <option value="newest">Mới nhất</option>
+                                            <option value="oldest">Cũ nhất</option>
+                                            <option value="price-desc">Giá cao tới thấp</option>
+                                            <option value="price-asc">Giá thấp tới cao</option>
                                         </select>
                                         <input class="collection-header__default-sort" type="hidden" value="manual">
                                     </div>
@@ -189,8 +193,78 @@
                     </div>
                     <!--End Toolbar-->
                     <div class="grid-products grid--view-items">
-                        <div class="row">
-                            @if ($products && $products->count() > 0)
+                        <div class="row" id="product-list">
+                            @if ($products && $products->count() > 0 && Request::is('yeu-thich'))
+                            @foreach ($products as $wishlist)
+                            <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
+                                <!-- start product image -->
+                                <div class="product-image">
+                                    <!-- start product image -->
+                                    <a href="{{ asset('san-pham/' . $wishlist->product->slug) }}"
+                                        class="grid-view-item__link">
+                                        <!-- image -->
+                                        <img class="primary lazyload"
+                                            data-src="{{ asset($wishlist->product->image_cover ? $wishlist->product->image_cover : 'no_image.jpg') }}"
+                                            src="{{ asset($wishlist->product->image_cover ? $wishlist->product->image_cover : 'no_image.jpg') }}"
+                                            alt="image" title="product">
+                                        <!-- End image -->
+                                    </a>
+                                    <!-- end product image -->
+
+                                    <!-- Start product button -->
+                                    <form class="variants add add_to_cart" action="{{ route('cart.store') }}"
+                                        method="post">
+                                        @csrf
+                                        <input type="hidden" value="{{$wishlist->product->id}}" name="id_product">
+                                        <input type="hidden" value="1" name="quantity">
+                                        <button class="btn btn-addto-cart" type="submit" tabindex="">Thêm giỏ hàng</button>
+                                    </form>
+                                    <div class="button-set">
+                                        <div class="wishlist-btn">
+                                            @if (!auth()->check())
+                                            <a class="wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích"><i
+                                                    class="icon anm anm-heart-l"></i></a>
+                                            @elseif($wishlist->product->isFavoritedByUser())
+                                            <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $wishlist->product->id }}" title="Thêm vào yêu thích"><i
+                                                    class="icon anm anm-heart text-danger"></i></a>
+                                            @else
+                                            <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $wishlist->product->id }}" title="Thêm vào yêu thích"><i
+                                                    class="icon anm anm-heart-l"></i></a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <!-- end product button -->
+                                </div>
+                                <!-- end product image -->
+                                <!--start product details -->
+                                <div class="product-details text-center">
+                                    <!-- product name -->
+                                    <div class="product-name">
+                                        <a
+                                            href="{{ asset('san-pham/' . $wishlist->product->slug) }}">{{ $wishlist->product->name }}</a>
+                                    </div>
+                                    <!-- End product name -->
+                                    <!-- product price -->
+                                    <div class="product-price">
+                                        @if (!$wishlist->product->price_sale)
+                                        <span
+                                            class="price">{{ number_format($wishlist->product->price, 0, ',', '.') }}
+                                            đ</span>
+                                        @else
+                                        <span
+                                            class="old-price">{{ number_format($wishlist->product->price, 0, ',', '.') }}
+                                            đ</span>
+                                        <span
+                                            class="price">{{ number_format($wishlist->product->price_sale, 0, ',', '.') }}
+                                            đ</span>
+                                        @endif
+                                    </div>
+                                    <!-- End product price -->
+                                </div>
+                                <!-- End product details -->
+                            </div>
+                            @endforeach
+                            @elseif($products && $products->count() > 0 && !Request::is('yeu-thich'))
                             @foreach ($products as $product)
                             <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
                                 <!-- start product image -->
@@ -217,9 +291,16 @@
                                     </form>
                                     <div class="button-set">
                                         <div class="wishlist-btn">
-                                            <a class="wishlist add-to-wishlist" href="#">
-                                                <i class="icon anm anm-heart-l"></i>
-                                            </a>
+                                            @if (!auth()->check())
+                                            <a class="wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích"><i
+                                                    class="icon anm anm-heart-l"></i></a>
+                                            @elseif($product->isFavoritedByUser())
+                                            <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích"><i
+                                                    class="icon anm anm-heart text-danger"></i></a>
+                                            @else
+                                            <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích"><i
+                                                    class="icon anm anm-heart-l"></i></a>
+                                            @endif
                                         </div>
                                     </div>
                                     <!-- end product button -->
@@ -253,16 +334,20 @@
                                 <!-- End product details -->
                             </div>
                             @endforeach
+                            @elseif(!$products && Request::is('yeu-thich'))
+                            Chưa có sản phẩm yêu thích. Thêm vào ngay để dễ chọn lựa hơn nào!
                             @else
                             <p>Chưa có sản phẩm. Chúng tôi sẽ cố gắng cập nhật thêm nhiều sách trong tương lai!</p>
                             @endif
                         </div>
+                        {{ $products->links('vendor.pagination.custom') }}
                     </div>
-                    {{ $products->links('vendor.pagination.custom') }}
                 </div>
                 <!--End Main Content-->
             </div>
         </div>
     </div>
     <script src="{{ asset('/') }}client/js/vendor/jquery.cookie.js"></script>
+    <script src="{{ asset('/') }}client/js/customShop.js"></script>
+    <script src="{{ asset('/') }}client/js/customFavorite.js"></script>
     @endsection

@@ -56,7 +56,7 @@
                                         data-zoom-image="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
                                         class="slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true"
                                         tabindex="-1">
-                                        <img class="blur-up lazyload"
+                                        <img class="blur-up lazyload" style="height: 60px; object-fit: cover; object-position: center;"
                                             src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
                                             alt="" />
                                     </a>
@@ -77,7 +77,7 @@
                                         data-zoom-image="{{ asset($image) }}"
                                         class="slick-slide slick-cloned" data-slick-index="-3"
                                         aria-hidden="true" tabindex="-1">
-                                        <img class="blur-up lazyload" src="{{ asset($image) }}"
+                                        <img class="blur-up lazyload" style="height: 60px; object-fit: cover; object-position: center;" src="{{ asset($image) }}"
                                             alt="Product Image" />
                                     </a>
                                     @endforeach
@@ -167,7 +167,7 @@
                                 <div class="product-sku">Lượt xem: <span
                                         class="variant-sku">{{ $product->views }}</span></div>
                                 <div class="product-review">
-                                    <a class="reviewLink">
+                                    <a href="#comments">
                                         @for ($i = 1; $i <= 5; $i++)
                                             <i
                                             class="font-13 fa {{ $i <= $averageRating ? 'fa-star' : 'fa-star-o' }}"></i>
@@ -241,9 +241,23 @@
                             <div class="display-table shareRow">
                                 <div class="display-table-cell medium-up--one-third">
                                     <div class="wishlist-btn">
-                                        <a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist"><i
-                                                class="icon anm anm-heart-l" aria-hidden="true"></i> <span>Thêm vào
-                                                yêu thích</span></a>
+                                        @if (!auth()->check())
+                                        <a class="wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích">
+                                            <i class="icon anm anm-heart-l" aria-hidden="true"></i>
+                                            <span>Đăng nhập để thêm vào yêu thích</span>
+                                        </a>
+                                        @elseif($product->isFavoritedByUser())
+                                        <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích">
+                                            <i class="icon anm anm-heart text-danger" aria-hidden="true"></i>
+                                            <span>Đã thêm sản phẩm vào yêu thích</span>
+                                        </a>
+                                        @else
+                                        <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích">
+                                            <i class="icon anm anm-heart-l" aria-hidden="true"></i>
+                                            <span>Thêm vào yêu thích</span>
+                                        </a>
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>
@@ -352,9 +366,16 @@
                                 </form>
                                 <div class="button-set">
                                     <div class="wishlist-btn">
-                                        <a class="wishlist add-to-wishlist" href="#">
-                                            <i class="icon anm anm-heart-l"></i>
-                                        </a>
+                                        @if (!auth()->check())
+                                        <a class="wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích"><i
+                                                    class="icon anm anm-heart-l"></i></a>
+                                        @elseif($pro->isFavoritedByUser())
+                                        <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $pro->id }}" title="Thêm vào yêu thích"><i
+                                                class="icon anm anm-heart text-danger"></i></a>
+                                        @else
+                                        <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $pro->id }}" title="Thêm vào yêu thích"><i
+                                                class="icon anm anm-heart-l"></i></a>
+                                        @endif
                                     </div>
                                 </div>
                                 <!-- end product button -->
@@ -392,7 +413,7 @@
                         <div class="spr-header clearfix">
                             <div class="spr-summary">
                                 <span class="product-review">
-                                    <a class="reviewLink">
+                                    <a>
                                         @for ($i = 1; $i <= 5; $i++)
                                             <i
                                             class="font-13 fa {{ $i <= $averageRating ? 'fa-star' : 'fa-star-o' }}"></i>
@@ -402,7 +423,7 @@
                                         luận</span>
                                 </span>
                                 <span class="spr-summary-actions">
-                                    <a href="#" class="spr-summary-actions-newreview btn">Viết bình luận</a>
+                                    <a href="#comments" class="spr-summary-actions-newreview btn">Viết bình luận</a>
                                 </span>
                             </div>
                         </div>
@@ -420,6 +441,7 @@
         <script src="{{ asset('/') }}client/js/vendor/photoswipe.min.js"></script>
         <script src="{{ asset('/') }}client/js/vendor/photoswipe-ui-default.min.js"></script>
         <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
+        <script src="{{ asset('/') }}client/js/customFavorite.js"></script>
         <script>
             $(function() {
                 var $pswp = $('.pswp')[0],
