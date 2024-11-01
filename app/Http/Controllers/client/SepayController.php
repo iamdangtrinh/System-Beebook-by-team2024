@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Models\BillModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use SePay\SePay\Models\SePayTransaction;
@@ -59,6 +60,13 @@ class SepayController extends Controller
             if (isset($matches[0])) {
                 // Lấy bỏ phần pattern chỉ còn lại id ex: 123456, abcd-efgh
                 $info = Str::of($matches[0])->replaceFirst(config('sepay.pattern'), '')->value();
+
+                if($info) {
+                    $idBill = BillModel::find($info);
+                    $idBill->payment_status('paid');
+                    $idBill->save();
+                }
+
                 event(new SePayWebhookEvent($info, $sePayWebhookData));
             }
 
