@@ -1,6 +1,23 @@
 <title>@yield('title', 'Giỏ hàng')</title>
 @extends('layout.client')
 
+@php
+    $payment_method =
+        $resultBill->payment_method === 'ONLINE'
+            ? 'Thanh toán online'
+            : ($resultBill->payment_method === 'OFFLINE'
+                ? 'Thanh toán khi nhận hàng'
+                : 'Phương thức thanh toán không xác định');
+
+    $payment_status =
+        $resultBill->payment_status === 'PAID'
+            ? 'Đã thanh toán'
+            : ($resultBill->payment_status === 'UNPAID'
+                ? 'Chưa thanh toán'
+                : 'Trạng thái thanh toán không xác định');
+@endphp
+
+
 @section('body')
     <style>
         .checkout-scard {
@@ -32,7 +49,7 @@
             margin: 0 0 5px;
         }
 
-        
+
         .billing-details span,
         .shipping-details span {
             font-weight: 700;
@@ -98,15 +115,19 @@
                         <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                             <div class="shipping-details mb-4 mb-sm-0 clearfix">
                                 <h3>Phương thức vận chuyển</h3>
-                                <p> <span class="__custom_shipping">Phương thức vận chuyển: </span> {{$resultBill->shipping_method}} </p>
-                                <p> <span class="__custom_shipping">Phí vận chuyển: </span> {{$resultBill->fee_shipping}} </p>
+                                <p> <span class="__custom_shipping">Phương thức vận chuyển: </span>
+                                    {{ $resultBill->shipping_method }} </p>
+                                <p> <span class="__custom_shipping">Phí vận chuyển: </span> {{ $resultBill->fee_shipping }}
+                                </p>
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                             <div class="billing-details clearfix">
                                 <h3>Phương thức thanh toán</h3>
-                                <p> <span class="__custom_shipping">Phương thức thanh toán: </span> {{$resultBill->payment_method}}</p>
-                                <p> <span class="__custom_shipping">Trạng thái thanh toán: </span> {{$resultBill->payment_status}}</p>
+                                <p> <span class="__custom_shipping">Phương thức thanh toán: </span>
+                                    {{ $payment_method }}</p>
+                                <p> <span class="__custom_shipping">Trạng thái thanh toán: </span>
+                                    {{ $payment_status }}</p>
                             </div>
                         </div>
                     </div>

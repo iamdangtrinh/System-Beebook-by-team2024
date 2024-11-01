@@ -32,7 +32,7 @@ class sendEmailOrder extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Bee Book - Đơn hàng '.base64_encode($this->id_bill).' đặt thành công',
+            subject: 'Bee Book - Đơn hàng '.($this->id_bill).' đặt thành công',
         );
     }
 

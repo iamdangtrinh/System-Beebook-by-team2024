@@ -76,7 +76,6 @@ class CheckoutService implements CheckoutServiceInterface
                         if (count($carts) === 0) {
                               return redirect()->route('product.index')->with('error', "Vui lòng thêm sản phẩm vào giỏ hàng");
                         }
-
                         // số tiền là 0
                         $total_amount = 0;
                         $billDetails = [];
@@ -91,12 +90,12 @@ class CheckoutService implements CheckoutServiceInterface
                         }
 
                         // // tính phí vận chuyển
-                        // if ($total_amount < 1000000) {
-                        //       $total_amount += 20000;
-                        //       $payload['fee_shipping'] = 20000;
-                        // } else {
-                        //       $payload['fee_shipping'] = 0;
-                        // }
+                        if ($total_amount < 1000000) {
+                              $total_amount += 20000;
+                              $payload['fee_shipping'] = 20000;
+                        } else {
+                              $payload['fee_shipping'] = 0;
+                        }
 
                         $payload['total_amount'] = $total_amount;
                         $payload['id_user'] = Auth::user()->id;
@@ -113,15 +112,16 @@ class CheckoutService implements CheckoutServiceInterface
                         // trừ số lượng sản phẩm theo đơn hàng
 
                         // gửi email đơn hàng
-                        Mail::to($payload['email'])->send(new \App\Mail\sendEmailOrder($id_bill));
                   };
-                  DB::commit();
                   if ($payload['payment_method'] == "ONLINE") {
                         // sang trang thanh toán online
                         return redirect()->route('order.show', ['id' => $id_bill]);
+                  } else if ($payload['payment_method'] == "OFFLINE") {
+                        Mail::to($payload['email'])->send(new \App\Mail\sendEmailOrder($id_bill));
+                        return redirect()->route('thankyou.index', ['id' => base64_encode($id_bill)])->with('success', "Bạn đã đặt hàng thành công");
                   }
+                  DB::commit();
                   // chuyển sang trang thank you
-                  return redirect()->route('thankyou.index', ['id' => base64_encode($id_bill)])->with('success', "Bạn đã đặt hàng thành công");
                   return true;
             } catch (\Exception $exception) {
                   DB::rollBack();

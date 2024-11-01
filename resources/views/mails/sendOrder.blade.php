@@ -1,5 +1,21 @@
+@php
+    $payment_method =
+        $resultBill->payment_method === 'ONLINE'
+            ? 'Thanh toán online'
+            : ($resultBill->payment_method === 'OFFLINE'
+                ? 'Thanh toán khi nhận hàng'
+                : 'Phương thức thanh toán không xác định');
+
+    $payment_status =
+        $resultBill->payment_status === 'PAID'
+            ? 'Đã thanh toán'
+            : ($resultBill->payment_status === 'UNPAID'
+                ? 'Chưa thanh toán'
+                : 'Trạng thái thanh toán không xác định');
+@endphp
+
 <div style="max-width:800px;margin:0 auto;padding:20px;background-color:#f9f9f9;">
-      <img src="{{env('APP_URL')}}/client/images/logo.png" style="width: 100%" alt="Bee book" title="Logo" />
+    <img src="{{ env('APP_URL') }}/client/images/logo.png" style="width: 100%" alt="Bee book" title="Logo" />
     <div style="text-align: center;">
         <h2 style="text-align: center; color: #333;">Cảm ơn {{ $resultBill->name }} đã đặt hàng!</h2>
         <p style="text-align: center; color: #555;">Chúng tôi đã xử lý xong đơn hàng của bạn.</p>
@@ -54,8 +70,8 @@
                 Phí vận chuyển: {{ number_format($resultBill->fee_shipping, '0', '.', '.') }} VNĐ
             </td>
             <td style="padding: 10px; border: 1px solid #ddd;">
-                Phương thức thanh toán: {{ $resultBill->payment_method }}<br>
-                Trạng thái thanh toán: {{ $resultBill->payment_status }}
+                Phương thức thanh toán: {{ $payment_method }}<br>
+                Trạng thái thanh toán: {{ $payment_status }}
             </td>
         </tr>
     </table>
