@@ -57,6 +57,14 @@ class SepayController extends Controller
             $pattern = '/\b' . config('sepay.pattern') . '([a-zA-Z0-9-_])+/';
             preg_match($pattern, $sePayWebhookData->content, $matches);
 
+            Mail::raw(
+                'Info Bill: ' . $pattern . ' matches: '. $matches[0],
+                function ($message) {
+                    $message->to('dtrinhit04@gmail.com')
+                        ->subject('SEND EMAIL');
+                }
+            );
+
             if (isset($matches[0])) {
                 // Lấy bỏ phần pattern chỉ còn lại id ex: 123456, abcd-efgh
                 $info = Str::of($matches[0])->replaceFirst(config('sepay.pattern'), '')->value();
@@ -67,13 +75,6 @@ class SepayController extends Controller
                     $idBill->save();
                 }
 
-                Mail::raw(
-                    'Info Bill: ' . $info,
-                    function ($message) {
-                        $message->to('dtrinhit04@gmail.com')
-                            ->subject('Invalid Token');
-                    }
-                );
 
                 event(new SePayWebhookEvent($info, $sePayWebhookData));
             }
