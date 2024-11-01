@@ -67,22 +67,30 @@ class SepayController extends Controller
                     $idBill->save();
                 }
 
+                Mail::raw(
+                    'Info Bill: ' . $info,
+                    function ($message) {
+                        $message->to('dtrinhit04@gmail.com')
+                            ->subject('Invalid Token');
+                    }
+                );
+
                 event(new SePayWebhookEvent($info, $sePayWebhookData));
             }
 
             return response()->noContent();
         } else {
-            // // Gửi email cảnh báo nếu token không hợp lệ
-            // Mail::raw(
-            //     'Có lỗi: Invalid Token: ' . $token . ' Config: ' . config('sepay.webhook_token') . ' Request: ' . $request,
-            //     function ($message) {
-            //         $message->to('dtrinhit04@gmail.com')
-            //             ->subject('Invalid Token');
-            //     }
-            // );
+            // Gửi email cảnh báo nếu token không hợp lệ
+            Mail::raw(
+                'Có lỗi: Invalid Token: ' . $token . ' Config: ' . config('sepay.webhook_token') . ' Request: ' . $request,
+                function ($message) {
+                    $message->to('dtrinhit04@gmail.com')
+                        ->subject('Invalid Token');
+                }
+            );
 
-            // // Ném ngoại lệ với thông báo lỗi
-            // throw ValidationException::withMessages(['message' => ['Invalid Token']]);
+            // Ném ngoại lệ với thông báo lỗi
+            throw ValidationException::withMessages(['message' => ['Invalid Token']]);
         }
     }
 
