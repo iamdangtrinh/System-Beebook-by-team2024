@@ -18,64 +18,64 @@ class SepayController extends Controller
         $token = $this->bearerToken($request);
 
         if (config('sepay.webhook_token') && $token == config('sepay.webhook_token')) {
-            // Gửi email cảnh báo nếu token không hợp lệ
-            Mail::raw(
-                'Có lỗi: Invalid Token: ' . $token . ' Config: ' . config('sepay.webhook_token') . ' Request: ' . $request,
-                function ($message) {
-                    $message->to('dtrinhit04@gmail.com')
-                        ->subject('Invalid Token');
-                }
+            $sePayWebhookData = new SePayWebhookData(
+                $request->integer('id'),
+                $request->string('gateway')->value(),
+                $request->string('transactionDate')->value(),
+                $request->string('accountNumber')->value(),
+                $request->string('subAccount')->value(),
+                $request->string('code')->value(),
+                $request->string('content')->value(),
+                $request->string('transferType')->value(),
+                $request->string('description')->value(),
+                $request->integer('transferAmount'),
+                $request->string('referenceCode')->value(),
+                $request->integer('accumulated')
             );
 
-            // Ném ngoại lệ với thông báo lỗi
-            throw ValidationException::withMessages(['message' => ['Invalid Token']]);
+            throw_if(
+                SePayTransaction::query()->whereId($sePayWebhookData->id)->exists(),
+                ValidationException::withMessages(['message' => ['transaction này đã thực hiện']])
+            );
+
+            $model = new SePayTransaction();
+            $model->id = $sePayWebhookData->id;
+            $model->gateway = $sePayWebhookData->gateway;
+            $model->transactionDate = $sePayWebhookData->transactionDate;
+            $model->accountNumber = $sePayWebhookData->accountNumber;
+            $model->subAccount = $sePayWebhookData->subAccount;
+            $model->code = $sePayWebhookData->code;
+            $model->content = $sePayWebhookData->content;
+            $model->transferType = $sePayWebhookData->transferType;
+            $model->description = $sePayWebhookData->description;
+            $model->transferAmount = $sePayWebhookData->transferAmount;
+            $model->referenceCode = $sePayWebhookData->referenceCode;
+            $model->save();
+
+            // Lấy ra user id hoặc order id ví dụ: SE_123456, SE_abcd-efgh
+            $pattern = '/\b' . config('sepay.pattern') . '([a-zA-Z0-9-_])+/';
+            preg_match($pattern, $sePayWebhookData->content, $matches);
+
+            if (isset($matches[0])) {
+                // Lấy bỏ phần pattern chỉ còn lại id ex: 123456, abcd-efgh
+                $info = Str::of($matches[0])->replaceFirst(config('sepay.pattern'), '')->value();
+                event(new SePayWebhookEvent($info, $sePayWebhookData));
+            }
+
+            return response()->noContent();
+        } else {
+            // // Gửi email cảnh báo nếu token không hợp lệ
+            // Mail::raw(
+            //     'Có lỗi: Invalid Token: ' . $token . ' Config: ' . config('sepay.webhook_token') . ' Request: ' . $request,
+            //     function ($message) {
+            //         $message->to('dtrinhit04@gmail.com')
+            //             ->subject('Invalid Token');
+            //     }
+            // );
+
+            // // Ném ngoại lệ với thông báo lỗi
+            // throw ValidationException::withMessages(['message' => ['Invalid Token']]);
         }
-
-        $sePayWebhookData = new SePayWebhookData(
-            $request->integer('id'),
-            $request->string('gateway')->value(),
-            $request->string('transactionDate')->value(),
-            $request->string('accountNumber')->value(),
-            $request->string('subAccount')->value(),
-            $request->string('code')->value(),
-            $request->string('content')->value(),
-            $request->string('transferType')->value(),
-            $request->string('description')->value(),
-            $request->integer('transferAmount'),
-            $request->string('referenceCode')->value(),
-            $request->integer('accumulated')
-        );
-
-        throw_if(
-            SePayTransaction::query()->whereId($sePayWebhookData->id)->exists(),
-            ValidationException::withMessages(['message' => ['transaction này đã thực hiện']])
-        );
-
-        $model = new SePayTransaction();
-        $model->id = $sePayWebhookData->id;
-        $model->gateway = $sePayWebhookData->gateway;
-        $model->transactionDate = $sePayWebhookData->transactionDate;
-        $model->accountNumber = $sePayWebhookData->accountNumber;
-        $model->subAccount = $sePayWebhookData->subAccount;
-        $model->code = $sePayWebhookData->code;
-        $model->content = $sePayWebhookData->content;
-        $model->transferType = $sePayWebhookData->transferType;
-        $model->description = $sePayWebhookData->description;
-        $model->transferAmount = $sePayWebhookData->transferAmount;
-        $model->referenceCode = $sePayWebhookData->referenceCode;
-        $model->save();
-
-        // Lấy ra user id hoặc order id ví dụ: SE_123456, SE_abcd-efgh
-        $pattern = '/\b' . config('sepay.pattern') . '([a-zA-Z0-9-_])+/';
-        preg_match($pattern, $sePayWebhookData->content, $matches);
-
-        if (isset($matches[0])) {
-            // Lấy bỏ phần pattern chỉ còn lại id ex: 123456, abcd-efgh
-            $info = Str::of($matches[0])->replaceFirst(config('sepay.pattern'), '')->value();
-            event(new SePayWebhookEvent($info, $sePayWebhookData));
-        }
-
-        return response()->noContent();
     }
 
     /**
