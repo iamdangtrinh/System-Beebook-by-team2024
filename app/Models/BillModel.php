@@ -19,6 +19,7 @@ class BillModel extends Model
         "reason_cancel",
         "total_amount",
         "payment_method",
+        "payment_status",
         "shipping_method",
         "discount",
         "fee_shipping",
