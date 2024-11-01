@@ -17,14 +17,19 @@ class SepayController extends Controller
     {
         $token = $this->bearerToken($request);
 
-        throw_if(
-            config('sepay.webhook_token') && $token !== config('sepay.webhook_token'),
-            Mail::raw('Có lỗi: Invalid Token: ' . $token . ' Config: ' . config('sepay.webhook_token'). ' Request: '. $request, function ($message) {
-                $message->to('dtrinhit84@gmail.com')
-                    ->subject('Invalid Token');
-            }),
-            ValidationException::withMessages(['message' => ['Invalid Token']]),
-        );
+        if (config('sepay.webhook_token') && $token === config('sepay.webhook_token')) {
+            // Gửi email cảnh báo nếu token không hợp lệ
+            Mail::raw(
+                'Có lỗi: Invalid Token: ' . $token . ' Config: ' . config('sepay.webhook_token') . ' Request: ' . $request,
+                function ($message) {
+                    $message->to('dtrinhit04@gmail.com')
+                        ->subject('Invalid Token');
+                }
+            );
+
+            // Ném ngoại lệ với thông báo lỗi
+            throw ValidationException::withMessages(['message' => ['Invalid Token']]);
+        }
 
         $sePayWebhookData = new SePayWebhookData(
             $request->integer('id'),
