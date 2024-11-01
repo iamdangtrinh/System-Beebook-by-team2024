@@ -29,6 +29,7 @@ class SePayWebhookListener
             $user = User::query()->where('id', $event->info)->first();
             if ($user instanceof User) {
                 $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
+                
                 Mail::raw('hello', function ($message) {
                     $message->to('dtrinhit04@gmail.com')
                             ->subject('Hello Email');
