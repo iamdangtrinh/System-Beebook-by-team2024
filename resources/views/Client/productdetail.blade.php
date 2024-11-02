@@ -242,7 +242,7 @@
                                 <div class="display-table-cell medium-up--one-third">
                                     <div class="wishlist-btn">
                                         @if (!auth()->check())
-                                        <a class="wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích">
+                                        <a class="wishlist" href="{{ route('wishlist.index') }}" title="Thêm vào yêu thích">
                                             <i class="icon anm anm-heart-l" aria-hidden="true"></i>
                                             <span>Đăng nhập để thêm vào yêu thích</span>
                                         </a>
@@ -367,7 +367,7 @@
                                 <div class="button-set">
                                     <div class="wishlist-btn">
                                         @if (!auth()->check())
-                                        <a class="wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích"><i
+                                        <a class="wishlist" href="{{ route('wishlist.index') }}" title="Thêm vào yêu thích"><i
                                                     class="icon anm anm-heart-l"></i></a>
                                         @elseif($pro->isFavoritedByUser())
                                         <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $pro->id }}" title="Thêm vào yêu thích"><i

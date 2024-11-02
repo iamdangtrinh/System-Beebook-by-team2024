@@ -222,7 +222,7 @@
                                     <div class="button-set">
                                         <div class="wishlist-btn">
                                             @if (!auth()->check())
-                                            <a class="wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích"><i
+                                            <a class="wishlist" href="{{ route('wishlist.index') }}" title="Thêm vào yêu thích"><i
                                                     class="icon anm anm-heart-l"></i></a>
                                             @elseif($wishlist->product->isFavoritedByUser())
                                             <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $wishlist->product->id }}" title="Thêm vào yêu thích"><i
@@ -292,7 +292,7 @@
                                     <div class="button-set">
                                         <div class="wishlist-btn">
                                             @if (!auth()->check())
-                                            <a class="wishlist" href="{{ asset('/sign-in') }}" title="Thêm vào yêu thích"><i
+                                            <a class="wishlist" href="{{ route('wishlist.index') }}" title="Thêm vào yêu thích"><i
                                                     class="icon anm anm-heart-l"></i></a>
                                             @elseif($product->isFavoritedByUser())
                                             <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích"><i
@@ -350,4 +350,5 @@
     <script src="{{ asset('/') }}client/js/vendor/jquery.cookie.js"></script>
     <script src="{{ asset('/') }}client/js/customShop.js"></script>
     <script src="{{ asset('/') }}client/js/customFavorite.js"></script>
+    <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
     @endsection

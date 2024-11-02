@@ -40,7 +40,7 @@ class WishlistController extends Controller
     public function getWishlist()
     {
         if (!auth()->check()) {
-            session()->flash('error', 'Vui lòng đăng nhập để xem sản phẩm vào yêu thích !');
+            session()->flash('error', 'Vui lòng đăng nhập để xem và thêm sản phẩm yêu thích !');
             return redirect('/sign-in');
         }
 

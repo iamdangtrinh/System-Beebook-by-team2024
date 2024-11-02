@@ -12,8 +12,8 @@ Route::get('/danh-muc/{slug}', [ProductController::class, 'category'])->name('pr
 Route::get('/tac-gia/{slug}', [ProductController::class, 'author'])->name('product.author');
 Route::get('/nha-xuat-ban/{slug}', [ProductController::class, 'manufacturer'])->name('product.manufacturer');
 Route::get('/filter-products', [ProductController::class, 'filter'])->name('products.filter');
+Route::get('/yeu-thich', [WishlistController::class, 'getWishlist'])->name('wishlist.index');
 Route::middleware('auth')->group(function () {
     Route::post('/wishlist/toggle/{idproduct}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
     Route::post('/wishlist/remove', [WishlistController::class, 'remove'])->name('wishlist.remove');
-    Route::get('/yeu-thich', [WishlistController::class, 'getWishlist'])->name('wishlist.index');
 });
