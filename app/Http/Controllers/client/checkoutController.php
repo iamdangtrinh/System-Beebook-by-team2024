@@ -93,9 +93,14 @@ class CheckoutController extends Controller
     function checkStatus(Request $request)
     {
         $payload = $request->except(['_token']);
+
+        if (!$payload || !isset($payload['id']) || !is_numeric($payload['id'])) {
+            die('access denied');
+        }
+
         $bill = BillModel::select('payment_status')
             ->where('id', $payload['id'])
-            ->where('payment_status', 'PAID')
+            // ->where('payment_status', 'PAID')
             ->first();
         return $bill;
         // $resultBill = BillModel::where('id', $idBill)->firstOrFail();
