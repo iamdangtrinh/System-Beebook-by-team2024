@@ -27,8 +27,9 @@
     <link rel="stylesheet" href="{{ asset('/') }}client/css/responsive.css?ver=@php echo CSS_VER @endphp">
     <link rel="stylesheet" href="{{ asset('/') }}client/css/custom_css.css?ver=@php echo CSS_VER @endphp">
 
-    <!-- Hoãn tải JavaScript -->
     <script src="{{ asset('/') }}client/js/jquery.min.js"></script>
+
+    <!-- Hoãn tải JavaScript -->
     <script src="{{ asset('/') }}client/js/lib/toastr.js?ver=@php echo CSS_VER @endphp"></script>
     <script src="{{ asset('/') }}client/js/lib/sweetalert2.js?ver=@php echo CSS_VER @endphp"></script>
     <script src="{{ asset('/') }}client/js/lib/swiper/swiper-bundle.min.js?ver=@php echo CSS_VER @endphp"></script>

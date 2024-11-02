@@ -86,4 +86,19 @@ class CheckoutController extends Controller
 
         return view('Client.qr-payment', compact('order_details'));
     }
+
+    // hàm tìm payment status của đơn hàng
+    // gửi email cho đơn hàng
+    // chuyển về trang thank you
+    function checkStatus(Request $request)
+    {
+        $payload = $request->except(['_token']);
+        $bill = BillModel::select('payment_status')
+            ->where('id', $payload['id'])
+            ->where('payment_status', 'PAID')
+            ->first();
+        return $bill;
+        // $resultBill = BillModel::where('id', $idBill)->firstOrFail();
+        // return view('Client.thankyou', compact(['resultBill']));
+    }
 }
