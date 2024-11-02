@@ -13,6 +13,7 @@ use App\Services\Interfaces\CartServiceInterface as CartService;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -98,12 +99,16 @@ class CheckoutController extends Controller
             die('access denied');
         }
 
-        $bill = BillModel::select('payment_status')
+        $bill = BillModel::select(['payment_status', 'email'])
             ->where('id', $payload['id'])
             // ->where('payment_status', 'PAID')
             ->first();
-        return $bill;
-        // $resultBill = BillModel::where('id', $idBill)->firstOrFail();
-        // return view('Client.thankyou', compact(['resultBill']));
+
+        if ($bill->payment_status === 'PAID') {
+            Mail::to($bill->email)->send(new \App\Mail\sendEmailOrder($payload['id']));
+            // break;
+        }
+
+        return $bill->payment_status;
     }
 }
