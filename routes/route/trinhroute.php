@@ -37,7 +37,7 @@ Route::prefix('admin')->group(function () {
 // hiển thị qr thanh toán đơn hàng
 // Route::match(['get', 'post'], '/order', [CheckoutController::class, 'index'])->name('order.index');
 Route::get('/order/{id}', [CheckoutController::class, 'show'])->name('order.show');
-Route::get('/order-check-status/{id}', [CheckoutController::class, 'show'])->name('order.show');
+Route::post('/order-check-status', [CheckoutController::class, 'checkStatus'])->name('order.checkStatus');
 
 // đơn hàng
 Route::get('your-order', [checkoutController::class, 'index'])->name('your-order.index')->middleware('CheckLogin');
