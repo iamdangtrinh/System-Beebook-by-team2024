@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
 
 @php
-define('CSS_VER', '1.0.2');
+    define('CSS_VER', '1.0.1');
 @endphp
 
 <head>
@@ -19,19 +19,23 @@ define('CSS_VER', '1.0.2');
         content="Sách tiếng Việt - Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách." />
     <meta property="og:image" content="{{ asset('/') }}client/images/favicon.png" />
     <link rel="shortcut icon" href="{{ asset('/') }}client/images/favicon-beebook.webp" />
+
+    <!-- Tối ưu hóa CSS -->
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/plugins.css?ver=@php echo CSS_VER @endphp"
+        media="print">
     <link rel="stylesheet" href="{{ asset('/') }}client/css/plugins.css?ver=@php echo CSS_VER @endphp">
-    <!-- Bootstap CSS -->
     <link rel="stylesheet" href="{{ asset('/') }}client/css/bootstrap.min.css?ver=@php echo CSS_VER @endphp">
-    <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('/') }}client/css/style.css?ver=@php echo CSS_VER @endphp">
     <link rel="stylesheet" href="{{ asset('/') }}client/css/responsive.css?ver=@php echo CSS_VER @endphp">
     <link rel="stylesheet" href="{{ asset('/') }}client/css/custom_css.css?ver=@php echo CSS_VER @endphp">
-
-    <script src="{{ asset('/') }}client/js/jquery.min.js"></script>
+    <link rel="stylesheet"
+        href="{{ asset('/') }}client/js/lib/swiper/swiper-bundle.min.css?ver=@php echo CSS_VER @endphp">
+    <link rel="stylesheet" href="{{ asset('/') }}client/js/lib/toastr.css?ver=@php echo CSS_VER @endphp">
 
     <!-- Hoãn tải JavaScript -->
-    <script src="{{ asset('/') }}client/js/lib/toastr.js?ver=@php echo CSS_VER @endphp"></script>
-    <script src="{{ asset('/') }}client/js/lib/sweetalert2.js?ver=@php echo CSS_VER @endphp"></script>
+    <script src="{{ asset('/') }}client/js/jquery.min.js"></script>
+    <script src="{{ asset('/') }}client/js/lib/toastr.js?ver=@php echo CSS_VER @endphp" defer></script>
+    <script src="{{ asset('/') }}client/js/lib/sweetalert2.js?ver=@php echo CSS_VER @endphp" defer></script>
     <script src="{{ asset('/') }}client/js/lib/swiper/swiper-bundle.min.js?ver=@php echo CSS_VER @endphp"></script>
 
     <!-- Google tag (gtag.js) -->
@@ -50,15 +54,6 @@ define('CSS_VER', '1.0.2');
 
 <body class="template belle">
     <div class="pageWrapper">
-        <div class="search">
-            <div class="search__form">
-                <form class="search-bar__form" action="#">
-                    <button class="go-btn search__button" type="submit"><i class="icon anm anm-search-l"></i></button>
-                    <input class="search__input" type="search" name="q" value="" placeholder="Bạn cần tìm gì..." aria-label="Search" autocomplete="off">
-                </form>
-                <button type="button" class="search-trigger close-btn"><i class="anm anm-times-l"></i></button>
-            </div>
-        </div>
         <!--Top Header-->
         <div style="background-color: #CE2626" class="top ">
             <div class="container ">
@@ -81,28 +76,28 @@ define('CSS_VER', '1.0.2');
                                 <i class="icon anm anm-user-circle"></i>
                                 <ul class="dropdown" style="top:30px">
                                     @if (Auth::check())
-                                    <li><a href="/profile" class="site-nav">
-                                            <i class="icon anm anm-user-circle"></i>
-                                            Hồ sơ
-                                        </a>
-                                    </li>
-                                    <li><a href="#" class="site-nav">
-                                            <i class="icon anm anm-cart-r"></i>
-                                            Đơn hàng của tôi </a>
-                                    </li>
-                                    <li><a href="{{ asset('/yeu-thich') }}" class="site-nav">
-                                            <i class="icon anm anm-heart-r"></i>
-                                            Sản phẩm yêu thích </a>
-                                    </li>
-                                    <li><a href="/logout" class="site-nav">
-                                            <i class="icon anm anm-sign-out-ar"></i>
-                                            Đăng xuất </a>
-                                    </li>
+                                        <li><a href="/profile" class="site-nav">
+                                                <i class="icon anm anm-user-circle"></i>
+                                                Hồ sơ
+                                            </a>
+                                        </li>
+                                        <li><a href="#" class="site-nav">
+                                                <i class="icon anm anm-cart-r"></i>
+                                                Đơn hàng của tôi </a>
+                                        </li>
+                                        <li><a href="{{ asset('/yeu-thich') }}" class="site-nav">
+                                                <i class="icon anm anm-heart-r"></i>
+                                                Sản phẩm yêu thích </a>
+                                        </li>
+                                        <li><a href="/logout" class="site-nav">
+                                                <i class="icon anm anm-sign-out-ar"></i>
+                                                Đăng xuất </a>
+                                        </li>
                                     @else
-                                    <li><a href="{{ asset('/sign-in') }}" class="site-nav">Đăng nhập </a>
-                                    </li>
-                                    <li><a href="{{ asset('/sign-up') }}" class="site-nav">Đăng ký </a>
-                                    </li>
+                                        <li><a href="{{ asset('/sign-in') }}" class="site-nav">Đăng nhập </a>
+                                        </li>
+                                        <li><a href="{{ asset('/sign-up') }}" class="site-nav">Đăng ký </a>
+                                        </li>
                                     @endif
                                 </ul>
                             </li>
@@ -140,36 +135,40 @@ define('CSS_VER', '1.0.2');
                                             class="anm anm-angle-down-l"></i></a></li>
 
                                 @php
-                                $categories_header = \App\Models\CategoryProduct::where('parent_id', null)
-                                ->where('status', 'active')
-                                ->with([
-                                'children' => function ($query) {
-                                $query->where('status', 'active');
-                                },
-                                ])
-                                ->get();
+                                    $categories_header = \App\Models\CategoryProduct::where('parent_id', null)
+                                        ->where('status', 'active')
+                                        ->with([
+                                            'children' => function ($query) {
+                                                $query->where('status', 'active');
+                                            },
+                                        ])
+                                        ->get();
                                 @endphp
 
                                 <li class="lvl1 parent dropdown"><a href="#">Danh mục <i
                                             class="anm anm-angle-down-l"></i></a>
                                     <ul class="dropdown">
-                                        @foreach ($categories_header as $parentCategory)
-                                        <li><a href="{{ url('danh-muc/' . $parentCategory->slug) }}"
-                                                class="site-nav">{{ $parentCategory->name }} <i
-                                                    class="anm anm-angle-right-l"></i></a>
+                                        @foreach ($result_category as $parentCategory)
                                             @if ($parentCategory->children->isNotEmpty())
-                                            <ul class="dropdown">
-                                                @foreach ($parentCategory->children as $childCategory)
-                                                <li><a href="{{ url('danh-muc/' . $childCategory->slug) }}"
-                                                        class="site-nav">{{ $childCategory->name }}</a>
+                                                <li><a href="{{ url('danh-muc/' . $parentCategory->slug) }}"
+                                                        class="site-nav">{{ $parentCategory->name }} <i
+                                                            class="anm anm-angle-right-l"></i></a>
+                                                    <ul class="dropdown">
+                                                        @foreach ($parentCategory->children as $childCategory)
+                                                            <li><a href="{{ url('danh-muc/' . $childCategory->slug) }}"
+                                                                    class="site-nav">{{ $childCategory->name }}</a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
                                                 </li>
-                                                @endforeach
-                                            </ul>
+                                                {{-- @else
+                                        <li><a href="{{ url('danh-muc/' . $parentCategory->slug) }}"
+                                                class="site-nav">{{ $parentCategory->name }}</a></li> --}}
                                             @endif
-                                        </li>
                                         @endforeach
                                     </ul>
                                 </li>
+
 
                                 <li class="lvl1 parent megamenu"><a href="{{ route('product.index') }}">Cửa hàng</a>
                                 </li>
@@ -207,23 +206,24 @@ define('CSS_VER', '1.0.2');
                                 <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">
                                     {{-- đếm cart --}}
                                     @php
-                                    if (\Auth::check()) {
-                                    $user = \Auth::user();
-                                    $cartItems = \DB::table('carts')
-                                    ->select(['id'])
-                                    ->where('id_user', $user->id)
-                                    ->get();
-                                    $cartCount = $cartItems->count();
-                                    } else {
-                                    $cartCount = session()->has('cart') ? count(session()->get('cart')) : 0;
-                                    }
+                                        if (\Auth::check()) {
+                                            $user = \Auth::user();
+                                            $cartItems = \DB::table('carts')
+                                                ->select(['id'])
+                                                ->where('id_user', $user->id)
+                                                ->get();
+                                            $cartCount = $cartItems->count();
+                                        } else {
+                                            $cartCount = session()->has('cart') ? count(session()->get('cart')) : 0;
+                                        }
                                     @endphp
                                     {{ $cartCount }}
                                 </span>
                             </a>
                         </div>
                         <div class="site-header__search">
-                            <button type="button" class="search-trigger"><i class="icon anm anm-search-l"></i></button>
+                            <button type="button" class="search-trigger"><i
+                                    class="icon anm anm-search-l"></i></button>
                         </div>
 
 
@@ -281,28 +281,28 @@ define('CSS_VER', '1.0.2');
                 <li class="lvl1 parent megamenu"><a href="index.html">Tài Khoản <i class="anm anm-plus-l"></i></a>
                     <ul>
                         @if (Auth::check())
-                        <li><a href="/profile" class="site-nav">
-                                <i class="icon anm anm-user-circle"></i>
-                                Hồ sơ
-                            </a>
-                        </li>
-                        <li><a href="#" class="site-nav">
-                                <i class="icon anm anm-cart-r"></i>
-                                Đơn hàng của tôi </a>
-                        </li>
-                        <li><a href="#" class="site-nav">
-                                <i class="icon anm anm-heart-r"></i>
-                                Sản phẩm yêu thích </a>
-                        </li>
-                        <li><a href="/logout" class="site-nav">
-                                <i class="icon anm anm-sign-out-ar"></i>
-                                Đăng xuất </a>
-                        </li>
+                            <li><a href="/profile" class="site-nav">
+                                    <i class="icon anm anm-user-circle"></i>
+                                    Hồ sơ
+                                </a>
+                            </li>
+                            <li><a href="#" class="site-nav">
+                                    <i class="icon anm anm-cart-r"></i>
+                                    Đơn hàng của tôi </a>
+                            </li>
+                            <li><a href="#" class="site-nav">
+                                    <i class="icon anm anm-heart-r"></i>
+                                    Sản phẩm yêu thích </a>
+                            </li>
+                            <li><a href="/logout" class="site-nav">
+                                    <i class="icon anm anm-sign-out-ar"></i>
+                                    Đăng xuất </a>
+                            </li>
                         @else
-                        <li><a href="{{ asset('/sign-in') }}" class="site-nav">Đăng nhập </a>
-                        </li>
-                        <li><a href="{{ asset('/sign-up') }}" class="site-nav">Đăng ký </a>
-                        </li>
+                            <li><a href="{{ asset('/sign-in') }}" class="site-nav">Đăng nhập </a>
+                            </li>
+                            <li><a href="{{ asset('/sign-up') }}" class="site-nav">Đăng ký </a>
+                            </li>
                         @endif
                     </ul>
                 </li>
