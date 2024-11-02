@@ -7,7 +7,7 @@
                 <h1 style="font-weight: bold; color: #C92127; padding: 18px 20px 12px 20px; border-bottom: 1px solid #F6F6F6 ">TÀI KHOẢN</h1>
                 <div style="padding: 8px 10px" class="d-flex flex-column gap-1">
                     <a href="/profile" class="hover-item">Thông tin tài khoản</a>
-                    <a href="{{route('order.index')}}" class="hover-item" >Đơn hàng của tôi</a>
+                    <a href="{{route('your-order.index')}}" class="hover-item" >Đơn hàng của tôi</a>
                   </div>
         </div>
     </div>

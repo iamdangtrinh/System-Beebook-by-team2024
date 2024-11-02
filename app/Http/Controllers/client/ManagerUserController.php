@@ -46,4 +46,8 @@ class ManagerUserController extends Controller
     public function HandleConfirm($token){
         return view('Client.confirmPassword',compact('token'));
     }
+
+    public function yourOrder() {
+        return view('Client.your-order');
+    }
 }

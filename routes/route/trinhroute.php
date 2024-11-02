@@ -7,6 +7,7 @@ use App\Http\Controllers\client\cartController;
 use App\Http\Controllers\client\checkoutController;
 use App\Http\Controllers\client\ClientController;
 use App\Http\Controllers\client\getLocationGHNContronller;
+use App\Http\Controllers\Client\ManagerUserController;
 use Illuminate\Support\Facades\Route;
 use App\Payments\Casso;
 use Illuminate\Support\Facades\Cache;
@@ -40,7 +41,8 @@ Route::get('/order/{id}', [CheckoutController::class, 'show'])->name('order.show
 Route::post('/order-check-status', [CheckoutController::class, 'checkStatus'])->name('order.checkStatus');
 
 // đơn hàng
-Route::get('your-order', [checkoutController::class, 'index'])->name('your-order.index')->middleware('CheckLogin');
+Route::get('/profile/your-order', [ManagerUserController::class, 'yourOrder'])->name('your-order.index')->middleware('CheckLogin');
+Route::get('/profile/your-order/{id}', [ManagerUserController::class, 'yourOrder'])->name('your-order-detail.index')->middleware('CheckLogin');
 
 Route::get('/redis-test', function () {
       Cache::store('redis')->put('test_key', 'Hello Redis', 10);
