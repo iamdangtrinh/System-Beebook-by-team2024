@@ -17,9 +17,11 @@
                     if (response.status === 'added') {
                         $this.find('i').removeClass('anm-heart-l').addClass('anm-heart text-danger');
                         $this.find('span').text('Đã thêm sản phẩm vào yêu thích');
+                        toastr.success(`Đã thêm sản phẩm vào yêu thích!`);
                     } else {
                         $this.find('i').removeClass('anm-heart text-danger').addClass('anm-heart-l');
                         $this.find('span').text('Thêm vào yêu thích');
+                        toastr.error(`Đã xóa sản phẩm khỏi yêu thích`);
                     }
                 },
             });

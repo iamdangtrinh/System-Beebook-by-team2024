@@ -8,6 +8,7 @@
                 <div style="padding: 8px 10px" class="d-flex flex-column gap-1">
                     <a href="/profile" class="hover-item">Thông tin tài khoản</a>
                     <a href="{{route('your-order.index')}}" class="hover-item" >Đơn hàng của tôi</a>
+                    <a href="{{route('wishlist.index')}}" class="hover-item" >Sản phẩm yêu thích</a>
                   </div>
         </div>
     </div>

@@ -101,7 +101,7 @@
                                                 <div class="button-set">
                                                     <div class="wishlist-btn">
                                                         @if (!auth()->check())
-                                                            <a class="wishlist" href="{{ asset('/sign-in') }}"
+                                                            <a class="wishlist" href="{{ route('wishlist.index') }}"
                                                                 title="Thêm vào yêu thích"><i
                                                                     class="icon anm anm-heart-l"></i></a>
                                                         @elseif($product->isFavoritedByUser())
@@ -214,7 +214,7 @@
                                             <div class="button-set">
                                                 <div class="wishlist-btn">
                                                     @if (!auth()->check())
-                                                        <a class="wishlist" href="{{ asset('/sign-in') }}"
+                                                        <a class="wishlist" href="{{ route('wishlist.index') }}"
                                                             title="Thêm vào yêu thích"><i
                                                                 class="icon anm anm-heart-l"></i></a>
                                                     @elseif($product->isFavoritedByUser())
@@ -427,4 +427,5 @@
         });
     </script>
     <script src="{{ asset('/') }}client/js/customFavorite.js"></script>
+    <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
 @endsection

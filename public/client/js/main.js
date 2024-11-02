@@ -119,7 +119,28 @@
        }
     }
 	
+	/*-----------------------------------------
+	  8. Search Trigger -----------------------
+	  ----------------------------------------- */
+	  function search_bar(){
+		$('.search-trigger').on('click', function () {
+			const search = $('.search');
 	
+			if (search.is('.search--opened')) {
+				search.removeClass('search--opened');
+			} else {
+				search.addClass('search--opened');
+				$('.search__input')[0].focus();
+			}
+		});
+	}
+	search_bar();
+	$(document).on('click', function (event) {
+		if (!$(event.target).closest('.search, .search-trigger').length) {
+			$('.search').removeClass('search--opened');
+		}
+	});
+
 	/*-----------------------------------------
 	  9. Mobile Menu --------------------------
 	  -----------------------------------------*/
