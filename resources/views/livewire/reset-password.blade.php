@@ -19,19 +19,6 @@
                 </div>
 
             </div>
-            <div class="col-12 position-relative">
-                <div class="form-group">
-                    <label for="CustomerEmail">Số điện thoại</label>
-                    <input wire:model.live="phone" class="rounded-1" placeholder="Số điện thoại"
-                        id="CustomerEmail" autocorrect="off" autocapitalize="off" autofocus="">
-                    @error('phone')
-                        <span class="error text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
-            @if (session('successReset'))
-            <div class="alert alert-success"> {{ session('successReset') }}</div>
-        @endif
         @if (session('errorReset'))
             <span class="error text-danger"> {{ session('errorReset') }}</span>
         @endif
