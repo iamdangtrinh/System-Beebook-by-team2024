@@ -16,9 +16,9 @@ class ProductsSeeder extends Seeder
             // Gửi yêu cầu HTTP tới API Fahasa với retry và headers
             $response = Http::withHeaders([
                 'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
-            ])->retry(3, 1000) // Thử lại 3 lần, mỗi lần cách nhau 1000ms
-            //   ->get('https://www.fahasa.com/tabslider/index/getdata/?limit=200');
+            ])->retry(3, 1000)
               ->get('https://www.fahasa.com/fahasa_catalog/product/loadproducts?category_id=6718&currentPage=2&limit=400&order=num_orders');
+
             // Kiểm tra xem yêu cầu có thành công không
             if ($response->successful()) {
                 $data = $response->json();
@@ -27,18 +27,28 @@ class ProductsSeeder extends Seeder
                 $statuses = ['active', 'inactive'];
 
                 foreach ($data['product_list'] as $item) {
+                    // Kiểm tra nếu product_name trống thì bỏ qua
+                    if (empty($item['product_name'])) {
+                        continue; // Bỏ qua vòng lặp này
+                    }
+
                     $name = $item['product_name'];
-                    // $name = $item['name_a_label'];
-                    $image_src = $item['image_src'];
                     $slug = Str::slug($name);
                     $status = Arr::random($statuses);
 
-                    // Lấy URL hình ảnh từ item
                     $image_src = $item['image_src'];
-                    // Tải hình ảnh về và lưu vào thư mục
-                    $imagePath = $this->downloadImage($image_src);
 
-                    // Đảm bảo các trường có giá trị hợp lệ
+                    // Kiểm tra kích thước hình ảnh trước khi tải về
+                    $imagePath = null; // Mặc định là null
+                    if ($this->isValidImage($image_src)) {
+                        $imagePath = $this->downloadImage($image_src);
+                    }
+
+                    // Nếu $imagePath không hợp lệ hoặc lớn hơn 100 ký tự, bỏ qua
+                    if ($imagePath === null || strlen($imagePath) > 100) {
+                        $imagePath = null; // Đặt lại về null
+                    }
+
                     $product = [
                         'id_category' => rand(1, 21),
                         'name' => $name,
@@ -75,6 +85,22 @@ class ProductsSeeder extends Seeder
         }
     }
 
+    // Hàm kiểm tra kích thước hình ảnh
+    private function isValidImage($url)
+    {
+        // Lấy header của URL để kiểm tra kích thước
+        $headers = get_headers($url, 1);
+
+        // Kiểm tra xem có thông tin kích thước hay không
+        if (isset($headers['Content-Length'])) {
+            $size = (int) $headers['Content-Length'];
+            return $size > 0 && $size <= 100 * 1024; // Kích thước tối đa là 100 KB
+        }
+
+        return false; // Không hợp lệ nếu không có kích thước
+    }
+
+    // Hàm tải hình ảnh về và lưu vào thư mục
     private function downloadImage($url)
     {
         // Đường dẫn lưu hình ảnh
