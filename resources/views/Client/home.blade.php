@@ -287,6 +287,7 @@
                             <a class="article_featured-image" href="/posts/{{ $blog['slug'] }}"><img
                                     class="blur-up lazyload" src="no_image.jpg" alt="It's all about how you wear"></a>
                             <h2 class="h3"><a href="blog-left-sidebar.html">{{ $blog['title'] }}</a></h2>
+                            <p>{{ $blog['tags'] }}</p>
                             <ul class="publish-detail">
                                 <li><i class="anm anm-eye" aria-hidden="true"></i>{{ $blog['views'] }}</li>
                                 <li><i class="icon anm anm-clock-r"></i> <time
