@@ -131,17 +131,7 @@
                             </div>
                           </div>
                     </div>
-                    <div class="sidebar_widget tags-clouds">
-                        <div class="widget-title"><h2>Tags Cloud</h2></div>
-                        <div class="widget-content">
-                            <ul>
-                              @foreach ( $blogs as $blog )
-                                
-                              <li><a href="#">{{ $blog['tags'] }}</a></li>
-                              @endforeach
-                            </ul>
-                          </div>
-                    </div>
+                    
                 </div>
             </div>
             <!--End Sidebar-->
@@ -160,6 +150,7 @@
                             <!-- Article Image --> 
                              <a class="article_featured-image" href="/posts/{{$blog['slug']}}"><img class="blur-up lazyload" data-src="{{asset('/')}}client/images/blog/blog-post-1.jpg" src="{{asset('/')}}client/images/blog/blog-post-1.jpg" alt="It's all about how you wear"></a> 
                             <h2 class="h3"><a href="blog-left-sidebar.html">{{ $blog['title'] }}</a></h2>
+                            <p>{{ $blog['tags'] }}</p>
                             <ul class="publish-detail">                      
                                 <li><i class="anm anm-eye" aria-hidden="true"></i>{{ $blog['views'] }}</li>
                                 <li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">{{ $blog['updated_at'] }}</time></li>
