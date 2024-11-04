@@ -4,49 +4,118 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Symfony\Component\DomCrawler\Crawler;
 
 class PostSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $postTypes = ['review', 'blog'];
         $statuses = ['active', 'inactive'];
         $tags = ['Sách khoa học', 'Tâm lý', 'Viễn tưởng', 'Phát triển bản thân'];
-        
-        for ($i = 0; $i < 100; $i++) {
-            $title = 'Bài viết số ' . ($i + 1);
-            $slug = Str::slug($title);
-            $content = 'Nội dung của bài viết số ' . ($i + 1);
-            $postType = Arr::random($postTypes);
-            $status = Arr::random($statuses);
-            $image = 'post_image_' . ($i + 1) . '.jpg'; // Giả sử bạn có hình ảnh demo
-            $metaTitle = 'Meta Title ' . ($i + 1);
-            $metaDescription = 'Meta Description cho bài viết số ' . ($i + 1);
-            $views = rand(0, 1000);
-            $hot = rand(0, 1);
-            $idUser = rand(1, 10); // Giả sử bạn có từ 1 đến 10 người dùng
 
-            DB::table('posts')->insert([
-                'post_type' => $postType,
-                'title' => $title,
-                'content' => $content,
-                'views' => $views,
-               'tags' => implode(',', Arr::random($tags, 2)), // Nối các tag thành chuỗi
-                'image' => $image,
-                'slug' => $slug,
-                'status' => $status,
-                'hot' => $hot,
-                'meta_title_seo' => $metaTitle,
-                'meta_description_seo' => $metaDescription,
-                'id_user' => $idUser,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+        // Loop through pages from 1 to 15
+        for ($page = 1; $page <= 15; $page++) {
+            $this->fetchArticles($page, $postTypes, $statuses, $tags);
         }
+    }
+
+    private function fetchArticles($page, $postTypes, $statuses, $tags)
+    {
+        $url = "https://www.alphabooks.vn/tin-tuc?page=$page";
+        $response = Http::get($url);
+
+        if ($response->successful()) {
+            $crawler = new Crawler($response->body());
+            $articles = $crawler->filter('.item_blog_base');
+
+            foreach ($articles as $article) {
+                $articleCrawler = new Crawler($article);
+                $title = $articleCrawler->filter('.a-title')->attr('title');
+                $slug = $articleCrawler->filter('.a-title')->attr('href');
+                $image = $articleCrawler->filter('.thumb img')->attr('data-src'); // Corrected here
+                $description = $articleCrawler->filter('.content_blog p')->text();
+                $pathUrl = $this->downloadImage($image);
+                // Fetch article details
+                $content = $this->fetchArticleDetails($slug);
+
+                // Ensure title and content are not empty
+                if (!empty($title) && !empty($content)) {
+                    $metaTitleSeo = "Meta Title for $title"; // Generate meta title
+                    // Check the length of meta_title_seo
+                    if (strlen($metaTitleSeo) >= 100) {
+                        echo "Bỏ qua bài viết: $title vì meta_title_seo quá dài.\n";
+                        continue; // Skip this article
+                    }
+
+                    // Insert each article directly into the database
+                    DB::table('posts')->insert([
+                        'post_type' => Arr::random($postTypes),
+                        'title' => $title,
+                        'content' => $content,
+                        'views' => rand(0, 1000),
+                        'tags' => implode(',', Arr::random($tags, 2)), // Concatenate tags
+                        'image' => $pathUrl,
+                        'slug' => Str::slug($title),
+                        'status' => Arr::random($statuses),
+                        'hot' => rand(0, 1),
+                        'meta_title_seo' => $metaTitleSeo,
+                        'meta_description_seo' => "Meta Description for $title",
+                        'id_user' => rand(1, 10), // Assume you have between 1 and 10 users
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                    echo "Đã chèn bài viết: $title\n"; // Log each inserted article
+                }
+            }
+        } else {
+            echo "Lỗi khi lấy dữ liệu từ trang: $url\n";
+        }
+    }
+
+    private function downloadImage($url)
+    {
+        // Remove query parameters from the URL
+        $urlWithoutQuery = strtok($url, '?'); // Get the URL before the '?'
+        
+        // Path to save images
+        $imageDirectory = public_path('userfiles/posts/');
+        $imageName = basename($urlWithoutQuery); // Use the URL without query
+        $imagePath = $imageDirectory . $imageName;
+
+        // Create directory if it does not exist
+        if (!file_exists($imageDirectory)) {
+            mkdir($imageDirectory, 0777, true);
+        }
+
+        // Get image content and save to file
+        try {
+            $imageContent = file_get_contents($urlWithoutQuery);
+            if ($imageContent === false) {
+                throw new \Exception('Unable to download image from ' . $urlWithoutQuery);
+            }
+            file_put_contents($imagePath, $imageContent);
+            return 'userfiles/posts/' . $imageName; // Return relative path
+        } catch (\Exception $e) {
+            // Handle error if unable to download image
+            $this->command->error('Error downloading image: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    private function fetchArticleDetails($slug)
+    {
+        $url = "https://www.alphabooks.vn$slug";
+        $response = Http::get($url);
+
+        if ($response->successful()) {
+            $crawler = new Crawler($response->body());
+            return $crawler->filter('.article-content')->html();
+        }
+
+        return ''; // Return empty if not successful
     }
 }
