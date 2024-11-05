@@ -19,6 +19,8 @@ $currentSegment = Request::segment(2);
 
     <link href="{{ asset('/') }}backend/css/animate.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/style.css" rel="stylesheet">
+    <link href="{{ asset('/') }}backend/css/style.css" rel="stylesheet">
+    <link href="{{ asset('/') }}backend/css/custom.css" rel="stylesheet">
 
     <link href="{{ asset('/') }}backend/css/custom.css" rel="stylesheet">
     <script src="{{ asset('/') }}backend/js/jquery-3.1.1.min.js"></script>
@@ -32,13 +34,11 @@ $currentSegment = Request::segment(2);
                 <ul class="nav metismenu" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element"> <span>
-                                <img alt="image" class="img-circle" src="/no_image.jpg" />
+                                <img alt="image" class="img-circle" src="/client/images/logo.webp" />
                             </span>
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Bee Book</strong></span>
                         </div>
-                        <div class="logo-element">
-                            Bee Book
-                        </div>
+                     
                     </li>
 
                     <li class="active"><a href={{ route('overview.index') }}><i class="fa fa-th-large"></i> <span

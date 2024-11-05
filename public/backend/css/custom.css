@@ -7,3 +7,27 @@ a {
 .metismenu li {
       width: 100%;
 }
+
+.profile-element .img-circle {
+      width: 150px;
+      border-radius: 0;
+}
+
+.sidebar-content .wrapper,
+.wrapper.sidebar-content {
+      padding: 20px !important;
+}
+
+.cus_tom_label {
+      display: inline-block;
+      padding: 8px;
+}
+
+th,
+td {
+      font-size: 13px;
+}
+
+.__custom_btn_group a {
+      font-size: 13px;
+}
