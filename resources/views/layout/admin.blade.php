@@ -15,7 +15,7 @@ $currentSegment = Request::segment(2);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>INSPINIA | Dashboard v.3</title>
+    <title>Bee Book | Quản trị</title>
 
     <link href="{{ asset('/') }}backend/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/font-awesome/css/font-awesome.css" rel="stylesheet">
