@@ -17,7 +17,7 @@ class ProductsSeeder extends Seeder
             $response = Http::withHeaders([
                 'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
             ])->retry(3, 1000)
-              ->get('https://www.fahasa.com/fahasa_catalog/product/loadproducts?category_id=6718&currentPage=2&limit=400&order=num_orders');
+              ->get('https://www.fahasa.com/fahasa_catalog/product/loadproducts?category_id=6718&currentPage=1&limit=400&order=num_orders');
 
             // Kiểm tra xem yêu cầu có thành công không
             if ($response->successful()) {
@@ -49,18 +49,27 @@ class ProductsSeeder extends Seeder
                         $imagePath = null; // Đặt lại về null
                     }
 
+                    $quantity = isset($item['sold_qty']) ? $item['sold_qty'] : rand(0, 1000);
+                    $price = isset($item['product_price']) ? str_replace('.', '', $item['product_price']) : rand(10000, 20000);
+                    $sale_price = isset($item['product_finalprice']) ? str_replace('.', '', $item['product_finalprice']) : null;
+                    
+
+                    echo "số lượng sản phẩm: ". $quantity;
+                    echo "Giá sản sản phẩm: ". $price;
+                    echo "Giá sale sản phẩm: ". $sale_price;
+
                     $product = [
                         'id_category' => rand(1, 21),
                         'name' => $name,
                         'description' => $name,
                         'slug' => $slug,
                         'status' => $status,
-                        'quantity' => isset($item['sold_qty']) ? (int) $item['sold_qty'] : rand(0, 1000),
+                        'quantity' => $quantity,
                         'url_video' => null,
                         'image_cover' => $imagePath,
                         'views' => rand(0, 5000),
-                        'price' => isset($item['price']) ? (int) floor($item['price']) : rand(10000, 20000),
-                        'price_sale' => isset($item['final_price']) ? (int) floor($item['final_price']) : null,
+                        'price' => $price,
+                        'price_sale' => $sale_price,
                         'hot' => (bool)rand(0, 1),
                         'meta_seo' => $name,
                         'description_seo' => $name,
