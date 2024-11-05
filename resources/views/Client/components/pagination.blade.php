@@ -14,9 +14,27 @@
                 </li>
             @endif
 
-            {{-- Page numbers --}}
-            @foreach ($paginator->getUrlRange(1, $paginator->lastPage()) as $page => $url)
-                @if ($page == $paginator->currentPage())
+            {{-- Page numbers with ellipses --}}
+            @php
+                $currentPage = $paginator->currentPage();
+                $lastPage = $paginator->lastPage();
+                $startPage = max(1, $currentPage - 2);
+                $endPage = min($lastPage, $currentPage + 2);
+            @endphp
+
+            {{-- First Page --}}
+            @if ($startPage > 1)
+                <li class="page-item">
+                    <a class="page-link text-danger" href="{{ route($routeName, 1) }}">1</a>
+                </li>
+                @if ($startPage > 2)
+                    <li class="page-item disabled" aria-disabled="true"><span class="page-link text-danger">...</span></li>
+                @endif
+            @endif
+
+            {{-- Page Range --}}
+            @foreach (range($startPage, $endPage) as $page)
+                @if ($page == $currentPage)
                     <li class="page-item active" aria-current="page">
                         <span class="page-link bg-danger border-danger">{{ $page }}</span>
                     </li>
@@ -26,6 +44,16 @@
                     </li>
                 @endif
             @endforeach
+
+            {{-- Last Page --}}
+            @if ($endPage < $lastPage)
+                @if ($endPage < $lastPage - 1)
+                    <li class="page-item disabled" aria-disabled="true"><span class="page-link text-danger">...</span></li>
+                @endif
+                <li class="page-item">
+                    <a class="page-link text-danger" href="{{ route($routeName, $lastPage) }}">{{ $lastPage }}</a>
+                </li>
+            @endif
 
             {{-- "Next" button --}}
             @if ($paginator->hasMorePages())
