@@ -4,7 +4,7 @@
     @yield('title', 'Đăng ký')
 </title>
 @section('body')
-<div>
+<div style="height: 75vh" >
     <form action="" method="post">
         @csrf
     <div class="page section-header text-center" style="margin-bottom: 0px !important">
@@ -14,12 +14,12 @@
             </div>
         </div>
     </div>
-    <div class=" d-flex align-items-center justify-content-center">
+    <div class=" d-flex align-items-center justify-content-center mt-5">
         <div class="container">
-            <div class="row d-flex align-items-center">
+            <div class="row d-flex ">
                 {{-- image --}}
                 <div  class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <img class="w-100" src="/client/images/manager-user/register.webp" />
+                    <img class="w-100" src="/client/images/manager-user/signup.png" />
                 </div> 
                 {{-- form --}}
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
