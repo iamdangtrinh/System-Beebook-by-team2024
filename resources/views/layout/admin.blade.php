@@ -5,6 +5,9 @@
 $routeName = basename(route('order.index'));
 $currentSegment = Request::segment(2);
 
+$routeName = basename(route('order.index')); // Lấy tên route của 'order.index'
+$currentSegment = Request::segment(2);
+
 ?>
 
 <head>
@@ -36,9 +39,10 @@ $currentSegment = Request::segment(2);
                         <div class="dropdown profile-element"> <span>
                                 <img alt="image" class="img-circle" src="/client/images/logo.webp" />
                             </span>
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Bee Book</strong></span>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Bee
+                                        Book</strong></span>
                         </div>
-                     
+
                     </li>
 
                     <li class="active"><a href={{ route('overview.index') }}><i class="fa fa-th-large"></i> <span
