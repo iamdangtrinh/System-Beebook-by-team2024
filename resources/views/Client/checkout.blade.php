@@ -12,7 +12,7 @@
 
 <title>@yield('title', 'Thanh toán')</title>
 @extends('layout.client')
-
+@livewireStyles
 @section('body')
     <style>
         .__name_product_checkout {
@@ -164,6 +164,7 @@
 
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <h2 class="order-title">Đơn hàng của bạn</h2>
+                    @livewire('coupon')
                     <div class="your-order-payment">
                         <div class="your-order">
                             @php
@@ -232,7 +233,7 @@
                                                     <input type="radio"
                                                         {{ $method['value'] == 'ONLINE_VALUE' ? 'checked' : '' }}
                                                         id="{{ $method['value'] }}" name="payment_method"
-                                                        value="{{ $method['method'] }}">
+                                                        value="{{ $method['method'] }}" onclick="applyCoupon()">
 
                                                     <label for="{{ $method['value'] }}" class="mx-2 card-link w-100"
                                                         data-bs-toggle="collapse" href="#{{ $method['method'] }}"
@@ -274,7 +275,12 @@
 
     {{-- lo dash --}}
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        function applyCoupon() {
+            lx
+        }
+        </script>
+        @livewireScripts
 @endsection
