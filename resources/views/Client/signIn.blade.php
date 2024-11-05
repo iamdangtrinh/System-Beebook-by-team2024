@@ -36,7 +36,7 @@
                             <a style="background: white !important; border:1px solid grey" href="/auth/google"
                                 class="btn w-100 border-1 pt-2 pb-2 rounded-1 fs-6">
                                 <div class="d-flex justify-content-center align-items-center gap-2 text-center">
-                                    <img style="width: 25px" src="/client/images/manager-user/logo_google.png" />
+                                    <img alt="logo" style="width: 25px" src="/client/images/manager-user/logo_google.png" />
                                     <p>Google</p>
                                 </div>
                             </a>
