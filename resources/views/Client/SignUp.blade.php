@@ -4,7 +4,7 @@
     @yield('title', 'Đăng ký')
 </title>
 @section('body')
-<div style="height: 75vh" >
+<div  >
     <form action="" method="post">
         @csrf
     <div class="page section-header text-center" style="margin-bottom: 0px !important">

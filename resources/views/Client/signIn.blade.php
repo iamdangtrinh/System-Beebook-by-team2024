@@ -5,7 +5,7 @@
 @extends('layout.client')
 @section('body')
 @livewireStyles
-<div style="height: 75vh">
+<div >
     <form action="" method="post">
         @csrf
     <div class="page section-header text-center" style="margin-bottom: 0px !important">
