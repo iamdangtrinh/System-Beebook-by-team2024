@@ -12,9 +12,27 @@ class OrderController extends Controller
      * Display a listing of the resource.
      */
     // hiển thị admin order
+
+    protected function selected()
+    {
+        return [
+            "id",
+            "id_user",
+            "status",
+            "total_amount",
+            "payment_method",
+            "payment_status",
+            "phone",
+            "name",
+            "note",
+            "created_at",
+            "updated_at",
+        ];
+    }
+
     public function index()
     {
-        $results = BillModel::paginate(1);
+        $results = BillModel::select($this->selected())->paginate(20);
         return view('admin.order.index', compact(['results']));
     }
 
