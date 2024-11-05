@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+
+      <script>
+            let allResults = []; // Mảng chứa tất cả kết quả
+
+function fetchArticles(page) {
+    $.ajax({
+        url: `https://www.alphabooks.vn/tin-tuc?page=${page}`,
+        type: 'GET',
+        success: function(data) {
+            const articles = $(data).find('.item_blog_base');
+
+            // Lặp qua từng bài viết
+            const fetchPromises = articles.map(function() {
+                const title = $(this).find('.a-title').attr('title');
+                const image = $(this).find('.thumb img').data('src');
+                const description = $(this).find('.content_blog p').text().trim();
+                const slug = $(this).find('.a-title').attr('href');
+
+                // Trả về promise cho từng bài viết
+                return fetchArticleDetails(slug, title, image, description);
+            });
+
+            // Khi tất cả các bài viết đã được lấy xong
+            $.when(...fetchPromises).then(function() {
+                // Gọi hàm cho trang tiếp theo
+                if (page < 15) {
+                    fetchArticles(page + 1);
+                } else {
+                    console.log('Tất cả kết quả:', allResults); // In ra tất cả kết quả
+                }
+            });
+        },
+        error: function(error) {
+            console.error('Có lỗi xảy ra:', error);
+        }
+    });
+}
+
+function fetchArticleDetails(slug, title, image, description) {
+    return $.ajax({
+        url: `https://www.alphabooks.vn${slug}`,
+        type: 'GET',
+        success: function(data) {
+            const content = $(data).find('.article-content').html();
+            allResults.push({
+                title: title,
+                image: image,
+                description: description,
+                content: content
+            });
+        },
+        error: function(error) {
+            console.error('Có lỗi xảy ra:', error);
+        }
+    });
+}
+
+// Bắt đầu từ trang 1
+fetchArticles(1);
+
+
+      </script>
+</body>
+
+</html>
