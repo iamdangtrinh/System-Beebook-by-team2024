@@ -65,7 +65,7 @@
             <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar">
                 <div class="sidebar_tags">
                     <div class="sidebar_widget categories">
-                        <div class="widget-title"><h2>Category</h2></div>
+                        <div class="widget-title"><h2>Danh Mục Tin</h2></div>
                         <div class="widget-content">
                             <ul class="sidebar_categories">
                                 <li class="lvl-1 "><a href="http://annimexweb.com/" class="site-nav lvl-1">Beauty</a></li>
