@@ -82,7 +82,7 @@
         <div class="ibox">
             <div class="ibox-content">
                 <div class="table-responsive">
-                    <table class="footable table table-bordered toggle-arrow-tiny" data-page-size="15">
+                    <table class=" table table-bordered toggle-arrow-tiny" data-page-size="15">
                         <thead>
                             <tr>
                                 <th>Mã ĐH</th>
@@ -94,51 +94,31 @@
                                 <th data-hide="status">Trạng thái</th>
                                 <th data-hide="">Trạng thái thanh toán</th>
                                 <th class="text-right">Hành động</th>
-
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($results as $result)
                                 <tr>
+                                    <td>{{ $result->id }}</td>
+                                    <td>{{ $result->name }}</td>
+                                    <td>{{ $result->phone }}</td>
+                                    <td>{{ $result->total_amount }}</td>
+                                    <td>{{ $result->created_at }}</td>
+                                    <td>{{ $result->updated_at }}</td>
+                                    <td>{{ $result->payment_status }}</td>
                                     <td>
-                                        3214
-                                    </td>
-                                    <td>
-                                        Customer example
-                                    </td>
-                                    <td>
-                                        0362095784
-                                    </td>
-                                    <td>
-                                        $500.00
-                                    </td>
-                                    <td>
-                                        03/04/2015
-                                    </td>
-                                    <td>
-                                        03/05/2015
-                                    </td>
-                                    <td>
-                                        Chưa thanh toán
-                                    </td>
-                                    <td>
-                                        <span class="label cus_tom_label label-primary">Pending</span>
+                                        <span class="label cus_tom_label label-primary">{{ $result->payment_method }}</span>
                                     </td>
                                     <td class="text-right">
                                         <div class="btn-group gap-2 w-100 __custom_btn_group">
                                             <a href="" class="badge text-light text-bg-warning">Chi tiết</a>
-                                            <a href="" class="badge text-bg-danger">Xóa</a>
+                                            <a href="" class="badge text-light text-bg-danger">Xóa</a>
                                         </div>
                                     </td>
                                 </tr>
                             @endforeach
-
-                            {{-- <span class="label cus_tom_label label-success">Shipped</span>
-                                <span class="label cus_tom_label label-danger">Canceled</span>
-                                <span class="label cus_tom_label label-warning">Expired</span> --}}
                         </tbody>
                     </table>
-
                     {{ $results->links('pagination::bootstrap-5') }}
                 </div>
             </div>
