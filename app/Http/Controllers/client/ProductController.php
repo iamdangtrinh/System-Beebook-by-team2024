@@ -13,10 +13,11 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index($page = 1)
     {
         $title = 'Cửa hàng';
-        $products = Product::orderBy('created_at', 'desc')->paginate(12);
+        $routeName= 'product.index';
+        $products = Product::orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
         $categories = CategoryProduct::whereNull('parent_id')
             ->where('status', 'active')
             ->with(['children' => function ($query) {
@@ -26,16 +27,18 @@ class ProductController extends Controller
         $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
         return view('Client.shop', compact([
             'products',
+            'routeName',
             'totalProducts',
             'hotProducts',
             'categories',
             'title',
         ]));
     }
-    public function hot()
+    public function hot($page = 1)
     {
         $title = 'Sản phẩm nổi bật';
-        $products = Product::where('hot', 1)->orderBy('created_at', 'desc')->paginate(12);
+        $routeName= 'product.hot';
+        $products = Product::where('hot', 1)->orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
         $categories = CategoryProduct::whereNull('parent_id')
             ->where('status', 'active')
             ->with(['children' => function ($query) {
@@ -45,16 +48,18 @@ class ProductController extends Controller
         $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
         return view('Client.shop', compact([
             'products',
+            'routeName',
             'totalProducts',
             'hotProducts',
             'categories',
             'title',
         ]));
     }
-    public function category($slug)
+    public function category($slug, $page = 1)
     {
         $category = CategoryProduct::where('slug', $slug)->firstOrFail();
         $title = 'Danh mục: ' . $category->name;
+        $routeName= 'product.category';
         $categories = CategoryProduct::whereNull('parent_id')
             ->where('status', 'active')
             ->with(['children' => function ($query) {
@@ -67,11 +72,12 @@ class ProductController extends Controller
         $categoryIds = $childCategories->push($category->id);
 
         // Lấy sản phẩm từ cả danh mục cha và danh mục con, sắp xếp theo ngày tạo
-        $products = Product::whereIn('id_category', $categoryIds)->orderBy('created_at', 'desc')->paginate(12);
+        $products = Product::whereIn('id_category', $categoryIds)->orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
         $totalProducts = $products->count();
         $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
         return view('Client.shop', compact([
             'category',
+            'routeName',
             'products',
             'totalProducts',
             'hotProducts',
@@ -79,20 +85,22 @@ class ProductController extends Controller
             'title',
         ]));
     }
-    public function author($slug)
+    public function author($slug, $page = 1)
     {
         $author = Taxonomy::where('slug', $slug)->firstOrFail();
         $title = 'Tác giả: ' . $author->name;
+        $routeName= 'product.author';
         $categories = CategoryProduct::whereNull('parent_id')
             ->where('status', 'active')
             ->with(['children' => function ($query) {
                 $query->where('status', 'active');
             }])->get();
-        $products = Product::where('id_author', $author->id)->orderBy('created_at', 'desc')->paginate(12);
+        $products = Product::where('id_author', $author->id)->orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
         $totalProducts = $products->count();
         $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
         return view('Client.shop', compact([
             'author',
+            'routeName',
             'products',
             'totalProducts',
             'hotProducts',
@@ -100,20 +108,22 @@ class ProductController extends Controller
             'title',
         ]));
     }
-    public function manufacturer($slug)
+    public function manufacturer($slug, $page = 1)
     {
         $manufacturer = Taxonomy::where('slug', $slug)->firstOrFail();
         $title = $manufacturer->name;
+        $routeName= 'product.manufacturer';
         $categories = CategoryProduct::whereNull('parent_id')
             ->where('status', 'active')
             ->with(['children' => function ($query) {
                 $query->where('status', 'active');
             }])->get();
-        $products = Product::where('id_manufacturer', $manufacturer->id)->orderBy('created_at', 'desc')->paginate(12);
+        $products = Product::where('id_manufacturer', $manufacturer->id)->orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
         $totalProducts = $products->count();
         $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
         return view('Client.shop', compact([
             'manufacturer',
+            'routeName',
             'products',
             'totalProducts',
             'hotProducts',
@@ -138,7 +148,7 @@ class ProductController extends Controller
             'averageRating',
         ]));
     }
-    public function filter(Request $request)
+    public function filter(Request $request, $page = 1)
     {
         $query = Product::query();
 
@@ -173,7 +183,7 @@ class ProductController extends Controller
             }
         }
 
-        $products = $query->paginate(12);
+        $products = $query->paginate(12, ['*'], 'page', $page);
 
         return view('Client.shop', compact('products'))->render();
     }

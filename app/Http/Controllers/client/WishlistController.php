@@ -37,15 +37,17 @@ class WishlistController extends Controller
         }
     }
 
-    public function getWishlist()
+    public function getWishlist($page = 1)
     {
         if (!auth()->check()) {
             session()->flash('error', 'Vui lòng đăng nhập để xem và thêm sản phẩm yêu thích !');
             return redirect('/sign-in');
         }
 
-        $products = Favorite::where('id_user', auth()->id())->with('product')->paginate(12);
+        $products = Favorite::where('id_user', auth()->id())->with('product')->paginate(12, ['*'], 'page', $page);
+        // dd($products);
         $title = 'Yêu thích';
+        $routeName= 'wishlist.index';
         $categories = CategoryProduct::whereNull('parent_id')
             ->where('status', 'active')
             ->with(['children' => function ($query) {
@@ -55,6 +57,7 @@ class WishlistController extends Controller
         $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
         return view('Client.shop', compact([
             'products',
+            'routeName',
             'totalProducts',
             'hotProducts',
             'categories',
