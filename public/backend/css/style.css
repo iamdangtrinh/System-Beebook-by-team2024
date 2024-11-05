@@ -83,8 +83,8 @@ h5 {
   margin-right: 0;
 }
 .navbar-top-links li a {
-  /* padding: 20px 10px; */
-  /* min-height: 50px; */
+  padding: 20px 10px;
+  min-height: 50px;
 }
 .dropdown-menu {
   border: medium none;
@@ -196,7 +196,7 @@ ul.nav-second-level {
 }
 .minimalize-styl-2 {
   padding: 4px 12px;
-  margin: 0px 5px 5px 20px;
+  margin: 14px 5px 5px 20px;
   font-size: 14px;
   float: left;
 }
@@ -1678,8 +1678,6 @@ div.dt-button-info {
 /* CIRCLE */
 .img-circle {
   border-radius: 50%;
-  height: 60px;
-  width: 60px;
 }
 .btn-circle {
   width: 30px;
@@ -3360,10 +3358,10 @@ body.tour-open .animated {
   font-size: 12px;
   border: 0;
 }
-/* .sidebar-content .wrapper,
+.sidebar-content .wrapper,
 .wrapper.sidebar-content {
   padding-right: 230px !important;
-} */
+}
 .body-small .sidebar-content .wrapper,
 .body-small .wrapper.sidebar-content {
   padding-right: 20px !important;
@@ -7458,7 +7456,7 @@ body.rtls .navbar-top-links li:last-child {
 }
 body.rtls .minimalize-styl-2 {
   float: right;
-  margin: 0px 20px 5px 5px;
+  margin: 14px 20px 5px 5px;
 }
 body.rtls .feed-element > .pull-left {
   margin-left: 10px;
@@ -8231,8 +8229,8 @@ body.md-skin {
   padding-left: 62px;
 }
 .md-skin .navbar-top-links li a {
-  /* padding: 20px 10px; */
-  /* min-height: 50px; */
+  padding: 20px 10px;
+  min-height: 50px;
 }
 .md-skin .nav > li > a {
   font-weight: 400;

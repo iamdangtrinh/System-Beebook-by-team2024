@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BillModel;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -13,8 +14,8 @@ class OrderController extends Controller
     // hiển thị admin order
     public function index()
     {
-        //
-        return view('admin.order.index');
+        $results = BillModel::paginate(1);
+        return view('admin.order.index', compact(['results']));
     }
 
     /**
