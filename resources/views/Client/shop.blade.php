@@ -340,10 +340,13 @@
                             <p>Chưa có sản phẩm. Chúng tôi sẽ cố gắng cập nhật thêm nhiều sách trong tương lai!</p>
                             @endif
                         </div>
-                        {{ $products->links('vendor.pagination.custom') }}
                     </div>
                 </div>
                 <!--End Main Content-->
+            </div>
+            <div class="col-12">
+                
+            @include('Client.components.pagination', ['paginator' => $products, 'routeName' => $routeName])
             </div>
         </div>
     </div>
