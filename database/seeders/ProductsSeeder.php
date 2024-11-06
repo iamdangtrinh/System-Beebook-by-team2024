@@ -17,7 +17,7 @@ class ProductsSeeder extends Seeder
             $response = Http::withHeaders([
                 'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
             ])->retry(3, 1000)
-                ->get('https://www.fahasa.com/fahasa_catalog/product/loadproducts?category_id=6718&currentPage=1&limit=400&order=num_orders');
+                ->get('https://www.fahasa.com/fahasa_catalog/product/loadproducts?category_id=5978&currentPage=1&limit=400&order=num_orders');
 
             //   206
             //   2
