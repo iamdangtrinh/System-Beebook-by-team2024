@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,7 +16,7 @@ class Comments extends Seeder
         $faker = Faker::create('vi_VN');
 
         // Giả sử bạn có 50 sản phẩm và 20 người dùng
-        $productIds = range(1, 50);
+        $productIds = DB::table('products')->pluck('id')->toArray(); // Lấy tất cả id_product từ bảng products
         $userIds = range(1, 20);
 
         // Mảng các câu bình luận mẫu bằng tiếng Việt
@@ -54,10 +53,10 @@ class Comments extends Seeder
             "Đây là cuốn sách mà tôi nghĩ nên được đưa vào chương trình giảng dạy ở trường.",
         ];
 
-        // Tạo 200 bình luận mẫu
+        // Tạo 100 bình luận mẫu
         for ($i = 0; $i < 100; $i++) {
             DB::table('comments')->insert([
-                'id_product' => $faker->randomElement($productIds),
+                'id_product' => $faker->randomElement($productIds),  // Lấy ngẫu nhiên id_product từ bảng products
                 'id_user' => $faker->randomElement($userIds),
                 'rating' => $faker->numberBetween(1, 5),
                 'content' => $faker->randomElement($vietnameseComments),

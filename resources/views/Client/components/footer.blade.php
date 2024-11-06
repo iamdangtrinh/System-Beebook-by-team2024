@@ -1,4 +1,6 @@
 <footer class="bg-light text-dark pt-5">
+    <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
+
     <div class="container">
         <div class="row">
             <!-- Logo and Address -->
@@ -67,17 +69,9 @@
 <script src="{{ asset('/') }}client/js/bootstrap.min.js" defer></script>
 <script src="{{ asset('/') }}client/js/plugins.js" defer></script>
 <script src="{{ asset('/') }}client/js/popper.min.js" defer></script>
-<script src="{{ asset('/') }}client/js/lazysizes.js" defer></script>
+{{-- <script src="{{ asset('/') }}client/js/lazysizes.js" defer></script> --}}
 <script src="{{ asset('/') }}client/js/main.js" defer></script>
 
 <script>
-    // const images = document.querySelectorAll('img');
-    // console.log(images);
-    // // Duyệt qua từng thẻ img
-    // images.forEach(img => {
-    //     img.onerror = function() {
-    //         this.onerror = null; // Ngăn ngừa vòng lặp vô hạn
-    //         this.src = '/no_image.jpg'; // Thay thế hình ảnh bị lỗi
-    //     };
-    // });
+
 </script>
