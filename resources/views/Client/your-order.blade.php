@@ -1,5 +1,5 @@
 @extends('layout.client')
-<title>@yield('title', 'Đơn hàng')</title>
+@section('title', 'Đơn hàng')
 @section('body')
     @livewireStyles
     @livewire('YourOrder')

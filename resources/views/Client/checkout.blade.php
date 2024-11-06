@@ -10,8 +10,9 @@
                             </div>
                         </form> --}}
 
-<title>@yield('title', 'Thanh toán')</title>
 @extends('layout.client')
+@section('title', 'Thanh toán')
+
 @livewireStyles
 @section('body')
     <style>

@@ -1,5 +1,5 @@
-<title>@yield('title', 'Giỏ hàng')</title>
 @extends('layout.client')
+@section('title', 'Cảm ơn - Bee Book')
 
 @php
     $payment_method =

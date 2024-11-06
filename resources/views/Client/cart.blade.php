@@ -1,5 +1,5 @@
-<title>@yield('title', 'Giỏ hàng')</title>
 @extends('layout.client')
+@section('title', 'Giỏ hàng')
 
 @section('body')
     <div id="page-content">

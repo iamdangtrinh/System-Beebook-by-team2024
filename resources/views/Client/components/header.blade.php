@@ -6,7 +6,8 @@
 @endphp
 
 <head>
-    @yield('title')
+    <title>@yield('title', 'Trang chủ')</title> 
+    @stack('head')
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf_token" content="{{ csrf_token() }}" />

@@ -2354,15 +2354,16 @@ a.quick-view {
 }
 
 .product-price .old-price {
-  color: #555;
+  color: #222;
   font-size: 12px;
-  opacity: 0.8;
+  /* opacity: 0.8; */
   text-decoration: line-through;
 }
 
 .product-price .old-price+.price {
   padding-left: 5px;
   color: #e95144 !important;
+  font-weight: 600;
 }
 
 .product-price .price {
