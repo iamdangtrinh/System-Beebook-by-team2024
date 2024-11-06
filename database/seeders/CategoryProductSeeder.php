@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+
 class CategoryProductSeeder extends Seeder
 {
     protected $bookCategories = [
@@ -30,7 +31,42 @@ class CategoryProductSeeder extends Seeder
         'Châm biếm',
         'Sách thiếu nhi',
         'Tự truyện',
-        'Sách tranh'
+        'Sách tranh',
+        "Thiếu nhi",
+        "Tâm lý - Kỹ năng sống",
+        "Văn học",
+        "Giáo khoa - Tham khảo",
+        "Sách học ngoại ngữ",
+        "Kinh Tế",
+        "Nuôi Dạy Con",
+        "Lịch Sử - Địa Lý - Tôn Giáo",
+        "Manga - Comic",
+        "Khoa học kỹ thuật",
+        "Tiểu Sử Hồi Ký",
+        "Dictionaries & Languages",
+        "Đồ Chơi Giáo Dục",
+        "Phong Thủy - Kinh Dịch",
+        "Chính Trị - Pháp Lý - Triết Học",
+        "Đồ Chơi Điều Khiển",
+        "Sản Phẩm Điện Tử",
+        "Đồ Điện Gia Dụng",
+        "Nữ Công Gia Chánh",
+        "Ôtô - Tàu - Thuyền - Máy Bay",
+        "Dụng cụ học sinh",
+        "Văn Hóa - Nghệ Thuật - Du Lịch",
+        "Board Game",
+        "Từ điển",
+        "Sản phẩm về giấy",
+        "Giáo trình",
+        "Thể Dục Thể thao - Giải Trí",
+        "Dụng Cụ Vẽ",
+        "Biography",
+        "Mô Hình Các Loại",
+        "Búp Bê - Thú Bông",
+        "Thẻ Sưu Tập - Collectible Card",
+        "Fiction",
+        "Personal Development",
+        "Báo - Tạp Chí",
     ];
 
     /**

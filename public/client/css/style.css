@@ -767,7 +767,7 @@ textarea:-ms-input-placeholder {
   color: #fff;
   display: flex;
   align-items: center;
-  
+
   background: #CE2626;
   height: 40px;
 }
@@ -1856,6 +1856,8 @@ textarea:-ms-input-placeholder {
   display: block;
   white-space: nowrap;
   opacity: 1;
+  min-height: 270px;
+  max-height: 270px;
 }
 
 .grid-products .item .product-image img {
@@ -2325,6 +2327,20 @@ a.quick-view {
   font-size: 1em;
   line-height: 1.2;
   margin-bottom: 0;
+
+  height: 38px;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  height: 2.4em; /* Chiều cao cho 2 dòng */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Hiển thị 2 dòng */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  padding: 0 8px;
+  
 }
 
 .grid-products .item .product-name a:hover {

@@ -21,7 +21,7 @@
                     } else {
                         $this.find('i').removeClass('anm-heart text-danger').addClass('anm-heart-l');
                         $this.find('span').text('Thêm vào yêu thích');
-                        toastr.error(`Đã xóa sản phẩm khỏi yêu thích`);
+                        toastr.success(`Đã xóa sản phẩm khỏi yêu thích`);
                     }
                 },
             });
