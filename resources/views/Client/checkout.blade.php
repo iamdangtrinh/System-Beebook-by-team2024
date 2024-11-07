@@ -138,7 +138,8 @@
                                 <div class="form-group col-md-12 col-lg-12 col-xl-12">
                                     <div class="position-relative">
                                         <label for="input-address">Địa chỉ <span class="text-danger">*</span> </label>
-                                        <input class="form-control" name="address" value="{{ old('address') ?? Auth::user()->address }}"
+                                        <input class="form-control" name="address"
+                                            value="{{ old('address') ?? Auth::user()->address }}"
                                             id="input-address-autocomplete" type="text">
 
                                         <ul id="showListLocation" class="list-group position-absolute w-100">
@@ -177,9 +178,14 @@
                                         $subTotal += $product['quantity'] * $product['price'];
                                     @endphp
                                     <li class="item_checkout mb-3 d-flex align-items-start">
-                                        <img class="__custom_image" width="80px"
-                                            src="{{ $product['image_cover'] ? $product['image_cover'] : '/no_image.jpg' }}"
-                                            alt="{{ $product['name'] }}">
+
+                                        @foreach ($product->cartProduct as $cartProduct)
+                                            <img class="__custom_image" width="80px"
+                                                src="{{ $cartProduct->image_cover }} ? {{ $cartProduct->image_cover }} : '/no_image.jpg' }}"
+                                                alt="{{ $product['name'] }}">
+                                            
+                                        @endforeach
+
                                         <p class="__name_product_checkout"> <strong> {{ $product['quantity'] }}
                                             </strong> x
                                             <span class="w-75">
@@ -282,6 +288,6 @@
         function applyCoupon() {
             lx
         }
-        </script>
-        @livewireScripts
+    </script>
+    @livewireScripts
 @endsection
