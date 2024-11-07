@@ -2,13 +2,13 @@
 
 namespace Database\Seeders;
 
+use GuzzleHttp\Client;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\DomCrawler\Crawler;
 
 class ProductsSeeder extends Seeder
 {
@@ -112,25 +112,58 @@ class ProductsSeeder extends Seeder
         }
     }
 
+    // private function getDescriptionContent($slug): ?string
+    // {
+    //     try {
+    //         $url = "https://www.fahasa.com/$slug.html";
+    //         $process = new Process(['node', base_path('resources/js/fetchDescription.js'), $url]);
+    //         $process->run();
+
+    //         if ($process->isSuccessful()) {
+    //             $description = trim($process->getOutput());
+    //             return $description;
+    //         } else {
+    //             throw new ProcessFailedException($process);
+    //         }
+    //     } catch (\Exception $e) {
+    //         $this->command->error("Error fetching description for slug $slug: " . $e->getMessage());
+    //         return Null;
+    //     }
+    // }
+
+    // use GuzzleHttp\Client;
+    // use Symfony\Component\DomCrawler\Crawler;
+
     private function getDescriptionContent($slug): ?string
     {
         try {
             $url = "https://www.fahasa.com/$slug.html";
-            $process = new Process(['node', base_path('resources/js/fetchDescription.js'), $url]);
-            $process->run();
 
-            if ($process->isSuccessful()) {
-                $description = trim($process->getOutput());
-                return $description;
-            } else {
-                throw new ProcessFailedException($process);
+            // Sử dụng Guzzle để lấy nội dung trang web
+            $client = new Client();
+            $response = $client->request('GET', $url, [
+                'headers' => [
+                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
+                ]
+            ]);
+
+            // Kiểm tra nếu phản hồi thành công
+            if ($response->getStatusCode() === 200) {
+                $html = $response->getBody()->getContents();
+
+                // Sử dụng DomCrawler để phân tích và trích xuất mô tả với HTML
+                $crawler = new Crawler($html);
+
+                // Giả sử mô tả nằm trong một thẻ div có id là 'desc_content'
+                $description = $crawler->filter('#desc_content')->html();
+
+                return trim($description);
             }
         } catch (\Exception $e) {
             $this->command->error("Error fetching description for slug $slug: " . $e->getMessage());
-            return Null;
+            return null;
         }
     }
-
 
     private function isValidImage($url)
     {
@@ -161,7 +194,7 @@ class ProductsSeeder extends Seeder
                 throw new \Exception('Cannot create image from data.');
             }
 
-            imagewebp($image, $imagePath, 80);
+            imagewebp($image, $imagePath, 90);
             imagedestroy($image);
 
             return 'userfiles/image/' . $imageNameWithoutExtension . '.webp';
