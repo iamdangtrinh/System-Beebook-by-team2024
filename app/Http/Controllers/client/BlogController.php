@@ -25,18 +25,17 @@ class BlogController extends Controller
     }
     
     public function show($slug) {
-        $getPost = BlogModel::where('slug', $slug)->firstOrFail();
-        $getPostMore = BlogModel::where('post_type', $getPost['post_type'])->inRandomOrder()->limit(4)->get();
-        $getMostPost = BlogModel::where('post_type', $getPost['post_type'])->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
-    
-        if ($getPost['post_type'] === 'blog') {
-            $getProduct = [];
-        } else {
-            $getProductByPost = PostProduct::where('id_post', $getPost['id'])->firstOrFail();
-            $getProduct = Product::where('id', $getProductByPost['id_product'])->first();
+        $getPost =  BlogModel::where('slug',$slug)->firstOrFail();
+        $getPostMore =  BlogModel::where('post_type',$getPost['post_type'])->inRandomOrder()->limit(4)->get();
+        $getMostPost =  BlogModel::where('post_type',$getPost['post_type'])->orderBy('views','desc')->inRandomOrder()->limit(4)->get();
+        if ($getPost['post_type'] === 'blog' ) {
+            $getProduct=[];
+            return view('Client.blogarticle',compact('getPost', 'getProduct','getPostMore','getMostPost'));
+        }else{
+          
+        $getProductByPost = PostProduct::where('id_post',$getPost['id'])->first();
+        $getProduct = Product::where('id',$getProductByPost['id_product'])->first();
+            return view('Client.blogarticle',compact('getPost', 'getProduct','getPostMore','getMostPost'));
         }
-    
-        return view('Client.blogarticle', compact('getPost', 'getProduct', 'getPostMore', 'getMostPost'));
     }
-    
 }
