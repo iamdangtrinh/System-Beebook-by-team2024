@@ -19,7 +19,7 @@
                             "content"
                         ),
                     },
-                    body: JSON.stringify(data),
+                    body: data,
                 });
 
                 const result = await response.json();
