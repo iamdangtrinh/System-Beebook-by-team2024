@@ -6,7 +6,7 @@
 @endphp
 
 <head>
-    <title>@yield('title', 'Trang chủ')</title> 
+    <title>@yield('title', 'Trang chủ')</title>
     @stack('head')
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -62,8 +62,7 @@
                     <div class="col-12 col-sm-12 col-md-12 col-lg-8  ">
                         <p style="font-size:13px; text-align: center"
                             class="phone-no text-white text-xl-start text-lg-start text-md-center text-sm-center "><i
-                                class="anm anm-phone-s"></i> +440
-                            0(111) 044 833</p>
+                                class="anm anm-phone-s"></i> 0362094527</p>
                     </div>
                     {{-- <div class="col-sm-4 col-md-4 col-lg-4 d-none d-lg-none d-md-block d-lg-block">
                         <div class="text-center">
@@ -134,7 +133,6 @@
                             <ul id="siteNav" class="site-nav medium center hidearrow">
                                 <li class="lvl1 parent megamenu"><a href="/">Trang chủ<i
                                             class="anm anm-angle-down-l"></i></a></li>
-
                                 @php
                                     $categories_header = \App\Models\CategoryProduct::where('parent_id', null)
                                         ->where('status', 'active')
@@ -162,30 +160,27 @@
                                                         @endforeach
                                                     </ul>
                                                 </li>
-                                                {{-- @else
-                                        <li><a href="{{ url('danh-muc/' . $parentCategory->slug) }}"
-                                                class="site-nav">{{ $parentCategory->name }}</a></li> --}}
-                                            @endif
-                                        @endforeach
-                                    </ul>
-                                </li>
+                                                class="site-nav">{{ $parentCategory->name }}</a>
+                                </li> --}}
+                                @endif
+                                @endforeach
+                            </ul>
+                            </li>
 
 
-                                <li class="lvl1 parent megamenu"><a href="{{ route('product.index') }}">Cửa hàng</a>
-                                </li>
+                            <li class="lvl1 parent megamenu"><a href="{{ route('product.index') }}">Cửa hàng</a>
+                            </li>
 
-                                <li class="lvl1 parent dropdown"><a href="#">Pages <i
-                                            class="anm anm-angle-down-l"></i></a>
+                            <li class="lvl1 parent dropdown"><a href="#">Tìm đơn hàng<i
+                                        class="anm anm-angle-down-l"></i></a></li>
+                            <li class="lvl1 parent dropdown"><a href="#">Blog <i
+                                        class="anm anm-angle-down-l"></i></a>
+                                <ul class="dropdown">
+                                    <li><a href="/post/blog" class="site-nav">Blog</a></li>
+                                    <li><a href="/post/review" class="site-nav">Review</a></li>
 
-                                </li>
-                                <li class="lvl1 parent dropdown"><a href="#">Blog <i
-                                            class="anm anm-angle-down-l"></i></a>
-                                    <ul class="dropdown">
-                                        <li><a href="/post/blog" class="site-nav">Blog</a></li>
-                                        <li><a href="/post/review" class="site-nav">Review</a></li>
-
-                                    </ul>
-                                </li>
+                                </ul>
+                            </li>
                             </ul>
                         </nav>
                         <!--End Desktop Menu-->
@@ -223,11 +218,12 @@
                             </a>
                         </div>
                         <div class="site-header__search">
-                            <button type="button" class="search-trigger"><i
-                                    class="icon anm anm-search-l"></i></button>
+                            <form action="" method="post">
+                                <input type="text" name="search">
+                                <button type="submit" class="form-control search-trigger"><i
+                                        class="icon anm anm-search-l"></i></button>
+                            </form>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -237,48 +233,56 @@
         <!--Mobile Menu-->
         <div class="mobile-nav-wrapper" role="navigation">
             <ul id="MobileNav" class="mobile-nav">
-                <li class="lvl1 parent megamenu"><a href="index.html">Home <i class="anm anm-plus-l"></i></a>
-                    <ul>
-                        <li><a href="#" class="site-nav">Home Group 1<i class="anm anm-plus-l"></i></a>
-                        </li>
+                <li class="lvl1 parent megamenu"><a href="/">Trang chủ<i class="anm anm-angle-down-l"></i></a>
+                </li>
+                @php
+                    $categories_header = \App\Models\CategoryProduct::where('parent_id', null)
+                        ->where('status', 'active')
+                        ->with([
+                            'children' => function ($query) {
+                                $query->where('status', 'active');
+                            },
+                        ])
+                        ->get();
+                @endphp
+
+                <li class="lvl1 parent dropdown"><a href="#">Danh mục <i class="anm anm-angle-down-l"></i></a>
+                    <ul class="dropdown">
+                        @foreach ($result_category as $parentCategory)
+                            @if ($parentCategory->children->isNotEmpty())
+                                <li><a href="{{ url('danh-muc/' . $parentCategory->slug) }}"
+                                        class="site-nav">{{ $parentCategory->name }} <i
+                                            class="anm anm-angle-right-l"></i></a>
+                                    <ul class="dropdown">
+                                        @foreach ($parentCategory->children as $childCategory)
+                                            <li><a href="{{ url('danh-muc/' . $childCategory->slug) }}"
+                                                    class="site-nav">{{ $childCategory->name }}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                                {{-- @else
+                <li><a href="{{ url('danh-muc/' . $parentCategory->slug) }}"
+                        class="site-nav">{{ $parentCategory->name }}</a></li> --}}
+                            @endif
+                        @endforeach
                     </ul>
                 </li>
-                <li class="lvl1 parent megamenu"><a href="{{ route('product.index') }}">Của hàng</a>
+
+
+                <li class="lvl1 parent megamenu"><a href="{{ route('product.index') }}">Cửa hàng</a>
                 </li>
-                <li class="lvl1 parent megamenu"><a href="about-us.html">Pages <i class="anm anm-plus-l"></i></a>
-                    <ul>
-                        <li><a href="cart-variant1.html" class="site-nav">Cart Page <i
-                                    class="anm anm-plus-l"></i></a>
-                            <ul class="dropdown">
-                                <li><a href="cart-variant1.html" class="site-nav">Cart Variant1</a></li>
-                                <li><a href="cart-variant2.html" class="site-nav">Cart Variant2</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="compare-variant1.html" class="site-nav">Compare Product <i
-                                    class="anm anm-plus-l"></i></a>
-                            <ul class="dropdown">
-                                <li><a href="compare-variant1.html" class="site-nav">Compare Variant1</a></li>
-                                <li><a href="compare-variant2.html" class="site-nav">Compare Variant2</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="checkout.html" class="site-nav">Checkout</a></li>
-                        <li><a href="about-us.html" class="site-nav">About Us<span
-                                    class="lbl nm_label1">New</span></a></li>
-                        <li><a href="contact-us.html" class="site-nav">Contact Us</a></li>
-                        <li><a href="faqs.html" class="site-nav">FAQs</a></li>
-                        <li><a href="lookbook1.html" class="site-nav">Lookbook<i class="anm anm-plus-l"></i></a>
-                            <ul>
-                                <li><a href="lookbook1.html" class="site-nav">Style 1</a></li>
-                                <li><a href="lookbook2.html" class="site-nav last">Style 2</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="404.html" class="site-nav">404</a></li>
-                        <li><a href="coming-soon.html" class="site-nav">Coming soon<span
-                                    class="lbl nm_label1">New</span></a></li>
+
+                <li class="lvl1 parent dropdown"><a href="#">Tìm đơn hàng<i
+                            class="anm anm-angle-down-l"></i></a></li>
+                <li class="lvl1 parent dropdown"><a href="#">Blog <i class="anm anm-angle-down-l"></i></a>
+                    <ul class="dropdown">
+                        <li><a href="/post/blog" class="site-nav">Blog</a></li>
+                        <li><a href="/post/review" class="site-nav">Review</a></li>
+
                     </ul>
                 </li>
-                <li class="lvl1"><a href="blog-left-sidebar.html">Blog</a>
-                </li>
+
                 <li class="lvl1 parent megamenu"><a href="index.html">Tài Khoản <i class="anm anm-plus-l"></i></a>
                     <ul>
                         @if (Auth::check())
@@ -309,6 +313,4 @@
                 </li>
             </ul>
         </div>
-        <!--End Mobile Menu-->
-        <!--End Mobile Menu-->
     </div>
