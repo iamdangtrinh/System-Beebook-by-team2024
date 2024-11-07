@@ -31,7 +31,7 @@ class ProductsSeeder extends Seeder
             $seenImages = [];
 
             foreach ($idCate as $categoryId) {
-                for ($currentPage = 1; $currentPage <= 4; $currentPage++) {
+                for ($currentPage = 1; $currentPage <= 2; $currentPage++) {
                     $response = Http::withHeaders([
                         'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
                     ])->retry(3, 1000)
