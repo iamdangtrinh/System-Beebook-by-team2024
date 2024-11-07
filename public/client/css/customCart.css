@@ -1,0 +1,11 @@
+.name_product {
+      width: 200px;
+      display: inline-block;
+      text-overflow: ellipsis;
+      white-space: normal;
+      overflow: hidden;
+      height: 46px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+}

@@ -69,6 +69,8 @@ class SepayController extends Controller
                 event(new SePayWebhookEvent($info, $sePayWebhookData));
             }
 
+            return redirect()->route('thankyou.index', ['id' => $idBill->id]);
+
             return response()->noContent();
         } else {
             // Gửi email cảnh báo nếu token không hợp lệ

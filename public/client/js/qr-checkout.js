@@ -69,7 +69,7 @@
     };
 
     $(document).ready(function () {
-        DT.checkStatus();
+        // DT.checkStatus();
         //   DT.timerCheckout();
     });
 })(jQuery);
