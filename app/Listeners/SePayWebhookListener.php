@@ -26,6 +26,9 @@ class SePayWebhookListener
         // Xử lý tiền vào tài khoản
         if ($event->sePayWebhookData->transferType === 'in') {
 
+            $emailBought = BillModel::select(['email'])->where('id', $event->info);
+            Mail::to($emailBought)->send(new \App\Mail\sendEmailOrder($event->info));
+
             // $user = User::query()->where('id', $event->info)->first();
             // if ($user instanceof User) {
             //     $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
