@@ -18,6 +18,8 @@
                     ),
                 },
                 success: function (response) {
+                    console.log(response.payment_status);
+                    
                     if (response.payment_status == "PAID") {
                         console.log("Đã thanh toán");
                         window.location.href = `/thank-you/${data.id}`;

@@ -73,7 +73,8 @@ class CheckoutController extends Controller
         $code = $parts[1] ?? null;
         $idBill = ($code);
         $resultBill = BillModel::where('id', $idBill)->firstOrFail();
-
+        // gửi email
+        Mail::to($resultBill->email)->send(new \App\Mail\sendEmailOrder($resultBill->id));
         return view('Client.thankyou', compact(['resultBill']));
     }
 
@@ -103,12 +104,6 @@ class CheckoutController extends Controller
             ->where('id', $payload['id'])
             // ->where('payment_status', 'PAID')
             ->first();
-
-        if ($bill->payment_status === 'PAID') {
-            Mail::to($bill->email)->send(new \App\Mail\sendEmailOrder($payload['id']));
-            // break;
-        }
-
         return $bill->payment_status;
     }
 }

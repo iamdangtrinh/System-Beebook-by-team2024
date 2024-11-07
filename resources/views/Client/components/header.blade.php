@@ -160,27 +160,25 @@
                                                         @endforeach
                                                     </ul>
                                                 </li>
-                                                class="site-nav">{{ $parentCategory->name }}</a>
-                                </li> --}}
-                                @endif
-                                @endforeach
-                            </ul>
-                            </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </li>
 
 
-                            <li class="lvl1 parent megamenu"><a href="{{ route('product.index') }}">Cửa hàng</a>
-                            </li>
+                                <li class="lvl1 parent megamenu"><a href="{{ route('product.index') }}">Cửa hàng</a>
+                                </li>
 
-                            <li class="lvl1 parent dropdown"><a href="#">Tìm đơn hàng<i
-                                        class="anm anm-angle-down-l"></i></a></li>
-                            <li class="lvl1 parent dropdown"><a href="#">Blog <i
-                                        class="anm anm-angle-down-l"></i></a>
-                                <ul class="dropdown">
-                                    <li><a href="/post/blog" class="site-nav">Blog</a></li>
-                                    <li><a href="/post/review" class="site-nav">Review</a></li>
+                                <li class="lvl1 parent dropdown"><a href="#">Tìm đơn hàng<i
+                                            class="anm anm-angle-down-l"></i></a></li>
+                                <li class="lvl1 parent dropdown"><a href="#">Blog <i
+                                            class="anm anm-angle-down-l"></i></a>
+                                    <ul class="dropdown">
+                                        <li><a href="/post/blog" class="site-nav">Blog</a></li>
+                                        <li><a href="/post/review" class="site-nav">Review</a></li>
 
-                                </ul>
-                            </li>
+                                    </ul>
+                                </li>
                             </ul>
                         </nav>
                         <!--End Desktop Menu-->
@@ -213,16 +211,12 @@
                                             $cartCount = session()->has('cart') ? count(session()->get('cart')) : 0;
                                         }
                                     @endphp
-                                    {{ $cartCount }}
+                                    {{ $cartCount ?? 0 }}
                                 </span>
                             </a>
                         </div>
                         <div class="site-header__search">
-                            <form action="" method="post">
-                                <input type="text" name="search">
-                                <button type="submit" class="form-control search-trigger"><i
-                                        class="icon anm anm-search-l"></i></button>
-                            </form>
+                                <button type="submit" class="form-control search-trigger"><i class="icon anm anm-search-l"></i></button>
                         </div>
                     </div>
                 </div>
