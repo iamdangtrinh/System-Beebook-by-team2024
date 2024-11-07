@@ -63,14 +63,14 @@
 
 <!-- Including Jquery -->
 <script src="{{ asset('/') }}client/js/vendor/jquery-3.3.1.min.js" defer></script>
-{{-- <script src="{{ asset('/') }}client/js/vendor/modernizr-3.6.0.min.js" defer></script> --}}
-{{-- <script src="{{ asset('/') }}client/js/vendor/wow.min.js" defer></script> --}}
+<script src="{{ asset('/') }}client/js/vendor/modernizr-3.6.0.min.js" defer></script>
+<script src="{{ asset('/') }}client/js/vendor/wow.min.js" defer></script>
 <!-- Including Javascript -->
 <script src="{{ asset('/') }}client/js/bootstrap.min.js" defer></script>
 <script src="{{ asset('/') }}client/js/plugins.js" defer></script>
-{{-- <script src="{{ asset('/') }}client/js/popper.min.js" defer></script> --}}
-{{-- <script src="{{ asset('/') }}client/js/lazysizes.js" defer></script> --}}
-{{-- <script src="{{ asset('/') }}client/js/main.js" defer></script> --}}
+<script src="{{ asset('/') }}client/js/popper.min.js" defer></script>
+<script src="{{ asset('/') }}client/js/lazysizes.js" defer></script>
+<script src="{{ asset('/') }}client/js/main.js" defer></script>
 
 <script>
 
