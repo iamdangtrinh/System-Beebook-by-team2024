@@ -26,14 +26,15 @@ class SePayWebhookListener
         // Xử lý tiền vào tài khoản
         if ($event->sePayWebhookData->transferType === 'in') {
 
-            $user = User::query()->where('id', $event->info)->first();
-            if ($user instanceof User) {
-                $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
-            }
-            Mail::raw('hello', function ($message) {
-                $message->to('dtrinhit84@gmail.com')
-                    ->subject('Hello Email');
-            });
+            // $user = User::query()->where('id', $event->info)->first();
+            // if ($user instanceof User) {
+            //     $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
+            // }
+            // Mail::raw('hello', function ($message) {
+            //     $message->to('dtrinhit84@gmail.com')
+            //         ->subject('Hello Email');
+            // });
+            redirect()->route('thankyou.index', ['id' => ($event->info)]);
         } else {
             // Xử lý tiền ra tài khoản
         }
@@ -44,7 +45,6 @@ class SePayWebhookListener
         // });
         // $emailBought = BillModel::select(['email'])->where('id', $event->info);
         // Mail::to($emailBought)->send(new \App\Mail\sendEmailOrder($event->info));
-        redirect()->route('thankyou.index', ['id' => ($event->info)]);
         // $emailBought = BillModel::select(['email'])->where('id', $event->info);
         // Mail::to($emailBought)->send(new \App\Mail\sendEmailOrder($event->info));
         // redirect()->route('thankyou.index', ['id' => ($event->info)]);

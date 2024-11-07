@@ -63,23 +63,12 @@ class SepayController extends Controller
 
                 if($info) {
                     $idBill = BillModel::findOrFail($info);
-
-                    Mail::raw(
-                        'Có lỗi:' . ($idBill->id),
-                        function ($message) {
-                            $message->to('dtrinhit84@gmail.com')
-                                ->subject('Invalid Token');
-                        }
-                    );
-
                     $idBill->payment_status = 'PAID';
                     $idBill->save();
                 }
                 event(new SePayWebhookEvent($info, $sePayWebhookData));
+                // return redirect()->route('thankyou.index', ['id' => $idBill->id]);
             }
-
-            return isset($idBill) ? redirect()->route('thankyou.index', ['id' => $idBill->id]) : response()->noContent();
-
             return response()->noContent();
         } else {
             // Gửi email cảnh báo nếu token không hợp lệ
