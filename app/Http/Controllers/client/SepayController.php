@@ -62,10 +62,10 @@ class SepayController extends Controller
                 $info = Str::of($matches[0])->replaceFirst(config('sepay.pattern'), '')->value();
 
                 if($info) {
-                    $idBill = BillModel::find($info);
+                    $idBill = BillModel::findOrFail($info);
 
                     Mail::raw(
-                        'Có lỗi:' . var_dump($idBill),
+                        'Có lỗi:' . ($idBill->id),
                         function ($message) {
                             $message->to('dtrinhit84@gmail.com')
                                 ->subject('Invalid Token');
@@ -78,7 +78,7 @@ class SepayController extends Controller
                 event(new SePayWebhookEvent($info, $sePayWebhookData));
             }
 
-            // return redirect()->route('thankyou.index', ['id' => $idBill->id]);
+            return isset($idBill) ? redirect()->route('thankyou.index', ['id' => $idBill->id]) : response()->noContent();
 
             return response()->noContent();
         } else {

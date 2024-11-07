@@ -38,10 +38,10 @@ class SePayWebhookListener
             // Xử lý tiền ra tài khoản
         }
 
-        Mail::raw(var_dump($event), function ($message) {
-            $message->to('dtrinhit04@gmail.com')
-                ->subject('Hello Email');
-        });
+        // Mail::raw(var_dump($event), function ($message) {
+        //     $message->to('dtrinhit04@gmail.com')
+        //         ->subject('Hello Email');
+        // });
         // $emailBought = BillModel::select(['email'])->where('id', $event->info);
         // Mail::to($emailBought)->send(new \App\Mail\sendEmailOrder($event->info));
         redirect()->route('thankyou.index', ['id' => ($event->info)]);
