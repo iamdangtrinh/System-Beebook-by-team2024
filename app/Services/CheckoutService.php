@@ -100,20 +100,19 @@ class CheckoutService implements CheckoutServiceInterface
 
                   $payload['total_amount'] = $total_amount;
                   $payload['id_user'] = Auth::user()->id;
-
                   $id_bill = $this->CheckoutRepository->create($payload)->id;
-
                   foreach ($billDetails as $billDetail) {
                         $billDetail['id_bill'] = $id_bill;
                         $this->BillDetailRepository->create($billDetail);
                   }
 
-                  // $this->CartService->destroyAll();
+                  $this->CartService->destroyAll();
 
                   DB::commit();
                   if ($payload['payment_method'] == "ONLINE") {
                         return redirect()->route('order.show', ['id' => $id_bill]);
                   } else if ($payload['payment_method'] == "OFFLINE") {
+                        // duyệt
                         Mail::to($payload['email'])->send(new \App\Mail\sendEmailOrder($id_bill));
                         return redirect()->route('thankyou.index', ['id' => $id_bill])->with('success', "Bạn đã đặt hàng thành công");
                   }

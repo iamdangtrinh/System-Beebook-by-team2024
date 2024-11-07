@@ -1,41 +1,51 @@
 (function ($) {
     let DT = {};
 
-    DT.checkStatus = () => {
+    DT.checkStatus = async () => {
         const urlPath = window.location.pathname;
         const id = urlPath.split("/").pop();
-        let data = {
-            id,
-        };
-        setInterval(() => {
-            $.ajax({
-                type: "POST",
-                url: `/order-check-status`,
-                data: data,
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf_token"]').attr(
-                        "content"
-                    ),
-                },
-                success: function (response) {
-                    console.log(response.payment_status);
-                    
-                    if (response.payment_status == "PAID") {
+        let data = { id };
+
+        let paymentChecked = false; // Biến cờ để theo dõi trạng thái thanh toán
+
+        // Hàm kiểm tra trạng thái thanh toán
+        const checkPaymentStatus = async () => {
+            try {
+                const response = await fetch(`/order-check-status`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": $('meta[name="csrf_token"]').attr(
+                            "content"
+                        ),
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+
+                if (result.payment_status === "PAID") {
+                    if (!paymentChecked) {
+                        paymentChecked = true; // Đánh dấu trạng thái đã kiểm tra thanh toán
                         console.log("Đã thanh toán");
                         window.location.href = `/thank-you/${data.id}`;
-                    } else {
-                        console.log("Chưa thanh toán");
                     }
-                    //   console.log('====================================');
-                    //   console.log(response);
-                    //   console.log('====================================');
-                },
-                error: function (error) {
-                    console.log("Lỗi");
-                    console.log(error);
-                },
-            });
-        }, 1000);
+                } else {
+                    console.log("Chưa thanh toán");
+                }
+            } catch (error) {
+                console.error("Lỗi khi kiểm tra thanh toán:", error);
+            }
+        };
+
+        // Kiểm tra trạng thái thanh toán mỗi 5 giây
+        const intervalId = setInterval(() => {
+            if (paymentChecked) {
+                clearInterval(intervalId); // Dừng kiểm tra nếu đã thanh toán
+            } else {
+                checkPaymentStatus();
+            }
+        }, 5000); // Kiểm tra mỗi 5 giây
     };
 
     DT.timerCheckout = () => {
@@ -70,6 +80,6 @@
 
     $(document).ready(function () {
         // DT.checkStatus();
-        //   DT.timerCheckout();
+          DT.timerCheckout();
     });
 })(jQuery);
