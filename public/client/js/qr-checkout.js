@@ -79,7 +79,7 @@
     };
 
     $(document).ready(function () {
-        // DT.checkStatus();
-          DT.timerCheckout();
+        DT.checkStatus();
+        //   DT.timerCheckout();
     });
 })(jQuery);
