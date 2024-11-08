@@ -100,7 +100,18 @@ class ProductsSeeder extends Seeder
                                 'updated_at' => now(),
                             ];
 
-                            DB::table('products')->insert($product);
+                            // Thêm sản phẩm và lấy ID
+                            $productId = DB::table('products')->insertGetId($product);
+
+                            // Lấy và tải xuống hình ảnh bổ sung từ phần tử lightgallery-product-media
+                            $extraImages = $this->fetchAndDownloadGalleryImages($slug);
+                            if ($extraImages) {
+                                DB::table('product_meta')->insert([
+                                    'id_product' => $productId,
+                                    'product_key' => 'thumbnail',
+                                    'product_value' => implode(',', $extraImages),
+                                ]);
+                            }
                         }
                     } else {
                         $this->command->error('Lỗi khi lấy dữ liệu từ API. Category ID: ' . $categoryId . ' Page: ' . $currentPage);
@@ -112,34 +123,11 @@ class ProductsSeeder extends Seeder
         }
     }
 
-    // private function getDescriptionContent($slug): ?string
-    // {
-    //     try {
-    //         $url = "https://www.fahasa.com/$slug.html";
-    //         $process = new Process(['node', base_path('resources/js/fetchDescription.js'), $url]);
-    //         $process->run();
-
-    //         if ($process->isSuccessful()) {
-    //             $description = trim($process->getOutput());
-    //             return $description;
-    //         } else {
-    //             throw new ProcessFailedException($process);
-    //         }
-    //     } catch (\Exception $e) {
-    //         $this->command->error("Error fetching description for slug $slug: " . $e->getMessage());
-    //         return Null;
-    //     }
-    // }
-
-    // use GuzzleHttp\Client;
-    // use Symfony\Component\DomCrawler\Crawler;
-
     private function getDescriptionContent($slug): ?string
     {
         try {
             $url = "https://www.fahasa.com/$slug.html";
 
-            // Sử dụng Guzzle để lấy nội dung trang web
             $client = new Client();
             $response = $client->request('GET', $url, [
                 'headers' => [
@@ -147,14 +135,10 @@ class ProductsSeeder extends Seeder
                 ]
             ]);
 
-            // Kiểm tra nếu phản hồi thành công
             if ($response->getStatusCode() === 200) {
                 $html = $response->getBody()->getContents();
-
-                // Sử dụng DomCrawler để phân tích và trích xuất mô tả với HTML
                 $crawler = new Crawler($html);
 
-                // Giả sử mô tả nằm trong một thẻ div có id là 'desc_content'
                 $description = $crawler->filter('#desc_content')->html();
 
                 return trim($description);
@@ -163,6 +147,40 @@ class ProductsSeeder extends Seeder
             $this->command->error("Error fetching description for slug $slug: " . $e->getMessage());
             return null;
         }
+    }
+
+    private function fetchAndDownloadGalleryImages($slug): array
+    {
+        $downloadedImages = [];
+        try {
+            $url = "https://www.fahasa.com/$slug.html";
+            $client = new Client();
+            $response = $client->request('GET', $url, [
+                'headers' => [
+                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
+                ]
+            ]);
+
+            if ($response->getStatusCode() === 200) {
+                $html = $response->getBody()->getContents();
+                $crawler = new Crawler($html);
+
+                $imageUrls = $crawler->filter('#lightgallery-product-media img')->each(function (Crawler $node) {
+                    return $node->attr('src');
+                });
+
+                foreach ($imageUrls as $url) {
+                    $path = $this->downloadImage($url);
+                    if ($path) {
+                        $downloadedImages[] = $path;
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            $this->command->error("Error fetching or downloading gallery images for slug $slug: " . $e->getMessage());
+        }
+
+        return $downloadedImages;
     }
 
     private function isValidImage($url)
@@ -175,34 +193,76 @@ class ProductsSeeder extends Seeder
         return false;
     }
 
+    // private function downloadImage($url)
+    // {
+    //     $imageDirectory = public_path('userfiles/image/');
+    //     $imageName = basename($url);
+    //     $imageNameWithoutExtension = pathinfo($imageName, PATHINFO_FILENAME);
+    //     $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp';
+
+    //     if (!file_exists($imageDirectory)) {
+    //         mkdir($imageDirectory, 0777, true);
+    //     }
+
+    //     try {
+    //         $imageContent = file_get_contents($url);
+    //         $image = imagecreatefromstring($imageContent);
+
+    //         if ($image === false) {
+    //             throw new \Exception('Cannot create image from data.');
+    //         }
+
+    //         imagewebp($image, $imagePath, 90);
+    //         imagedestroy($image);
+
+    //         return 'userfiles/image/' . $imageNameWithoutExtension . '.webp';
+    //     } catch (\Exception $e) {
+    //         $this->command->error('Error downloading or converting image: ' . $e->getMessage());
+    //         return null;
+    //     }
+    // }
+
     private function downloadImage($url)
-    {
-        $imageDirectory = public_path('userfiles/image/');
-        $imageName = basename($url);
-        $imageNameWithoutExtension = pathinfo($imageName, PATHINFO_FILENAME);
-        $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp';
+{
+    $imageDirectory = public_path('userfiles/image/');
+    $imageName = basename($url);
+    $imageNameWithoutExtension = pathinfo($imageName, PATHINFO_FILENAME);
+    $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp';
 
-        if (!file_exists($imageDirectory)) {
-            mkdir($imageDirectory, 0777, true);
-        }
-
-        try {
-            $imageContent = file_get_contents($url);
-            $image = imagecreatefromstring($imageContent);
-
-            if ($image === false) {
-                throw new \Exception('Cannot create image from data.');
-            }
-
-            imagewebp($image, $imagePath, 90);
-            imagedestroy($image);
-
-            return 'userfiles/image/' . $imageNameWithoutExtension . '.webp';
-        } catch (\Exception $e) {
-            $this->command->error('Error downloading or converting image: ' . $e->getMessage());
-            return null;
-        }
+    if (!file_exists($imageDirectory)) {
+        mkdir($imageDirectory, 0777, true);
     }
+
+    try {
+        $imageContent = file_get_contents($url);
+        $image = imagecreatefromstring($imageContent);
+
+        if ($image === false) {
+            throw new \Exception('Cannot create image from data.');
+        }
+
+        // Kiểm tra nếu ảnh là dạng palette-based, chuyển đổi sang true color nếu cần
+        if (!imageistruecolor($image)) {
+            $trueColorImage = imagecreatetruecolor(imagesx($image), imagesy($image));
+            imagecopy($trueColorImage, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
+            imagedestroy($image);
+            $image = $trueColorImage;
+        }
+
+        // Thử chuyển đổi sang WebP
+        if (!imagewebp($image, $imagePath, 90)) {
+            throw new \Exception('Failed to convert image to WebP.');
+        }
+
+        imagedestroy($image);
+
+        return 'userfiles/image/' . $imageNameWithoutExtension . '.webp';
+    } catch (\Exception $e) {
+        $this->command->error('Error downloading or converting image: ' . $e->getMessage());
+        return null; // Bỏ qua nếu không chuyển đổi được
+    }
+}
+
 
     private function generateRandomWeight(): int
     {

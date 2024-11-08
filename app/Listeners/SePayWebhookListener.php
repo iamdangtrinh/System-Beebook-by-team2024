@@ -29,10 +29,10 @@ class SePayWebhookListener
             $emailBought = BillModel::select(['email'])->where('id', $event->info);
             Mail::to($emailBought)->send(new \App\Mail\sendEmailOrder($event->info));
 
-            // $user = User::query()->where('id', $event->info)->first();
-            // if ($user instanceof User) {
-            //     $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
-            // }
+            $user = User::query()->where('id', $event->info)->first();
+            if ($user instanceof User) {
+                $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
+            }
             // Mail::raw('hello', function ($message) {
             //     $message->to('dtrinhit84@gmail.com')
             //         ->subject('Hello Email');

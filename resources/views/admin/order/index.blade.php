@@ -26,7 +26,7 @@
                     <div class="col-sm-4 mb-3">
                         <div class="form-group">
                             <label class="control-label" for="order_id">Hóa đơn</label>
-                            <input type="text" id="order_id" name="order_id" value="" placeholder="Mã hóa đơn"
+                            <input type="text" id="order_id" name="order_id" value="{{ old('order_id') }}" placeholder="Mã hóa đơn"
                                 class="form-control">
                         </div>
                     </div>
