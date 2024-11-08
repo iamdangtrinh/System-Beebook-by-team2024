@@ -2,7 +2,11 @@
 @section('title', 'Giỏ hàng')
 
 @section('body')
-    <div id="page-content">
+<head>
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/customCart.css">
+</head>
+
+<div id="page-content">
         <div class="page section-header text-center">
             <div class="page-title">
                 <div class="wrapper">

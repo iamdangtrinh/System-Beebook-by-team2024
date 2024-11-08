@@ -64,17 +64,10 @@ class CheckoutController extends Controller
         return view('addtocart');
     }
 
-    public function thankyou()
+    public function thankyou(Request $request, $idBill)
     {
-        // lấy url hiện tại
-        $path = $_SERVER['REQUEST_URI'];
-        // cắt chuỗi
-        $parts = explode('thank-you/', $path);
-        $code = $parts[1] ?? null;
-        $idBill = ($code);
-        $resultBill = BillModel::where('id', $idBill)->firstOrFail();
-
-        return view('Client.thankyou', compact(['resultBill']));
+        $resultBill = BillModel::findOrFail($idBill);
+        return view('Client.thankyou', compact('resultBill'));
     }
 
     public function show($id)
@@ -103,12 +96,6 @@ class CheckoutController extends Controller
             ->where('id', $payload['id'])
             // ->where('payment_status', 'PAID')
             ->first();
-
-        if ($bill->payment_status === 'PAID') {
-            Mail::to($bill->email)->send(new \App\Mail\sendEmailOrder($payload['id']));
-            // break;
-        }
-
         return $bill->payment_status;
     }
 }

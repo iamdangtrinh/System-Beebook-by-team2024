@@ -288,12 +288,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 text-center mb-5">
-                        <img src="{{ asset('/') }}client/images/collection/home15-lookbook1.jpg" alt=""
+                        <img class="rounded" src="{{ asset('/') }}userfiles/image/butmau_SlideBanner_840x320.webp" alt="title"
                             title="" />
                     </div>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 text-center mb-5">
-                        <img src="{{ asset('/') }}client/images/collection/home15-lookbook2.jpg" alt=""
-                            title="" />
+                        <img class="rounded" src="{{ asset('/') }}userfiles/image/TrangCTT11_1124_Mainbanner_840x320.webp"
+                            alt="title" title="" />
                     </div>
                 </div>
                 <div class="row">

@@ -28,8 +28,8 @@
             <div class="col-md-4">
                 <h5 class="fw-bold">Liên Hệ</h5>
                 <p>60-62 Lê Lợi, Q.1, TP. HCM</p>
-                <p>Email: <a href="mailto:cskh@fahasa.com.vn" class="text-dark">cskh@fahasa.com.vn</a></p>
-                <p>Điện thoại: 1900636467</p>
+                <p>Email: <a href="mailto:cskh@beebook.com.vn" class="text-dark">cskh@beebook.com.vn</a></p>
+                <p>Điện thoại: 0362094527</p>
             </div>
         </div>
 
@@ -63,14 +63,14 @@
 
 <!-- Including Jquery -->
 <script src="{{ asset('/') }}client/js/vendor/jquery-3.3.1.min.js" defer></script>
-{{-- <script src="{{ asset('/') }}client/js/vendor/modernizr-3.6.0.min.js" defer></script> --}}
-{{-- <script src="{{ asset('/') }}client/js/vendor/wow.min.js" defer></script> --}}
+<script src="{{ asset('/') }}client/js/vendor/modernizr-3.6.0.min.js" defer></script>
+<script src="{{ asset('/') }}client/js/vendor/wow.min.js" defer></script>
 <!-- Including Javascript -->
 <script src="{{ asset('/') }}client/js/bootstrap.min.js" defer></script>
 <script src="{{ asset('/') }}client/js/plugins.js" defer></script>
-{{-- <script src="{{ asset('/') }}client/js/popper.min.js" defer></script> --}}
-{{-- <script src="{{ asset('/') }}client/js/lazysizes.js" defer></script> --}}
-{{-- <script src="{{ asset('/') }}client/js/main.js" defer></script> --}}
+<script src="{{ asset('/') }}client/js/popper.min.js" defer></script>
+<script src="{{ asset('/') }}client/js/lazysizes.js" defer></script>
+<script src="{{ asset('/') }}client/js/main.js" defer></script>
 
 <script>
 

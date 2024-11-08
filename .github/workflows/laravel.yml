@@ -2,43 +2,44 @@ name: CI/CD Laravel Deployment
 
 on:
   push:
-    pull_request:
-      - Pro  # Chạy khi có thay đổi trên nhánh main
+    # pull_request:
+    #   - Pro  # Chạy khi có thay đổi trên nhánh main
+    branches:
+      - main # Chạy khi có thay đổi trên nhánh main
 jobs:
   deploy:
-
     name: Deploy Laravel Application to aaPanel Server
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-      with:
-        token: ${{ secrets.GITHUB }}
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.5.4
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB }}
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    # - name: Run Unit Tests
-    #   run: |
-    #     php artisan test --coverage
+      # - name: Run Unit Tests
+      #   run: |
+      #     php artisan test --coverage
 
-    - name: Deploy to Server
-      run: |
-        ssh -o StrictHostKeyChecking=no root@157.10.45.131 << 'EOF'
-          cd /www/wwwroot/beebook.site
+      - name: Deploy to Server
+        run: |
+          ssh -o StrictHostKeyChecking=no root@157.10.45.131 << 'EOF'
+            cd /www/wwwroot/beebook.site
 
-          # pull source
-          git pull https://${{ secrets.GITHUB }}@github.com/iamdangtrinh/System-Beebook-by-team2024.git
-          
-          # Cài đặt các phụ thuộc Laravel
-          composer install --no-dev --optimize-autoloader
-          
-          # Chạy lệnh Laravel migrate để cập nhật database
-          php artisan migrate --force
+            # pull source
+            git pull https://${{ secrets.GITHUB }}@github.com/iamdangtrinh/System-Beebook-by-team2024.git
+            
+            # Cài đặt các phụ thuộc Laravel
+            composer install --no-dev --optimize-autoloader
+            
+            # Chạy lệnh Laravel migrate để cập nhật database
+            php artisan migrate --force
 
-          # Clear cache, config, views
-          php artisan optimize:clear
+            # Clear cache, config, views
+            php artisan optimize:clear
 
-        EOF
+          EOF

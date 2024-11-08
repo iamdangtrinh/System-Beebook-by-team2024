@@ -2,92 +2,84 @@
 
 namespace Database\Seeders;
 
+use GuzzleHttp\Client;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Symfony\Component\DomCrawler\Crawler;
 
 class ProductsSeeder extends Seeder
 {
     public function run(): void
     {
         try {
-
             $idCate = [
-                0, 14, 12, 9, 15, 20, 11, 6009, 6011, 6718, 17, 6174, 5421, 6377,
-                6003, 6038, 6343, 6453, 6005, 6356, 94, 6007, 19,
-                214, 6006, 3166, 3925, 4199, 6169,
+                12,
+                9,
+                11,
+                6011,
+                6718,
+                17,
+                6003,
+                6038,
+                6007,
             ];
 
-            $seenNames = []; // Mảng lưu tên sản phẩm đã gặp
-            $seenImages = []; // Mảng lưu hình ảnh đã gặp
+            $seenNames = [];
+            $seenImages = [];
 
-            // Lặp qua các category và các page
             foreach ($idCate as $categoryId) {
-                for ($currentPage = 1; $currentPage <= 4; $currentPage++) {
-                    // Gửi yêu cầu HTTP tới API Fahasa với retry và headers
+                for ($currentPage = 1; $currentPage <= 2; $currentPage++) {
                     $response = Http::withHeaders([
                         'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
                     ])->retry(3, 1000)
                         ->get("https://www.fahasa.com/fahasa_catalog/product/loadproducts?category_id=$categoryId&currentPage=$currentPage&limit=400&order=num_orders");
 
-                    // Kiểm tra xem yêu cầu có thành công không
                     if ($response->successful()) {
                         $data = $response->json();
-
-                        // Các trạng thái và giới hạn giá trị cần thiết
                         $statuses = ['active', 'inactive'];
 
                         foreach ($data['product_list'] as $item) {
-                            // Kiểm tra nếu product_name trống thì bỏ qua
                             if (empty($item['product_name'])) {
-                                continue; // Bỏ qua vòng lặp này
+                                continue;
                             }
 
                             $name = $item['product_name'];
                             $slug = Str::slug($name);
                             $status = Arr::random($statuses);
-
                             $image_src = $item['image_src'];
 
-                            // Kiểm tra nếu tên sản phẩm hoặc hình ảnh đã tồn tại thì bỏ qua
                             if (in_array($name, $seenNames) || in_array($image_src, $seenImages)) {
-                                continue; // Bỏ qua sản phẩm trùng lặp
+                                continue;
                             }
 
-                            // Thêm tên và hình ảnh vào mảng đã thấy
                             $seenNames[] = $name;
                             $seenImages[] = $image_src;
 
-                            // Kiểm tra kích thước hình ảnh trước khi tải về
-                            $imagePath = null; // Mặc định là null
-                            if ($this->isValidImage($image_src)) {
-                                $imagePath = $this->downloadImage($image_src);
-                            }
-
-                            // Nếu $imagePath không hợp lệ hoặc lớn hơn 100 ký tự, bỏ qua
+                            $imagePath = $this->isValidImage($image_src) ? $this->downloadImage($image_src) : null;
                             if ($imagePath === null || strlen($imagePath) > 100) {
-                                $imagePath = null; // Đặt lại về null
+                                $imagePath = null;
                             }
 
-                            // Kiểm tra slug có bị trùng không
                             $existingSlug = DB::table('products')->where('slug', $slug)->exists();
-
-                            // Nếu slug đã tồn tại, thay đổi slug
                             if ($existingSlug) {
-                                $slug = $slug . '-' . Str::random(5);  // Thêm chuỗi ngẫu nhiên vào cuối slug
+                                $slug = $slug . '-' . Str::random(5);
                             }
 
                             $quantity = isset($item['sold_qty']) ? $item['sold_qty'] : rand(0, 1000);
                             $price = isset($item['product_price']) ? str_replace('.', '', $item['product_price']) : rand(10000, 20000);
                             $sale_price = isset($item['product_finalprice']) ? str_replace('.', '', $item['product_finalprice']) : null;
 
+                            // Gọi Node.js để lấy mô tả sản phẩm
+                            $description = $this->getDescriptionContent($slug) ?? $name;
+
                             $product = [
                                 'id_category' => rand(1, 55),
                                 'name' => $name,
-                                'description' => $name,
-                                'slug' => $slug,  // Sử dụng slug đã kiểm tra
+                                'description' => $description,
+                                'slug' => $slug,
                                 'status' => $status,
                                 'quantity' => $quantity,
                                 'url_video' => null,
@@ -108,12 +100,10 @@ class ProductsSeeder extends Seeder
                                 'updated_at' => now(),
                             ];
 
-                            // Chèn dữ liệu vào bảng products
                             DB::table('products')->insert($product);
                         }
                     } else {
                         $this->command->error('Lỗi khi lấy dữ liệu từ API. Category ID: ' . $categoryId . ' Page: ' . $currentPage);
-
                     }
                 }
             }
@@ -122,63 +112,103 @@ class ProductsSeeder extends Seeder
         }
     }
 
-    // Hàm kiểm tra kích thước hình ảnh
-    private function isValidImage($url)
+    // private function getDescriptionContent($slug): ?string
+    // {
+    //     try {
+    //         $url = "https://www.fahasa.com/$slug.html";
+    //         $process = new Process(['node', base_path('resources/js/fetchDescription.js'), $url]);
+    //         $process->run();
+
+    //         if ($process->isSuccessful()) {
+    //             $description = trim($process->getOutput());
+    //             return $description;
+    //         } else {
+    //             throw new ProcessFailedException($process);
+    //         }
+    //     } catch (\Exception $e) {
+    //         $this->command->error("Error fetching description for slug $slug: " . $e->getMessage());
+    //         return Null;
+    //     }
+    // }
+
+    // use GuzzleHttp\Client;
+    // use Symfony\Component\DomCrawler\Crawler;
+
+    private function getDescriptionContent($slug): ?string
     {
-        // Lấy header của URL để kiểm tra kích thước
-        $headers = get_headers($url, 1);
+        try {
+            $url = "https://www.fahasa.com/$slug.html";
 
-        // Kiểm tra xem có thông tin kích thước hay không
-        if (isset($headers['Content-Length'])) {
-            $size = (int) $headers['Content-Length'];
-            return $size > 0 && $size <= 100 * 1024; // Kích thước tối đa là 100 KB
+            // Sử dụng Guzzle để lấy nội dung trang web
+            $client = new Client();
+            $response = $client->request('GET', $url, [
+                'headers' => [
+                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
+                ]
+            ]);
+
+            // Kiểm tra nếu phản hồi thành công
+            if ($response->getStatusCode() === 200) {
+                $html = $response->getBody()->getContents();
+
+                // Sử dụng DomCrawler để phân tích và trích xuất mô tả với HTML
+                $crawler = new Crawler($html);
+
+                // Giả sử mô tả nằm trong một thẻ div có id là 'desc_content'
+                $description = $crawler->filter('#desc_content')->html();
+
+                return trim($description);
+            }
+        } catch (\Exception $e) {
+            $this->command->error("Error fetching description for slug $slug: " . $e->getMessage());
+            return null;
         }
-
-        return false; // Không hợp lệ nếu không có kích thước
     }
 
-    // Hàm tải hình ảnh về và lưu vào thư mục với định dạng WebP
+    private function isValidImage($url)
+    {
+        $headers = get_headers($url, 1);
+        if (isset($headers['Content-Length'])) {
+            $size = (int) $headers['Content-Length'];
+            return $size > 0 && $size <= 100 * 1024;
+        }
+        return false;
+    }
+
     private function downloadImage($url)
     {
-        // Đường dẫn lưu hình ảnh
         $imageDirectory = public_path('userfiles/image/');
         $imageName = basename($url);
         $imageNameWithoutExtension = pathinfo($imageName, PATHINFO_FILENAME);
-        $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp'; // Lưu với đuôi .webp
+        $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp';
 
-        // Kiểm tra nếu thư mục không tồn tại, tạo thư mục
         if (!file_exists($imageDirectory)) {
             mkdir($imageDirectory, 0777, true);
         }
 
-        // Lấy nội dung hình ảnh và chuyển đổi định dạng
         try {
             $imageContent = file_get_contents($url);
             $image = imagecreatefromstring($imageContent);
 
             if ($image === false) {
-                throw new \Exception('Không thể tạo hình ảnh từ dữ liệu.');
+                throw new \Exception('Cannot create image from data.');
             }
 
-            // Lưu hình ảnh dưới dạng WebP
-            imagewebp($image, $imagePath, 80); // 80 là chất lượng hình ảnh, bạn có thể điều chỉnh
-            imagedestroy($image); // Giải phóng bộ nhớ
+            imagewebp($image, $imagePath, 90);
+            imagedestroy($image);
 
-            return 'userfiles/image/' . $imageNameWithoutExtension . '.webp'; // Trả về đường dẫn tương đối
+            return 'userfiles/image/' . $imageNameWithoutExtension . '.webp';
         } catch (\Exception $e) {
-            // Xử lý lỗi nếu không tải được hình ảnh
             $this->command->error('Error downloading or converting image: ' . $e->getMessage());
             return null;
         }
     }
 
-    // Hàm tạo cân nặng nhỏ hơn 500 và là số chẵn
     private function generateRandomWeight(): int
     {
-        return rand(1, 250) * 2; // Nhân đôi để đảm bảo số chẵn và dưới 500
+        return rand(1, 250) * 2;
     }
 
-    // Hàm random ngôn ngữ: có hoặc không có "tiếng Việt"
     private function randomLanguage(): string
     {
         return rand(0, 1) ? 'tiếng Việt' : 'tiếng Anh';
