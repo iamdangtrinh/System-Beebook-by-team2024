@@ -18,7 +18,7 @@ class favoriteSeeder extends Seeder
         
         foreach ($users as $user) {
             foreach ($products as $product) {
-                DB::table('favorite')->insert([
+                DB::table('favorites')->insert([
                     'id_user' => $user->id,
                     'id_product' => $product->id,
                     'created_at' => now(),
