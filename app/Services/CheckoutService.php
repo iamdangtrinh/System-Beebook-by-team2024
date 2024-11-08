@@ -92,8 +92,8 @@ class CheckoutService implements CheckoutServiceInterface
                   }
 
                   if ($total_amount < 1000000) {
-                        $total_amount += 20000;
-                        $payload['fee_shipping'] = 20000;
+                        $total_amount += env('fee_shipping');
+                        $payload['fee_shipping'] = env('fee_shipping');
                   } else {
                         $payload['fee_shipping'] = 0;
                   }

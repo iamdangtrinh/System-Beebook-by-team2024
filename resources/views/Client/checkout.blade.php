@@ -181,21 +181,16 @@
 
                                         @foreach ($product->cartProduct as $cartProduct)
                                             <img class="__custom_image" width="80px"
-                                                src="{{ $cartProduct->image_cover }} ? {{ $cartProduct->image_cover }} : '/no_image.jpg' }}"
-                                                alt="{{ $product['name'] }}">
-                                            
+                                                src="{{ $cartProduct->image_cover ?? '/no_image.jpg' }}"
+                                                alt="{{ $cartProduct->name }}">
+                                            <p class="__name_product_checkout">
+                                                <strong>{{ $product['quantity'] }}</strong> x
+                                                <span class="w-75">{{ $cartProduct->name }}</span>
+                                            </p>
                                         @endforeach
-
-                                        <p class="__name_product_checkout"> <strong> {{ $product['quantity'] }}
-                                            </strong> x
-                                            <span class="w-75">
-                                                @foreach ($product->cartProduct as $cartProduct)
-                                                    {{ $cartProduct->name }}
-                                                @endforeach
-                                            </span>
-                                        </p>
-                                        <span>{{ number_format($product['quantity'] * $product['price'], '0', '.', '.') }}
+                                        <span>{{ number_format($product['quantity'] * $product['price'], 0, '.', '.') }}
                                             đ</span>
+
                                     </li>
                                 @endforeach
                             </ul>
@@ -211,11 +206,11 @@
                                 <span class="col-12 col-sm-6 cart__subtotal-title">Phí vận chuyển:</span>
                                 <span class="col-12 col-sm-6 text-right"><span id="freeShipping">
                                         @if ($subTotal < 1000000)
-                                            20.000đ
+                                            {{ env('fee_shipping') }} đ
                                             @php
-                                                $subTotal += 20000;
+                                                $subTotal += env('fee_shipping');
                                             @endphp
-                                            <input type="hidden" name="fee_shipping" value="20000">
+                                            <input type="hidden" name="fee_shipping" value="{{ env('fee_shipping') }}">
                                         @else
                                             <input type="hidden" name="fee_shipping" value="0">
                                             Miễn phí vận chuyển
