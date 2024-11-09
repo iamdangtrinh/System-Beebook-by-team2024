@@ -92,8 +92,8 @@ class CheckoutService implements CheckoutServiceInterface
                   }
 
                   if ($total_amount < 1000000) {
-                        $total_amount += 20000;
-                        $payload['fee_shipping'] = 20000;
+                        $total_amount += env('fee_shipping');
+                        $payload['fee_shipping'] = env('fee_shipping');
                   } else {
                         $payload['fee_shipping'] = 0;
                   }
@@ -114,7 +114,7 @@ class CheckoutService implements CheckoutServiceInterface
                   } else if ($payload['payment_method'] == "OFFLINE") {
                         // duyệt
                         Mail::to($payload['email'])->send(new \App\Mail\sendEmailOrder($id_bill));
-                        return redirect()->route('thankyou.index', ['id' => $id_bill])->with('success', "Bạn đã đặt hàng thành công");
+                        return redirect()->route('thankyou.index', ['id' => $id_bill]);
                   }
             } catch (\Exception $exception) {
                   DB::rollBack();

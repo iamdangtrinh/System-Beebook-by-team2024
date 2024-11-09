@@ -61,13 +61,12 @@ class SepayController extends Controller
                 // Lấy bỏ phần pattern chỉ còn lại id ex: 123456, abcd-efgh
                 $info = Str::of($matches[0])->replaceFirst(config('sepay.pattern'), '')->value();
 
-                if($info) {
+                if ($info) {
                     $idBill = BillModel::findOrFail($info);
                     $idBill->payment_status = 'PAID';
                     $idBill->save();
                 }
                 event(new SePayWebhookEvent($info, $sePayWebhookData));
-                // return redirect()->route('thankyou.index', ['id' => $idBill->id]);
             }
             return response()->noContent();
         } else {

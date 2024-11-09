@@ -27,9 +27,9 @@ Route::controller(getLocationGHNContronller::class)->group(function () {
 });
 
 Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware('CheckLogin');
-Route::post('progressCheckout', [CheckoutController::class, 'store'])->name('checkout.store');
-Route::get('thank-you/{id}', [CheckoutController::class, 'thankyou'])->name('thankyou.index');
-Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index');
+Route::post('progressCheckout', [CheckoutController::class, 'store'])->name('checkout.store')->middleware('CheckLogin');
+Route::get('thank-you/{id}', [CheckoutController::class, 'thankyou'])->name('thankyou.index')->middleware('CheckLogin');
+Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index')->middleware('CheckLogin');
 
 Route::prefix('admin')->group(function () {
       Route::get('/order', [OrderController::class, 'index'])->name('order.index');
@@ -37,12 +37,12 @@ Route::prefix('admin')->group(function () {
 
 // hiển thị qr thanh toán đơn hàng
 // Route::match(['get', 'post'], '/order', [CheckoutController::class, 'index'])->name('order.index');
-Route::get('/order/{id}', [CheckoutController::class, 'show'])->name('order.show');
+Route::get('/order/{id}', [CheckoutController::class, 'show'])->name('order.show')->middleware('CheckLogin');
 Route::post('/order-check-status', [CheckoutController::class, 'checkStatus'])->name('order.checkStatus');
 
 // đơn hàng
-Route::get('/profile/your-order', [ManagerUserController::class, 'yourOrder'])->name('your-order.index')->middleware('CheckLogin');
-Route::get('/profile/your-order/{id}', [ManagerUserController::class, 'yourOrder'])->name('your-order-detail.index')->middleware('CheckLogin');
+Route::get('/profile/your-order', [ManagerUserController::class, 'yourOrder'])->name('your-order.index');
+// Route::get('/profile/your-order/{id}', [ManagerUserController::class, 'yourOrder'])->name('your-order-detail.index')->middleware('CheckLogin');
 
 Route::get('/redis-test', function () {
       Cache::store('redis')->put('test_key', 'Hello Redis', 10);
