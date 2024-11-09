@@ -42,7 +42,7 @@ Route::post('/order-check-status', [CheckoutController::class, 'checkStatus'])->
 
 // đơn hàng
 Route::get('/profile/your-order', [ManagerUserController::class, 'yourOrder'])->name('your-order.index')->middleware('CheckLogin');
-Route::get('/profile/your-order/{id}', [ManagerUserController::class, 'yourOrder'])->name('your-order-detail.index')->middleware('CheckLogin');
+// Route::get('/profile/your-order/{id}', [ManagerUserController::class, 'yourOrder'])->name('your-order-detail.index')->middleware('CheckLogin');
 
 Route::get('/redis-test', function () {
       Cache::store('redis')->put('test_key', 'Hello Redis', 10);
