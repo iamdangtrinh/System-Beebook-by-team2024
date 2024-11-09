@@ -30,4 +30,8 @@ class BillModel extends Model
         "note",
         "note_admin",
     ];
+
+    public function billDetails() {
+        return $this->hasMany(BillDetailModel::class, 'id_bill', 'id');
+    }
 }
