@@ -27,18 +27,18 @@ class SePayWebhookListener
         if ($event->sePayWebhookData->transferType === 'in') {
             
             $emailBought = BillModel::where('id', $event->info)->pluck('email')->first();
-            if ($emailBought) {
-                Mail::to($emailBought)->send(new \App\Mail\sendEmailOrder($event->info));
-            }
+            // if ($emailBought) {
+            //     Mail::to($emailBought)->send(new \App\Mail\sendEmailOrder($event->info));
+            // }
+            Mail::raw('Order: ' . $emailBought, function ($message) {
+                $message->to('dtrinhit84@gmail.com')
+                    ->subject('Hello Email');
+            });
 
             // $user = User::query()->where('id', $event->info)->first();
             // if ($user instanceof User) {
             //     $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
             // }
-            // Mail::raw('Order: ' . $event->info, function ($message) {
-            //     $message->to('dtrinhit84@gmail.com')
-            //         ->subject('Hello Email');
-            // });
             // redirect()->route('thankyou.index', ['id' => ($event->info)]);
         } else {
             // Xử lý tiền ra tài khoản
