@@ -70,7 +70,7 @@ class CheckoutController extends Controller
         $resultBill = BillModel::findOrFail($idBill);
 
         if($resultBill->payment_status === 'PAID') {
-            return redirect()->route('profile/your-order');
+            return redirect()->route('your-order.index');
         }
         Mail::to($resultBill->email)->send(new \App\Mail\sendEmailOrder($resultBill->id));
         return view('Client.thankyou', compact('resultBill'));
