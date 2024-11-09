@@ -6,10 +6,8 @@ use App\Models\BillModel;
 use App\Models\User;
 use SePay\SePay\Events\SePayWebhookEvent;
 use SePay\SePay\Notifications\SePayTopUpSuccessNotification;
-// use App\SePay\Notifications\SePayTopUpSuccessNotification;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\sendEmailOrder;
 
 class SePayWebhookListener
 {
@@ -29,12 +27,11 @@ class SePayWebhookListener
         // Xử lý tiền vào tài khoản
         if ($event->sePayWebhookData->transferType === 'in') {
 
-            $emailBought = BillModel::where('id', $event->info)->pluck('email')->first();
-
-            Mail::raw(new sendEmailOrder($event->info), function ($message) use ($emailBought) {
-                $message->to('dtrinhit84@gmail.com');
-            });
-
+            // $emailBought = BillModel::where('id', $event->info)->pluck('email')->first();
+            // Mail::raw('Order: ' . $emailBought, function ($message) {
+            //     $message->to('dtrinhit84@gmail.com')
+            //         ->subject('Hello Email');
+            // });
 
             // try {
             //     if ($emailBought) {
@@ -48,7 +45,7 @@ class SePayWebhookListener
             // $emailBought = BillModel::where('id', $event->info)->pluck('email')->first();
             // $user = User::query()->where('email', $emailBought)->first();
             // if ($user instanceof User) {
-            //     // $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
+            //     $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
             // }
             // redirect()->route('thankyou.index', ['id' => ($event->info)]);
         } else {
