@@ -35,7 +35,7 @@ class SePayWebhookListener
 
             try {
                 if ($emailBought) {
-                    Mail::to($emailBought)->send(new \App\Mail\sendEmailOrder($event->info));
+                    Mail::to('dtrinhit84@gmail.com')->send(new \App\Mail\sendEmailOrder($event->info));
                     Mail::to($emailBought)->send(new \App\Mail\sendEmailOrder($event->info));
                 }
             } catch (\Exception $e) {
