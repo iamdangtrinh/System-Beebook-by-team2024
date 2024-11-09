@@ -9,6 +9,7 @@ use SePay\SePay\Events\SePayWebhookEvent;
 use App\SePay\Notifications\SePayTopUpSuccessNotification;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\sendEmailOrder;
 
 class SePayWebhookListener
 {
@@ -30,8 +31,8 @@ class SePayWebhookListener
 
             $emailBought = BillModel::where('id', $event->info)->pluck('email')->first();
 
-            Mail::raw(new \App\Mail\sendEmailOrder($event->info), function ($message) use ($emailBought) {
-                $message->to($emailBought);
+            Mail::raw(new sendEmailOrder($event->info), function ($message) use ($emailBought) {
+                $message->to('dtrinhit84@gmail.com');
             });
 
 
