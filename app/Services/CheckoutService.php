@@ -114,7 +114,7 @@ class CheckoutService implements CheckoutServiceInterface
                   } else if ($payload['payment_method'] == "OFFLINE") {
                         // duyệt
                         Mail::to($payload['email'])->send(new \App\Mail\sendEmailOrder($id_bill));
-                        return redirect()->route('thankyou.index', ['id' => $id_bill])->with('success', "Bạn đã đặt hàng thành công");
+                        return redirect()->route('thankyou.index', ['id' => $id_bill]);
                   }
             } catch (\Exception $exception) {
                   DB::rollBack();
