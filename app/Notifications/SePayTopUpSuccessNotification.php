@@ -1,6 +1,6 @@
 <?php
 
-namespace SePay\SePay\Notifications;
+namespace App\SePay\Notifications;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;
