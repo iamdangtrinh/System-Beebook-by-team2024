@@ -48,7 +48,7 @@ $currentSegment = Request::segment(2);
                     <li class=""><a href={{ route('order.index') }}><i class="fa fa-th-large"></i> <span
                                 class="nav-label">Đơn hàng</span></a>
                     </li>
-                    <li class=""><a href={{ route('adminproduct.index') }}><i class="fa fa-th-large"></i> <span
+                    <li class=""><a href={{ route('adminproduct.index') }}><i class="fa fa-book"></i> <span
                                 class="nav-label">Sách</span></a>
                     </li>
                 </ul>
