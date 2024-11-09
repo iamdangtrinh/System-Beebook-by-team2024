@@ -37,7 +37,7 @@ class SePayTopUpSuccessNotification extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject(__($user))
-            ->greeting(__('Deposit successful!'))
+            ->greeting(__($user))
             ->line(
                 view('mails.sendOrder', ['amount' => $this->sePayWebhookData->transferAmount])
             )
