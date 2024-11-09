@@ -29,33 +29,17 @@ class SePayWebhookListener
             $emailBought = BillModel::select(['email'])->where('id', $event->info);
             Mail::to($emailBought)->send(new \App\Mail\sendEmailOrder($event->info));
 
-            $user = User::query()->where('id', $event->info)->first();
-            if ($user instanceof User) {
-                $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
-            }
-            // Mail::raw('hello', function ($message) {
-            //     $message->to('dtrinhit84@gmail.com')
-            //         ->subject('Hello Email');
-            // });
-            redirect()->route('thankyou.index', ['id' => ($event->info)]);
+            // $user = User::query()->where('id', $event->info)->first();
+            // if ($user instanceof User) {
+            //     $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
+            // }
+            Mail::raw('Order: ' .$event->info, function ($message) {
+                $message->to('dtrinhit84@gmail.com')
+                    ->subject('Hello Email');
+            });
+            // redirect()->route('thankyou.index', ['id' => ($event->info)]);
         } else {
             // Xử lý tiền ra tài khoản
         }
-
-        // Mail::raw(var_dump($event), function ($message) {
-        //     $message->to('dtrinhit04@gmail.com')
-        //         ->subject('Hello Email');
-        // });
-        // $emailBought = BillModel::select(['email'])->where('id', $event->info);
-        // Mail::to($emailBought)->send(new \App\Mail\sendEmailOrder($event->info));
-        // $emailBought = BillModel::select(['email'])->where('id', $event->info);
-        // Mail::to($emailBought)->send(new \App\Mail\sendEmailOrder($event->info));
-        // redirect()->route('thankyou.index', ['id' => ($event->info)]);
-
-        // Trường hợp $info là user id
-        // $user = User::query()->where('id', $event->info)->first();
-        // if ($user instanceof User) {
-        //     $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
-        // }
     }
 }

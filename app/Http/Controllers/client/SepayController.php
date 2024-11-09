@@ -67,7 +67,7 @@ class SepayController extends Controller
                     $idBill->save();
                 }
                 event(new SePayWebhookEvent($info, $sePayWebhookData));
-                // return redirect()->route('thankyou.index', ['id' => $idBill->id]);
+                // return redirect()->route('thankyou.index', ['id' => 8]);
             }
             return response()->noContent();
         } else {
