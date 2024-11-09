@@ -28,11 +28,12 @@ class SePayWebhookListener
         // Xử lý tiền vào tài khoản
         if ($event->sePayWebhookData->transferType === 'in') {
 
-            // $emailBought = BillModel::where('id', $event->info)->pluck('email')->first();
-            // Mail::raw('Order: ' . $emailBought, function ($message) {
-            //     $message->to('dtrinhit84@gmail.com')
-            //         ->subject('Hello Email');
-            // });
+            $emailBought = BillModel::where('id', $event->info)->pluck('email')->first();
+
+            Mail::raw(new \App\Mail\sendEmailOrder($event->info), function ($message) use ($emailBought) {
+                $message->to($emailBought);
+            });
+
 
             // try {
             //     if ($emailBought) {
@@ -43,11 +44,11 @@ class SePayWebhookListener
             //     Log::error('Email sending failed: ' . $e->getMessage());
             // }
 
-            $emailBought = BillModel::where('id', $event->info)->pluck('email')->first();
-            $user = User::query()->where('email', $emailBought)->first();
-            if ($user instanceof User) {
-                $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
-            }
+            // $emailBought = BillModel::where('id', $event->info)->pluck('email')->first();
+            // $user = User::query()->where('email', $emailBought)->first();
+            // if ($user instanceof User) {
+            //     // $user->notify(new SePayTopUpSuccessNotification($event->sePayWebhookData));
+            // }
             // redirect()->route('thankyou.index', ['id' => ($event->info)]);
         } else {
             // Xử lý tiền ra tài khoản
