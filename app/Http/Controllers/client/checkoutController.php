@@ -68,6 +68,11 @@ class CheckoutController extends Controller
     {
         // nếu đơn hàng chưa thanh toán thì mới hiển thị
         $resultBill = BillModel::findOrFail($idBill);
+
+        if($resultBill->payment_status === 'PAID') {
+            return redirect()->route('profile/your-order');
+        }
+        Mail::to($resultBill->email)->send(new \App\Mail\sendEmailOrder($resultBill->id));
         return view('Client.thankyou', compact('resultBill'));
     }
 

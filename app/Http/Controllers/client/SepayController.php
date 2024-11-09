@@ -65,16 +65,8 @@ class SepayController extends Controller
                     $idBill = BillModel::findOrFail($info);
                     $idBill->payment_status = 'PAID';
                     $idBill->save();
-                    // $emailBought = BillModel::where('id', $info)->pluck('email')->first();
-                    Mail::raw('dtrinhit84@gmail.com')->send(new \App\Mail\sendEmailOrder(24));
-
-                    Mail::raw('Order: ' . $info , function ($message) {
-                        $message->to('dtrinhit84@gmail.com')
-                            ->subject('Hello Email');
-                    });
                 }
                 event(new SePayWebhookEvent($info, $sePayWebhookData));
-                // return redirect()->route('thankyou.index', ['id' => 8]);
             }
             return response()->noContent();
         } else {
