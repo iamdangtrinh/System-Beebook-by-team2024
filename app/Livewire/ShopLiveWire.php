@@ -31,12 +31,6 @@ class ShopLiveWire extends Component
         $this->hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
     }
 
-    // Hàm xử lý khi thay đổi giá trị priceRange
-    public function updatedPriceRange()
-    {
-        $this->resetPage(); // Reset phân trang khi thay đổi filter
-    }
-
     // lưu và url của product
     protected $queryString = [
         'priceRange' => ['except' => ''],

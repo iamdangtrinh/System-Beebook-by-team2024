@@ -5,9 +5,10 @@ use App\Http\Controllers\client\LoginGoogleController;
 use App\Http\Controllers\client\LoginFaceBookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\ManagerUserAdmin;
+use App\Http\Controllers\client\CheckoutController;
 
 Route::middleware(['CheckAuth'])->group(function () {
-    Route::get('/sign-in', [ManagerUserController::class, 'SignIn']);
+    Route::get('/sign-in', [ManagerUserController::class, 'SignIn'])->name('sign-in.index');
     Route::post('/sign-in', [ManagerUserController::class, 'HandleSignIn']);
     Route::get('/sign-up', [ManagerUserController::class, 'SignUp']);
     Route::post('/sign-up', [ManagerUserController::class, 'HandleSignUp']);
@@ -31,6 +32,8 @@ Route::get('/verify-signup/{id}', [ManagerUserController::class, 'HandleVerifySi
 Route::get('/reset-password', [ManagerUserController::class, 'ResetPassword']);
 // redirect form confirm password
 Route::get('/confirm-password/{token}', [ManagerUserController::class, 'HandleConfirm']);
+// coupon 
+Route::post('/apply-coupon', [CheckoutController::class, 'ApplyCoupon'])->name('apply.coupon');
 // admin
 Route::middleware(['checkLogin'])->group(function () {
     Route::get('/dashboard/user', [ManagerUserAdmin::class, 'Index']);

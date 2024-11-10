@@ -38,7 +38,10 @@ class CheckoutController extends Controller
         }
         return view('Client.checkout', compact(['result']));
     }
-
+    public function ApplyCoupon()
+    {
+        dd('ok');
+    }
     public function cartToCheckout(Request $request) {}
 
     // tạo view cart

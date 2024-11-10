@@ -111,7 +111,7 @@
                                     </td>
                                     <td class="text-right">
                                         <div class="btn-group gap-2 w-100 __custom_btn_group">
-                                            <a href="" class="badge text-light text-bg-warning">Chi tiết</a>
+                                            <a href="{{route('order.detail', ['id' => $result->id])}}" class="badge text-light text-bg-warning">Chi tiết</a>
                                         </div>
                                     </td>
                                 </tr>

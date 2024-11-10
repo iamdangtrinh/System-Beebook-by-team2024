@@ -4,13 +4,16 @@ namespace App\Livewire;
 
 use App\Models\couponModel;
 use Livewire\Component;
+use Livewire\Attributes\On;
+
 
 class Coupon extends Component
 {
 
     public $code = '';
-    protected $listeners = ['applyCoupon' => 'applyCoupon'];
+    protected $listeners = ['applyCoupon'];
 
+    #[On('applyCoupon')]
     public function applyCoupon()
     {
         dd('Event received in Livewire');

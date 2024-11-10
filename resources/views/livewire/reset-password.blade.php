@@ -27,7 +27,7 @@
             @if (session('errorReset'))
                 <span class="error text-danger"> {{ session('errorReset') }}</span>
             @endif
-                <button type="submit"   @if ($errors->any() || $email === '' || $phone === '' || session('successReset') )  disabled @endif class="btn  pt-lg-3 rounded-1 pb-lg-3 fs-6">Lấy lại mật khẩu
+                <button type="submit"   @if ($errors->any() || $email === '' || session('successReset') )  disabled @endif class="btn  pt-lg-3 rounded-1 pb-lg-3 fs-6">Lấy lại mật khẩu
             </button>
             </form>
         </div>

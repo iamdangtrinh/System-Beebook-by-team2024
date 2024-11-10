@@ -148,7 +148,7 @@ document.addEventListener('livewire:initialized',()=>{
             showCancelButton: true,
             reverseButtons: true,
             confirmButtonColor: 'red',
-            cancelButtonColor: 'red',
+            cancelButtonColor: 'black',
             confirmButtonText: 'Xác nhận xóa'
         }).then((result)=>{
             if (result.isConfirmed) {

@@ -23,18 +23,19 @@ class ResetPassword extends Component
         try {
             $check = User::where('email', $this->email)->first();
             if ($check !== null) {
+                $this->token = Hash::make(value: Str::random(60));
                 $checkTokens = PasswordResetToken::where('email', $this->email)->first();
                 if ($checkTokens) {
                     PasswordResetToken::where('email', $this->email)->update([
-                        'token' => Hash::make(value: Str::random(60))
+                        'token' => $this->token
                     ]);
                 } else {
                     PasswordResetToken::create([
                         'email' => $this->email,
-                        'token' => Hash::make(Str::random(60))
+                        'token' => $this->token
                     ]);
                 }
-                $this->token = PasswordResetToken::where('email', $this->email)->first()['token'];
+                // $this->token = PasswordResetToken::where('email', $this->email)->first()['token'];
                 Mail::to($this->email)->send(new ResetPasswordMail($this->token));
                 session()->flash('successReset', 'Vui lòng kiểm tra email để đổi mật khẩu');
             } else {
