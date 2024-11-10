@@ -30,9 +30,29 @@ class OrderController extends Controller
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $results = BillModel::select($this->selected())->paginate(20);
+        $payload = $request->except(['_token']);
+        $query = BillModel::select($this->selected());
+        if (!empty($payload['order_id'])) {
+            $query->where('id', $payload['order_id']);
+        }
+
+        if (!empty($payload['status'])) {
+            $query->where('status', $payload['status']);
+        }
+
+        if (!empty($payload['customer'])) {
+            $query->where('id_user', 'like', '%' . $payload['customer'] . '%');
+        }
+
+        if (!empty($payload['amount'])) {
+            $query->where('total_amount', $payload['amount']);
+        }
+
+        $results = $query->paginate(20);
+
+        // $results = BillModel::select($this->selected())->paginate(20);
         return view('admin.order.index', compact(['results']));
     }
 

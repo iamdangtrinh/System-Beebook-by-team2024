@@ -49,7 +49,7 @@
         gtag('config', 'G-N7WWXVQLYT');
     </script> --}}
     <script>
-        let loading = `<i class="removeLoading fa fa-spinner fa-spin" style="font-size:24px"></i>`;
+        let loading = `<i class="removeLoading fa fa-spinner fa-spin" style="font-size:18px"></i>`;
     </script>
 </head>
 
@@ -171,11 +171,11 @@
 
                                 <li class="lvl1 parent dropdown"><a href="#">Tìm đơn hàng<i
                                             class="anm anm-angle-down-l"></i></a></li>
-                                <li class="lvl1 parent dropdown"><a href="#">Blog <i
+                                <li class="lvl1 parent dropdown"><a href="#">Tin tức - Review sách <i
                                             class="anm anm-angle-down-l"></i></a>
                                     <ul class="dropdown">
-                                        <li><a href="/post/blog" class="site-nav">Blog</a></li>
-                                        <li><a href="/post/review" class="site-nav">Review</a></li>
+                                        <li><a href="/post/blog" class="site-nav">Bản tin</a></li>
+                                        <li><a href="/post/review" class="site-nav">Review sách</a></li>
 
                                     </ul>
                                 </li>

@@ -14,12 +14,10 @@ class Product extends Model
 
     protected $fillable = [
         'id',
-        'id_image',
         'id_category',
         'name',
         'description',
         'slug',
-        'sold',
         'quantity',
         'status',
         'url_video',
@@ -28,8 +26,6 @@ class Product extends Model
         'price',
         'price_sale',
         'hot',
-        'start_sale',
-        'end_sale',
         'meta_seo',
         'description_seo',
         'created_at',

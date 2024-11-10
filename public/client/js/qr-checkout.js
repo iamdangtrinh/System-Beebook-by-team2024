@@ -1,41 +1,42 @@
 (function ($) {
     let DT = {};
 
-    DT.checkStatus = () => {
-        const urlPath = window.location.pathname;
-        const id = urlPath.split("/").pop();
-        let data = {
-            id,
+    DT.checkStatus = async () => {
+        const id = window.location.pathname.split("/").pop();
+        const data = { id };
+        const csrfToken = $('meta[name="csrf_token"]').attr("content");
+
+        let isPaid = false; // Track if payment is confirmed to avoid redundant requests
+
+        const checkOrderStatus = async () => {
+            if (isPaid) return; // Skip checking if payment is already confirmed
+
+            try {
+                const response = await $.ajax({
+                    type: "POST",
+                    url: `/order-check-status`,
+                    data: data,
+                    headers: { "X-CSRF-TOKEN": csrfToken },
+                });
+
+                if (response === "PAID") {
+                    console.log("Đã thanh toán");
+                    window.location.href = `/thank-you/${data.id}`;
+                    isPaid = true; // Set flag to avoid further checks
+                } else {
+                    console.log("Chưa thanh toán");
+                }
+            } catch (error) {
+                console.log("Lỗi");
+                console.log(error);
+            }
         };
-        setInterval(() => {
-            $.ajax({
-                type: "POST",
-                url: `/order-check-status`,
-                data: data,
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf_token"]').attr(
-                        "content"
-                    ),
-                },
-                success: function (response) {
-                    console.log(response.payment_status);
-                    
-                    if (response.payment_status == "PAID") {
-                        console.log("Đã thanh toán");
-                        window.location.href = `/thank-you/${data.id}`;
-                    } else {
-                        console.log("Chưa thanh toán");
-                    }
-                    //   console.log('====================================');
-                    //   console.log(response);
-                    //   console.log('====================================');
-                },
-                error: function (error) {
-                    console.log("Lỗi");
-                    console.log(error);
-                },
-            });
-        }, 1000);
+
+        // Check status every 5 seconds, but stop after the payment is confirmed
+        const intervalId = setInterval(() => {
+            checkOrderStatus();
+            if (isPaid) clearInterval(intervalId); // Stop interval once paid
+        }, 5000);
     };
 
     DT.timerCheckout = () => {

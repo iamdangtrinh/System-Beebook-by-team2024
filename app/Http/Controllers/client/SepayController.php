@@ -61,14 +61,13 @@ class SepayController extends Controller
                 // Lấy bỏ phần pattern chỉ còn lại id ex: 123456, abcd-efgh
                 $info = Str::of($matches[0])->replaceFirst(config('sepay.pattern'), '')->value();
 
-                if($info) {
-                    $idBill = BillModel::find($info);
+                if ($info) {
+                    $idBill = BillModel::findOrFail($info);
                     $idBill->payment_status = 'PAID';
                     $idBill->save();
                 }
                 event(new SePayWebhookEvent($info, $sePayWebhookData));
             }
-
             return response()->noContent();
         } else {
             // Gửi email cảnh báo nếu token không hợp lệ
@@ -79,8 +78,6 @@ class SepayController extends Controller
                         ->subject('Invalid Token');
                 }
             );
-
-            // Ném ngoại lệ với thông báo lỗi
             throw ValidationException::withMessages(['message' => ['Invalid Token']]);
         }
     }

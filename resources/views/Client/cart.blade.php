@@ -2,7 +2,11 @@
 @section('title', 'Giỏ hàng')
 
 @section('body')
-    <div id="page-content">
+<head>
+    <link rel="stylesheet" href="{{ asset('/') }}client/css/customCart.css">
+</head>
+
+<div id="page-content">
         <div class="page section-header text-center">
             <div class="page-title">
                 <div class="wrapper">
@@ -149,8 +153,11 @@
                             <div class="row border-bottom pb-2 pt-2">
                                 <span class="col-12 col-sm-6 cart__subtotal-title">Phương thức vận chuyển:</span>
                                 <span class="col-12 col-sm-6 text-right">
-                                    <img src="/Logo-GHN.webp" alt="">
-                                    Giao hàng nhanh</span>
+                                    <img style="width:80px" src="/Logo-GHN.webp" alt="logo ghn"></span>
+                            </div>
+                            <div class="row border-bottom pb-2 pt-2">
+                                <span class="col-12 col-sm-6 cart__subtotal-title">Phí vận chuyển:</span>
+                                <span class="col-12 col-sm-6 text-right">{{number_format(env('fee_shipping'), 0, '.', '.')}} đ</span>
                             </div>
                             <div class="row border-bottom pb-2 pt-2">
                                 <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Tổng cộng:</strong></span>

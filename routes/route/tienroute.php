@@ -21,7 +21,7 @@ Route::get('auth/google/callback', [LoginGoogleController::class, 'handleGoogleC
 Route::get('auth/facebook', [LoginFaceBookController::class, 'redirectToFacebook']);
 Route::get('auth/facebook/callback', [LoginFaceBookController::class, 'handleFacebookCallback']);
 // Logout
-Route::get('/logout', [ManagerUserController::class, 'LogOut']);
+Route::get('/logout', [ManagerUserController::class, 'LogOut'])->name('logout.index');
 // profile
 Route::middleware(['CheckLogin'])->group(function () {
     Route::get('/profile', [ManagerUserController::class, 'Profile']);

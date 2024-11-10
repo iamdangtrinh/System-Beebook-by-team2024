@@ -92,17 +92,15 @@ class CheckoutService implements CheckoutServiceInterface
                   }
 
                   if ($total_amount < 1000000) {
-                        $total_amount += 20000;
-                        $payload['fee_shipping'] = 20000;
+                        $total_amount += env('fee_shipping');
+                        $payload['fee_shipping'] = env('fee_shipping');
                   } else {
                         $payload['fee_shipping'] = 0;
                   }
 
                   $payload['total_amount'] = $total_amount;
                   $payload['id_user'] = Auth::user()->id;
-
                   $id_bill = $this->CheckoutRepository->create($payload)->id;
-
                   foreach ($billDetails as $billDetail) {
                         $billDetail['id_bill'] = $id_bill;
                         $this->BillDetailRepository->create($billDetail);
@@ -111,11 +109,12 @@ class CheckoutService implements CheckoutServiceInterface
                   $this->CartService->destroyAll();
 
                   DB::commit();
-                  if ($payload['payment_method'] == "ONLINE") {
+                  if ($payload['payment_method'] === "ONLINE") {
                         return redirect()->route('order.show', ['id' => $id_bill]);
-                  } else if ($payload['payment_method'] == "OFFLINE") {
+                  } else if ($payload['payment_method'] === "OFFLINE") {
+                        // duyệt
                         // Mail::to($payload['email'])->send(new \App\Mail\sendEmailOrder($id_bill));
-                        return redirect()->route('thankyou.index', ['id' => $id_bill])->with('success', "Bạn đã đặt hàng thành công");
+                        return redirect()->route('thankyou.index', ['id' => $id_bill]);
                   }
             } catch (\Exception $exception) {
                   DB::rollBack();

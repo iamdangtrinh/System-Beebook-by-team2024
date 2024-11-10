@@ -15,29 +15,30 @@ class ProductController extends Controller
 {
     public function index($page = 1)
     {
-        $title = 'Cửa hàng';
-        $routeName= 'product.index';
-        $products = Product::orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
-        $categories = CategoryProduct::whereNull('parent_id')
-            ->where('status', 'active')
-            ->with(['children' => function ($query) {
-                $query->where('status', 'active');
-            }])->get();
-        $totalProducts = $products->count();
-        $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
-        return view('Client.shop', compact([
-            'products',
-            'routeName',
-            'totalProducts',
-            'hotProducts',
-            'categories',
-            'title',
-        ]));
+        // $title = 'Cửa hàng';
+        // $routeName = 'product.index';
+        // $products = Product::orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
+        // $categories = CategoryProduct::whereNull('parent_id')
+        //     ->where('status', 'active')
+        //     ->with(['children' => function ($query) {
+        //         $query->where('status', 'active');
+        //     }])->get();
+        // $totalProducts = $products->count();
+        // $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
+        // return view('Client.shop', compact([
+        //     'products',
+        //     'routeName',
+        //     'totalProducts',
+        //     'hotProducts',
+        //     'categories',
+        //     'title',
+        // ]));
+        return view('Client.shop2');
     }
     public function hot($page = 1)
     {
         $title = 'Sản phẩm nổi bật';
-        $routeName= 'product.hot';
+        $routeName = 'product.hot';
         $products = Product::where('hot', 1)->orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
         $categories = CategoryProduct::whereNull('parent_id')
             ->where('status', 'active')
@@ -59,7 +60,7 @@ class ProductController extends Controller
     {
         $category = CategoryProduct::where('slug', $slug)->firstOrFail();
         $title = 'Danh mục: ' . $category->name;
-        $routeName= 'product.category';
+        $routeName = 'product.category';
         $categories = CategoryProduct::whereNull('parent_id')
             ->where('status', 'active')
             ->with(['children' => function ($query) {
@@ -89,7 +90,7 @@ class ProductController extends Controller
     {
         $author = Taxonomy::where('slug', $slug)->firstOrFail();
         $title = 'Tác giả: ' . $author->name;
-        $routeName= 'product.author';
+        $routeName = 'product.author';
         $categories = CategoryProduct::whereNull('parent_id')
             ->where('status', 'active')
             ->with(['children' => function ($query) {
@@ -112,7 +113,7 @@ class ProductController extends Controller
     {
         $manufacturer = Taxonomy::where('slug', $slug)->firstOrFail();
         $title = $manufacturer->name;
-        $routeName= 'product.manufacturer';
+        $routeName = 'product.manufacturer';
         $categories = CategoryProduct::whereNull('parent_id')
             ->where('status', 'active')
             ->with(['children' => function ($query) {
@@ -150,7 +151,17 @@ class ProductController extends Controller
     }
     public function filter(Request $request, $page = 1)
     {
-        $query = Product::query();
+        $query = Product::select([
+            'id',
+            'id_category',
+            'name',
+            'slug',
+            'quantity',
+            'image_cover',
+            'price',
+            'price_sale',
+            'hot',
+        ]);
 
         // Lọc theo khoảng giá
         if ($request->has('price_min') && $request->has('price_max')) {
@@ -185,6 +196,7 @@ class ProductController extends Controller
 
         $products = $query->paginate(12, ['*'], 'page', $page);
 
-        return view('Client.shop', compact('products'))->render();
+        return view('Client.products.partials.filtered-products', compact(['products']))->render();
     }
+
 }

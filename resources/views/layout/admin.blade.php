@@ -22,10 +22,8 @@ $currentSegment = Request::segment(2);
 
     <link href="{{ asset('/') }}backend/css/animate.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/style.css" rel="stylesheet">
-    <link href="{{ asset('/') }}backend/css/style.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/custom.css" rel="stylesheet">
-
-    <link href="{{ asset('/') }}backend/css/custom.css" rel="stylesheet">
+    <link href="{{ asset('/') }}backend/css/plugins/steps/jquery.steps.css" rel="stylesheet">
     <script src="{{ asset('/') }}backend/js/jquery-3.1.1.min.js"></script>
 
 </head>
@@ -39,17 +37,17 @@ $currentSegment = Request::segment(2);
                         <div class="dropdown profile-element"> <span>
                                 <img alt="image" class="img-circle" src="/client/images/logo.webp" />
                             </span>
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Bee
-                                        Book</strong></span>
                         </div>
-
                     </li>
 
-                    <li class="active"><a href={{ route('overview.index') }}><i class="fa fa-th-large"></i> <span
+                    <li class="active"><a href="{{ route('overview.index') }}"><i class="fa fa-th-large"></i> <span
                                 class="nav-label">Dashboards</span><span class="fa arrow"></span></a>
                     </li>
-                    <li class=""><a href={{ route('order.index') }}><i class="fa fa-th-large"></i> <span
+                    <li class=""><a href="{{ route('order.index') }}"><i class="fa fa-th-large"></i> <span
                                 class="nav-label">Đơn hàng</span></a>
+                    </li>
+                    <li class=""><a href="{{ route('adminproduct.index') }}"><i class="fa fa-book"></i> <span
+                                class="nav-label">Sách</span></a>
                     </li>
                 </ul>
             </div>
@@ -65,27 +63,21 @@ $currentSegment = Request::segment(2);
 
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <a href="login.html">
-                                <i class="fa fa-sign-out"></i> Log out
+                            <a href="{{ route('logout.index') }}">
+                                <i class="fa fa-sign-out"></i> Đăng xuất
                             </a>
                         </li>
                     </ul>
                 </nav>
             </div>
 
-            {{-- content body  --}}
             {{-- Nội dung ở đây  --}}
             <div class="wrapper wrapper-content">
                 @yield('body')
             </div>
 
             <div class="footer">
-                <div class="pull-right">
-                    10GB of <strong>250GB</strong> Free.
-                </div>
-                <div>
-                    <strong>Copyright</strong> Example Company &copy; 2014-2017
-                </div>
+                    <a class="text-dark" href="https://www.facebook.com/profile.php?id=61566989045999">Được xây dựng bởi nhóm Bee Book 2024</a>
             </div>
         </div>
     </div>
