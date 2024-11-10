@@ -137,7 +137,11 @@ class Profile extends Component
 
         if ($value) {
             $path = $value->store('uploads', 'public');
-            User::where('id', Auth::user()->id)->update(['avatar' => $path]);
+            try {
+                User::where('id', Auth::user()->id)->update(['avatar' => $path]);
+            } catch (\Throwable $th) {
+                dd($th);
+            }
             session()->flash('success', 'Cập nhật ảnh đại diện thành công!');
         }
     }
