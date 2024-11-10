@@ -8,7 +8,7 @@ use App\Http\Controllers\client\checkoutController;
 use App\Http\Controllers\client\ClientController;
 use App\Http\Controllers\client\getLocationGHNContronller;
 use App\Http\Controllers\client\ManagerUserController;
-
+use App\Http\Controllers\client\OrderController as ClientOrderController;
 use Illuminate\Support\Facades\Route;
 use App\Payments\Casso;
 use Illuminate\Support\Facades\Cache;
@@ -39,12 +39,12 @@ Route::prefix('admin')->group(function () {
 // hiển thị qr thanh toán đơn hàng
 // Route::match(['get', 'post'], '/order', [CheckoutController::class, 'index'])->name('order.index');
 Route::get('/order/{id}', [CheckoutController::class, 'show'])->name('order.show')->middleware('CheckLogin');
+Route::post('/order/update', [ClientOrderController::class, 'update'])->name('order.update')->middleware('CheckLogin');
 Route::post('/order-check-status', [CheckoutController::class, 'checkStatus'])->name('order.checkStatus');
 
 // đơn hàng
 Route::get('/profile/your-order', [ManagerUserController::class, 'yourOrder'])->name('your-order.index');
-Route::get('/profile/your-order/{id}', [ManagerUserController::class, 'yourOrderDetail'])->name('your-order-detail.index');
-Route::get('/download/your-order/{id}', [ManagerUserController::class, 'downloadInvoice'])->name('your-order-download.index');
+Route::get('/profile/your-order/{id}', [ManagerUserController::class, 'yourOrderDetail'])->name('your-order-detail.index')->middleware('CheckLogin:Vui lòng đăng nhập để thực hiện chức năng!');
 
 Route::get('/redis-test', function () {
       Cache::store('redis')->put('test_key', 'Hello Redis', 10);

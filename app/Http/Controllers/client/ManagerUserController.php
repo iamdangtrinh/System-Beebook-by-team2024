@@ -142,14 +142,4 @@ class ManagerUserController extends Controller
             ->first();
         return view('Client.order.detail', compact(['orderDetails']));
     }
-
-    public function downloadInvoice($invoiceId)
-    {
-        $orderDetails = BillModel::findOrFail($invoiceId);  // Fetch your data
-
-        $pdf = Pdf::loadView('pdf.invoice', compact('orderDetails'));
-
-        // Return the PDF as a download
-        return $pdf->download('invoice.pdf');
-    }
 }

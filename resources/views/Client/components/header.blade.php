@@ -49,7 +49,7 @@
         gtag('config', 'G-N7WWXVQLYT');
     </script> --}}
     <script>
-        let loading = `<i class="removeLoading fa fa-spinner fa-spin" style="font-size:24px"></i>`;
+        let loading = `<i class="removeLoading fa fa-spinner fa-spin" style="font-size:18px"></i>`;
     </script>
 </head>
 

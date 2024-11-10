@@ -14,10 +14,11 @@ class CheckLogin
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, $message = null): Response
     {
+
         if (!Auth::check()) {
-            return redirect('sign-in')->with('error', 'Vui lòng đăng nhập để mua hàng!');
+            return redirect('sign-in')->with('error', $message ?? 'Vui lòng đăng nhập để mua hàng!');
         }
         return $next($request);
     }
