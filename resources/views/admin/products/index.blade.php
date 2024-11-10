@@ -9,10 +9,16 @@
             <li>
                 <a href="index.html">Trang chủ</a>
             </li>
+            <li>
+                <i class="fa fa-angle-right mx-1"></i>
+            </li>
             <li class="active">
                 <strong>Sách</strong>
             </li>
         </ol>
+    </div>
+    <div class="col-lg-2">
+        <a href="{{ route('adminproduct.add') }}" class="btn btn-outline btn-primary btn-rounded">Thêm sách</a>
     </div>
 </div>
 
@@ -77,8 +83,8 @@
                 <table class=" table table-bordered toggle-arrow-tiny" data-page-size="15">
                     <thead>
                         <tr>
-                            <th>Id sách</th>
-                            <th data-hide="image">Ảnh</th>
+                            <th>#id</th>
+                            <th data-hide="image">Ảnh chính</th>
                             <th data-hide="name">Tên sách</th>
                             <th data-hide="category">Danh mục</th>
                             <th data-hide="price">Giá</th>
@@ -91,7 +97,8 @@
                         @foreach ($products as $product)
                         <tr>
                             <td>{{ $product->id }}</td>
-                            <td>{{ $product->image_cover }}</td>
+                            <td><img src="{{ $product->image_cover ? asset($product->image_cover) : asset('no_image.jpg') }}" width="50px">
+                            </td>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->category->name }}</td>
                             <td>
@@ -113,12 +120,12 @@
                                 @if($product->status == 'active')
                                 <span class="badge badge-info">Đang hoạt động</span>
                                 @else
-                                <span class="badge">Không hoạt động</span>
+                                <span class="badge">Ngưng hoạt động</span>
                                 @endif
                             </td>
                             <td class="text-right">
                                 <div class="btn-group gap-2 w-100 __custom_btn_group">
-                                    <a href="" class="badge text-light text-bg-warning">Chi tiết</a>
+                                    <a href="" class="badge text-light text-bg-warning">Sửa</a>
                                     <a href="" class="badge text-light text-bg-danger">Xóa</a>
                                 </div>
                             </td>

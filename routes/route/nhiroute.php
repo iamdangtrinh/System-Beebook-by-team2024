@@ -20,4 +20,5 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('admin')->group(function () {
     Route::get('/product', [AdminProductController::class, 'index'])->name('adminproduct.index');
+    Route::get('/product/add', [AdminProductController::class, 'add'])->name('adminproduct.add');
 });

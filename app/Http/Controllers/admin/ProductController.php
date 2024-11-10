@@ -42,4 +42,11 @@ class ProductController extends Controller
             'products',
         ]));
     }
+    public function add()
+    {
+        $products = Product::orderBy('created_at', 'desc')->paginate(12);
+        return view('admin.products.add', compact([
+            'products',
+        ]));
+    }
 }
