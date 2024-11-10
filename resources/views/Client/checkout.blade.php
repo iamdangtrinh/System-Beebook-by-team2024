@@ -78,7 +78,7 @@
             {{--  đơn hàng --}}
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
                 <div class="checkout bg-light-gray padding-20px-all">
-                    <form action="{{ route('checkout.store') }}" method="post">
+                    <form action="{{ route('checkout.store') }}" method="post" id="formcheckout">
                         @csrf
 
                         <h2 class="login-title mb-3">Chi tiết đơn hàng</h2>
@@ -162,10 +162,19 @@
             {{-- đơn hàng --}}
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
                 <input type="hidden" name="shipping_method" value="GHN">
-
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <h2 class="order-title">Đơn hàng của bạn</h2>
-                    @livewire('coupon')
+                    {{-- <form id="formCouponCode" action="/apply-coupon" method="post">
+                        @csrf
+                    <div class="row mt-3 mb-3" >
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" >
+                            <input name="code" type="text" style="border:1px solid black; border-radius: 6px " placeholder="Mã giảm giá  ">
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" >
+                            <button type="submit"  class="btn">Áp dụng</button>
+                        </div>
+                    </div>
+                  </form> --}}
                     <div class="your-order-payment">
                         <div class="your-order">
                             @php
@@ -234,8 +243,7 @@
                                                     <input type="radio"
                                                         {{ $method['value'] == 'ONLINE_VALUE' ? 'checked' : '' }}
                                                         id="{{ $method['value'] }}" name="payment_method"
-                                                        value="{{ $method['method'] }}" onclick="applyCoupon()">
-
+                                                        value="{{ $method['method'] }}" >
                                                     <label for="{{ $method['value'] }}" class="mx-2 card-link w-100"
                                                         data-bs-toggle="collapse" href="#{{ $method['method'] }}"
                                                         role="button" aria-expanded="false"
@@ -243,7 +251,6 @@
                                                         {{ $method['title'] }}
                                                     </label>
                                                 </div>
-
                                                 <div id="{{ $method['method'] }}" class="collapse"
                                                     data-bs-parent="#accordion">
                                                     <div class="card-body">
@@ -254,18 +261,17 @@
                                         @endforeach
                                     </div>
                                 </div>
-
                                 <div class="order-button-payment">
                                     <button class="btn w-100" value="submit_checkout" name="checkout"
                                         type="submit">Tiến hành thanh
                                         toán</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </form>
         </div>
     </div>
     <!--Scoll Top-->
@@ -278,10 +284,5 @@
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
-        function applyCoupon() {
-            lx
-        }
-        </script>
-        @livewireScripts
+    
 @endsection

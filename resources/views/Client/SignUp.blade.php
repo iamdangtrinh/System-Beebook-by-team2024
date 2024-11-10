@@ -19,7 +19,7 @@
             <div class="row d-flex ">
                 {{-- image --}}
                 <div  class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <img alt="logo" class="w-100" src="/client/images/manager-user/signup.png" />
+                    <img alt="logo" class="w-100" src="/client/images/manager-user/signup.webp" />
                 </div> 
                 {{-- form --}}
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">

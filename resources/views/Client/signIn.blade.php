@@ -20,7 +20,7 @@
             <div class="row d-flex align-items-center">
                 {{-- image --}}
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <img class="w-100" src="/client/images/manager-user/signin.png" />
+                    <img class="w-100" src="/client/images/manager-user/signin.webp" />
                 </div>
                 {{-- form --}}
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
