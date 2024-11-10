@@ -132,7 +132,7 @@ class Profile extends Component
     public function handleUploadImage($value)
     {
         $this->validate([
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Thêm giới hạn kích thước tối đa nếu cần
         ]);
 
         if ($value) {

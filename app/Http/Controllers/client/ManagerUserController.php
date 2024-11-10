@@ -62,7 +62,11 @@ class ManagerUserController extends Controller
                     }
                 }
                 Session::forget('cart');
-                return redirect('/profile');
+                if (Auth::user()->role === 'admin') {
+                    return redirect('/admin/order');
+                } else {
+                    return redirect('/profile');
+                }
             } else {
                 session()->flash('SignInFailed', 'Tài khoản hoặc mật khẩu của bạn không đúng!');
                 return redirect('/sign-in');

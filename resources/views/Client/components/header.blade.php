@@ -55,58 +55,7 @@
 
 <body class="template belle">
     <div class="pageWrapper">
-        <!--Top Header-->
-        <div style="background-color: #CE2626" class="top ">
-            <div class="container ">
-                <div class="row d-flex align-items-center">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-8  ">
-                        <p style="font-size:13px; text-align: center"
-                            class="phone-no text-white text-xl-start text-lg-start text-md-center text-sm-center "><i
-                                class="anm anm-phone-s"></i> 0362094527</p>
-                    </div>
-                    {{-- <div class="col-sm-4 col-md-4 col-lg-4 d-none d-lg-none d-md-block d-lg-block">
-                        <div class="text-center">
-                            <p class="top-header_middle-text"> Worldwide Express Shipping</p>
-                        </div>
-                    </div> --}}
-                    <div class="col-0 col-sm-0 col-md-0 col-lg-4 text-right ">
-                        <ul id="siteNav" class="d-none d-lg-block"
-                            class="site-nav medium center hidearrow d-flex align-items-center justify-content-end">
-                            <li class="lvl1 parent dropdown ">
-                                <i class="icon anm anm-user-circle"></i>
-                                <ul class="dropdown" style="top:30px">
-                                    @if (Auth::check())
-                                        <li><a href="/profile" class="site-nav">
-                                                <i class="icon anm anm-user-circle"></i>
-                                                Hồ sơ
-                                            </a>
-                                        </li>
-                                        <li><a href="#" class="site-nav">
-                                                <i class="icon anm anm-cart-r"></i>
-                                                Đơn hàng của tôi </a>
-                                        </li>
-                                        <li><a href="{{ asset('/yeu-thich') }}" class="site-nav">
-                                                <i class="icon anm anm-heart-r"></i>
-                                                Sản phẩm yêu thích </a>
-                                        </li>
-                                        <li><a href="/logout" class="site-nav">
-                                                <i class="icon anm anm-sign-out-ar"></i>
-                                                Đăng xuất </a>
-                                        </li>
-                                    @else
-                                        <li><a href="{{ asset('/sign-in') }}" class="site-nav">Đăng nhập </a>
-                                        </li>
-                                        <li><a href="{{ asset('/sign-up') }}" class="site-nav">Đăng ký </a>
-                                        </li>
-                                    @endif
-                                </ul>
-                            </li>
-                            <li><a class="text-white" href="{{ asset('/yeu-thich') }}">Yêu thích</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
         <!--End Top Header-->
         <!--Header-->
         <div class="header-wrap animated d-flex border-bottom">
@@ -193,7 +142,42 @@
                         </div>
                     </div>
                     <!--Mobile Logo-->
-                    <div class="col-4 col-sm-3 col-md-3 col-lg-2">
+                    <div class="col-4 col-sm-3 col-md-3 col-lg-2 d-flex align-items-center justify-content-around">
+                        <div class="col-0 col-sm-0 col-md-0 col-lg-4 " style="width: 20px">
+                            <ul id="siteNav" class="d-none d-lg-block"
+                                class="site-nav medium center hidearrow d-flex align-items-center justify-content-end">
+                                <li class="lvl1 parent dropdown ">
+                                    <i style="font-size: 20px"  class="icon anm anm-user-circle"></i>
+                                    <ul class="dropdown" style="top:30px">
+                                        @if (Auth::check())
+                                            <li><a href="/profile" class="site-nav">
+                                                    <i class="icon anm anm-user-circle"></i>
+                                                    Hồ sơ
+                                                </a>
+                                            </li>
+                                            <li><a href="#" class="site-nav">
+                                                    <i class="icon anm anm-cart-r"></i>
+                                                    Đơn hàng của tôi </a>
+                                            </li>
+                                            <li><a href="{{ asset('/yeu-thich') }}" class="site-nav">
+                                                    <i class="icon anm anm-heart-r"></i>
+                                                    Sản phẩm yêu thích </a>
+                                            </li>
+                                            <li><a href="/logout" class="site-nav">
+                                                    <i class="icon anm anm-sign-out-ar"></i>
+                                                    Đăng xuất </a>
+                                            </li>
+                                        @else
+                                            <li><a href="{{ asset('/sign-in') }}" class="site-nav">Đăng nhập </a>
+                                            </li>
+                                            <li><a href="{{ asset('/sign-up') }}" class="site-nav">Đăng ký </a>
+                                            </li>
+                                        @endif
+                                    </ul>
+                                </li>
+                                
+                            </ul>
+                        </div>
                         <div class="site-cart">
                             <a href="{{ route('cart.index') }}" class="site-header__cart" title="Cart">
                                 <i class="icon anm anm-bag-l"></i>
@@ -215,8 +199,9 @@
                                 </span>
                             </a>
                         </div>
-                        <div class="site-header__search">
-                                <button type="submit" class="form-control search-trigger"><i class="icon anm anm-search-l"></i></button>
+                        <div  class="site-header__search">
+                                <button style="padding-bottom: 0 !important" type="submit" class="form-control search-trigger"><i class="icon anm anm-search-l"></i></button>
+                       
                         </div>
                     </div>
                 </div>
