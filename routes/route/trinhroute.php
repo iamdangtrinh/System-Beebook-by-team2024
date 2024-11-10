@@ -33,11 +33,13 @@ Route::get('thank-you/{id}', [CheckoutController::class, 'thankyou'])->name('tha
 Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index')->middleware('CheckLogin');
 
 Route::prefix('admin')->group(function () {
-      Route::get('/order', [OrderController::class, 'index'])->name('order.index');
+      Route::get('/order', [OrderController::class, 'index'])->name('order.index')->middleware('CheckAdmin');
+      Route::get('/order/{id}', [OrderController::class, 'edit'])->name('order.detail')->middleware('CheckAdmin');
 });
 
 // hiển thị qr thanh toán đơn hàng
 // Route::match(['get', 'post'], '/order', [CheckoutController::class, 'index'])->name('order.index');
+// client
 Route::get('/order/{id}', [CheckoutController::class, 'show'])->name('order.show')->middleware('CheckLogin');
 Route::post('/order/update', [ClientOrderController::class, 'update'])->name('order.update')->middleware('CheckLogin');
 Route::post('/order-check-status', [CheckoutController::class, 'checkStatus'])->name('order.checkStatus');

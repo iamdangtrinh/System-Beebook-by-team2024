@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\BillModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -85,7 +86,11 @@ class OrderController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $orderDetails = BillModel::where('id', $id)
+            // ->where('id_user', Auth::user()->id)
+            ->with('billDetails')
+            ->first();
+        return view('admin.order.store', compact(['orderDetails']));
     }
 
     /**
