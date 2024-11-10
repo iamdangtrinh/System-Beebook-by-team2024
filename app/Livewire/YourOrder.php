@@ -13,7 +13,7 @@ class YourOrder extends Component
     use WithPagination, WithoutUrlPagination;
     public function render()
     {
-        $orders = BillModel::where('id_user', '=', Auth::user()->id)->paginate('2');
+        $orders = BillModel::where('id_user', '=', Auth::user()->id)->paginate('20');
         return view('livewire.your-order', compact(['orders']));
     }
 }

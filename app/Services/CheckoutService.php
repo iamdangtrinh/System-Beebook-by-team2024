@@ -109,11 +109,11 @@ class CheckoutService implements CheckoutServiceInterface
                   $this->CartService->destroyAll();
 
                   DB::commit();
-                  if ($payload['payment_method'] == "ONLINE") {
+                  if ($payload['payment_method'] === "ONLINE") {
                         return redirect()->route('order.show', ['id' => $id_bill]);
-                  } else if ($payload['payment_method'] == "OFFLINE") {
+                  } else if ($payload['payment_method'] === "OFFLINE") {
                         // duyệt
-                        Mail::to($payload['email'])->send(new \App\Mail\sendEmailOrder($id_bill));
+                        // Mail::to($payload['email'])->send(new \App\Mail\sendEmailOrder($id_bill));
                         return redirect()->route('thankyou.index', ['id' => $id_bill]);
                   }
             } catch (\Exception $exception) {

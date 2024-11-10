@@ -1,4 +1,4 @@
-<title>@yield('title', $title)</title>
+{{-- <title>@yield('title', $title)</title> --}}
 @extends('layout.client')
 @section('body')
     <div id="page-content">
@@ -14,7 +14,7 @@
         <!--End Collection Banner-->
 
         <h1 class="text-center mt-3">
-            {{ $title }}
+            {{ $title ?? 'Sản phẩm' }}
         </h1>
 
 

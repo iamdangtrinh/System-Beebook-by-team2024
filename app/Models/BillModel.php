@@ -30,4 +30,17 @@ class BillModel extends Model
         "note",
         "note_admin",
     ];
+
+    public function billDetails() {
+        // return $this->hasMany(BillDetailModel::class, 'id_bill', 'id');
+        return $this->hasManyThrough(
+            Product::class,
+            BillDetailModel::class,
+            'id_bill',       // Khóa ngoại trong bảng BillDetail trỏ đến Bill
+            'id',            // Khóa chính trong bảng Product
+            'id',            // Khóa chính trong bảng Bill
+            'id_product'     // Khóa ngoại trong bảng BillDetail trỏ đến Product
+        )->select('products.id', 'products.name', 'products.price', 'products.image_cover', 'products.slug','bill_detail.quantity');
+    }
+
 }

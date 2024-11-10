@@ -65,4 +65,4 @@
 @else
 <p>Chưa có sản phẩm. Chúng tôi sẽ cố gắng cập nhật thêm nhiều sách trong tương lai!</p>
 @endif
-{{ $products->links('vendor.pagination.custom') }}
+{{-- {{ $products->links('vendor.pagination.custom') }} --}}

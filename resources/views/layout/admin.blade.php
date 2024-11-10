@@ -22,10 +22,8 @@ $currentSegment = Request::segment(2);
 
     <link href="{{ asset('/') }}backend/css/animate.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/style.css" rel="stylesheet">
-    <link href="{{ asset('/') }}backend/css/style.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/custom.css" rel="stylesheet">
-
-    <link href="{{ asset('/') }}backend/css/custom.css" rel="stylesheet">
+    <link href="{{ asset('/') }}backend/css/plugins/steps/jquery.steps.css" rel="stylesheet">
     <script src="{{ asset('/') }}backend/js/jquery-3.1.1.min.js"></script>
 
 </head>
@@ -42,13 +40,13 @@ $currentSegment = Request::segment(2);
                         </div>
                     </li>
 
-                    <li class="active"><a href={{ route('overview.index') }}><i class="fa fa-th-large"></i> <span
+                    <li class="active"><a href="{{ route('overview.index') }}"><i class="fa fa-th-large"></i> <span
                                 class="nav-label">Dashboards</span><span class="fa arrow"></span></a>
                     </li>
-                    <li class=""><a href={{ route('order.index') }}><i class="fa fa-th-large"></i> <span
+                    <li class=""><a href="{{ route('order.index') }}"><i class="fa fa-th-large"></i> <span
                                 class="nav-label">Đơn hàng</span></a>
                     </li>
-                    <li class=""><a href={{ route('adminproduct.index') }}><i class="fa fa-th-large"></i> <span
+                    <li class=""><a href="{{ route('adminproduct.index') }}"><i class="fa fa-book"></i> <span
                                 class="nav-label">Sách</span></a>
                     </li>
                 </ul>

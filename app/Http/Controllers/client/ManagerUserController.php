@@ -9,10 +9,12 @@ use App\Http\Requests\SignUpRequest;
 use App\Http\Requests\SignInRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\verifySignUp;
+use App\Models\BillModel;
 use App\Models\cartModel;
 use App\Models\Product;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ManagerUserController extends Controller
 {
@@ -41,7 +43,7 @@ class ManagerUserController extends Controller
                         // số lượng sản phẩm
                         $newQuantity = $cartItem ? $cartItem->quantity + $item['quantity'] : $item['quantity'];
                         // cho sl sản phẩm = tối đa
-                        $finalQuantity = min($newQuantity, $product->quantity); 
+                        $finalQuantity = min($newQuantity, $product->quantity);
 
                         if ($cartItem) {
                             // Nếu đã có, cập nhật số lượng sách và giá tiền
@@ -130,5 +132,14 @@ class ManagerUserController extends Controller
     public function yourOrder()
     {
         return view('Client.your-order');
+    }
+
+    public function yourOrderDetail($id)
+    {
+        $orderDetails = BillModel::where('id', $id)
+            ->where('id_user', Auth::user()->id)
+            ->with('billDetails')
+            ->first();
+        return view('Client.order.detail', compact(['orderDetails']));
     }
 }
