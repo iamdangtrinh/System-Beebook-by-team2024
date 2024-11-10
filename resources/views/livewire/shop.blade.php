@@ -87,23 +87,28 @@
                         </div>
                         <ul>
                             <li>
-                                <input type="checkbox" wire:click="applyPriceFilter('0-150000')" id="price1" @if(in_array('0-150000', $priceRange)) checked @endif>
+                                <input type="checkbox" wire:click="applyPriceFilter('0-150000')" id="price1"
+                                    @if (in_array('0-150000', $priceRange)) checked @endif>
                                 <label for="price1"><span><span></span></span>0 đ - 150,000 đ</label>
                             </li>
                             <li>
-                                <input type="checkbox" wire:click="applyPriceFilter('150000-300000')" id="price2" @if(in_array('150000-300000', $priceRange)) checked @endif>
+                                <input type="checkbox" wire:click="applyPriceFilter('150000-300000')" id="price2"
+                                    @if (in_array('150000-300000', $priceRange)) checked @endif>
                                 <label for="price2"><span><span></span></span>150,000 đ - 300,000 đ</label>
                             </li>
                             <li>
-                                <input type="checkbox" wire:click="applyPriceFilter('300000-500000')" id="price3" @if(in_array('300000-500000', $priceRange)) checked @endif>
+                                <input type="checkbox" wire:click="applyPriceFilter('300000-500000')" id="price3"
+                                    @if (in_array('300000-500000', $priceRange)) checked @endif>
                                 <label for="price3"><span><span></span></span>300,000 đ - 500,000 đ</label>
                             </li>
                             <li>
-                                <input type="checkbox" wire:click="applyPriceFilter('500000-700000')" id="price4" @if(in_array('500000-700000', $priceRange)) checked @endif>
+                                <input type="checkbox" wire:click="applyPriceFilter('500000-700000')" id="price4"
+                                    @if (in_array('500000-700000', $priceRange)) checked @endif>
                                 <label for="price4"><span><span></span></span>500,000 đ - 700,000 đ</label>
                             </li>
                             <li>
-                                <input type="checkbox" wire:click="applyPriceFilter('700000')" id="price5" @if(in_array('700000', $priceRange)) checked @endif>
+                                <input type="checkbox" wire:click="applyPriceFilter('700000')" id="price5"
+                                    @if (in_array('700000', $priceRange)) checked @endif>
                                 <label for="price5"><span><span></span></span>700,000 đ - Trở lên</label>
                             </li>
                         </ul>
@@ -116,19 +121,18 @@
                         </div>
                         <ul>
                             <li>
-                                <input type="checkbox" name="language" value="Tiếng việt" id="language1">
+                                <input type="checkbox" id="language1" @if (in_array('Tiếng việt', $languages)) checked @endif
+                                    wire:click="toggleLanguage('Tiếng việt')">
                                 <label for="language1"><span><span></span></span>Tiếng Việt</label>
                             </li>
                             <li>
-                                <input type="checkbox" name="language" value="Tiếng anh" id="language2">
+                                <input type="checkbox" id="language2" @if (in_array('Tiếng anh', $languages)) checked @endif
+                                    wire:click="toggleLanguage('Tiếng anh')">
                                 <label for="language2"><span><span></span></span>Tiếng Anh</label>
-                            </li>
-                            <li>
-                                <input type="checkbox" name="language" value="Tiếng trung" id="language3">
-                                <label for="language3"><span><span></span></span>Tiếng Trung</label>
                             </li>
                         </ul>
                     </div>
+
                     <!--Popular Products-->
                     <div class="sidebar_widget">
                         <div class="widget-title">
@@ -194,8 +198,7 @@
                     <div class="toolbar">
                         <div class="filters-toolbar-wrapper">
                             <div class="row">
-                                <div
-                                    class="col-8 col-md-8 col-lg-8 filters-toolbar__item filters-toolbar__item--count">
+                                <div class="col-8 col-md-8 col-lg-8 filters-toolbar__item filters-toolbar__item--count">
                                     <span class="filters-toolbar__product-count">Hiển thị: {{ $totalProducts }} quyển
                                         sách</span>
                                 </div>
@@ -219,7 +222,7 @@
                         </div>
                     </div>
                     <!--End Toolbar-->
-                    <div class="grid-products grid--view-items">
+                    {{-- <div class="grid-products grid--view-items">
                         <div class="row" id="product-list">
                             @if ($products && $products->count() > 0 && Request::is('yeu-thich'))
                                 @foreach ($products as $wishlist)
@@ -380,7 +383,119 @@
                                 <p>Chưa có sản phẩm. Chúng tôi sẽ cố gắng cập nhật thêm nhiều sách trong tương lai!</p>
                             @endif
                         </div>
+                    </div> --}}
+
+                    <div class="grid-products grid--view-items">
+                        <div class="row" id="product-list">
+                            <!-- Loading Spinner -->
+                            <div wire:loading class="col-12 text-center">
+                                <div class="loading-spinner">
+                                    <span>Đang tải...</span>
+                                    <i class="fa fa-spinner fa-spin"></i> <!-- Spinner icon -->
+                                </div>
+                            </div>
+
+                            <!-- Product List -->
+                            @if ($products && $products->count() > 0 && Request::is('yeu-thich'))
+                                @foreach ($products as $wishlist)
+                                    <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
+                                        <!-- Product Image -->
+                                        <div class="product-image">
+                                            <a href="{{ asset('san-pham/' . $wishlist->product->slug) }}"
+                                                class="grid-view-item__link">
+                                                <img class="primary lazyload"
+                                                    data-src="{{ asset($wishlist->product->image_cover ? $wishlist->product->image_cover : 'no_image.jpg') }}"
+                                                    src="{{ asset($wishlist->product->image_cover ? $wishlist->product->image_cover : 'no_image.jpg') }}"
+                                                    alt="image" title="product">
+                                            </a>
+                                        </div>
+
+                                        <!-- Add to Cart Form -->
+                                        <form class="variants add add_to_cart" action="{{ route('cart.store') }}"
+                                            method="post">
+                                            @csrf
+                                            <input type="hidden" value="{{ $wishlist->product->id }}"
+                                                name="id_product">
+                                            <input type="hidden" value="1" name="quantity">
+                                            <button class="btn btn-addto-cart" type="submit" tabindex="">Thêm giỏ
+                                                hàng</button>
+                                        </form>
+
+                                        <div class="button-set">
+                                            <div class="wishlist-btn">
+                                                @if (!auth()->check())
+                                                    <a class="wishlist" href="{{ route('wishlist.index') }}"
+                                                        title="Thêm vào yêu thích"><i
+                                                            class="icon anm anm-heart-l"></i></a>
+                                                @elseif($wishlist->product->isFavoritedByUser())
+                                                    <a class="wishlist add-to-wishlist" href="#"
+                                                        data-product-id="{{ $wishlist->product->id }}"
+                                                        title="Thêm vào yêu thích"><i
+                                                            class="icon anm anm-heart text-danger"></i></a>
+                                                @else
+                                                    <a class="wishlist add-to-wishlist" href="#"
+                                                        data-product-id="{{ $wishlist->product->id }}"
+                                                        title="Thêm vào yêu thích"><i
+                                                            class="icon anm anm-heart-l"></i></a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @elseif($products && $products->count() > 0 && !Request::is('yeu-thich'))
+                                @foreach ($products as $product)
+                                    <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
+                                        <!-- Product Image -->
+                                        <div class="product-image">
+                                            <a href="{{ asset('san-pham/' . $product->slug) }}"
+                                                class="grid-view-item__link">
+                                                <img class="primary lazyload"
+                                                    data-src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
+                                                    src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
+                                                    alt="image" title="product">
+                                            </a>
+                                        </div>
+
+                                        <!-- Add to Cart Form -->
+                                        <form class="variants add add_to_cart" action="{{ route('cart.store') }}"
+                                            method="post">
+                                            @csrf
+                                            <input type="hidden" value="{{ $product->id }}" name="id_product">
+                                            <input type="hidden" value="1" name="quantity">
+                                            <button class="btn btn-addto-cart" type="submit" tabindex="">Thêm giỏ
+                                                hàng</button>
+                                        </form>
+
+                                        <div class="button-set">
+                                            <div class="wishlist-btn">
+                                                @if (!auth()->check())
+                                                    <a class="wishlist" href="{{ route('wishlist.index') }}"
+                                                        title="Thêm vào yêu thích"><i
+                                                            class="icon anm anm-heart-l"></i></a>
+                                                @elseif($product->isFavoritedByUser())
+                                                    <a class="wishlist add-to-wishlist" href="#"
+                                                        data-product-id="{{ $product->id }}"
+                                                        title="Thêm vào yêu thích"><i
+                                                            class="icon anm anm-heart text-danger"></i></a>
+                                                @else
+                                                    <a class="wishlist add-to-wishlist" href="#"
+                                                        data-product-id="{{ $product->id }}"
+                                                        title="Thêm vào yêu thích"><i
+                                                            class="icon anm anm-heart-l"></i></a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @elseif(!$products && Request::is('yeu-thich'))
+                                Chưa có sản phẩm yêu thích. Thêm vào ngay để dễ chọn lựa hơn nào!
+                            @else
+                                <p>Chưa có sản phẩm. Chúng tôi sẽ cố gắng cập nhật thêm nhiều sách trong tương lai!</p>
+                            @endif
+                        </div>
                     </div>
+
+
                 </div>
                 <!--End Main Content-->
             </div>

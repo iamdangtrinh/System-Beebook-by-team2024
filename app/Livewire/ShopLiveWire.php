@@ -17,7 +17,7 @@ class ShopLiveWire extends Component
     public $categories;
     public $hotProducts;
     public $priceRange = [];
-
+    public $languages = [];
     // Hàm mount để load dữ liệu ban đầu
     public function mount()
     {
@@ -37,6 +37,12 @@ class ShopLiveWire extends Component
         $this->resetPage(); // Reset phân trang khi thay đổi filter
     }
 
+    // lưu và url của product
+    protected $queryString = [
+        'priceRange' => ['except' => ''],
+        'languages' => ['except' => '']
+    ];
+
     // Hàm áp dụng bộ lọc giá
     public function applyPriceFilter($range)
     {
@@ -50,6 +56,19 @@ class ShopLiveWire extends Component
         }
 
         $this->resetPage(); // Reset phân trang khi thay đổi filter
+    }
+
+    public function toggleLanguage($language)
+    {
+        if (in_array($language, $this->languages)) {
+            // Nếu ngôn ngữ đã được chọn, bỏ chọn nó
+            $this->languages = array_diff($this->languages, [$language]);
+        } else {
+            // Nếu ngôn ngữ chưa được chọn, thêm vào mảng
+            $this->languages[] = $language;
+        }
+
+        $this->resetPage(); // Reset phân trang khi thay đổi bộ lọc
     }
 
     // Hàm render để trả về view
@@ -69,6 +88,11 @@ class ShopLiveWire extends Component
                     }
                 }
             });
+        }
+
+         // Lọc theo ngôn ngữ nếu có
+         if (!empty($this->languages)) {
+            $query->whereIn('language', $this->languages);
         }
 
         // Lấy sản phẩm đã lọc và phân trang
