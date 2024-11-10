@@ -33,6 +33,9 @@ class CheckoutController extends Controller
     public function index()
     {
         $result = $this->CartService->findCartByUser(20);
+        if(count($result) == 0) {
+            return redirect()->route('product.index')->with('error', 'Vui lòng thêm sản phẩm vào giỏ hàng!');
+        }
         return view('Client.checkout', compact(['result']));
     }
 
@@ -59,18 +62,13 @@ class CheckoutController extends Controller
 
     public function delete(Request $request) {}
 
-    public function viewcarttocart()
-    {
-        return view('addtocart');
-    }
-
     public function thankyou(Request $request, $idBill)
     {
         // nếu đơn hàng chưa thanh toán thì mới hiển thị
         $resultBill = BillModel::findOrFail($idBill);
 
-        if($resultBill->payment_status === 'PAID') {
-            return redirect()->route('your-order.index');
+        if ($resultBill->payment_status === 'PAID') {
+            return redirect()->route('your-order-detail.index', ['id' => $idBill]);
         }
         Mail::to($resultBill->email)->send(new \App\Mail\sendEmailOrder($resultBill->id));
         return view('Client.thankyou', compact('resultBill'));

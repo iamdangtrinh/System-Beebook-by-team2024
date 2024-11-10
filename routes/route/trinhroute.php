@@ -34,7 +34,7 @@ Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index')-
 
 Route::prefix('admin')->group(function () {
       Route::get('/order', [OrderController::class, 'index'])->name('order.index');
-  });
+});
 
 // hiển thị qr thanh toán đơn hàng
 // Route::match(['get', 'post'], '/order', [CheckoutController::class, 'index'])->name('order.index');
@@ -43,11 +43,11 @@ Route::post('/order/update', [ClientOrderController::class, 'update'])->name('or
 Route::post('/order-check-status', [CheckoutController::class, 'checkStatus'])->name('order.checkStatus');
 
 // đơn hàng
-Route::get('/profile/your-order', [ManagerUserController::class, 'yourOrder'])->name('your-order.index');
-Route::get('/profile/your-order/{id}', [ManagerUserController::class, 'yourOrderDetail'])->name('your-order-detail.index')->middleware('CheckLogin:Vui lòng đăng nhập để thực hiện chức năng!');
+// Route::get('/profile/your-order', [ManagerUserController::class, 'yourOrder'])->name('your-order.index')->middleware('CheckLogin');
+// Route::get('/profile/your-order/{id}', [ManagerUserController::class, 'yourOrderDetail'])->name('your-order.detail-index')->middleware('CheckLogin:Vui lòng đăng nhập để thực hiện chức năng!');
 
-Route::get('/redis-test', function () {
-      Cache::store('redis')->put('test_key', 'Hello Redis', 10);
-      return Cache::store('redis')->get('test_key');
-  });
-  
+Route::prefix('profile/your-order')->middleware('CheckLogin')->name('your-order.')->group(function () {
+      Route::get('/', [ManagerUserController::class, 'yourOrder'])->name('index');
+      Route::get('/{id}', [ManagerUserController::class, 'yourOrderDetail'])->name('detail-index')
+            ->middleware('CheckLogin:Vui lòng đăng nhập để thực hiện chức năng!');
+});

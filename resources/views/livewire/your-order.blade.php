@@ -8,7 +8,9 @@
                         TÀI KHOẢN</h1>
                     <div style="padding: 8px 10px" class="d-flex flex-column gap-1">
                         <a href="/profile" class="hover-item">Thông tin tài khoản</a>
-                        <a href="{{ route('your-order.index') }}" class="hover-item">Đơn hàng của tôi</a>
+                        <a href="{{ route('your-order.index') }}" class="hover-item active">Đơn hàng của tôi</a>
+                        <a href="{{ route('wishlist.index') }}" class="hover-item">Sản phẩm yêu thích</a>
+
                     </div>
                 </div>
             </div>
@@ -35,7 +37,7 @@
                                         <td>{{ $order->payment_status }}</td>
                                         <td class="d-flex"style="gap: 8px">
                                             <button class="btn btn-warning">Hủy</button>
-                                            <a href="{{ route('your-order-detail.index', ['id' => $order->id]) }}"
+                                            <a href="/profile/your-order/{{ $order->id }}"
                                                 class="btn btn-danger">Xem</a>
                                         </td>
                                     </tr>
