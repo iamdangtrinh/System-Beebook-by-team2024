@@ -67,6 +67,7 @@ class CheckoutController extends Controller
         // nếu đơn hàng chưa thanh toán thì mới hiển thị
         $resultBill = BillModel::findOrFail($idBill);
 
+        Mail::to(env('MAIL_ADMIN'))->send(new \App\Mail\NewOrderAdminEmail($idBill));
         if($resultBill->send_email === false) {
             Mail::to($resultBill->email)->send(new \App\Mail\sendEmailOrder($idBill));
             BillModel::find($idBill)
