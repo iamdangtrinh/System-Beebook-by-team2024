@@ -17,7 +17,7 @@ class ClientController extends Controller
         $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
         $saleProducts = Product::whereNotNull('price_sale')->inRandomOrder()->limit(8)->get();
         $blogs = BlogModel::inRandomOrder()->limit(value: 8)->get();
-        return view('Client.home', compact([
+        return view('Client.home', data: compact([
             'hotProducts',
             'categories',
             'saleProducts',

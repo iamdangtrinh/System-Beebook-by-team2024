@@ -41,7 +41,8 @@
                         </ul>
                         <div class="rte"> 
                             <p></p>
-                            <h3>{{$getPost['content']}}</h3>
+                            <h3>{!! $getPost['content'] !!}</h3>
+
                             <ul class="list-items">
                                 <li>Donec et lacus mattis ipsum feugiat interdum non id sapien.</li>
                                 <li>Quisque et mauris eget nisi vestibulum rhoncus molestie a ante.</li>

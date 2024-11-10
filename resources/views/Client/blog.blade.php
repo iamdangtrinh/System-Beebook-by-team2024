@@ -47,7 +47,7 @@
                                   <div class="mini-list-item">
                                     <div class="mini-view_image">
                                         <a class="grid-view-item__link" href="#">
-                                            <img class="grid-view-item__image blur-up lazyload" data-src="{{asset('/')}}client/images/blog/blog-post-sml-1.jpg" src="{{asset('/')}}client/images/blog/blog-post-sml-1.jpg" alt="" />
+                                            <img class="grid-view-item__image blur-up lazyload" data-src="{{asset($mostpost->image ? $mostpost->image : no_image.jpg)}}" alt="" />
                                         </a>
                                     </div>
                                     <div class="details"> <a class="grid-view-item__title" href="#">{{ $mostpost->title }}</a>
@@ -78,16 +78,14 @@
                        @foreach($blogs as $blog) 
                         <div class="col-12 col-sm-12 col-md-4 col-lg-4 article"> 
                             <!-- Article Image --> 
-                             <a class="article_featured-image" href="/posts/{{$blog['slug']}}"><img class="blur-up lazyload" data-src="{{asset('/')}}client/images/blog/blog-post-1.jpg" src="{{asset('/')}}client/images/blog/blog-post-1.jpg" alt="It's all about how you wear"></a> 
-                            <h2 class="h3"><a href="blog-left-sidebar.html">{{ $blog['title'] }}</a></h2>
+                             <a class="article_featured-image" href="/posts/{{$blog['slug']}}"><img class="blur-up lazyload"  src="{{asset($blog['image'] ? $blog['image']:no_image.jpg)}}" alt="It's all about how you wear"></a> 
+                            <h2 class="h3"><a href="/posts/{{ $blog['slug'] }}">{{ $blog['title'] }}</a></h2>
                             <p>{{ $blog['tags'] }}</p>
                             <ul class="publish-detail">                      
                                 <li><i class="anm anm-eye" aria-hidden="true"></i>{{ $blog['views'] }}</li>
                                 <li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">{{ $blog['updated_at'] }}</time></li>
                             </ul>
-                            <div class="rte"> 
-                                <p>{{ $blog['post_type']}} </p>
-                                 </div>
+                            
                             <p><a href="/posts/{{$blog['slug']}}" class="btn btn-secondary btn--small">Xem Chi Tiết <i class="fa fa-caret-right" aria-hidden="true"></i></a></p>
                         </div>
                         @endforeach
@@ -96,12 +94,14 @@
                     </div>
                     <hr/>
                     <div class="pagination">
-                        <ul>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li class="next"><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i></a></li>
-                        </ul>
+                        @include('Client.components.pagination', [
+                            'paginator' => $blogs,
+                            'routeName' => $routeName,
+                        ])
                     </div>
+                    
+                
+                
                 </div>
             </div>
             <!--End Main Content-->

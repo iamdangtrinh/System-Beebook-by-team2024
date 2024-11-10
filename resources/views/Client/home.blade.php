@@ -265,17 +265,21 @@
                     @foreach ($blogs as $blog)
                         <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
                             <a class="article_featured-image" href="/posts/{{ $blog['slug'] }}"><img
-                                    class="blur-up lazyload" src="no_image.jpg" alt="It's all about how you wear"></a>
-                            <h2 class="h3"><a href="blog-left-sidebar.html">{{ $blog['title'] }}</a></h2>
+                                    class="blur-up lazyload" src= {{ asset($blog['image'] ?$blog['image'] :"no_image.jpg") }}  alt="It's all about how you wear"></a>
+                            <h2 class="h3"><a href="/posts/{{ $blog['slug'] }}">{{ $blog['title'] }}</a></h2>
                             <p>{{ $blog['tags'] }}</p>
                             <ul class="publish-detail">
                                 <li><i class="anm anm-eye" aria-hidden="true"></i>{{ $blog['views'] }}</li>
-                                <li><i class="icon anm anm-clock-r"></i> <time
-                                        datetime="2017-05-02">{{ $blog['updated_at'] }}</time></li>
+                                <li><i class="icon anm anm-clock-r"></i>
+                                    <time datetime="{{ \Carbon\Carbon::parse($blog['updated_at'])->format('Y-m-d\TH:i:s') }}">
+                                        {{ \Carbon\Carbon::parse($blog['updated_at'])->format('  H:i d/m/Y') }}
+                                    </time>
+                                </li>
                             </ul>
-                            <div class="rte">
-                                <p>{{ $blog['post_type'] }} </p>
-                            </div>
+                            
+                            
+                            
+                            
                             <p><a href="/posts/{{ $blog['slug'] }}"></a></p>
                         </div>
                     @endforeach

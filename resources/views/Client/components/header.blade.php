@@ -174,8 +174,8 @@
                                 <li class="lvl1 parent dropdown"><a href="#">Tin tức - Review sách <i
                                             class="anm anm-angle-down-l"></i></a>
                                     <ul class="dropdown">
-                                        <li><a href="/post/blog" class="site-nav">Bản tin</a></li>
-                                        <li><a href="/post/review" class="site-nav">Review sách</a></li>
+                                        <li><a href="{{ route('indexBlog') }}" class="site-nav">Bản tin</a></li>
+                                        <li><a href="{{ route('indexReview') }}" class="site-nav">Review sách</a></li>
 
                                     </ul>
                                 </li>
