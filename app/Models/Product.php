@@ -26,8 +26,6 @@ class Product extends Model
         'price',
         'price_sale',
         'hot',
-        'start_sale',
-        'end_sale',
         'meta_seo',
         'description_seo',
         'created_at',

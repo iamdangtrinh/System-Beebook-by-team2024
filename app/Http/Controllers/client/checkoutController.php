@@ -52,11 +52,11 @@ class CheckoutController extends Controller
     }
 
     // tạo view hiển thị giỏ hàng
-    public function edit($id)
-    {
-        $cart = $this->CheckoutRepository->findById($id);
-        return response()->json($cart);
-    }
+    // public function edit($id)
+    // {
+    //     $cart = $this->CheckoutRepository->findById($id);
+    //     return response()->json($cart);
+    // }
 
     public function update(Request $request) {}
 
@@ -67,8 +67,8 @@ class CheckoutController extends Controller
         // nếu đơn hàng chưa thanh toán thì mới hiển thị
         $resultBill = BillModel::findOrFail($idBill);
 
-        Mail::to(env('MAIL_ADMIN'))->send(new \App\Mail\NewOrderAdminEmail($idBill));
         if($resultBill->send_email === false) {
+            Mail::to(env('MAIL_ADMIN'))->send(new \App\Mail\NewOrderAdminEmail($idBill));
             Mail::to($resultBill->email)->send(new \App\Mail\sendEmailOrder($idBill));
             BillModel::find($idBill)
             ->where('id_user', Auth::user()->id)
