@@ -8,7 +8,7 @@ use App\Http\Controllers\admin\ManagerUserAdmin;
 use App\Http\Controllers\client\CheckoutController;
 
 Route::middleware(['CheckAuth'])->group(function () {
-    Route::get('/sign-in', [ManagerUserController::class, 'SignIn']);
+    Route::get('/sign-in', [ManagerUserController::class, 'SignIn'])->name('sign-in.index');
     Route::post('/sign-in', [ManagerUserController::class, 'HandleSignIn']);
     Route::get('/sign-up', [ManagerUserController::class, 'SignUp']);
     Route::post('/sign-up', [ManagerUserController::class, 'HandleSignUp']);
