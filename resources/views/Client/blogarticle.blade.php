@@ -28,7 +28,7 @@
                     <div class="article"> 
                       
                         <!-- Article Image --> 
-                         <a class="article_featured-image" href="#"><img class="blur-up lazyload" data-src="{{asset('/')}}client/images/blog/blog-post-1.jpg" src="{{asset('/')}}client/images/blog/blog-post-1.jpg" alt="It's all about how you wear"></a> 
+                         <a class="article_featured-image" href="#"><img class="blur-up lazyload"  src="{{asset($getPost['image'] ? $getPost['image']:no_image.jpg)}}" alt="It's all about how you wear"></a> 
                         <h1><a href="blog-left-sidebar.html">{{$getPost['title']}}</a></h1>
                         <ul class="publish-detail">                      
                             <li><i class="anm anm-user-al" aria-hidden="true"></i>  User</li>
@@ -87,7 +87,7 @@
                                   <div class="mini-list-item">
                                     <div class="mini-view_image">
                                         <a class="grid-view-item__link" href="#">
-                                            <img class="grid-view-item__image blur-up lazyload" data-src="{{asset('/')}}client/images/blog/blog-post-sml-1.jpg" src="{{asset('/')}}client/images/blog/blog-post-sml-1.jpg" alt="" />
+                                            <img class="grid-view-item__image blur-up lazyload"  src="{{asset($mostpost['image'] ? $mostpost['image']:no_image.jpg)}}" alt="" />
                                         </a>
                                     </div>
                                     <div class="details"> <a class="grid-view-item__title" href="#">{{ $mostpost->title }}</a>
@@ -119,7 +119,7 @@
                                   <div class="mini-list-item">
                                     <div class="mini-view_image">
                                         <a class="grid-view-item__link" href="#">
-                                            <img class="grid-view-item__image blur-up lazyload" data-src="{{asset('/')}}client/images/product-images/mini-product-img.jpg" src="{{asset('/')}}client/images/product-images/mini-product-img.jpg" alt="" />
+                                            <img class="grid-view-item__image blur-up lazyload"  src="{{asset($postmore['image'] ? $postmore['image']:no_image.jpg)}}" alt="" />
                                         </a>
                                     </div>
 
