@@ -14,10 +14,10 @@ use App\Models\User;
 class BlogController extends Controller
 {
     public function indexBlog($page = 1) {
-    $blogs = BlogModel::where('post_type', 'blog')->paginate(25, ['*'], 'page', $page);
+    $blogs = BlogModel::where('post_type', 'blog')->paginate(12, ['*'], 'page', $page);
 
     // Thêm vớiPath() để đảm bảo đường dẫn đúng
-    $blogs->withPath(route('indexBlog'))->appends(request()->query());
+    // $blogs->withPath(route('indexBlog'))->appends(request()->query());
 
     $getMostPost = BlogModel::where('post_type', 'blog')->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
     $routeName = 'indexBlog';
@@ -26,10 +26,10 @@ class BlogController extends Controller
 }
 
 public function indexReview($page = 1) {
-    $blogs = BlogModel::where('post_type', 'review')->paginate(25, ['*'], 'page', $page);
+    $blogs = BlogModel::where('post_type', 'review')->paginate(12, ['*'], 'page', $page);
 
     // Thêm vớiPath() để đảm bảo đường dẫn đúng
-    $blogs->withPath(route('indexReview'))->appends(request()->query());
+    // $blogs->withPath(route('indexReview'))->appends(request()->query());
 
     $getMostPost = BlogModel::where('post_type', 'review')->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
     $routeName = 'indexReview';
