@@ -97,8 +97,8 @@
                                     <!-- Article Image -->
                                     <a class="article_featured-image" href="/posts/{{ $blog['slug'] }}"><img
                                             class="blur-up lazyload"
-                                            src="{{ asset($blog['image'] ? $blog['image'] : no_image . jpg) }}"
-                                            alt="It's all about how you wear"></a>
+                                            src="{{ asset($blog['image'] ? $blog['image'] : 'no_image.jpg') }}"
+                                            alt="{{ $blog['title'] }}"></a>
                                     <h2 class="h3"><a href="/posts/{{ $blog['slug'] }}">{{ $blog['title'] }}</a></h2>
                                     <p>{{ $blog['tags'] }}</p>
                                     <ul class="publish-detail">
