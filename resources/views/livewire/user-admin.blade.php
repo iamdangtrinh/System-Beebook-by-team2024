@@ -72,7 +72,7 @@
                                 <td>
                                     <img 
                                     style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid black" 
-                                    src={{ $user->avatar !== null ? asset('storage/'. $user->avatar) : "/client/images/manager-user/no_avt.png" }}
+                                    src="{{ url('storage/' . $user->avatar) }}" 
                                     alt="User Avatar">
                                 </td>
                                 <td>{{ $user->name }}</td>
