@@ -19,7 +19,7 @@ class BlogController extends Controller
 
         // Thêm vớiPath() để đảm bảo đường dẫn đúng
         // $blogs->withPath(route('indexBlog'))->appends(request()->query());
-        $titleHeading = 'Bản tin';
+        $titleHeading = 'Danh sách bản tin';
         $getMostPost = BlogModel::where('post_type', 'blog')->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
         $routeName = 'indexBlog';
 
