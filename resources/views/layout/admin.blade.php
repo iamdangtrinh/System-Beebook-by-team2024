@@ -23,7 +23,12 @@ $currentSegment = Request::segment(2);
     <link href="{{ asset('/') }}backend/css/animate.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/style.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/custom.css" rel="stylesheet">
-    <link href="{{ asset('/') }}backend/css/plugins/steps/jquery.steps.css" rel="stylesheet">
+
+    <link href="{{ asset('/') }}backend/css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet">
+    <link href="{{ asset('/') }}backend/css/plugins/dropzone/basic.css" rel="stylesheet">
+    <link href="{{ asset('/') }}backend/css/plugins/dropzone/dropzone.css" rel="stylesheet">
+    <link href="{{ asset('/') }}backend/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('/') }}backend/css/plugins/codemirror/codemirror.css" rel="stylesheet">
     <script src="{{ asset('/') }}backend/js/jquery-3.1.1.min.js"></script>
 
 </head>
@@ -77,7 +82,7 @@ $currentSegment = Request::segment(2);
             </div>
 
             <div class="footer">
-                    <a class="text-dark" href="https://www.facebook.com/profile.php?id=61566989045999">Được xây dựng bởi nhóm Bee Book 2024</a>
+                <a class="text-dark" href="https://www.facebook.com/profile.php?id=61566989045999">Được xây dựng bởi nhóm Bee Book 2024</a>
             </div>
         </div>
     </div>
