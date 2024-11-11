@@ -1979,6 +1979,10 @@ textarea:-ms-input-placeholder {
   vertical-align: middle;
 }
 
+.button-set .wishlist-btn {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px
+}
+
 .grid-view-item.style2 .button-set i {
   line-height: 35px;
 }
@@ -2208,6 +2212,7 @@ textarea:-ms-input-placeholder {
   color: #000000;
   background-color: #ffffff;
   width: 100%;
+  border-radius: 6px;
   text-transform: uppercase;
   -ms-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
@@ -2225,7 +2230,9 @@ textarea:-ms-input-placeholder {
 }
 
 .product-image:hover .variants.add {
-  bottom: -10px;
+  bottom: 8px;
+  box-shadow: rgba(50, 50, 93, 0.5) 0px 6px 12px -2px, rgba(0, 0, 0, 0.5) 0px 3px 7px -3px;
+  overflow: hidden;
 }
 
 .button-set {
@@ -2271,7 +2278,6 @@ a.wishlist:hover,
 .add-to-compare:hover {
   color: #ffffff;
   background-color: #CE2626;
-  opacity: 0.8;
 }
 
 a.quick-view {

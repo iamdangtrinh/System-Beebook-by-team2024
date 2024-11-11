@@ -5,7 +5,7 @@
         <div class="page section-header text-center mb-0">
             <div class="page-title">
                 <div class="wrapper">
-                    <h1 class="page-width">{{$titleHeading ?? 'Bản tin'}}</h1>
+                    <h1 class="page-width">{{ $titleHeading ?? 'Bản tin' }}</h1>
                 </div>
             </div>
         </div>
@@ -75,7 +75,8 @@
                                     <ul class="publish-detail">
                                         <li><i class="anm anm-eye" aria-hidden="true"></i>{{ $blog['views'] }}</li>
                                         <li><i class="icon anm anm-clock-r"></i> <time
-                                                datetime="{{ date('d-m-Y', strtotime($blog['updated_at'])) }}">{{ date('H:i d-m-Y', strtotime($blog['updated_at'])) }}</time></li>
+                                                datetime="{{ date('d-m-Y', strtotime($blog['updated_at'])) }}">{{ date('H:i d-m-Y', strtotime($blog['updated_at'])) }}</time>
+                                        </li>
                                     </ul>
                                 </div>
                             @endforeach
@@ -91,22 +92,5 @@
                 </div>
             </div>
         </div>
-
-    </div>
-    <!--Scoll Top-->
-    <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
-    <!--End Scoll Top-->
-
-    <!-- Including Jquery -->
-    <script src="{{ asset('/') }}client/js/vendor/jquery-3.3.1.min.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/jquery.cookie.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/wow.min.js"></script>
-    <!-- Including Javascript -->
-    <script src="{{ asset('/') }}client/js/bootstrap.min.js"></script>
-    <script src="{{ asset('/') }}client/js/plugins.js"></script>
-    <script src="{{ asset('/') }}client/js/popper.min.js"></script>
-    <script src="{{ asset('/') }}client/js/lazysizes.js"></script>
-    <script src="{{ asset('/') }}client/js/main.js"></script>
     </div>
 @endsection

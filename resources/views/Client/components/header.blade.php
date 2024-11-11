@@ -55,9 +55,6 @@
 
 <body class="template belle">
     <div class="pageWrapper">
-    
-        <!--End Top Header-->
-        <!--Header-->
         <div class="header-wrap animated d-flex border-bottom">
             <div class="container">
                 <div class="row align-items-center">

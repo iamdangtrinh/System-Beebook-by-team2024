@@ -44,74 +44,102 @@
                             </div>
                             <hr />
 
-                            {{-- {{dd($getProduct)}} --}}
-                            <div class="row">
-                                @foreach ($getProduct as $product)
-                                    <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
-                                        <div class="product-image">
-                                            <a href="{{ asset('san-pham/' . $product->slug) }}"
-                                                class="grid-view-item__link">
-                                                <img class="primary lazyload"
-                                                    data-src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
-                                                    src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
-                                                    alt="{{ $product->name }}" title="{{ $product->name }}">
-                                            </a>
+                            @if ($getProduct)
+                                <div class="grid-products grid--view-items">
+                                    <div class="row" id="product-list">
+                                        <div class="swiper mySwiper">
+                                            <div class="swiper-wrapper">
+                                                @foreach ($getProduct as $product)
+                                                    <div class="swiper-slide">
+                                                        <div class="col-sm-6 col-md-12 col-lg-12 item">
+                                                            <!-- start product image -->
+                                                            <div class="product-image">
+                                                                <!-- start product image -->
+                                                                <a href="{{ asset('san-pham/' . $product->slug) }}"
+                                                                    class="grid-view-item__link">
+                                                                    <!-- image -->
+                                                                    <img class="primary lazyload"
+                                                                        data-src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
+                                                                        src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
+                                                                        alt="image" title="product">
+                                                                    <!-- End image -->
+                                                                </a>
+                                                                <!-- end product image -->
 
-                                            <form class="variants add add_to_cart" action="{{ route('cart.store') }}"
-                                                method="post">
-                                                @csrf
-                                                <input type="hidden" value="{{ $product->id }}" name="id_product">
-                                                <input type="hidden" value="1" name="quantity">
-                                                <button class="btn btn-addto-cart" type="submit" tabindex="">Thêm
-                                                    giỏ hàng</button>
-                                            </form>
-                                            <div class="button-set">
-                                                <div class="wishlist-btn">
-                                                    @if (!auth()->check())
-                                                        <a class="wishlist" href="{{ route('wishlist.index') }}"
-                                                            title="Thêm vào yêu thích"><i
-                                                                class="icon anm anm-heart-l"></i></a>
-                                                    @elseif($product->isFavoritedByUser())
-                                                        <a class="wishlist add-to-wishlist" href="#"
-                                                            data-product-id="{{ $product->id }}"
-                                                            title="Thêm vào yêu thích"><i
-                                                                class="icon anm anm-heart text-danger"></i></a>
-                                                    @else
-                                                        <a class="wishlist add-to-wishlist" href="#"
-                                                            data-product-id="{{ $product->id }}"
-                                                            title="Thêm vào yêu thích"><i
-                                                                class="icon anm anm-heart-l"></i></a>
-                                                    @endif
-                                                </div>
+                                                                <!-- Start product button -->
+                                                                <form class="variants add add_to_cart"
+                                                                    action="{{ route('cart.store') }}" method="post">
+                                                                    @csrf
+                                                                    <input type="hidden" value="{{ $product->id }}"
+                                                                        name="id_product">
+                                                                    <input type="hidden" value="1" name="quantity">
+                                                                    <button class="btn btn-addto-cart" type="submit"
+                                                                        tabindex="">Thêm
+                                                                        giỏ hàng</button>
+                                                                </form>
+                                                                <div class="button-set">
+                                                                    <div class="wishlist-btn">
+                                                                        @if (!auth()->check())
+                                                                            <a class="wishlist"
+                                                                                href="{{ route('wishlist.index') }}"
+                                                                                title="Thêm vào yêu thích"><i
+                                                                                    class="icon anm anm-heart-l"></i></a>
+                                                                        @elseif($product->isFavoritedByUser())
+                                                                            <a class="wishlist add-to-wishlist"
+                                                                                href="#"
+                                                                                data-product-id="{{ $product->id }}"
+                                                                                title="Thêm vào yêu thích"><i
+                                                                                    class="icon anm anm-heart text-danger"></i></a>
+                                                                        @else
+                                                                            <a class="wishlist add-to-wishlist"
+                                                                                href="#"
+                                                                                data-product-id="{{ $product->id }}"
+                                                                                title="Thêm vào yêu thích"><i
+                                                                                    class="icon anm anm-heart-l"></i></a>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                                <!-- end product button -->
+                                                            </div>
+                                                            <!-- end product image -->
+                                                            <!--start product details -->
+                                                            <div class="product-details text-center">
+                                                                <!-- product name -->
+                                                                <div class="product-name">
+                                                                    <a
+                                                                        href="{{ asset('san-pham/' . $product->slug) }}">{{ $product->name }}</a>
+                                                                </div>
+                                                                <!-- End product name -->
+                                                                <!-- product price -->
+                                                                <div class="product-price">
+                                                                    @if (!$product->price_sale)
+                                                                        <span
+                                                                            class="price">{{ number_format($product->price, 0, ',', '.') }}
+                                                                            đ</span>
+                                                                    @else
+                                                                        <span
+                                                                            class="old-price">{{ number_format($product->price, 0, ',', '.') }}
+                                                                            đ</span>
+                                                                        <span
+                                                                            class="price">{{ number_format($product->price_sale, 0, ',', '.') }}
+                                                                            đ</span>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
                                             </div>
-                                        </div>
-                                        <div class="product-details text-center">
-                                            <div class="product-name">
-                                                <a
-                                                    href="{{ asset('san-pham/' . $product->slug) }}">{{ $product->name }}</a>
-                                            </div>
-                                            <div class="product-price">
-                                                @if (!$product->price_sale)
-                                                    <span class="price">{{ number_format($product->price, 0, ',', '.') }}
-                                                        đ</span>
-                                                @else
-                                                    <span
-                                                        class="old-price">{{ number_format($product->price, 0, ',', '.') }}
-                                                        đ</span>
-                                                    <span
-                                                        class="price">{{ number_format($product->price_sale, 0, ',', '.') }}
-                                                        đ</span>
-                                                @endif
-                                            </div>
+                                            <div class="swiper-button-next"></div>
+                                            <div class="swiper-button-prev"></div>
+                                            <div class="swiper-pagination"></div>
                                         </div>
                                     </div>
-                                @endforeach
-                            </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
-                <!--End Main Content-->
-                <!--Sidebar-->
                 <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar">
                     <div class="sidebar_tags">
                         <div class="sidebar_widget">
@@ -177,20 +205,47 @@
                         </div>
                     </div>
                 </div>
-                <!--End Sidebar-->
             </div>
         </div>
+    </div>
 
-    </div>
-    <script src="{{ asset('/') }}client/js/vendor/jquery-3.3.1.min.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/jquery.cookie.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="{{ asset('/') }}client/js/vendor/wow.min.js"></script>
-    <!-- Including Javascript -->
-    <script src="{{ asset('/') }}client/js/bootstrap.min.js"></script>
-    <script src="{{ asset('/') }}client/js/plugins.js"></script>
-    <script src="{{ asset('/') }}client/js/popper.min.js"></script>
-    <script src="{{ asset('/') }}client/js/lazysizes.js"></script>
-    <script src="{{ asset('/') }}client/js/main.js"></script>
-    </div>
+    @if ($getProduct)
+        <style>
+            .swiper-pagination-bullet.swiper-pagination-bullet-active {
+                background-color: #CE2626 !important;
+            }
+        </style>
+        <script>
+            var swiper = new Swiper(".mySwiper", {
+                spaceBetween: 0,
+                slidesPerView: 4,
+                // autoplay: {
+                //     delay: 2500,
+                //     disableOnInteraction: false,
+                // },
+                breakpoints: {
+                    400: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 20,
+                    },
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+            });
+        </script>
+    @endif
 @endsection
