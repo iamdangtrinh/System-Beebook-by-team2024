@@ -16,8 +16,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:url" content="/" />
     <meta name="google-site-verification" content="0NTJDxu20GXY4Pl6OY-u_e1fmLJmV35qAnf380ru9b0" />
-    <meta property="og:type"
-        content="Sách tiếng Việt - Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách." />
+    {{-- <meta property="og:type" content="Sách tiếng Việt - Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách." /> --}}
+
+
+    <meta property="og:type" content="{{ $headDescription ?? 'Sách 2 tiếng Việt - Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách.' }}" />
+
+
     <meta property="og:image" content="{{ asset('/') }}client/images/favicon.png" />
     <link rel="shortcut icon" href="{{ asset('/') }}client/images/favicon-beebook.webp" />
 

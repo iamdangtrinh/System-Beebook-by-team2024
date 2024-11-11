@@ -52,7 +52,8 @@ class BlogController extends Controller
 
         $blogs = $blogs->paginate(12);
 
-        $getMostPost = BlogModel::where('post_type', 'blog')->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
+        $getMostPost = BlogModel::select($this->selected())
+            ->where('post_type', 'blog')->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
         $routeName = 'indexBlog';
         return view('Client.blog', compact('blogs', 'getMostPost', 'routeName', 'titleHeading'));
     }
@@ -71,9 +72,10 @@ class BlogController extends Controller
             });
         }
         $blogs = $blogs->paginate(12);
-        $getMostPost = BlogModel::where('post_type', 'review')->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
+        $getMostPost = BlogModel::select($this->selected())
+        ->where('post_type', 'review')->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
         $routeName = 'indexReview';
-        return view('Client.blog', compact('blogs', 'getMostPost', 'routeName', 'titleHeading'));
+        return view('Client.blog', compact('blogs', 'getMostPost', 'routeName', 'titleHeading',));
     }
 
     public function show($slug)
