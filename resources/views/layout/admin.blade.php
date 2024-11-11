@@ -35,7 +35,7 @@ $currentSegment = Request::segment(2);
 
 <body class="fixed-navigation">
     <div id="wrapper">
-        <nav class="navbar-default navbar-static-side" role="navigation">
+        <nav class="navbar-default navbar-static-side" style="position: fixed" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav metismenu" id="side-menu">
                     <li class="nav-header">
@@ -54,18 +54,20 @@ $currentSegment = Request::segment(2);
                     <li class=""><a href="{{ route('adminproduct.index') }}"><i class="fa fa-book"></i> <span
                                 class="nav-label">Sách</span></a>
                     </li>
+                    <li class=""><a href="{{ route('adminUser.index') }}"><i class="fa fa-user"></i> <span
+                        class="nav-label">Tài Khoản</span></a>
+            </li>
                 </ul>
             </div>
         </nav>
 
-        <div id="page-wrapper" class="gray-bg sidebar-content">
-            <div class="row border-bottom">
-                <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+        <div  id="page-wrapper" class="gray-bg sidebar-content" >
+            <div class="row border-bottom"  >
+                <nav class="navbar navbar-static-top white-bg" role="navigation" >
                     <div class="navbar-header">
                         <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i
                                 class="fa fa-bars"></i> </a>
                     </div>
-
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
                             <a href="{{ route('logout.index') }}">

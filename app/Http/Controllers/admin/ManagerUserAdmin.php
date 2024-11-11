@@ -8,7 +8,8 @@ use App\Models\User;
 
 class ManagerUserAdmin extends Controller
 {
-    public function Index(){
-        
+    public function Index()
+    {
+        return view('admin.users.index');
     }
 }

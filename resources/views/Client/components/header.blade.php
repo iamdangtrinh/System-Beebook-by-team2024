@@ -139,7 +139,7 @@
                         </div>
                     </div>
                     <!--Mobile Logo-->
-                    <div class="col-4 col-sm-3 col-md-3 col-lg-2 d-flex align-items-center justify-content-around">
+                    <div class="col-4 col-sm-3 col-md-3 col-lg-2 d-flex align-items-center justify-content-evenly">
                         <div class="col-0 col-sm-0 col-md-0 col-lg-4 " style="width: 20px">
                             <ul id="siteNav" class="d-none d-lg-block"
                                 class="site-nav medium center hidearrow d-flex align-items-center justify-content-end">
