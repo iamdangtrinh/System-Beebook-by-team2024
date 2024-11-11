@@ -11,6 +11,7 @@ class BlogModel extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'posts';
     protected $fillable = [
+        'id',
         'post_type',
         'title',
         'content',

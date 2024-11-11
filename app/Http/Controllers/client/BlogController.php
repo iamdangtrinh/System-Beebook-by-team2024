@@ -13,37 +13,74 @@ use App\Models\User;
 
 class BlogController extends Controller
 {
-    public function indexBlog($page = 1)
+
+    public function selected()
     {
-        $blogs = BlogModel::where('post_type', 'blog')->paginate(12, ['*'], 'page', $page);
+        return [
+            'id',
+            'post_type',
+            'title',
+            'views',
+            'tags',
+            'image',
+            'slug',
+            'status',
+            'hot',
+            'meta_title_seo',
+            'meta_description_seo',
+            'id_user',
+            'created_at'
+        ];
+    }
 
-        // Thêm vớiPath() để đảm bảo đường dẫn đúng
-        // $blogs->withPath(route('indexBlog'))->appends(request()->query());
+    public function indexBlog(Request $request, $page = 1)
+    {
         $titleHeading = 'Danh sách bản tin';
-        $getMostPost = BlogModel::where('post_type', 'blog')->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
-        $routeName = 'indexBlog';
+        $searchQuery = $request->input('q');
 
+        $blogs = BlogModel::select($this->selected())
+            ->where('post_type', 'blog')
+            ->where('status', 'active');
+
+        if (!empty($searchQuery)) {
+            $blogs->where(function ($query) use ($searchQuery) {
+                $query->where('tags', 'like', "%{$searchQuery}%")
+                    ->orWhere('content', 'like', "%{$searchQuery}%")
+                    ->orWhere('title', 'like', "%{$searchQuery}%");
+            });
+        }
+
+        $blogs = $blogs->paginate(12);
+
+        $getMostPost = BlogModel::where('post_type', 'blog')->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
+        $routeName = 'indexBlog';
         return view('Client.blog', compact('blogs', 'getMostPost', 'routeName', 'titleHeading'));
     }
 
     public function indexReview($page = 1)
     {
-        $blogs = BlogModel::where('post_type', 'review')->paginate(12, ['*'], 'page', $page);
-
-        // Thêm vớiPath() để đảm bảo đường dẫn đúng
-        // $blogs->withPath(route('indexReview'))->appends(request()->query());
         $titleHeading = 'Review sách';
-        $getMostPost = BlogModel::where('post_type', 'review')->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
+        $blogs = BlogModel::select($this->selected())
+            ->where('post_type', 'review')
+            ->where('status', 'active');
+        if (!empty($searchQuery)) {
+            $blogs->where(function ($query) use ($searchQuery) {
+                $query->where('tags', 'like', "%{$searchQuery}%")
+                    ->orWhere('content', 'like', "%{$searchQuery}%")
+                    ->orWhere('title', 'like', "%{$searchQuery}%");
+            });
+        }
+        $blogs = $blogs->paginate(12);
+        $getMostPost = BlogModel::where('post_type', 'review')->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
         $routeName = 'indexReview';
-
         return view('Client.blog', compact('blogs', 'getMostPost', 'routeName', 'titleHeading'));
     }
 
     public function show($slug)
     {
         $getPost =  BlogModel::where('slug', $slug)->firstOrFail();
-        $getPostMore =  BlogModel::where('post_type', $getPost['post_type'])->inRandomOrder()->limit(4)->get();
-        $getMostPost =  BlogModel::where('post_type', $getPost['post_type'])->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
+        $getPostMore =  BlogModel::where('post_type', $getPost['post_type'])->where('status', 'active')->inRandomOrder()->limit(4)->get();
+        $getMostPost =  BlogModel::where('post_type', $getPost['post_type'])->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
         if (Auth::user()) {
 
             $time = Carbon::parse(Auth::user()->email_verified_at);
@@ -57,9 +94,6 @@ class BlogController extends Controller
             return view('Client.blogarticle', compact('getPost', 'getProduct', 'getPostMore', 'getMostPost'));
         } else {
 
-            // $getProductByPost = PostProduct::where('id_post', $getPost['id'])->get();
-            // $getProduct = Product::where('id', $getProductByPost['id_product'])->get();
-            
             $getProductByPost = PostProduct::where('id_post', $getPost['id'])->get(); // Lấy tất cả các bản ghi liên kết
             if ($getProductByPost->isNotEmpty()) {
                 // Lấy tất cả các `id_product` từ `$getProductByPost` để truy vấn bảng `Product`

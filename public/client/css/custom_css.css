@@ -197,3 +197,13 @@ a {
 #product-list .item:hover {
     box-shadow: rgba(0, 0, 0, 0.5) 0px 3px 6px;
 }
+
+.page-item .page-link {
+    color: #CE2626;
+}
+
+.active>.page-link, .page-link.active {
+    background-color: #CE2626;
+    border: #CE2626;
+    color: #fff;
+}

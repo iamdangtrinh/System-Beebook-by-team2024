@@ -30,8 +30,8 @@ class DatabaseSeeder extends Seeder
             CouponSeeder::class,
             UsersSeeder::class,
             PostSeeder::class,
-            Comments::class,
             CartSeeder::class,
+            Comments::class,
         ]);
     }
 }
