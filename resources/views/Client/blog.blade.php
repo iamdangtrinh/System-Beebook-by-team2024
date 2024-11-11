@@ -1,48 +1,19 @@
 <title>@yield('title', 'Bài viết')</title>
 @extends('layout.client')
 @section('body')
-    <!--Mobile Menu-->
-
-    <!--End Mobile Menu-->
-
-    <!--Body Content-->
     <div id="page-content">
-        <!--Page Title-->
         <div class="page section-header text-center mb-0">
             <div class="page-title">
                 <div class="wrapper">
-                    <h1 class="page-width">Danh sách bản tin</h1>
+                    <h1 class="page-width">{{$titleHeading ?? 'Bản tin'}}</h1>
                 </div>
             </div>
         </div>
-        <!--End Page Title-->
-        <div class="bredcrumbWrap">
-            <div class="container breadcrumbs">
-                <a href="index.html" title="Back to the home page">Home</a><span aria-hidden="true">›</span><span>Blog
-                    Gridview</span>
-            </div>
-        </div>
-
         <div class="container">
             <div class="row">
                 <!--Sidebar-->
                 <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar">
                     <div class="sidebar_tags">
-                        <div class="sidebar_widget categories">
-                            <div class="widget-title">
-                                <h2>Danh Mục Tin</h2>
-                            </div>
-                            <div class="widget-content">
-                                <ul class="sidebar_categories">
-                                    <li class="lvl-1 "><a href="http://annimexweb.com/" class="site-nav lvl-1">Beauty</a>
-                                    </li>
-                                    <li class="lvl-1  active"><a href="#" class="site-nav lvl-1">fashion</a></li>
-                                    <li class="lvl-1 "><a href="#" class="site-nav lvl-1">summer</a></li>
-                                    <li class="lvl-1 "><a href="#" class="site-nav lvl-1">trend</a></li>
-                                    <li class="lvl-1 "><a href="#" class="site-nav lvl-1">winter</a></li>
-                                </ul>
-                            </div>
-                        </div>
                         <div class="sidebar_widget">
                             <div class="widget-title">
                                 <h2>Tin nổi bật</h2>
