@@ -71,7 +71,5 @@
 <script src="{{ asset('/') }}client/js/popper.min.js" defer></script>
 <script src="{{ asset('/') }}client/js/lazysizes.js" defer></script>
 <script src="{{ asset('/') }}client/js/main.js" defer></script>
-
-<script>
-
-</script>
+</body>
+<html>

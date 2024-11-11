@@ -153,7 +153,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="details"> <a class="grid-view-item__title"
-                                                        href="{{ asset('san-pham/' . $product->slug) }}"><strong>{{ $product->name }}</strong></a>
+                                                        href="{{ asset('san-pham/' . $product->slug) }}"><span>{{ $product->name }}</span></a>
                                                     <div class="grid-view-item__meta">
                                                         <div class="product-price">
                                                             @if (!$product->price_sale)
@@ -387,56 +387,69 @@
 
                     <div class="grid-products grid--view-items">
                         <div class="row" id="product-list">
-                            <!-- Loading Spinner -->
-                            <div wire:loading class="col-12 text-center">
-                                <div class="loading-spinner">
-                                    <span>Đang tải...</span>
-                                    <i class="fa fa-spinner fa-spin"></i> <!-- Spinner icon -->
-                                </div>
-                            </div>
-
-                            <!-- Product List -->
                             @if ($products && $products->count() > 0 && Request::is('yeu-thich'))
-                                @foreach ($products as $wishlist)
+                                @foreach ($products as $product)
                                     <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
-                                        <!-- Product Image -->
                                         <div class="product-image">
-                                            <a href="{{ asset('san-pham/' . $wishlist->product->slug) }}"
+                                            <!-- start product image -->
+                                            <a href="{{ asset('san-pham/' . $product->slug) }}"
                                                 class="grid-view-item__link">
+                                                <!-- image -->
                                                 <img class="primary lazyload"
-                                                    data-src="{{ asset($wishlist->product->image_cover ? $wishlist->product->image_cover : 'no_image.jpg') }}"
-                                                    src="{{ asset($wishlist->product->image_cover ? $wishlist->product->image_cover : 'no_image.jpg') }}"
+                                                    data-src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
+                                                    src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
                                                     alt="image" title="product">
+                                                <!-- End image -->
                                             </a>
+                                            <!-- end product image -->
+
+                                            <!-- Start product button -->
+                                            <form class="variants add add_to_cart" action="{{ route('cart.store') }}"
+                                                method="post">
+                                                @csrf
+                                                <input type="hidden" value="{{ $product->id }}" name="id_product">
+                                                <input type="hidden" value="1" name="quantity">
+                                                <button class="btn btn-addto-cart" type="submit" tabindex="">Thêm
+                                                    giỏ hàng</button>
+                                            </form>
+
+                                            <div class="button-set">
+                                                <div class="wishlist-btn">
+                                                    @if (!auth()->check())
+                                                        <a class="wishlist" href="{{ route('wishlist.index') }}"
+                                                            title="Thêm vào yêu thích"><i
+                                                                class="icon anm anm-heart-l"></i></a>
+                                                    @elseif($product->isFavoritedByUser())
+                                                        <a class="wishlist add-to-wishlist" href="#"
+                                                            data-product-id="{{ $product->id }}"
+                                                            title="Thêm vào yêu thích"><i
+                                                                class="icon anm anm-heart text-danger"></i></a>
+                                                    @else
+                                                        <a class="wishlist add-to-wishlist" href="#"
+                                                            data-product-id="{{ $product->id }}"
+                                                            title="Thêm vào yêu thích"><i
+                                                                class="icon anm anm-heart-l"></i></a>
+                                                    @endif
+                                                </div>
+                                            </div>
                                         </div>
-
-                                        <!-- Add to Cart Form -->
-                                        <form class="variants add add_to_cart" action="{{ route('cart.store') }}"
-                                            method="post">
-                                            @csrf
-                                            <input type="hidden" value="{{ $wishlist->product->id }}"
-                                                name="id_product">
-                                            <input type="hidden" value="1" name="quantity">
-                                            <button class="btn btn-addto-cart" type="submit" tabindex="">Thêm giỏ
-                                                hàng</button>
-                                        </form>
-
-                                        <div class="button-set">
-                                            <div class="wishlist-btn">
-                                                @if (!auth()->check())
-                                                    <a class="wishlist" href="{{ route('wishlist.index') }}"
-                                                        title="Thêm vào yêu thích"><i
-                                                            class="icon anm anm-heart-l"></i></a>
-                                                @elseif($wishlist->product->isFavoritedByUser())
-                                                    <a class="wishlist add-to-wishlist" href="#"
-                                                        data-product-id="{{ $wishlist->product->id }}"
-                                                        title="Thêm vào yêu thích"><i
-                                                            class="icon anm anm-heart text-danger"></i></a>
+                                        <div class="product-details text-center">
+                                            <div class="product-name">
+                                                <a
+                                                    href="{{ asset('san-pham/' . $wishlist->product->slug) }}">{{ $wishlist->product->name }}</a>
+                                            </div>
+                                            <div class="product-price">
+                                                @if (!$wishlist->product->price_sale)
+                                                    <span
+                                                        class="price">{{ number_format($wishlist->product->price, 0, ',', '.') }}
+                                                        đ</span>
                                                 @else
-                                                    <a class="wishlist add-to-wishlist" href="#"
-                                                        data-product-id="{{ $wishlist->product->id }}"
-                                                        title="Thêm vào yêu thích"><i
-                                                            class="icon anm anm-heart-l"></i></a>
+                                                    <span
+                                                        class="old-price">{{ number_format($wishlist->product->price, 0, ',', '.') }}
+                                                        đ</span>
+                                                    <span
+                                                        class="price">{{ number_format($wishlist->product->price_sale, 0, ',', '.') }}
+                                                        đ</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -445,43 +458,72 @@
                             @elseif($products && $products->count() > 0 && !Request::is('yeu-thich'))
                                 @foreach ($products as $product)
                                     <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
-                                        <!-- Product Image -->
+                                        <!-- start product image -->
                                         <div class="product-image">
+                                            <!-- start product image -->
                                             <a href="{{ asset('san-pham/' . $product->slug) }}"
                                                 class="grid-view-item__link">
+                                                <!-- image -->
                                                 <img class="primary lazyload"
                                                     data-src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
                                                     src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
                                                     alt="image" title="product">
+                                                <!-- End image -->
                                             </a>
+                                            <!-- end product image -->
+
+                                            <!-- Start product button -->
+                                            <form class="variants add add_to_cart" action="{{ route('cart.store') }}"
+                                                method="post">
+                                                @csrf
+                                                <input type="hidden" value="{{ $product->id }}" name="id_product">
+                                                <input type="hidden" value="1" name="quantity">
+                                                <button class="btn btn-addto-cart" type="submit" tabindex="">Thêm
+                                                    giỏ hàng</button>
+                                            </form>
+                                            <div class="button-set">
+                                                <div class="wishlist-btn">
+                                                    @if (!auth()->check())
+                                                        <a class="wishlist" href="{{ route('wishlist.index') }}"
+                                                            title="Thêm vào yêu thích"><i
+                                                                class="icon anm anm-heart-l"></i></a>
+                                                    @elseif($product->isFavoritedByUser())
+                                                        <a class="wishlist add-to-wishlist" href="#"
+                                                            data-product-id="{{ $product->id }}"
+                                                            title="Thêm vào yêu thích"><i
+                                                                class="icon anm anm-heart text-danger"></i></a>
+                                                    @else
+                                                        <a class="wishlist add-to-wishlist" href="#"
+                                                            data-product-id="{{ $product->id }}"
+                                                            title="Thêm vào yêu thích"><i
+                                                                class="icon anm anm-heart-l"></i></a>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <!-- end product button -->
                                         </div>
-
-                                        <!-- Add to Cart Form -->
-                                        <form class="variants add add_to_cart" action="{{ route('cart.store') }}"
-                                            method="post">
-                                            @csrf
-                                            <input type="hidden" value="{{ $product->id }}" name="id_product">
-                                            <input type="hidden" value="1" name="quantity">
-                                            <button class="btn btn-addto-cart" type="submit" tabindex="">Thêm giỏ
-                                                hàng</button>
-                                        </form>
-
-                                        <div class="button-set">
-                                            <div class="wishlist-btn">
-                                                @if (!auth()->check())
-                                                    <a class="wishlist" href="{{ route('wishlist.index') }}"
-                                                        title="Thêm vào yêu thích"><i
-                                                            class="icon anm anm-heart-l"></i></a>
-                                                @elseif($product->isFavoritedByUser())
-                                                    <a class="wishlist add-to-wishlist" href="#"
-                                                        data-product-id="{{ $product->id }}"
-                                                        title="Thêm vào yêu thích"><i
-                                                            class="icon anm anm-heart text-danger"></i></a>
+                                        <!-- end product image -->
+                                        <!--start product details -->
+                                        <div class="product-details text-center">
+                                            <!-- product name -->
+                                            <div class="product-name">
+                                                <a
+                                                    href="{{ asset('san-pham/' . $product->slug) }}">{{ $product->name }}</a>
+                                            </div>
+                                            <!-- End product name -->
+                                            <!-- product price -->
+                                            <div class="product-price">
+                                                @if (!$product->price_sale)
+                                                    <span
+                                                        class="price">{{ number_format($product->price, 0, ',', '.') }}
+                                                        đ</span>
                                                 @else
-                                                    <a class="wishlist add-to-wishlist" href="#"
-                                                        data-product-id="{{ $product->id }}"
-                                                        title="Thêm vào yêu thích"><i
-                                                            class="icon anm anm-heart-l"></i></a>
+                                                    <span
+                                                        class="old-price">{{ number_format($product->price, 0, ',', '.') }}
+                                                        đ</span>
+                                                    <span
+                                                        class="price">{{ number_format($product->price_sale, 0, ',', '.') }}
+                                                        đ</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -495,9 +537,7 @@
                         </div>
                     </div>
 
-
                 </div>
-                <!--End Main Content-->
             </div>
             <div class="col-12">
                 {{ $products->links() }}
