@@ -240,9 +240,6 @@
                                         @endforeach
                                     </ul>
                                 </li>
-                                {{-- @else
-                <li><a href="{{ url('danh-muc/' . $parentCategory->slug) }}"
-                        class="site-nav">{{ $parentCategory->name }}</a></li> --}}
                             @endif
                         @endforeach
                     </ul>
