@@ -223,45 +223,34 @@ class ProductsSeeder extends Seeder
     // }
 
     private function downloadImage($url)
-{
-    $imageDirectory = public_path('userfiles/image/');
-    $imageName = basename($url);
-    $imageNameWithoutExtension = pathinfo($imageName, PATHINFO_FILENAME);
-    $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp';
+    {
+        $imageDirectory = public_path('userfiles/image/');
+        $imageName = basename($url);
+        $imagePath = $imageDirectory . $imageName;
 
-    if (!file_exists($imageDirectory)) {
-        mkdir($imageDirectory, 0777, true);
+        // Create the directory if it doesn't exist
+        if (!file_exists($imageDirectory)) {
+            mkdir($imageDirectory, 0777, true);
+        }
+
+        try {
+            // Get the image content from the URL
+            $imageContent = file_get_contents($url);
+
+            if ($imageContent === false) {
+                throw new \Exception('Cannot retrieve image content from URL.');
+            }
+
+            // Save the image content directly to the specified path
+            file_put_contents($imagePath, $imageContent);
+
+            return 'userfiles/image/' . $imageName;
+        } catch (\Exception $e) {
+            $this->command->error('Error downloading image: ' . $e->getMessage());
+            return null; // Return null if unable to download the image        
+        }
     }
 
-    try {
-        $imageContent = file_get_contents($url);
-        $image = imagecreatefromstring($imageContent);
-
-        if ($image === false) {
-            throw new \Exception('Cannot create image from data.');
-        }
-
-        // Kiểm tra nếu ảnh là dạng palette-based, chuyển đổi sang true color nếu cần
-        if (!imageistruecolor($image)) {
-            $trueColorImage = imagecreatetruecolor(imagesx($image), imagesy($image));
-            imagecopy($trueColorImage, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
-            imagedestroy($image);
-            $image = $trueColorImage;
-        }
-
-        // Thử chuyển đổi sang WebP
-        if (!imagewebp($image, $imagePath, 90)) {
-            throw new \Exception('Failed to convert image to WebP.');
-        }
-
-        imagedestroy($image);
-
-        return 'userfiles/image/' . $imageNameWithoutExtension . '.webp';
-    } catch (\Exception $e) {
-        $this->command->error('Error downloading or converting image: ' . $e->getMessage());
-        return null; // Bỏ qua nếu không chuyển đổi được
-    }
-}
 
 
     private function generateRandomWeight(): int

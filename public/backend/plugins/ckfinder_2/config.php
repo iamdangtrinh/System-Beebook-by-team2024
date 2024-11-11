@@ -29,12 +29,12 @@
  */
 function CheckAuthentication()
 {
-	
+
 	// $cookieAuth = (isset($_COOKIE[AUTH.'Backend']) ? $_COOKIE[AUTH.'Backend']:'');
-	
+
 	//  if ( !isset($_COOKIE[AUTH.'Backend']) || empty($cookieAuth)) return false;
-	
-	
+
+
 	// WARNING : DO NOT simply return "true". By doing so, you are allowing
 	// "anyone" to upload and list the files in your server. You must implement
 	// some kind of session validation here. Even something very simple as...
@@ -48,9 +48,9 @@ function CheckAuthentication()
 
 	return true;
 }
-	// $cookieAuth = (isset($_COOKIE[AUTH.'Backend']) ? $_COOKIE[AUTH.'Backend']:'');
-	// $cookieAuth = json_decode($cookieAuth, true);
-	// $permission = json_decode(base64_decode($cookieAuth['permission'],true));
+// $cookieAuth = (isset($_COOKIE[AUTH.'Backend']) ? $_COOKIE[AUTH.'Backend']:'');
+// $cookieAuth = json_decode($cookieAuth, true);
+// $permission = json_decode(base64_decode($cookieAuth['permission'],true));
 
 
 
@@ -108,7 +108,7 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-$baseDir = str_replace('\\', '/', (dirname(dirname(dirname(dirname(dirname(__FILE__))))).'/public/userfiles/'));
+$baseDir = str_replace('\\', '/', (dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/public/userfiles/'));
 
 
 
@@ -121,7 +121,7 @@ $baseDir = str_replace('\\', '/', (dirname(dirname(dirname(dirname(dirname(__FIL
 Thumbnails : thumbnails settings. All thumbnails will end up in the same
 directory, no matter the resource type.
 */
-$config['Thumbnails'] = Array(
+$config['Thumbnails'] = array(
 	'url' => $baseUrl . 'thumb',
 	'directory' => $baseDir . 'thumb',
 	'enabled' => true,
@@ -136,7 +136,7 @@ $config['Thumbnails'] = Array(
 Set the maximum size of uploaded images. If an uploaded image is larger, it
 gets scaled down proportionally. Set to 0 to disable this feature.
 */
-$config['Images'] = Array(
+$config['Images'] = array(
 	'maxWidth' => 2000,
 	'maxHeight' => 2000,
 	'quality' => 100
@@ -165,30 +165,30 @@ Subfolders inherit their default settings from their parents' definitions.
 	  means "all resource types".
 */
 
-$config['AccessControl'][] = Array(
-		'role' => '*',
-		'resourceType' => '*',
-		'folder' => '/',
-		'folderView' => true,
-		'folderCreate' => true,
-		'folderRename' => true,
-		'folderDelete' => true,
-		'fileView' =>  true,
-		'fileUpload' =>  true,
-		'fileRename' =>  true,
-		'fileDelete' =>  true,
+$config['AccessControl'][] = array(
+	'role' => '*',
+	'resourceType' => '*',
+	'folder' => '/',
+	'folderView' => true,
+	'folderCreate' => true,
+	'folderRename' => true,
+	'folderDelete' => true,
+	'fileView' =>  true,
+	'fileUpload' =>  true,
+	'fileRename' =>  true,
+	'fileDelete' =>  true,
 
-		// 'folderView' => (in_array('folderView', $permission))? true : false,
-		// 'folderCreate' => (in_array('folderCreate', $permission))? true : false,
-		// 'folderRename' => (in_array('folderRename', $permission))? true : false,
-		// 'folderDelete' => (in_array('folderDelete', $permission))? true : false,
-		// 'fileView' =>  (in_array('fileView', $permission))?  true : false,
-		// 'fileUpload' =>  (in_array('fileUpload', $permission))? true : false,
-		// 'fileRename' =>  (in_array('fileRename', $permission))? true : false,
-		// 'fileDelete' =>  (in_array('fileDelete', $permission))? true : false,
+	// 'folderView' => (in_array('folderView', $permission))? true : false,
+	// 'folderCreate' => (in_array('folderCreate', $permission))? true : false,
+	// 'folderRename' => (in_array('folderRename', $permission))? true : false,
+	// 'folderDelete' => (in_array('folderDelete', $permission))? true : false,
+	// 'fileView' =>  (in_array('fileView', $permission))?  true : false,
+	// 'fileUpload' =>  (in_array('fileUpload', $permission))? true : false,
+	// 'fileRename' =>  (in_array('fileRename', $permission))? true : false,
+	// 'fileDelete' =>  (in_array('fileDelete', $permission))? true : false,
 	// );
 
-		);
+);
 
 /*
 For example, if you want to restrict the upload, rename or delete of files in
@@ -236,29 +236,33 @@ to upload `.swf` files only if you understand and can accept this risk.
 */
 $config['DefaultResourceTypes'] = '';
 
-$config['ResourceType'][] = Array(
-		'name' => 'Files',				// Single quotes not allowed
-		'url' => $baseUrl . 'file',
-		'directory' => $baseDir . 'file',
-		'maxSize' => '1G',
-		'allowedExtensions' => '7z,aiff,asf,avi,bmp,csv,doc,docx,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pptx,pxd,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,sitd,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,xlsx,zip',
-		'deniedExtensions' => '');
+$config['ResourceType'][] = array(
+	'name' => 'Files',				// Single quotes not allowed
+	'url' => $baseUrl . 'file',
+	'directory' => $baseDir . 'file',
+	'maxSize' => '1G',
+	'allowedExtensions' => '7z,aiff,asf,avi,bmp,csv,doc,docx,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pptx,pxd,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,sitd,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,xlsx,zip',
+	'deniedExtensions' => ''
+);
 
-$config['ResourceType'][] = Array(
-		'name' => 'Images',
-		'url' => $baseUrl . 'image',
-		'directory' => $baseDir . 'image',
-		'maxSize' => 0,
-		'allowedExtensions' => 'bmp,gif,jpeg,jpg,png, webp, mp4',
-		'deniedExtensions' => '');
+$config['ResourceType'][] = array(
+	'name' => 'Images',
+	'url' => $baseUrl . 'image',
+	'directory' => $baseDir . 'image',
+	'maxSize' => 0,
+	'allowedExtensions' => 'bmp,gif,jpeg,jpg,png, webp, mp4',
+	'deniedExtensions' => ''
+);
 
-// $config['ResourceType'][] = Array(
-// 		'name' => 'Flash',
-// 		'url' => $baseUrl . 'flash',
-// 		'directory' => $baseDir . 'flash',
-// 		'maxSize' => 0,
-// 		'allowedExtensions' => 'swf,flv',
-// 		'deniedExtensions' => '');
+$config['ResourceType'][] = array(
+	'name' => 'posts',
+	'url' => $baseUrl . 'posts',
+	'directory' => $baseDir . 'posts',
+	'maxSize' => 0,
+	'allowedExtensions' => 'bmp,gif,jpeg,jpg,png, webp',
+	// 'allowedExtensions' => 'swf,flv',
+	'deniedExtensions' => ''
+);
 
 /*
  Due to security issues with Apache modules, it is recommended to leave the
@@ -325,14 +329,14 @@ No paths are accepted, only the folder name.
 The * and ? wildcards are accepted.
 ".*" disallows the creation of folders starting with a dot character.
 */
-$config['HideFolders'] = Array(".*", "CVS");
+$config['HideFolders'] = array(".*", "CVS");
 
 /*
 Files to not display in CKFinder, no matter their location.
 No paths are accepted, only the file name, including extension.
 The * and ? wildcards are accepted.
 */
-$config['HideFiles'] = Array(".*");
+$config['HideFiles'] = array(".*");
 
 /*
 After file is uploaded, sometimes it is required to change its permissions
@@ -341,13 +345,13 @@ If possible, it is recommended to set more restrictive permissions, like 0755.
 Set to 0 to disable this feature.
 Note: not needed on Windows-based servers.
 */
-$config['ChmodFiles'] = 0777 ;
+$config['ChmodFiles'] = 0777;
 
 /*
 See comments above.
 Used when creating folders that does not exist.
 */
-$config['ChmodFolders'] = 0755 ;
+$config['ChmodFolders'] = 0755;
 
 /*
 Force ASCII names for files and folders.
@@ -387,4 +391,3 @@ include_once "plugins/zip/plugin.php";
 $config['plugin_imageresize']['smallThumb'] = '90x90';
 $config['plugin_imageresize']['mediumThumb'] = '120x120';
 $config['plugin_imageresize']['largeThumb'] = '180x180';
-

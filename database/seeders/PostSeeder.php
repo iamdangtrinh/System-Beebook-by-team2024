@@ -76,39 +76,74 @@ class PostSeeder extends Seeder
         }
     }
 
+    // private function downloadImage($url)
+    // {
+    //     // Đường dẫn lưu hình ảnh
+    //     $imageDirectory = public_path('userfiles/posts/');
+    //     $imageName = basename($url);
+    //     $imageNameWithoutExtension = pathinfo($imageName, PATHINFO_FILENAME);
+    //     $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp'; // Lưu với đuôi .webp
+
+    //     // Kiểm tra nếu thư mục không tồn tại, tạo thư mục
+    //     if (!file_exists($imageDirectory)) {
+    //         mkdir($imageDirectory, 0777, true);
+    //     }
+
+    //     // Lấy nội dung hình ảnh và chuyển đổi định dạng
+    //     try {
+    //         $imageContent = file_get_contents($url);
+    //         $image = imagecreatefromstring($imageContent);
+
+    //         if ($image === false) {
+    //             throw new \Exception('Không thể tạo hình ảnh từ dữ liệu.');
+    //         }
+
+    //         // Lưu hình ảnh dưới dạng WebP
+    //         imagewebp($image, $imagePath, 90); // 80 là chất lượng hình ảnh, bạn có thể điều chỉnh
+    //         imagedestroy($image); // Giải phóng bộ nhớ
+
+    //         return 'userfiles/posts/' . $imageNameWithoutExtension . '.webp'; // Trả về đường dẫn tương đối
+    //     } catch (\Exception $e) {
+    //         // Xử lý lỗi nếu không tải được hình ảnh
+    //         $this->command->error('Error downloading or converting image: ' . $e->getMessage());
+    //         return null;
+    //     }
+    // }
+
     private function downloadImage($url)
-    {
-        // Đường dẫn lưu hình ảnh
-        $imageDirectory = public_path('userfiles/posts/');
-        $imageName = basename($url);
-        $imageNameWithoutExtension = pathinfo($imageName, PATHINFO_FILENAME);
-        $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp'; // Lưu với đuôi .webp
+{
+    // Loại bỏ chuỗi truy vấn nếu có trong URL
+    $cleanUrl = strtok($url, '?');
 
-        // Kiểm tra nếu thư mục không tồn tại, tạo thư mục
-        if (!file_exists($imageDirectory)) {
-            mkdir($imageDirectory, 0777, true);
-        }
+    // Đường dẫn lưu hình ảnh
+    $imageDirectory = public_path('userfiles/posts/');
+    $imageName = basename($cleanUrl); // Giữ nguyên tên và định dạng gốc của hình ảnh sau khi làm sạch URL
+    $imagePath = $imageDirectory . $imageName;
 
-        // Lấy nội dung hình ảnh và chuyển đổi định dạng
-        try {
-            $imageContent = file_get_contents($url);
-            $image = imagecreatefromstring($imageContent);
-
-            if ($image === false) {
-                throw new \Exception('Không thể tạo hình ảnh từ dữ liệu.');
-            }
-
-            // Lưu hình ảnh dưới dạng WebP
-            imagewebp($image, $imagePath, 90); // 80 là chất lượng hình ảnh, bạn có thể điều chỉnh
-            imagedestroy($image); // Giải phóng bộ nhớ
-
-            return 'userfiles/posts/' . $imageNameWithoutExtension . '.webp'; // Trả về đường dẫn tương đối
-        } catch (\Exception $e) {
-            // Xử lý lỗi nếu không tải được hình ảnh
-            $this->command->error('Error downloading or converting image: ' . $e->getMessage());
-            return null;
-        }
+    // Kiểm tra nếu thư mục không tồn tại, tạo thư mục
+    if (!file_exists($imageDirectory)) {
+        mkdir($imageDirectory, 0777, true);
     }
+
+    try {
+        // Tải xuống và lưu hình ảnh
+        $imageContent = file_get_contents($url);
+
+        if ($imageContent === false) {
+            throw new \Exception('Không thể tải hình ảnh từ URL.');
+        }
+
+        file_put_contents($imagePath, $imageContent); // Lưu nội dung hình ảnh với định dạng gốc
+
+        return 'userfiles/posts/' . $imageName; // Trả về đường dẫn tương đối
+    } catch (\Exception $e) {
+        // Xử lý lỗi nếu không tải được hình ảnh
+        $this->command->error('Error downloading image: ' . $e->getMessage());
+        return null;
+    }
+}
+
+
 
 
     private function fetchArticleDetails($slug)
