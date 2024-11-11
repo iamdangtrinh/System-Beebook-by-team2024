@@ -57,8 +57,21 @@ class BlogController extends Controller
             return view('Client.blogarticle', compact('getPost', 'getProduct', 'getPostMore', 'getMostPost'));
         } else {
 
-            $getProductByPost = PostProduct::where('id_post', $getPost['id'])->get();
-            $getProduct = Product::where('id', $getProductByPost['id_product'])->get();
+            // $getProductByPost = PostProduct::where('id_post', $getPost['id'])->get();
+            // $getProduct = Product::where('id', $getProductByPost['id_product'])->get();
+            
+            $getProductByPost = PostProduct::where('id_post', $getPost['id'])->get(); // Lấy tất cả các bản ghi liên kết
+            if ($getProductByPost->isNotEmpty()) {
+                // Lấy tất cả các `id_product` từ `$getProductByPost` để truy vấn bảng `Product`
+                $productIds = $getProductByPost->pluck('id_product'); // Lấy ra mảng các id_product
+                $getProduct = Product::whereIn('id', $productIds)->get(); // Lấy tất cả các sản phẩm có id trong mảng $productIds
+            } else {
+                $getProduct = collect(); // Collection rỗng nếu không có sản phẩm nào
+            }
+
+            // return view('Client.blogarticle', compact('getPost', 'getProduct', 'getPostMore', 'getMostPost'));
+
+
             return view('Client.blogarticle', compact('getPost', 'getProduct', 'getPostMore', 'getMostPost'));
         }
     }
