@@ -132,17 +132,21 @@ class Profile extends Component
     public function handleUploadImage($value)
     {
         $this->validate([
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Thêm giới hạn kích thước tối đa nếu cần
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if ($value) {
+        try {
+            // Lưu tệp vào thư mục 'uploads' trên đĩa 'public' và lấy đường dẫn
             $path = $value->store('uploads', 'public');
-            try {
-                User::where('id', Auth::user()->id)->update(['avatar' => $path]);
-            } catch (\Throwable $th) {
-                dd($th);
-            }
+
+            // Cập nhật đường dẫn của ảnh đại diện trong cơ sở dữ liệu
+            User::where('id', Auth::id())->update(['avatar' => $path]);
+
+            // Thông báo thành công
             session()->flash('success', 'Cập nhật ảnh đại diện thành công!');
+        } catch (\Exception $e) {
+            // Thông báo lỗi và ghi log lỗi nếu có
+            session()->flash('error', 'Không thể cập nhật ảnh đại diện. Vui lòng thử lại.');
         }
     }
     public function updatedAddress($value)

@@ -1,7 +1,9 @@
 
 
-<div class="container my-5 p-4 text-white rounded" style="max-width: 550px;">
-   <img src="{{env('APP_URL')}}{{ asset('/') }}client/images/logo.webp" alt="background" class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover; z-index: -1; filter: brightness(50%);">
+<div class="container my-5 p-4 text-white rounded bg-white" style="max-width: 550px;">
+   <a href={{env('APP_URL')}}>
+      <img src="{{env('APP_URL')}}.{{ asset('/') }}client/images/logo.webp" alt="background" class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover; z-index: -1; filter: brightness(50%);">
+   </a>
    
    <h2 class="text-center fw-bold border-bottom pb-2 mb-4">Xác Nhận Đăng Ký</h2>
 
