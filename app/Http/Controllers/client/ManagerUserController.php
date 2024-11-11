@@ -27,9 +27,7 @@ class ManagerUserController extends Controller
         if (User::where('status', 'active')->whereNotNull('email_verified_at')->first()) {
             $user = Auth::attempt(['email' => $request->email, 'password' => $request->password1, 'status' => 'active']);
             if ($user === true) {
-
                 $sessionCart = Session::get('cart', []);
-
                 foreach ($sessionCart as $item) {
                     // Lấy thông tin sản phẩm từ database để kiểm tra số lượng tồn kho
                     $product = Product::find($item['product_id']);

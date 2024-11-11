@@ -73,9 +73,13 @@
                             @if (session('SignInFailed'))
                                 <span class="error text-danger"> {{ session('SignInFailed') }}</span>
                             @endif
+                            
                             @if (session('errorSignIn'))
                                 <span class="error text-danger"> {{ session('errorSignIn') }}</span>
                             @endif
+                            @if (session('successConfirmPassword'))
+                            <span class="alert alert-success"> {{ session('successConfirmPassword') }}</span>
+                        @endif
                             {{-- Remember me và Quên mật khẩu --}}
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex gap-1">

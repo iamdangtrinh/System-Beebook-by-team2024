@@ -32,6 +32,7 @@ class ConfirmPassword extends Component
                     'password' => Hash::make($this->password_confirm)
                 ]);
                 PasswordResetToken::where('email', $getMailByToken['email'])->delete();
+                session()->flash('successConfirmPassword', 'Đổi mật khẩu thành công');
                 // Mail::to($getMailByToken['email'])->send(new SendPassword($newPass));
                 redirect(env('APP_URL') . 'sign-in');
             } catch (\Throwable $th) {

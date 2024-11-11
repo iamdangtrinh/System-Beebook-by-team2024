@@ -84,8 +84,8 @@ class ShopLiveWire extends Component
             });
         }
 
-         // Lọc theo ngôn ngữ nếu có
-         if (!empty($this->languages)) {
+        // Lọc theo ngôn ngữ nếu có
+        if (!empty($this->languages)) {
             $query->whereIn('language', $this->languages);
         }
 
