@@ -19,11 +19,12 @@ $currentSegment = Request::segment(2);
 
     <link href="{{ asset('/') }}backend/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/font-awesome/css/font-awesome.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="{{ asset('/') }}client/js/lib/toastr.css">
     <link href="{{ asset('/') }}backend/css/animate.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/style.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/custom.css" rel="stylesheet">
-
+    <link href="{{ asset('/') }}backend/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{{ asset('/') }}backend/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/plugins/dropzone/basic.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/plugins/dropzone/dropzone.css" rel="stylesheet">

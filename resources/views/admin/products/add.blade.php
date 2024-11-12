@@ -155,26 +155,8 @@
                             <label>Tên sách <span class="text-danger">*</span></label>
                             <input id="name" name="name" type="text" class="form-control required">
                         </div>
-                        <div class="form-group">
-                            <label>Slug <span class="text-danger">*</span></label>
-                            <input id="slug" name="slug" type="text" class="form-control required" placeholder="ten-san-pham">
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label>Giá <span class="text-danger">*</span></label>
-                                    <input id="price" name="price" type="number" class="form-control required">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label>Giá giảm</label>
-                                    <input id="price_sale" name="price_sale" type="number" class="form-control">
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-2">
                         <div class="form-group">
                             <label class="font-normal">Ngôn ngữ</label>
                             <div>
@@ -205,64 +187,92 @@
 
                             </div>
                         </div>
+                    </div>
+                    <div class="col-2">
                         <div class="form-group">
                             <label class="font-normal">Tác giả</label>
                             <div>
                                 <select data-placeholder="Chọn ngôn ngữ..." class="chosen-select" tabindex="2">
                                     <option value="tieng-viet">Tiếng Việt</option>
-                                    <option value="tieng-anh">Tiếng Anh</option>
-                                    <option value="tieng-trung">Tiếng Trung</option>
-                                    <option value="tieng-nhat">Tiếng Nhật</option>
-                                    <option value="tieng-han">Tiếng Hàn</option>
-                                    <option value="tieng-phap">Tiếng Pháp</option>
-                                    <option value="tieng-duc">Tiếng Đức</option>
-                                    <option value="tieng-y">Tiếng Ý</option>
-                                    <option value="tieng-tay-ban-nha">Tiếng Tây Ban Nha</option>
-                                    <option value="tieng-nga">Tiếng Nga</option>
-                                    <option value="tieng-thai">Tiếng Thái</option>
-                                    <option value="tieng-a-rap">Tiếng Ả Rập</option>
-                                    <option value="tieng-ba-lan">Tiếng Ba Lan</option>
-                                    <option value="tieng-ha-lan">Tiếng Hà Lan</option>
-                                    <option value="tieng-hy-lap">Tiếng Hy Lạp</option>
-                                    <option value="tieng-hindi">Tiếng Hindi</option>
-                                    <option value="tieng-philippines">Tiếng Philippines</option>
-                                    <option value="tieng-indonesia">Tiếng Indonesia</option>
-                                    <option value="tieng-malay">Tiếng Mã Lai</option>
-                                    <option value="tieng-swe">Tiếng Thụy Điển</option>
-                                    <option value="tieng-bo-dao-nha">Tiếng Bồ Đào Nha</option>
-                                    <option value="tieng-hung">Tiếng Hung</option>
                                 </select>
-
                             </div>
                         </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Slug <span class="text-danger">*</span></label>
+                            <input id="slug" name="slug" type="text" class="form-control required" placeholder="ten-san-pham">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Số lượng <span class="text-danger">*</span></label>
+                            <input id="quantity" name="quantity" type="number" class="form-control required">
+                        </div>
+                    </div>
+                    <div class="col-4">
                         <div class="form-group">
                             <label class="font-normal">Nhà xuất bản</label>
                             <div>
                                 <select data-placeholder="Chọn ngôn ngữ..." class="chosen-select" tabindex="2">
                                     <option value="tieng-viet">Tiếng Việt</option>
-                                    <option value="tieng-anh">Tiếng Anh</option>
-                                    <option value="tieng-trung">Tiếng Trung</option>
-                                    <option value="tieng-nhat">Tiếng Nhật</option>
-                                    <option value="tieng-han">Tiếng Hàn</option>
-                                    <option value="tieng-phap">Tiếng Pháp</option>
-                                    <option value="tieng-duc">Tiếng Đức</option>
-                                    <option value="tieng-y">Tiếng Ý</option>
-                                    <option value="tieng-tay-ban-nha">Tiếng Tây Ban Nha</option>
-                                    <option value="tieng-nga">Tiếng Nga</option>
-                                    <option value="tieng-thai">Tiếng Thái</option>
-                                    <option value="tieng-a-rap">Tiếng Ả Rập</option>
-                                    <option value="tieng-ba-lan">Tiếng Ba Lan</option>
-                                    <option value="tieng-ha-lan">Tiếng Hà Lan</option>
-                                    <option value="tieng-hy-lap">Tiếng Hy Lạp</option>
-                                    <option value="tieng-hindi">Tiếng Hindi</option>
-                                    <option value="tieng-philippines">Tiếng Philippines</option>
-                                    <option value="tieng-indonesia">Tiếng Indonesia</option>
-                                    <option value="tieng-malay">Tiếng Mã Lai</option>
-                                    <option value="tieng-swe">Tiếng Thụy Điển</option>
-                                    <option value="tieng-bo-dao-nha">Tiếng Bồ Đào Nha</option>
-                                    <option value="tieng-hung">Tiếng Hung</option>
                                 </select>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Giá <span class="text-danger">*</span></label>
+                            <input id="price" name="price" type="number" class="form-control required">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Giá giảm</label>
+                            <input id="price_sale" name="price_sale" type="number" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <!-- <div class="i-checks">
+                            <label>Trạng thái</label> <br>
+                            <label> <input type="radio" value="bia-cung" name="form" checked=""> <i></i> Hoạt động </label>
+                            <label> <input type="radio" value="bia-mem" name="form"> <i></i> Không hoạt động </label>
+                        </div> -->
+                        <div class="form-group">
+                            <label>Cân nặng (g) <span class="text-danger">*</span></label>
+                            <input id="weight" name="weight" type="number" class="form-control required">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="i-checks">
+                            <label>Hình thức</label> <br>
+                            <label> <input type="radio" value="bia-cung" name="form"> <i></i> Bìa cứng </label>
+                            <label> <input type="radio" value="bia-mem" name="form"> <i></i> Bìa mềm </label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="i-checks">
+                            <label>Hot</label> <br>
+                            <label> <input type="radio" value="bia-cung" name="form"> <i></i> Có </label>
+                            <label> <input type="radio" value="bia-mem" name="form" checked=""> <i></i> Không </label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Năm xuất bản <span class="text-danger">*</span></label>
+                            <input id="year" name="year" type="number" class="form-control required">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>Meta SEO</label>
+                            <input id="meta_seo" name="meta_seo" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>Description SEO</label>
+                            <textarea id="description_seo" name="description_seo" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="col-6">
@@ -276,11 +286,10 @@
                     <div class="col-6">
                         <label>Ảnh phụ</label>
                         <div class="row" id="image-container">
-                            <!-- Ảnh đầu tiên mặc định hiển thị -->
+                            <!-- Ảnh đầu tiên mặc định hiển thị, không có nút "X" -->
                             <div class="col-3 image-wrapper">
-                                <span class="image img-cover image-target">
-                                    <img src="/no_image.jpg" class="img-fluid rounded-top" alt="" />
-                                    <button type="button" class="btn btn-danger btn-sm remove-image" style="position: absolute; top: 5px; right: 5px;">X</button>
+                                <span class="image img-cover image-target" style="position: relative;">
+                                    <img src="/no_image.jpg" class="img-fluid rounded-top main-image" alt="Ảnh phụ" />
                                 </span>
                                 <input type="hidden" value="" name="hinh1" class="url_image">
                             </div>
@@ -288,9 +297,8 @@
                         <button type="button" class="btn btn-primary mt-2" id="add-image">Thêm ảnh</button>
                     </div>
                     <div class="col-12">
-
                         <div class="float-e-margins">
-                            <label>Nội dung</label>
+                            <label>Description</label>
                             <textarea name="content" id="content" class="content" cols="30" rows="10"></textarea>
                         </div>
                         <!-- <form action="#" class="dropzone" id="dropzoneForm">
@@ -299,13 +307,17 @@
                             </div>
                         </form> -->
                     </div>
+                    <div class="col-12 mt-3">
+                        <button class="btn btn-outline btn-warning">Lưu nháp</button>
+                        <button class="btn btn-primary">Lưu</button>
+                    </div>
                 </div>
             </form>
 
         </div>
     </div>
 </div>
-<script src="{{ asset('/') }}backend/js/product/index.js"></script>
+<script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
 
 <!-- Jquery Validate -->
 <script src="{{ asset('/') }}backend/js/plugins/validate/jquery.validate.min.js"></script>
@@ -327,46 +339,11 @@
 
 <script src="{{ asset('/') }}backend/lib/ckfinder.js"></script>
 
+<!-- iCheck -->
+<script src="{{ asset('/') }}backend/js/plugins/iCheck/icheck.min.js"></script>
+
 
 <script>
-    let imageCount = 1; // Đếm số ảnh
-
-    // Xử lý nút "Thêm ảnh"
-    document.getElementById('add-image').addEventListener('click', function() {
-        if (imageCount < 8) { // Giới hạn tối đa 8 ảnh
-            imageCount++; // Tăng đếm số ảnh
-
-            // Tạo ô ảnh mới
-            const newImageDiv = document.createElement('div');
-            newImageDiv.classList.add('col-3', 'image-wrapper');
-            newImageDiv.innerHTML = `
-            <span class="image img-cover image-target" style="position: relative;">
-                <img src="/no_image.jpg" class="img-fluid rounded-top" alt="" />
-                <button type="button" class="btn btn-danger btn-sm remove-image" style="position: absolute; top: 5px; right: 5px;">X</button>
-            </span>
-            <input type="hidden" value="" name="hinh${imageCount}" class="url_image">
-        `;
-
-            // Thêm ô ảnh mới vào container
-            document.getElementById('image-container').appendChild(newImageDiv);
-
-            // Thêm sự kiện xóa cho nút "X" mới
-            newImageDiv.querySelector('.remove-image').addEventListener('click', function() {
-                newImageDiv.remove(); // Xóa ô ảnh
-                imageCount--; // Giảm đếm số ảnh
-            });
-        } else {
-            alert("Đã đạt đến giới hạn tối đa 8 ảnh.");
-        }
-    });
-
-    // Xử lý nút "X" cho ảnh mặc định ban đầu
-    document.querySelectorAll('.remove-image').forEach(button => {
-        button.addEventListener('click', function() {
-            button.closest('.image-wrapper').remove(); // Xóa ô ảnh
-            imageCount--; // Giảm đếm số ảnh
-        });
-    });
     Dropzone.options.dropzoneForm = {
         paramName: "file", // The name that will be used to transfer the file
         maxFilesize: 2, // MB
@@ -375,6 +352,48 @@
     $(document).ready(function() {
         $('.chosen-select').chosen({
             width: "100%"
+        });
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+        let imageCount = 1; // Đếm số ảnh
+
+        // Xử lý nút "Thêm ảnh"
+        $('#add-image').click(function() {
+            const allImages = document.querySelectorAll('.image-wrapper img');
+            let allAreNoImage = Array.from(allImages).every(img => img.src.includes('/no_image.jpg'));
+
+            if (allAreNoImage) {
+                toastr.error('Vui lòng thay đổi ảnh mặc định trước khi thêm ảnh mới.');
+                return;
+            }
+
+            if (imageCount < 8) { // Giới hạn tối đa 8 ảnh
+                imageCount++; // Tăng đếm số ảnh
+
+                // Tạo ô ảnh mới
+                const newImageDiv = document.createElement('div');
+                newImageDiv.classList.add('col-3', 'image-wrapper');
+                newImageDiv.innerHTML = `
+                    <span class="image img-cover image-target" style="position: relative;">
+                        <img src="/no_image.jpg" class="img-fluid rounded-top main-image" alt="Ảnh phụ" />
+                        <button type="button" class="btn btn-danger btn-sm remove-image" style="position: absolute; top: 5px; right: 5px;">X</button>
+                    </span>
+                    <input type="hidden" value="" name="hinh${imageCount}" class="url_image">
+                `;
+
+                // Thêm ô ảnh mới vào container
+                document.getElementById('image-container').appendChild(newImageDiv);
+
+                // Thêm sự kiện xóa cho nút "X" mới
+                newImageDiv.querySelector('.remove-image').addEventListener('click', function() {
+                    newImageDiv.remove(); // Xóa ô ảnh
+                    imageCount--; // Giảm đếm số ảnh
+                });
+            } else {
+                alert("Đã đạt đến giới hạn tối đa 8 ảnh.");
+            }
         });
         var editor_one = CodeMirror.fromTextArea(document.getElementById("code1"), {
             lineNumbers: true,
