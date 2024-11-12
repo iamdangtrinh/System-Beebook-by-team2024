@@ -29,7 +29,7 @@
                 <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">
                     <div class="blog--list-view">
                         <div class="article">
-                            <a class="article_featured-image" href="#"><img class="blur-up lazyload"
+                            <a class="article_featured-image" href="#"><img class="blur-up lazyload h-100"
                                     src="{{ asset($getPost['image'] ? $getPost['image'] : 'no_image.jpg') }}"
                                     alt="{{ $getPost['title'] }}"></a>
                             <h1><a href="blog-left-sidebar.html">{{ $getPost['title'] }}</a></h1>

@@ -53,7 +53,7 @@ class BlogController extends Controller
         $blogs = $blogs->paginate(12);
 
         $getMostPost = BlogModel::select($this->selected())
-            ->where('post_type', 'blog')->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
+            ->where('post_type', 'blog')->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(10)->get();
         $routeName = 'indexBlog';
         return view('Client.blog', compact('blogs', 'getMostPost', 'routeName', 'titleHeading'));
     }
@@ -73,7 +73,7 @@ class BlogController extends Controller
         }
         $blogs = $blogs->paginate(12);
         $getMostPost = BlogModel::select($this->selected())
-        ->where('post_type', 'review')->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
+        ->where('post_type', 'review')->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(10)->get();
         $routeName = 'indexReview';
         return view('Client.blog', compact('blogs', 'getMostPost', 'routeName', 'titleHeading',));
     }
@@ -81,8 +81,8 @@ class BlogController extends Controller
     public function show($slug)
     {
         $getPost =  BlogModel::where('slug', $slug)->firstOrFail();
-        $getPostMore =  BlogModel::where('post_type', $getPost['post_type'])->where('status', 'active')->inRandomOrder()->limit(4)->get();
-        $getMostPost =  BlogModel::where('post_type', $getPost['post_type'])->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(4)->get();
+        $getPostMore =  BlogModel::where('post_type', $getPost['post_type'])->where('status', 'active')->inRandomOrder()->limit(10)->get();
+        $getMostPost =  BlogModel::where('post_type', $getPost['post_type'])->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(10)->get();
         if (Auth::user()) {
 
             $time = Carbon::parse(Auth::user()->email_verified_at);
