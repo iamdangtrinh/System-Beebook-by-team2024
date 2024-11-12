@@ -207,3 +207,9 @@ a {
     border: #CE2626;
     color: #fff;
 }
+
+.article_featured-image img {
+    height: 200px;
+    width: 100%;
+    border-radius: 6px;
+}
