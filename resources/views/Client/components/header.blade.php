@@ -17,10 +17,7 @@
     <meta property="og:url" content="/" />
     <meta name="google-site-verification" content="0NTJDxu20GXY4Pl6OY-u_e1fmLJmV35qAnf380ru9b0" />
     {{-- <meta property="og:type" content="Sách tiếng Việt - Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách." /> --}}
-
-
     <meta property="og:type" content="{{ $headDescription ?? 'Sách 2 tiếng Việt - Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách.' }}" />
-
 
     <meta property="og:image" content="{{ asset('/') }}client/images/favicon.png" />
     <link rel="shortcut icon" href="{{ asset('/') }}client/images/favicon-beebook.webp" />
@@ -118,9 +115,6 @@
 
                                 <li class="lvl1 parent megamenu"><a href="{{ route('product.index') }}">Cửa hàng</a>
                                 </li>
-
-                                <li class="lvl1 parent dropdown"><a href="#">Tìm đơn hàng<i
-                                            class="anm anm-angle-down-l"></i></a></li>
                                 <li class="lvl1 parent dropdown"><a href="#">Tin tức - Review sách <i
                                             class="anm anm-angle-down-l"></i></a>
                                     <ul class="dropdown">

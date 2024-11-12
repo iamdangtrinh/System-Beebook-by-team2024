@@ -1,4 +1,3 @@
-@yield('head_description', 'Chuyên mục reivew sách cho đọc giả')
 <title>@yield('title', 'Bài viết')</title>
 @extends('layout.client')
 @section('body')
