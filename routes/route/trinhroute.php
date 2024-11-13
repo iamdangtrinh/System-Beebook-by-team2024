@@ -32,6 +32,7 @@ Route::post('progressCheckout', [CheckoutController::class, 'store'])->name('che
 Route::get('thank-you/{id}', [CheckoutController::class, 'thankyou'])->name('thankyou.index')->middleware('CheckLogin');
 Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index')->middleware('CheckLogin');
 
+// admin
 Route::prefix('admin')->group(function () {
       Route::get('/order', [OrderController::class, 'index'])->name('order.index')->middleware('CheckAdmin');
       Route::get('/order/{id}', [OrderController::class, 'edit'])->name('order.detail')->middleware('CheckAdmin');

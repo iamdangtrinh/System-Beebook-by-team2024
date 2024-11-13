@@ -9,14 +9,10 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xl-9">
-                        <div class="card">
+                        <div class="card mt-3">
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
-                                    <h5 class="card-title flex-grow-1 mb-0">Order #VL2667</h5>
-                                    <div class="flex-shrink-0">
-                                        <a href="apps-invoices-details.html" class="btn btn-success btn-sm"><i
-                                                class="ri-download-2-fill align-middle me-1"></i> Invoice</a>
-                                    </div>
+                                    <h5 class="card-title flex-grow-1 mb-0">Đơn hàng</h5>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -24,421 +20,238 @@
                                     <table class="table table-nowrap align-middle table-borderless mb-0">
                                         <thead class="table-light text-muted">
                                             <tr>
-                                                <th scope="col">Product Details</th>
-                                                <th scope="col">Item Price</th>
-                                                <th scope="col">Quantity</th>
-                                                <th scope="col">Rating</th>
-                                                <th scope="col" class="text-end">Total Amount</th>
+                                                <th scope="col">Chi tiết sản phẩm</th>
+                                                <th scope="col">Giá</th>
+                                                <th scope="col">Số lượng</th>
+                                                <th scope="col" class="text-end">Tổng tiền</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex">
-                                                        <div class="flex-shrink-0 avatar-md bg-light rounded p-1">
-                                                            <img src="assets/images/products/img-8.png" alt=""
-                                                                class="img-fluid d-block">
+                                            {{-- {{dd($orderDetails)}} --}}
+                                            @foreach ($orderDetails->billDetails as $order)
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <div class="flex-shrink-0 avatar-md bg-light rounded p-1">
+                                                                <img src=" {{ asset('/') }}{{ $order->image_cover ?? 'no_image.jpg' }}"
+                                                                    alt="" class="img-fluid d-block"
+                                                                    style="width: 120px">
+                                                            </div>
+                                                            <div class="flex-grow-1 ms-3">
+                                                                <h5 class="fs-16"><a href="/san-pham/{{ $order->slug }}"
+                                                                        class="link-primary">{{ $order->name }}</a>
+                                                                </h5>
+                                                            </div>
                                                         </div>
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h5 class="fs-16"><a href="apps-ecommerce-product-details.html"
-                                                                    class="link-primary">Sweatshirt for Men (Pink)</a>
-                                                            </h5>
-                                                            <p class="text-muted mb-0">Color: <span
-                                                                    class="fw-medium">Pink</span></p>
-                                                            <p class="text-muted mb-0">Size: <span
-                                                                    class="fw-medium">M</span></p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>$119.99</td>
-                                                <td>02</td>
-                                                <td>
-                                                    <div class="text-warning fs-15">
-                                                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
-                                                            class="ri-star-fill"></i><i class="ri-star-fill"></i><i
-                                                            class="ri-star-half-fill"></i>
-                                                    </div>
-                                                </td>
-                                                <td class="fw-medium text-end">
-                                                    $239.98
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex">
-                                                        <div class="flex-shrink-0 avatar-md bg-light rounded p-1">
-                                                            <img src="assets/images/products/img-7.png" alt=""
-                                                                class="img-fluid d-block">
-                                                        </div>
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h5 class="fs-16"><a href="apps-ecommerce-product-details.html"
-                                                                    class="link-primary">Noise NoiseFit Endure Smart
-                                                                    Watch</a></h5>
-                                                            <p class="text-muted mb-0">Color: <span
-                                                                    class="fw-medium">Black</span></p>
-                                                            <p class="text-muted mb-0">Size: <span
-                                                                    class="fw-medium">32.5mm</span></p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>$94.99</td>
-                                                <td>01</td>
-                                                <td>
-                                                    <div class="text-warning fs-15">
-                                                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
-                                                            class="ri-star-fill"></i><i class="ri-star-fill"></i><i
-                                                            class="ri-star-half-fill"></i>
-                                                    </div>
-                                                </td>
-                                                <td class="fw-medium text-end">
-                                                    $94.99
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex">
-                                                        <div class="flex-shrink-0 avatar-md bg-light rounded p-1">
-                                                            <img src="assets/images/products/img-3.png" alt=""
-                                                                class="img-fluid d-block">
-                                                        </div>
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h5 class="fs-16"><a href="apps-ecommerce-product-details.html"
-                                                                    class="link-primary">350 ml Glass Grocery
-                                                                    Container</a></h5>
-                                                            <p class="text-muted mb-0">Color: <span
-                                                                    class="fw-medium">White</span></p>
-                                                            <p class="text-muted mb-0">Size: <span class="fw-medium">350
-                                                                    ml</span></p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>$24.99</td>
-                                                <td>01</td>
-                                                <td>
-                                                    <div class="text-warning fs-15">
-                                                        <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i
-                                                            class="ri-star-half-fill"></i><i class="ri-star-line"></i><i
-                                                            class="ri-star-line"></i>
-                                                    </div>
-                                                </td>
-                                                <td class="fw-medium text-end">
-                                                    $24.99
-                                                </td>
-                                            </tr>
-                                            <tr class="border-top border-top-dashed">
+                                                    </td>
+                                                    <td>{{ number_format($order->price, '0', '.', '.') . ' đ' }}</td>
+                                                    <td>{{ $order->quantity }}</td>
+                                                    <td class="fw-medium text-end">
+                                                        {{ number_format($order->price * $order->quantity, '0', '.', '.') . ' đ' }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            {{-- <tr class="border-top border-top-dashed">
                                                 <td colspan="3"></td>
                                                 <td colspan="2" class="fw-medium p-0">
                                                     <table class="table table-borderless mb-0">
                                                         <tbody>
                                                             <tr>
-                                                                <td>Sub Total :</td>
-                                                                <td class="text-end">$359.96</td>
+                                                                <td>Tạm tính :</td>
+                                                                <td class="text-end">
+                                                                    {{ number_format($orderDetails->total_amount, '0', '.', '.') . ' đ' }}
+                                                                </td>
                                                             </tr>
                                                             <tr>
-                                                                <td>Discount <span class="text-muted">(VELZON15)</span>
-                                                                    : :</td>
+                                                                <td>Giảm giá :</td>
                                                                 <td class="text-end">-$53.99</td>
                                                             </tr>
                                                             <tr>
-                                                                <td>Shipping Charge :</td>
-                                                                <td class="text-end">$65.00</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Estimated Tax :</td>
-                                                                <td class="text-end">$44.99</td>
+                                                                <td>Phí vận chuyển :</td>
+                                                                <td class="text-end">
+                                                                    {{ number_format($orderDetails->fee_shipping, '0', '.', '.') . ' đ' }}
+                                                                </td>
                                                             </tr>
                                                             <tr class="border-top border-top-dashed">
-                                                                <th scope="row">Total (USD) :</th>
-                                                                <th class="text-end">$415.96</th>
+                                                                <th scope="row">Tổng tiền :</th>
+                                                                <th class="text-end">
+                                                                    {{ number_format($orderDetails->total_amount + $orderDetails->fee_shipping, '0', '.', '.') . ' đ' }}
+                                                                </th>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                 </td>
-                                            </tr>
+                                            </tr> --}}
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card">
+                        @php
+                            $payment_status =
+                                $orderDetails->payment_status === 'PAID' ? 'Đã thanh toán' : 'Chưa thanh toán';
+                            $payment_method =
+                                $orderDetails->payment_method === 'ONLINE'
+                                    ? 'Thanh toán online'
+                                    : 'Thanh toán khi nhận hàng';
+
+                        @endphp
+
+
+                        <div class="card mt-3">
                             <div class="card-header">
-                                <div class="d-sm-flex align-items-center">
-                                    <h5 class="card-title flex-grow-1 mb-0">Order Status</h5>
-                                    <div class="flex-shrink-0 mt-2 mt-sm-0">
-                                        <a href="javascript:void(0);" class="btn btn-soft-info btn-sm mt-2 mt-sm-0"><i
-                                                class="ri-map-pin-line align-middle me-1"></i> Change Address</a>
-                                        <a href="javascript:void(0);" class="btn btn-soft-danger btn-sm mt-2 mt-sm-0"><i
-                                                class="mdi mdi-archive-remove-outline align-middle me-1"></i> Cancel
-                                            Order</a>
+                                <div class="row mt-2">
+                                    <div class="col-sm-12 col-md-6 col-xl-6">
+                                        <table class="table mb-0">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="border: none; padding-left: 0px">Phương thức thanh toán :
+                                                    </td>
+                                                    <td style="border: none; padding-left: 0px" class="text-end">
+                                                        {{ $payment_method }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: none; padding-left: 0px">Trạng thái thanh toán :</td>
+                                                    <td style="border: none;"
+                                                        class="rouder  text-end text-<?= $orderDetails->payment_status == 'PAID' ? 'success' : 'danger' ?>">
+                                                        {{ $payment_status }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: none; padding-left: 0px">Giá giảm :</td>
+                                                    <td style="border: none; padding-left: 0px" class="text-end">-$53.99
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border: none; padding-left: 0px">Phí vận chuyển :</td>
+                                                    <td style="border: none; padding-left: 0px" class="text-end">
+                                                        {{ number_format($orderDetails->fee_shipping, '0', '.', '.') . ' đ' }}
+                                                    </td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td style="border: none; padding-left: 0px" scope="row">Tổng tiền :
+                                                    </td>
+                                                    <td style="border: none; padding-left: 0px" class="text-end">
+                                                        {{ number_format($orderDetails->total_amount + $orderDetails->fee_shipping, '0', '.', '.') . ' đ' }}
+                                                    </td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td style="border: none; padding-left: 0px" scope="row">Ghi chú đơn
+                                                        hàng :</td>
+                                                    <td style="border: none; padding-left: 0px" class="text-end">
+                                                        {{ $orderDetails->note }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="profile-timeline">
-                                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                                        <div class="accordion-item border-0">
-                                            <div class="accordion-header" id="headingOne">
-                                                <a class="accordion-button p-2 shadow-none" data-bs-toggle="collapse"
-                                                    href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0 avatar-xs">
-                                                            <div class="avatar-title bg-success rounded-circle">
-                                                                <i class="ri-shopping-bag-line"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h6 class="fs-15 mb-0 fw-semibold">Order Placed - <span
-                                                                    class="fw-normal">Wed, 15 Dec 2021</span></h6>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div id="collapseOne" class="accordion-collapse collapse show"
-                                                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body ms-2 ps-5 pt-0">
-                                                    <h6 class="mb-1">An order has been placed.</h6>
-                                                    <p class="text-muted">Wed, 15 Dec 2021 - 05:34PM</p>
+                                    <div class="col-sm-12 col-md-6 col-xl-6">
+                                        <form action="" method="post">
+                                            <div class="row ">
+                                                <div class="col-sm-12 col-md-6 col-xl-6">
+                                                    <label style="padding-top: 8px" for="status">Cập nhật trạng thái đơn
+                                                        hàng:</label>
+                                                </div>
 
-                                                    <h6 class="mb-1">Seller has processed your order.</h6>
-                                                    <p class="text-muted mb-0">Thu, 16 Dec 2021 - 5:48AM</p>
+                                                <div class="col-sm-12 col-md-6 col-xl-6">
+                                                    <select name="status" id="status" class="form-control">
+                                                        @foreach (config('admin.order.statusOrder') as $key => $status)
+                                                            <option value="{{ $key }}">{{ $status }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="accordion-item border-0">
-                                            <div class="accordion-header" id="headingTwo">
-                                                <a class="accordion-button p-2 shadow-none" data-bs-toggle="collapse"
-                                                    href="#collapseTwo" aria-expanded="false"
-                                                    aria-controls="collapseTwo">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0 avatar-xs">
-                                                            <div class="avatar-title bg-success rounded-circle">
-                                                                <i class="mdi mdi-gift-outline"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h6 class="fs-15 mb-1 fw-semibold">Packed - <span
-                                                                    class="fw-normal">Thu, 16 Dec 2021</span></h6>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div id="collapseTwo" class="accordion-collapse collapse show"
-                                                aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body ms-2 ps-5 pt-0">
-                                                    <h6 class="mb-1">Your Item has been picked up by courier partner
-                                                    </h6>
-                                                    <p class="text-muted mb-0">Fri, 17 Dec 2021 - 9:45AM</p>
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-6 col-xl-6">
+                                                    <span>Quản trị ghi chú đơn hàng:</span>
+                                                </div>
+
+                                                <div class="col-sm-12 col-md-6 col-xl-6">
+                                                    <textarea name="note_admin" id="" class="form-control mt-3" cols="20" rows="5"
+                                                        placeholder="Nội dung ghi chú"></textarea>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="accordion-item border-0">
-                                            <div class="accordion-header" id="headingThree">
-                                                <a class="accordion-button p-2 shadow-none" data-bs-toggle="collapse"
-                                                    href="#collapseThree" aria-expanded="false"
-                                                    aria-controls="collapseThree">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0 avatar-xs">
-                                                            <div class="avatar-title bg-success rounded-circle">
-                                                                <i class="ri-truck-line"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h6 class="fs-15 mb-1 fw-semibold">Shipping - <span
-                                                                    class="fw-normal">Thu, 16 Dec 2021</span></h6>
-                                                        </div>
-                                                    </div>
-                                                </a>
+
+                                            <div class="text-end w-100 mt-3">
+                                                <button type="submit" class="btn btn-primary btn-sm">
+                                                    Cập nhật đơn hàng
+                                                </button>
                                             </div>
-                                            <div id="collapseThree" class="accordion-collapse collapse show"
-                                                aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body ms-2 ps-5 pt-0">
-                                                    <h6 class="fs-14">RQK Logistics - MFDS1400457854</h6>
-                                                    <h6 class="mb-1">Your item has been shipped.</h6>
-                                                    <p class="text-muted mb-0">Sat, 18 Dec 2021 - 4.54PM</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item border-0">
-                                            <div class="accordion-header" id="headingFour">
-                                                <a class="accordion-button p-2 shadow-none" data-bs-toggle="collapse"
-                                                    href="#collapseFour" aria-expanded="false">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0 avatar-xs">
-                                                            <div class="avatar-title bg-light text-success rounded-circle">
-                                                                <i class="ri-takeaway-fill"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h6 class="fs-14 mb-0 fw-semibold">Out For Delivery</h6>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="accordion-item border-0">
-                                            <div class="accordion-header" id="headingFive">
-                                                <a class="accordion-button p-2 shadow-none" data-bs-toggle="collapse"
-                                                    href="#collapseFile" aria-expanded="false">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0 avatar-xs">
-                                                            <div class="avatar-title bg-light text-success rounded-circle">
-                                                                <i class="mdi mdi-package-variant"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="flex-grow-1 ms-3">
-                                                            <h6 class="fs-14 mb-0 fw-semibold">Delivered</h6>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
+                                        </form>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="col-xl-3">
-                        <div class="card">
+                        <div class="card mt-3">
                             <div class="card-header">
                                 <div class="d-flex">
-                                    <h5 class="card-title flex-grow-1 mb-0"><i
-                                            class="mdi mdi-truck-fast-outline align-middle me-1 text-muted"></i>
-                                        Logistics Details</h5>
-                                    <div class="flex-shrink-0">
-                                        <a href="javascript:void(0);"
-                                            class="badge bg-primary-subtle text-primary fs-12">Track Order</a>
-                                    </div>
+                                    <h5 class="card-title flex-grow-1 mb-0">Trạng thái đơn hàng</h5>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="text-center">
-                                    <lord-icon src="https://cdn.lordicon.com/uetqnvvg.json" trigger="loop"
-                                        colors="primary:#405189,secondary:#0ab39c"
-                                        style="width:80px;height:80px"></lord-icon>
-                                    <h5 class="fs-16 mt-2">RQK Logistics</h5>
-                                    <p class="text-muted mb-0">ID: MFDS1400457854</p>
-                                    <p class="text-muted mb-0">Payment Mode : Debit Card</p>
+                                    <img src="/shippping.png" alt="shipping">
+                                    <p class="text-muted mb-0">Mã đơn hàng: {{ $orderDetails->id }}</p>
+                                    <div class="flex-shrink-0 mt-2">
+                                        <span class="d-inline badge bg-primary-subtle text-primary fs-12">Đang vận
+                                            chuyển</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
 
-                        <div class="card">
+                        <div class="card mt-3">
                             <div class="card-header">
                                 <div class="d-flex">
-                                    <h5 class="card-title flex-grow-1 mb-0">Customer Details</h5>
-                                    <div class="flex-shrink-0">
-                                        <a href="javascript:void(0);" class="link-secondary">View Profile</a>
-                                    </div>
+                                    <h5 class="card-title flex-grow-1 mb-0">Thông tin khách hàng</h5>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <ul class="list-unstyled mb-0 vstack gap-3">
-                                    <li>
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-shrink-0">
-                                                <img src="assets/images/users/avatar-3.jpg" alt=""
-                                                    class="avatar-sm rounded">
-                                            </div>
-                                            <div class="flex-grow-1 ms-3">
-                                                <h6 class="fs-15 mb-1">Joseph Parkers</h6>
-                                                <p class="text-muted mb-0">Customer</p>
-                                            </div>
+                                    <li class="text-center">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <img src="{{ asset('/') }}{{ $orderDetails->billUser->avatar ?? 'no_image.jpg' }}"
+                                                alt="{{ $orderDetails->billUser->name }}" class="avatar-sm border"
+                                                style="border-radius: 50%" width="160px" height="160px">
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h4 class="fs-15 mt-2 mb-1">{{ $orderDetails->billUser->email }}</h4>
+                                            <span class="fs-15 mb-1">{{ $orderDetails->billUser->phone }}</span>
                                         </div>
                                     </li>
-                                    <li><i
-                                            class="ri-mail-line me-2 align-middle text-muted fs-16"></i>josephparker@gmail.com
-                                    </li>
-                                    <li><i class="ri-phone-line me-2 align-middle text-muted fs-16"></i>+(256) 245451
-                                        441</li>
                                 </ul>
                             </div>
                         </div>
 
-                        <div class="card">
+                        <div class="card mt-3">
                             <div class="card-header">
-                                <h5 class="card-title mb-0"><i class="ri-map-pin-line align-middle me-1 text-muted"></i>
-                                    Billing Address</h5>
+                                <h5 class="card-title mb-0">Địa chỉ thanh toán</h5>
                             </div>
                             <div class="card-body">
                                 <ul class="list-unstyled vstack gap-2 fs-14 mb-0">
-                                    <li class="fw-semibold fs-15">Joseph Parker</li>
-                                    <li>+(256) 245451 451</li>
-                                    <li>2186 Joyce Street Rocky Mount</li>
-                                    <li>New York - 25645</li>
-                                    <li>United States</li>
+                                    <li class="fw-semibold fs-15">{{ $orderDetails->billUser->name }}</li>
+                                    <li>{{ $orderDetails->billUser->email }}</li>
+                                    <li>{{ $orderDetails->billUser->phone }}</li>
+                                    <li>{{ $orderDetails->billUser->address ?? 'Chưa có địa chỉ' }}</li>
                                 </ul>
                             </div>
                         </div>
 
-                        <div class="card">
+                        <div class="card mt-3">
                             <div class="card-header">
-                                <h5 class="card-title mb-0"><i class="ri-map-pin-line align-middle me-1 text-muted"></i>
-                                    Shipping Address</h5>
+                                <h5 class="card-title mb-0">Địa chỉ nhận hàng</h5>
                             </div>
                             <div class="card-body">
                                 <ul class="list-unstyled vstack gap-2 fs-14 mb-0">
-                                    <li class="fw-semibold fs-15">Joseph Parker</li>
-                                    <li>+(256) 245451 451</li>
-                                    <li>2186 Joyce Street Rocky Mount</li>
-                                    <li>California - 24567</li>
-                                    <li>United States</li>
+                                    <li class="">Họ tên nhận hàng: <span
+                                            class="fw-semibold fs-15">{{ $orderDetails->name }}</span></li>
+                                    <li>Số điện thoại: {{ $orderDetails->phone }}</li>
+                                    <li>Địa chỉ nhận hàng: {{ $orderDetails->address }}</li>
                                 </ul>
-                            </div>
-                        </div>
-
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0"><i
-                                        class="ri-secure-payment-line align-bottom me-1 text-muted"></i> Payment
-                                    Details</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-2">
-                                    <div class="flex-shrink-0">
-                                        <p class="text-muted mb-0">Transactions:</p>
-                                    </div>
-                                    <div class="flex-grow-1 ms-2">
-                                        <h6 class="mb-0">#VLZ124561278124</h6>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center mb-2">
-                                    <div class="flex-shrink-0">
-                                        <p class="text-muted mb-0">Payment Method:</p>
-                                    </div>
-                                    <div class="flex-grow-1 ms-2">
-                                        <h6 class="mb-0">Debit Card</h6>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center mb-2">
-                                    <div class="flex-shrink-0">
-                                        <p class="text-muted mb-0">Card Holder Name:</p>
-                                    </div>
-                                    <div class="flex-grow-1 ms-2">
-                                        <h6 class="mb-0">Joseph Parker</h6>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center mb-2">
-                                    <div class="flex-shrink-0">
-                                        <p class="text-muted mb-0">Card Number:</p>
-                                    </div>
-                                    <div class="flex-grow-1 ms-2">
-                                        <h6 class="mb-0">xxxx xxxx xxxx 2456</h6>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0">
-                                        <p class="text-muted mb-0">Total Amount:</p>
-                                    </div>
-                                    <div class="flex-grow-1 ms-2">
-                                        <h6 class="mb-0">$415.96</h6>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

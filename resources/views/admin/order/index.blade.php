@@ -84,12 +84,8 @@
                             @if(count($results) > 0)
                             @foreach ($results as $result)
                                 @php
-                                    $payment_status =
-                                        $result->payment_status === 'PAID' ? 'Đã thanh toán' : 'Chưa thanh toán';
-                                    $payment_method =
-                                        $result->payment_method === 'ONLINE'
-                                            ? 'Thanh toán online'
-                                            : 'Thanh toán khi nhận hàng';
+                                    $payment_status = $result->payment_status === 'PAID' ? 'Đã thanh toán' : 'Chưa thanh toán';
+                                    $payment_method = $result->payment_method === 'ONLINE' ? 'Thanh toán online' : 'Thanh toán khi nhận hàng';
                                     $dateCreate = date('H:i d/m/Y', strtotime($result->created_at));
                                     $dateUpdate = date('H:i d/m/Y', strtotime($result->updated_at));
                                     $total_amount = number_format($result->total_amount, '0', '.', '.') . ' đ';

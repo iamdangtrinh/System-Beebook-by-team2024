@@ -87,9 +87,10 @@ class OrderController extends Controller
     public function edit(string $id)
     {
         $orderDetails = BillModel::where('id', $id)
-            // ->where('id_user', Auth::user()->id)
             ->with('billDetails')
+            ->with('billUser')
             ->first();
+
         return view('admin.order.store', compact(['orderDetails']));
     }
 
