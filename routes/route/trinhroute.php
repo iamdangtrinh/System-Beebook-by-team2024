@@ -53,3 +53,8 @@ Route::prefix('profile/your-order')->middleware('CheckLogin')->name('your-order.
       Route::get('/{id}', [ManagerUserController::class, 'yourOrderDetail'])->name('detail-index')
             ->middleware('CheckLogin:Vui lòng đăng nhập để thực hiện chức năng!');
 });
+
+Route::get('/redis-test', function () {
+      Cache::store('redis')->put('test_key', 'Hello Redis', 10);
+      return Cache::store('redis')->get('test_key');
+});
