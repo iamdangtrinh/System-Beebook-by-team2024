@@ -60,8 +60,8 @@ class ManagerUserController extends Controller
                     }
                 }
                 Session::forget('cart');
-                if (Auth::user()->role === 'admin') {
-                    return redirect('/admin/order');
+                if (Auth::user()->roles === 'admin') {
+                    return redirect('/admin');
                 } else {
                     return redirect('/profile');
                 }

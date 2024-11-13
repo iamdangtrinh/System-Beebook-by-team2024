@@ -129,6 +129,26 @@ class Profile extends Component
             $this->handleUploadImage($value);
         }
     }
+    // public function handleUploadImage($value)
+    // {
+    //     $this->validate([
+    //         'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    //     ]);
+
+    //     try {
+    //         // Lưu tệp vào thư mục 'uploads' trên đĩa 'public' và lấy đường dẫn
+    //         $path = $value->store('uploads', 'public');
+
+    //         // Cập nhật đường dẫn của ảnh đại diện trong cơ sở dữ liệu
+    //         User::where('id', Auth::id())->update(['avatar' => $path]);
+
+    //         // Thông báo thành công
+    //         session()->flash('success', 'Cập nhật ảnh đại diện thành công!');
+    //     } catch (\Exception $e) {
+    //         // Thông báo lỗi và ghi log lỗi nếu có
+    //         session()->flash('error', 'Không thể cập nhật ảnh đại diện. Vui lòng thử lại.');
+    //     }
+    // }
     public function handleUploadImage($value)
     {
         $this->validate([
@@ -136,16 +156,21 @@ class Profile extends Component
         ]);
 
         try {
-            // Lưu tệp vào thư mục 'uploads' trên đĩa 'public' và lấy đường dẫn
-            $path = $value->store('uploads', 'public');
-
-            // Cập nhật đường dẫn của ảnh đại diện trong cơ sở dữ liệu
-            User::where('id', Auth::id())->update(['avatar' => $path]);
-
-            // Thông báo thành công
+            // Kiểm tra và tạo thư mục nếu chưa tồn tại
+            if (!file_exists(public_path('uploads'))) {
+                mkdir(public_path('uploads'), 0775, true);
+            }
+            // Lưu tệp vào thư mục 'uploads' trên đĩa 'public'
+            // $path = $value->storeAs('uploads', time() . '_' . $value->getClientOriginalName(), 'public');
+            $fileName = time() . '_' . $value->getClientOriginalName();
+            // Di chuyển tệp vào thư mục 'public/uploads'
+            $value->storeAs('uploads', $fileName, 'public');
+            // Cập nhật đường dẫn trong cơ sở dữ liệu
+            User::where('id', Auth::id())->update(['avatar' => $fileName]);
             session()->flash('success', 'Cập nhật ảnh đại diện thành công!');
-        } catch (\Exception $e) {
-            // Thông báo lỗi và ghi log lỗi nếu có
+        } catch (\Exception $th) {
+            dd($th->getMessage());
+            // Thông báo lỗi nếu có
             session()->flash('error', 'Không thể cập nhật ảnh đại diện. Vui lòng thử lại.');
         }
     }

@@ -16,12 +16,12 @@
         <div class="bg-white w-100" style="box-shadow: 0 0 40px rgba(0, 0, 0, 0.1); padding: 20px 15px; border-radius: 8px">
                 <h2 class="fw-bold">Thông tin tài khoản</h2>
                 <form wire:submit='handleEditProfile' class="d-flex flex-column gap-2 "> 
-                   <div class="w-100 d-flex justify-content-center flex">
+                   <div class="w-100 d-flex justify-content-center flex-col">
                     <div class="image-upload">
                         <label for="file-upload" style="cursor: pointer;">
                             <img 
                                  style="width: 100px; height: 100px; border-radius: 50%; border: 1px solid black" 
-                                 src={{ Auth::user()->avatar !== null ? asset('storage/'.Auth::User()->avatar) : "/client/images/manager-user/no_avt.png" }}
+                                 src={{ Auth::user()->avatar !== null ? asset('storage/uploads/'.Auth::User()->avatar) : "/client/images/manager-user/no_avt.png" }}
                                  alt="User Avatar">
                         </label>
                         <input type="file" wire:model.change="avatar" id="file-upload" wire:model.live="avatar" style="display: none;" accept="image/*">

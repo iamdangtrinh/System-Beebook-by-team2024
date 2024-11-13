@@ -29,19 +29,19 @@ class CheckoutController extends Controller
         $this->CheckoutRepository = $CheckoutRepository;
         $this->CartService = $CartService;
     }
-
-    public function index()
-    {
-        $result = $this->CartService->findCartByUser(20);
-        if(count($result) == 0) {
-            return redirect()->route('product.index')->with('error', 'Vui lòng thêm sản phẩm vào giỏ hàng!');
-        }
-        return view('Client.checkout', compact(['result']));
-    }
     public function ApplyCoupon()
     {
         dd('ok');
     }
+    public function index()
+    {
+        $result = $this->CartService->findCartByUser(20);
+        if (count($result) == 0) {
+            return redirect()->route('product.index')->with('error', 'Vui lòng thêm sản phẩm vào giỏ hàng!');
+        }
+        return view('Client.checkout', compact(['result']));
+    }
+
     public function cartToCheckout(Request $request) {}
 
     // tạo view cart
@@ -70,12 +70,12 @@ class CheckoutController extends Controller
         // nếu đơn hàng chưa thanh toán thì mới hiển thị
         $resultBill = BillModel::findOrFail($idBill);
 
-        if($resultBill->send_email === false) {
+        if ($resultBill->send_email === false) {
             Mail::to(env('MAIL_ADMIN'))->send(new \App\Mail\NewOrderAdminEmail($idBill));
             Mail::to($resultBill->email)->send(new \App\Mail\sendEmailOrder($idBill));
             BillModel::find($idBill)
-            ->where('id_user', Auth::user()->id)
-            ->update(['send_email' => true]);
+                ->where('id_user', Auth::user()->id)
+                ->update(['send_email' => true]);
         }
 
         if ($resultBill->payment_status === 'PAID') {

@@ -23,7 +23,7 @@ class Signin extends Component
         if (User::where('status', 'active')->whereNotNull('email_verified_at')->first()) {
             $user = Auth::attempt(['email' => $this->email, 'password' => $this->password, 'status' => 'active']);
             if ($user === true) {
-                if (Auth::user()->role === 'admin') {
+                if (Auth::user()->roles === 'admin') {
                     redirect('/admin');
                 } else {
                     redirect('/profile');

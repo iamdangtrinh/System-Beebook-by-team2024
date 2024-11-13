@@ -165,7 +165,7 @@
                 <input type="hidden" name="shipping_method" value="GHN">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <h2 class="order-title">Đơn hàng của bạn</h2>
-                    {{-- <form id="formCouponCode" action="/apply-coupon" method="post">
+                    <form id="formCouponCode" action="{{route('apply.coupon')}}" method="post">
                         @csrf
                     <div class="row mt-3 mb-3" >
                         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" >
@@ -175,7 +175,7 @@
                             <button type="submit"  class="btn">Áp dụng</button>
                         </div>
                     </div>
-                  </form> --}}
+                  </form>
                     <div class="your-order-payment">
                         <div class="your-order">
                             @php
@@ -285,5 +285,13 @@
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+         function submitCouponCode(event) {
+        event.preventDefault(); // Ngăn chặn việc gửi form cha
+        const couponForm = document.getElementById('formCouponCode');
+        // Sử dụng JavaScript để submit form con
+        couponForm.submit();
+    }
+    </script>
     
 @endsection

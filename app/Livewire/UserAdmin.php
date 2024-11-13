@@ -2,12 +2,22 @@
 
 namespace App\Livewire;
 
+use App\Mail\verifySignUpByAdmin;
 use Livewire\Component;
 use App\Models\User;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Http;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use Livewire\Attributes\Validate;
+
+
 
 class UserAdmin extends Component
 {
+    use WithFileUploads;
     use WithPagination;
 
     public $getAllUser = [];
@@ -16,6 +26,23 @@ class UserAdmin extends Component
     public $idUser = '';
     public $paginationData;
     public $isModal = false;
+    public $valueAvatar = '';
+    #[Validate('required', message: 'Họ tên không được để rỗng')]
+    public $valueName = '';
+    #[Validate('required', message: 'Số điện thoại không được để rỗng')]
+    #[Validate('regex:/^0[1-9]{1}[0-9]{8}$/', message: 'Số điện thoại không đúng định dạng')]
+    #[Validate('unique:users,phone', message: 'Số điện thoại đã tồn tại ')]
+    #[Validate('unique:users,phone', message: 'Số điện thoại đã tồn tại')]
+
+    public $valuePhone = '';
+    #[Validate('required', message: 'Email không được để rỗng')]
+    #[Validate('email', message: 'Email không đúng định dạng')]
+    #[Validate('unique:users,email', message: 'Email đã tồn tại')]
+    public $valueEmail = '';
+    public $valueStatus = 'customer';
+    public $chooseAddress = '';
+    public $address = '';
+    public $disabled = false;
 
     public function mount()
     {
@@ -96,6 +123,86 @@ class UserAdmin extends Component
     public function closeModal()
     {
         $this->isModal = !$this->isModal;
+    }
+    public function updatedAddress($value)
+    {
+        if ($value !== '') {
+            $response = Http::get("https://rsapi.goong.io/Place/AutoComplete?api_key=3llMTBYg6lewfO3NctgGOQWkynPkZojFyNm6HBpp&more_compound=true&radius=20000&input=" . $value);
+            if ($response->successful()) {
+                // $this->address = ;
+                $this->chooseAddress = $response['predictions'];
+            } else {
+                session()->flash('error', 'Không thể tải dữ liệu');
+            }
+        }
+        // dd($value);
+    }
+
+    public function addAddress($description)
+    {
+        $this->address = $description;
+        $this->chooseAddress = [];
+    }
+    public function updatedValueAvatar($value)
+    {
+        $this->validate([
+            'valueAvatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        try {
+            // Kiểm tra và tạo thư mục nếu chưa tồn tại
+            $fileName = time() . '_' . $value->getClientOriginalName();
+            $value->storeAs('uploads', $fileName, 'public');
+            $this->valueAvatar = '';
+            $this->valueAvatar = $fileName;
+        } catch (\Exception $th) {
+
+            session()->flash('error', 'Không thể cập nhật ảnh đại diện. Vui lòng thử lại.');
+        }
+    }
+    public function updatedValueStatus($value)
+    {
+        $this->valueStatus = $value;
+    }
+    public function createUser()
+    {
+        $password_random = Str::random(10);
+        $this->disabled = true;
+        try {
+            User::create([
+                'name' => $this->valueName,
+                'email' => $this->valueEmail,
+                'phone' => $this->valuePhone,
+                'avatar' => $this->valueAvatar,
+                'address' => $this->address,
+                'status' => 'active',
+                'roles' => $this->valueStatus,
+                'password' => Hash::make($password_random),
+            ]);
+            Mail::to($this->valueEmail)->send(new verifySignUpByAdmin($password_random));
+            // dd($this->paginationData['currentPage']);
+            $paginator = User::paginate(20);
+            $this->getAllUser = $paginator->items();
+            $this->updatePaginationData($paginator);
+            session()->flash('successCreate', 'Chúc mừng bạn đã tạo tài khoản thành công.');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            session()->flash('errorCreate', 'Không thể tạo tài khoản. Vui lòng thử lại.');
+        } finally {
+
+            // $this->disabled = false;
+            // $this->isModal = false;
+
+            // // Đặt lại các trường nhập liệu sau khi tạo thành công
+            // $this->reset([
+            //     'valueName',
+            //     'valueEmail',
+            //     'valuePhone',
+            //     'address',
+            //     'valueStatus',
+            // ]);
+            // $this->valueStatus = 'customer'; // Giá trị mặc định cho valueStatus
+        }
     }
     public function render()
     {
