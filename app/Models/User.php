@@ -29,6 +29,9 @@ class User extends Authenticatable
         'id_city',
         'id_province',
         'id_ward',
+        'address',
+        'roles',
+        'avatar'
     ];
 
     /**

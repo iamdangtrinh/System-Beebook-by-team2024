@@ -26,6 +26,7 @@ class UserAdmin extends Component
     public $idUser = '';
     public $paginationData;
     public $isModal = false;
+    public $edit = '';
     public $valueAvatar = '';
     #[Validate('required', message: 'Họ tên không được để rỗng')]
     public $valueName = '';
@@ -40,10 +41,11 @@ class UserAdmin extends Component
     #[Validate('unique:users,email', message: 'Email đã tồn tại')]
     public $valueEmail = '';
     public $valueStatus = 'customer';
+    public $valueStatus1 = '';
     public $chooseAddress = '';
     public $address = '';
     public $disabled = false;
-
+    public $valueStatusConfirm = '';
     public function mount()
     {
         $this->loadUsers();
@@ -164,6 +166,33 @@ class UserAdmin extends Component
     {
         $this->valueStatus = $value;
     }
+    public function updatedValueStatus1($value)
+    {
+        try {
+            User::where('id', $this->edit)->update(['status' => $value]);
+            $paginator = User::paginate(20);
+            $this->getAllUser = $paginator->items();
+            $this->updatePaginationData($paginator);
+            session()->flash('updateSuccess', 'Bạn đã đổi trạng thái thành công');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            session()->flash('update', 'Bạn đã đổi trạng thái thất bại');
+        }
+    }
+    public function updatedValueStatusConfirm($value)
+    {
+        try {
+            User::where('id', $this->edit)->update(['roles' => $value]);
+            $paginator = User::paginate(20);
+            $this->getAllUser = $paginator->items();
+            $this->updatePaginationData($paginator);
+            session()->flash('updateSuccess', 'Bạn đã đổi quyền thành công');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            //throw $th;
+            session()->flash('update', 'Bạn đã đổi quyền thất bại');
+        }
+    }
     public function createUser()
     {
         $password_random = Str::random(10);
@@ -173,7 +202,7 @@ class UserAdmin extends Component
                 'name' => $this->valueName,
                 'email' => $this->valueEmail,
                 'phone' => $this->valuePhone,
-                'avatar' => $this->valueAvatar,
+                'avatar' => $this->valueAvatar ? $this->valueAvatar : 'no_avt.png',
                 'address' => $this->address,
                 'status' => 'active',
                 'roles' => $this->valueStatus,
@@ -190,18 +219,26 @@ class UserAdmin extends Component
             session()->flash('errorCreate', 'Không thể tạo tài khoản. Vui lòng thử lại.');
         } finally {
 
-            // $this->disabled = false;
-            // $this->isModal = false;
+            $this->disabled = false;
+            $this->isModal = false;
 
-            // // Đặt lại các trường nhập liệu sau khi tạo thành công
-            // $this->reset([
-            //     'valueName',
-            //     'valueEmail',
-            //     'valuePhone',
-            //     'address',
-            //     'valueStatus',
-            // ]);
-            // $this->valueStatus = 'customer'; // Giá trị mặc định cho valueStatus
+            // Đặt lại các trường nhập liệu sau khi tạo thành công
+            $this->reset([
+                'valueName',
+                'valueEmail',
+                'valuePhone',
+                'address',
+                'valueStatus',
+            ]);
+            $this->valueStatus = 'customer'; // Giá trị mặc định cho valueStatus
+        }
+    }
+    public function editUser($value)
+    {
+        if ($this->edit === $value) {
+            $this->edit = '';
+        } else {
+            $this->edit = $value;
         }
     }
     public function render()

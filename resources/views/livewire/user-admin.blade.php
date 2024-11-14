@@ -80,23 +80,37 @@
                                 <td>{{ $user->phone }}</td>
                                 <td style="width: 20%">{{ $user->address }}</td>
                                 <td class="d-flex justify-content-center" style="border: none" > 
+                                    @if ($edit===$user->id)
+                                    <select name="" id="" wire:model.change="valueStatus1" style="border: 1px solid #e5e6e7; width: 100%; border-radius: 8px; padding: 6px 12px;" >
+                                        <option   value="active">Hoạt Động</option>
+                                        <option value="inactive">Tạm Khóa</option>
+                                    </select>
+                                    @else
                                     @if ($user->status === 'active')
                                     <div style="width: 10px; height: 10px; background: #00FF00; border-radius: 50%; border: none" class="dot"></div>
                                     @else
                                     <div style="width: 10px; height: 10px; background: red; border-radius: 50%; border: none" class="dot"></div>
                                     @endif
+                                    @endif
                                 </td>
                                 <td>
+                                    @if ($edit === $user->id)
+                                    <select name="" id="" wire:model.change="valueStatusConfirm" style="border: 1px solid #e5e6e7; width: 100%; border-radius: 8px; padding: 6px 12px;" >
+                                        <option  value="customer">Khách hàng</option>
+                                        <option  value="admin">Quản lý</option>
+                                    </select>
+                                    @else    
                                     @if ($user->roles === 'admin') 
-                                        Quản lý
+                                    Quản lý
                                     @else
-                                        Khách hàng
+                                    Khách hàng
+                                    @endif
                                     @endif
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group gap-2 w-100 __custom_btn_group">
-                                        <a href="" class="btn badge text-light text-bg-warning">Sửa</a>
-                                        <a wire:click="confirmDelete" href="" class="btn badge text-light text-bg-danger">Xóa</a>
+                                        <a wire:click="editUser({{$user->id}})" class="btn badge text-light {{$edit===$user->id ?"text-bg-success":"text-bg-warning"}}">{{$edit === $user->id ?"Hoàn thành":"Chỉnh sửa" }}</a>
+                                        {{-- <a wire:click="confirmDelete" href="" class="btn badge text-light text-bg-danger">Xóa</a> --}}
                                     </div>
                                 </td>
                             </tr>
@@ -154,6 +168,16 @@
         {{ session('successCreate') }}
     </div>
     @endif
+    @if (session('updateSuccess'))
+    <div class="success text-success">
+        {{ session('updateSuccess') }}
+    </div>
+    @endif
+    @if (session('updateError'))
+    <div class="error text-danger">
+        {{ session('updateError') }}
+    </div>
+@endif
     </div>
     <!-- Modal -->
     @if ($isModal)
@@ -176,7 +200,7 @@
                                             <label for="file-upload" style="cursor: pointer;">
                                                 <img 
                                                      style="width: 100px; height: 100px; border-radius: 50%; border: 1px solid black" 
-                                                     src={{ $valueAvatar !== '' ? asset('storage/uploads/'.$valueAvatar) : "/client/images/manager-user/no_avt.png" }}
+                                                     src={{asset('storage/uploads/'.$valueAvatar)}}
                                                      alt="User Avatar">
                                             </label>
                                             <input type="file" wire:model.change="valueAvatar" id="file-upload" wire:model.live="avatar" style="display: none;" accept="image/*">
