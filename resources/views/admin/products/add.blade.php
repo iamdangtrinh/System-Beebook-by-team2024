@@ -29,79 +29,97 @@
 <div class="row wrapper wrapper-content" style="padding: 20px 0 0 !important">
     <div class="ibox">
         <div class="ibox-content">
-            <form id="form" action="#">
+            <form id="form" action="{{ route('product.store') }}" method="POST">
+                @csrf
                 <div class="row">
                     <div class="col-lg-8">
-                        <div class="form-group">
+                        <div class="form-group @error('name') has-error @enderror">
                             <label>Tên sách <span class="text-danger">*</span></label>
-                            <input id="name" name="name" type="text" class="form-control required">
+                            <input id="name" name="name" type="text" class="form-control" value="{{ old('name') }}">
+                            @error('name')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-2">
                         <div class="form-group">
-                            <label class="font-normal">Ngôn ngữ</label>
+                            <label class="font-normal">Ngôn ngữ <span class="text-danger">*</span></label>
                             <div>
                                 <select data-placeholder="Chọn ngôn ngữ..." name="language" class="chosen-select" tabindex="2">
-                                    <option value="tieng-viet">Tiếng Việt</option>
-                                    <option value="tieng-anh">Tiếng Anh</option>
-                                    <option value="tieng-trung">Tiếng Trung</option>
-                                    <option value="tieng-nhat">Tiếng Nhật</option>
-                                    <option value="tieng-han">Tiếng Hàn</option>
-                                    <option value="tieng-phap">Tiếng Pháp</option>
-                                    <option value="tieng-duc">Tiếng Đức</option>
-                                    <option value="tieng-y">Tiếng Ý</option>
-                                    <option value="tieng-tay-ban-nha">Tiếng Tây Ban Nha</option>
-                                    <option value="tieng-nga">Tiếng Nga</option>
-                                    <option value="tieng-thai">Tiếng Thái</option>
-                                    <option value="tieng-a-rap">Tiếng Ả Rập</option>
-                                    <option value="tieng-ba-lan">Tiếng Ba Lan</option>
-                                    <option value="tieng-ha-lan">Tiếng Hà Lan</option>
-                                    <option value="tieng-hy-lap">Tiếng Hy Lạp</option>
-                                    <option value="tieng-hindi">Tiếng Hindi</option>
-                                    <option value="tieng-philippines">Tiếng Philippines</option>
-                                    <option value="tieng-indonesia">Tiếng Indonesia</option>
-                                    <option value="tieng-malay">Tiếng Mã Lai</option>
-                                    <option value="tieng-swe">Tiếng Thụy Điển</option>
-                                    <option value="tieng-bo-dao-nha">Tiếng Bồ Đào Nha</option>
-                                    <option value="tieng-hung">Tiếng Hung</option>
+                                    <option value="tieng-viet" {{ old('language') == 'tieng-viet' ? 'selected' : '' }}>Tiếng Việt</option>
+                                    <option value="tieng-anh" {{ old('language') == 'tieng-anh' ? 'selected' : '' }}>Tiếng Anh</option>
+                                    <!-- Continue for other language options -->
                                 </select>
-
+                                @error('language')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
+
                     <div class="col-2">
                         <div class="form-group">
-                            <label class="font-normal">Tác giả</label>
+                            <label class="font-normal">Tác giả <span class="text-danger">*</span></label>
                             <div>
                                 <select data-placeholder="Chọn tác giả..." name="id_author" class="chosen-select" tabindex="2">
                                     @foreach($authors as $author)
-                                    <option value="{{$author->id}}">{{$author->name}}</option>
+                                    <option value="{{ $author->id }}" {{ old('id_author') == $author->id ? 'selected' : '' }}>{{ $author->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('id_author')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
+
                     <div class="col-4">
-                        <div class="form-group">
+                        <div class="form-group @error('slug') has-error @enderror">
                             <label>Slug <span class="text-danger">*</span></label>
-                            <input id="slug" name="slug" type="text" class="form-control required" placeholder="ten-san-pham">
+                            <input id="slug" name="slug" type="text" class="form-control" placeholder="ten-san-pham" value="{{ old('slug') }}">
+                            @error('slug')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="form-group">
+
+                    <div class="col-2">
+                        <div class="form-group @error('quantity') has-error @enderror">
                             <label>Số lượng <span class="text-danger">*</span></label>
-                            <input id="quantity" name="quantity" type="number" class="form-control required">
+                            <input id="quantity" name="quantity" value="{{ old('quantity', 0) }}" type="number" class="form-control required">
+                            @error('quantity')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-2">
                         <div class="form-group">
-                            <label class="font-normal">Nhà xuất bản</label>
+                            <label class="font-normal">Danh mục <span class="text-danger">*</span></label>
+                            <div>
+                                <select data-placeholder="Chọn danh mục..." name="id_category" class="chosen-select" tabindex="2">
+                                    @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('id_category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('id_category')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label class="font-normal">Nhà xuất bản <span class="text-danger">*</span></label>
                             <div>
                                 <select data-placeholder="Chọn ngôn ngữ..." name="id_manufacturer" class="chosen-select" tabindex="2">
                                     @foreach($manufacturers as $manufacturer)
-                                    <option value="{{$manufacturer->id}}">{{$manufacturer->name}}</option>
+                                    <option value="{{ $manufacturer->id }}" {{ old('id_manufacturer') == $manufacturer->id ? 'selected' : '' }}>{{ $manufacturer->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('id_manufacturer')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -109,58 +127,79 @@
                         <div class="form-group">
                             <label class="font-normal">Người dịch</label>
                             <div>
-                                <select data-placeholder="Chọn ngôn ngữ..." name="id_translator" class="chosen-select" tabindex="2">
-                                    <option value="" selected>Chọn người dịch</option>
+                                <select data-placeholder="Chọn người dịch..." name="id_translator" class="chosen-select" tabindex="2">
+                                    <option value="" {{ !old('id_translator') ? 'selected' : '' }}>Chọn người dịch</option>
                                     @foreach($translators as $translator)
-                                    <option value="{{$translator->id}}">{{$translator->name}}</option>
+                                    <option value="{{ $translator->id }}" {{ old('id_translator') == $translator->id ? 'selected' : '' }}>
+                                        {{ $translator->name }}
+                                    </option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                     </div>
+
+
                     <div class="col-4">
-                        <div class="form-group">
+                        <div class="form-group @error('price') has-error @enderror">
                             <label>Giá <span class="text-danger">*</span></label>
-                            <input id="price" name="price" type="number" class="form-control required">
+                            <input id="price" name="price" type="number" class="form-control required" value="{{ old('price') }}">
+                            @error('price')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
+
                     <div class="col-4">
-                        <div class="form-group">
+                        <div class="form-group @error('price_sale') has-error @enderror">
                             <label>Giá giảm</label>
-                            <input id="price_sale" name="price_sale" type="number" class="form-control">
+                            <input id="price_sale" name="price_sale" type="number" class="form-control" value="{{ old('price_sale') }}">
+                            @error('price_sale')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
-                    <div class="col-4">
-                        <!-- <div class="i-checks">
-                            <label>Trạng thái</label> <br>
-                            <label> <input type="radio" value="bia-cung" name="form" checked=""> <i></i> Hoạt động </label>
-                            <label> <input type="radio" value="bia-mem" name="form"> <i></i> Không hoạt động </label>
-                        </div> -->
-                        <div class="form-group">
+                    <div class="col-2">
+                        <div class="form-group  @error('weight') has-error @enderror">
                             <label>Cân nặng (g) <span class="text-danger">*</span></label>
-                            <input id="weight" name="weight" type="number" class="form-control required">
+                            <input id="weight" name="weight" value="{{ old('weight') }}" type="number" class="form-control required">
+                            @error('weight')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
+                    <div class="col-2">
+                        <div class="form-group @error('year') has-error @enderror">
+                            <label>Năm xuất bản <span class="text-danger">*</span></label>
+                            <input id="year" name="year" value="{{ old('year') }}" type="number" class="form-control required">
+                            @error('year')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="col-4">
                         <div class="i-checks">
                             <label>Hình thức</label> <br>
-                            <label> <input type="radio" value="bia-cung" name="form"> <i></i> Bìa cứng </label>
-                            <label> <input type="radio" value="bia-mem" name="form"> <i></i> Bìa mềm </label>
+                            <label> <input type="radio" value="bia-cung" name="form" {{ old('form') == 'bia-cung' ? 'checked' : '' }}> <i></i> Bìa cứng </label>
+                            <label> <input type="radio" value="bia-mem" name="form" {{ old('form') == 'bia-mem' ? 'checked' : '' }}> <i></i> Bìa mềm </label>
                         </div>
                     </div>
+
                     <div class="col-4">
                         <div class="i-checks">
                             <label>Hot</label> <br>
-                            <label> <input type="radio" value="bia-cung" name="form"> <i></i> Có </label>
-                            <label> <input type="radio" value="bia-mem" name="form" checked=""> <i></i> Không </label>
+                            <label> <input type="radio" value="1" name="hot" {{ old('hot') == '1' ? 'checked' : '' }}> <i></i> Có </label>
+                            <label> <input type="radio" value="0" name="hot" {{ old('hot',0) == '0' ? 'checked' : '' }}> <i></i> Không </label>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label>Năm xuất bản <span class="text-danger">*</span></label>
-                            <input id="year" name="year" type="number" class="form-control required">
+                    <!-- <div class="col-4">
+                        <div class="i-checks">
+                            <label>Trạng thái</label> <br>
+                            <label> <input type="radio" value="active" name="status" checked=""> <i></i> Hiện </label>
+                            <label> <input type="radio" value="inactive" name="status"> <i></i> Ẩn </label>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-6">
                         <div class="form-group">
                             <label>Meta SEO</label>
@@ -170,50 +209,68 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label>Description SEO</label>
-                            <textarea id="description_seo" name="description_seo" class="form-control"></textarea>
+                            <textarea id="description_seo" placeholder="(Không nhập sẽ tự động lấy phần đầu của description)" name="description_seo" class="form-control"></textarea>
                         </div>
                     </div>
+
                     <div class="col-6">
                         <label>Ảnh chính</label>
                         <span class="image img-cover image-target">
-                            <img src="/no_image.jpg" class="img-fluid rounded-top" alt="" />
+                            <img src="{{ old('image_cover') ? old('image_cover') : '/no_image.jpg' }}" class="img-fluid rounded-top" alt="" />
                         </span>
-                        <input type="hidden" value="" name="image" class="url_image">
+                        <input type="hidden" value="{{ old('image_cover') }}" name="image_cover" class="url_image">
                     </div>
 
                     <div class="col-6">
-                        <label>Ảnh phụ</label>
+                        <label>Ảnh phụ</label><br>
+                        <button type="button" class="btn btn-primary my-2" id="add-image">Thêm ảnh</button>
                         <div class="row" id="image-container">
-                            <!-- Ảnh đầu tiên mặc định hiển thị, không có nút "X" -->
-                            <div class="col-3 image-wrapper">
+                            <!-- First image shown initially -->
+                            <div class="col-3 mt-1 image-wrapper">
                                 <span class="image img-cover image-target" style="position: relative;">
-                                    <img src="/no_image.jpg" class="img-fluid rounded-top main-image" alt="Ảnh phụ" />
+                                    <img src="{{ old('hinh1') ? old('hinh1') : '/no_image.jpg' }}" class="img-fluid rounded-top" alt="Ảnh phụ" />
                                 </span>
-                                <input type="hidden" value="" name="hinh1" class="url_image">
+                                <button type="button" class="btn btn-danger btn-sm remove-image mt-1">Xóa ảnh</button>
+                                <input type="hidden" value="{{ old('hinh1') }}" name="hinh1" class="url_image">
                             </div>
+
+                            <!-- Additional images added dynamically based on old inputs -->
+                            @for ($i = 2; $i <= 8; $i++)
+                                @if(old("hinh$i"))
+                                <div class="col-3 mt-1 image-wrapper">
+                                <span class="image img-cover image-target" style="position: relative;">
+                                    <img src="{{ old("hinh$i", '/no_image.jpg') }}" class="img-fluid rounded-top main-image" alt="Ảnh phụ" />
+                                </span>
+                                <button type="button" class="btn btn-danger btn-sm remove-image mt-1">Xóa ảnh</button>
+                                <input type="hidden" value="{{ old("hinh$i") }}" name="hinh{{ $i }}" class="url_image">
                         </div>
-                        <button type="button" class="btn btn-primary mt-2" id="add-image">Thêm ảnh</button>
-                    </div>
-                    <div class="col-12">
-                        <div class="float-e-margins">
-                            <label>Description</label>
-                            <textarea name="content" id="content" class="content" cols="30" rows="10"></textarea>
-                        </div>
-                        <!-- <form action="#" class="dropzone" id="dropzoneForm">
-                            <div class="fallback">
-                                <input name="file" type="file" multiple />
-                            </div>
-                        </form> -->
-                    </div>
-                    <div class="col-12 mt-3">
-                        <button class="btn btn-outline btn-warning">Lưu nháp</button>
-                        <button class="btn btn-primary">Lưu</button>
+                        @endif
+                        @endfor
                     </div>
                 </div>
-            </form>
 
+
+                <!-- Description and Submit Button -->
+                <div class="col-12">
+                    <div class="form-group @error('content') has-error @enderror">
+                        <label>Description</label>
+                        <textarea name="content" id="content" class="content form-control" cols="30" rows="10">{{ old('content') }}</textarea>
+                        @error('content')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="col-12 mt-3">
+                    <button class="btn btn-outline btn-warning">Lưu nháp</button>
+                    <button class="btn btn-primary">Lưu</button>
+                </div>
         </div>
+        </form>
+
+
     </div>
+</div>
 </div>
 <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
 
@@ -247,6 +304,30 @@
         maxFilesize: 2, // MB
         dictDefaultMessage: "<strong>Drop files here or click to upload. </strong></br> (This is just a demo dropzone. Selected files are not actually uploaded.)"
     };
+    document.getElementById('name').addEventListener('input', function() {
+        const slugField = document.getElementById('slug');
+
+        // Only generate slug if the slug field is empty or has not been modified
+        if (!slugField.dataset.modified) {
+            const name = this.value;
+
+            // Convert to slug by removing accents, converting to lowercase, and replacing spaces with hyphens
+            const slug = name
+                .toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+                .replace(/[^a-z0-9 ]/g, '') // Remove special characters
+                .trim()
+                .replace(/\s+/g, '-'); // Replace spaces with hyphens
+
+            // Set slug input value
+            slugField.value = slug;
+        }
+    });
+
+    // Add an event listener to detect if the slug field has been manually edited
+    document.getElementById('slug').addEventListener('input', function() {
+        this.dataset.modified = true; // Mark as modified
+    });
     $(document).ready(function() {
         $('.chosen-select').chosen({
             width: "100%"
@@ -255,43 +336,65 @@
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green',
         });
-        let imageCount = 1; // Đếm số ảnh
+        let imageCount = document.querySelectorAll('.image-wrapper').length; // Count initial images
 
-        // Xử lý nút "Thêm ảnh"
+        // Handle "Add Image" button
         $('#add-image').click(function() {
-            const allImages = document.querySelectorAll('.image-wrapper img');
-            let allAreNoImage = Array.from(allImages).every(img => img.src.includes('/no_image.jpg'));
+            const imageContainer = document.getElementById('image-container');
+            const lastImageWrapper = imageContainer.querySelector(`.image-wrapper:nth-child(${imageCount}) img`);
 
-            if (allAreNoImage) {
+            // Check if the last image is still the default placeholder
+            if (lastImageWrapper && lastImageWrapper.src.includes('/no_image.jpg')) {
                 toastr.error('Vui lòng thay đổi ảnh mặc định trước khi thêm ảnh mới.');
                 return;
             }
 
-            if (imageCount < 8) { // Giới hạn tối đa 8 ảnh
-                imageCount++; // Tăng đếm số ảnh
+            if (imageCount < 8) { // Maximum limit of 8 images
+                imageCount++; // Increase image count
 
-                // Tạo ô ảnh mới
+                // Create new image container
                 const newImageDiv = document.createElement('div');
-                newImageDiv.classList.add('col-3', 'image-wrapper');
+                newImageDiv.classList.add('col-3', 'mt-1', 'image-wrapper');
                 newImageDiv.innerHTML = `
-                    <span class="image img-cover image-target" style="position: relative;">
-                        <img src="/no_image.jpg" class="img-fluid rounded-top main-image" alt="Ảnh phụ" />
-                        <button type="button" class="btn btn-danger btn-sm remove-image" style="position: absolute; top: 5px; right: 5px;">X</button>
-                    </span>
-                    <input type="hidden" value="" name="hinh${imageCount}" class="url_image">
-                `;
+            <span class="image img-cover image-target" style="position: relative;">
+                <img src="/no_image.jpg" class="img-fluid rounded-top main-image" alt="Ảnh phụ" />
+            </span>
+            <button type="button" class="btn btn-danger btn-sm remove-image mt-1">Xóa ảnh</button>
+            <input type="hidden" value="" name="hinh${imageCount}" class="url_image">
+        `;
 
-                // Thêm ô ảnh mới vào container
-                document.getElementById('image-container').appendChild(newImageDiv);
+                // Add new image container to the container
+                imageContainer.appendChild(newImageDiv);
 
-                // Thêm sự kiện xóa cho nút "X" mới
+                // Add delete functionality to the new delete button
                 newImageDiv.querySelector('.remove-image').addEventListener('click', function() {
-                    newImageDiv.remove(); // Xóa ô ảnh
-                    imageCount--; // Giảm đếm số ảnh
+                    newImageDiv.remove(); // Remove image container
+                    imageCount--; // Decrease image count
+
+                    // Adjust remaining image input names to avoid gaps
+                    const imageWrappers = imageContainer.querySelectorAll('.image-wrapper');
+                    imageWrappers.forEach((wrapper, index) => {
+                        wrapper.querySelector('.url_image').name = `hinh${index + 1}`;
+                    });
                 });
             } else {
-                alert("Đã đạt đến giới hạn tối đa 8 ảnh.");
+                toastr.error('Đã đạt đến giới hạn tối đa 8 ảnh.');
             }
+        });
+
+        // Add delete functionality to any existing images
+        document.querySelectorAll('.remove-image').forEach(button => {
+            button.addEventListener('click', function() {
+                const imageWrapper = this.closest('.image-wrapper');
+                imageWrapper.remove(); // Remove image container
+                imageCount--; // Decrease image count
+
+                // Adjust remaining image input names to avoid gaps
+                const imageWrappers = document.getElementById('image-container').querySelectorAll('.image-wrapper');
+                imageWrappers.forEach((wrapper, index) => {
+                    wrapper.querySelector('.url_image').name = `hinh${index + 1}`;
+                });
+            });
         });
         var editor_one = CodeMirror.fromTextArea(document.getElementById("code1"), {
             lineNumbers: true,

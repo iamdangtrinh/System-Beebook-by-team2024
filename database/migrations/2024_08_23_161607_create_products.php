@@ -18,7 +18,7 @@ return new class extends Migration
             $table->longText('description');
             $table->string('slug')->unique();
             $table->unsignedInteger('quantity')->default(0);
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->enum('status', ['active', 'inactive','draft'])->default('active');
             $table->string('url_video', 50)->nullable();
             $table->string('image_cover', 100)->nullable(); // hình ảnh sản phẩm;
             $table->unsignedInteger('views')->default(0);

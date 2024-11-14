@@ -260,6 +260,6 @@ class ProductsSeeder extends Seeder
 
     private function randomLanguage(): string
     {
-        return rand(0, 1) ? 'tiếng Việt' : 'tiếng Anh';
+        return rand(0, 1) ? 'tieng-viet' : 'tieng-anh';
     }
 }

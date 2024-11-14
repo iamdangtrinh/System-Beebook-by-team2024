@@ -18,7 +18,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/wishlist/toggle/{idproduct}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
 });
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
     Route::get('/product', [AdminProductController::class, 'index'])->name('adminproduct.index');
     Route::get('/product/add', [AdminProductController::class, 'add'])->name('adminproduct.add');
+    Route::post('/product/store', [AdminProductController::class, 'store'])->name('product.store');
 });

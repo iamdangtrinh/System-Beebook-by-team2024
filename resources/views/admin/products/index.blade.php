@@ -24,6 +24,12 @@
 
 <div class="row wrapper wrapper-content" style="padding: 20px 0 0 !important">
     <div class="ibox-content m-b-sm border-bottom">
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
+
         <div class="row">
             <div class="col-sm-4 mb-3">
                 <div class="form-group">
@@ -103,7 +109,7 @@
                             <td>{{ $product->category->name }}</td>
                             <td>
                                 @if(!$product->price_sale)
-                                <strong class="text-danger">{{ $product->price_sale }} đ</strong>
+                                <strong class="text-danger">{{ $product->price }} đ</strong>
                                 @else
                                 <strong class="text-danger">{{ $product->price_sale }} đ</strong> <del>{{ $product->price }} đ</del>
                                 @endif
