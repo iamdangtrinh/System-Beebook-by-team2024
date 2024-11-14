@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('taxonomy', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('type', ['author', 'manufacture', 'translator']);
+            $table->enum('type', ['author', 'manufacturer', 'translator']);
             $table->string('name');
             $table->string('slug');
             $table->timestamps();

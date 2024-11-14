@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Taxonomy;
 
 class ProductController extends Controller
 {
@@ -18,6 +19,7 @@ class ProductController extends Controller
             "slug",
             "quantity",
             "status",
+            'language',
             "url_video",
             "image_cover",
             "views",
@@ -44,9 +46,13 @@ class ProductController extends Controller
     }
     public function add()
     {
-        $products = Product::orderBy('created_at', 'desc')->paginate(12);
+        $authors = Taxonomy::where('type', 'author')->get();
+        $translators = Taxonomy::where('type', 'translator')->get();
+        $manufacturers = Taxonomy::where('type', 'manufacturer')->get();
         return view('admin.products.add', compact([
-            'products',
+            'authors',
+            'translators',
+            'manufacturers',
         ]));
     }
 }

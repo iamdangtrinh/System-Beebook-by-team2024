@@ -22,6 +22,7 @@ class Product extends Model
         'status',
         'url_video',
         'image_cover',
+        'language',
         'views',
         'price',
         'price_sale',

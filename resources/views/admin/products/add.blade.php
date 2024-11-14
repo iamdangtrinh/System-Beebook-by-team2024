@@ -29,125 +29,6 @@
 <div class="row wrapper wrapper-content" style="padding: 20px 0 0 !important">
     <div class="ibox">
         <div class="ibox-content">
-            <!-- <form id="form" action="#">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="form-group">
-                            <label>Tên sách <span class="text-danger">*</span></label>
-                            <input id="name" name="name" type="text" class="form-control required">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Slug <span class="text-danger">*</span></label>
-                            <input id="slug" name="slug" type="text" class="form-control required" placeholder="ten-san-pham">
-                        </div>
-
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label>Giá <span class="text-danger">*</span></label>
-                                    <input id="price" name="price" type="number" class="form-control required">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label>Giá giảm</label>
-                                    <input id="price_sale" name="price_sale" type="number" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Số lượng <span class="text-danger">*</span></label>
-                            <input id="quantity" name="quantity" type="number" class="form-control required">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Mô tả</label>
-                            <textarea id="description" name="description" class="form-control"></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Meta SEO</label>
-                            <input id="meta_seo" name="meta_seo" type="text" class="form-control">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Description SEO</label>
-                            <textarea id="description_seo" name="description_seo" class="form-control"></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>URL Video</label>
-                            <input id="url_video" name="url_video" type="url" class="form-control">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Trạng thái</label>
-                            <select id="status" name="status" class="form-control">
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Nổi bật</label>
-                            <select id="hot" name="hot" class="form-control">
-                                <option value="1">Có</option>
-                                <option value="0">Không</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label>Ngôn ngữ</label>
-                            <select id="language" name="language" class="form-control">
-                                <option value="tieng-viet">Tiếng Việt</option>
-                                <option value="tieng-anh">Tiếng Anh</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Tác giả</label>
-                            <select id="id_author" name="id_author" class="form-control">
-                                <option value="1">Tác giả 1</option>
-                                <option value="2">Tác giả 2</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Nhà xuất bản</label>
-                            <select id="id_manufacturer" name="id_manufacturer" class="form-control">
-                                <option value="1">NXB 1</option>
-                                <option value="2">NXB 2</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Ảnh chính</label>
-                            <input id="image_cover" name="image_cover" type="file" class="form-control-file">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Ảnh phụ</label>
-                            <input id="images" name="images[]" type="file" class="form-control-file" multiple>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label>Lượt xem</label>
-                            <input id="views" name="views" type="number" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Lưu</button>
-                    </div>
-                </div>
-            </form> -->
-
             <form id="form" action="#">
                 <div class="row">
                     <div class="col-lg-8">
@@ -160,7 +41,7 @@
                         <div class="form-group">
                             <label class="font-normal">Ngôn ngữ</label>
                             <div>
-                                <select data-placeholder="Chọn ngôn ngữ..." class="chosen-select" tabindex="2">
+                                <select data-placeholder="Chọn ngôn ngữ..." name="language" class="chosen-select" tabindex="2">
                                     <option value="tieng-viet">Tiếng Việt</option>
                                     <option value="tieng-anh">Tiếng Anh</option>
                                     <option value="tieng-trung">Tiếng Trung</option>
@@ -192,8 +73,10 @@
                         <div class="form-group">
                             <label class="font-normal">Tác giả</label>
                             <div>
-                                <select data-placeholder="Chọn ngôn ngữ..." class="chosen-select" tabindex="2">
-                                    <option value="tieng-viet">Tiếng Việt</option>
+                                <select data-placeholder="Chọn tác giả..." name="id_author" class="chosen-select" tabindex="2">
+                                    @foreach($authors as $author)
+                                    <option value="{{$author->id}}">{{$author->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -210,12 +93,27 @@
                             <input id="quantity" name="quantity" type="number" class="form-control required">
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
                         <div class="form-group">
                             <label class="font-normal">Nhà xuất bản</label>
                             <div>
-                                <select data-placeholder="Chọn ngôn ngữ..." class="chosen-select" tabindex="2">
-                                    <option value="tieng-viet">Tiếng Việt</option>
+                                <select data-placeholder="Chọn ngôn ngữ..." name="id_manufacturer" class="chosen-select" tabindex="2">
+                                    @foreach($manufacturers as $manufacturer)
+                                    <option value="{{$manufacturer->id}}">{{$manufacturer->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label class="font-normal">Người dịch</label>
+                            <div>
+                                <select data-placeholder="Chọn ngôn ngữ..." name="id_translator" class="chosen-select" tabindex="2">
+                                    <option value="" selected>Chọn người dịch</option>
+                                    @foreach($translators as $translator)
+                                    <option value="{{$translator->id}}">{{$translator->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

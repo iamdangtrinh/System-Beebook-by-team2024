@@ -120,7 +120,7 @@ class TaxonomySeeder extends Seeder
         ];
 
         // Mảng chứa 50 nhà xuất bản
-        $publishers = [
+        $manufacturers = [
             "Nhà Xuất Bản Kim Đồng",
             "Nhà Xuất Bản Văn Hóa Thông Tin",
             "Nhà Xuất Bản Trẻ",
@@ -174,7 +174,7 @@ class TaxonomySeeder extends Seeder
         ];
 
         // Kết hợp tất cả các loại vào một mảng để dễ dàng lựa chọn
-        $taxonomyTypes = ['author', 'translator', 'manufacture'];
+        $taxonomyTypes = ['author', 'translator', 'manufacturer'];
         // Chèn dữ liệu vào bảng 'taxonomy'
         foreach ($taxonomyTypes as $type) {
             $items = [];
@@ -185,8 +185,8 @@ class TaxonomySeeder extends Seeder
                 case 'translator':
                     $items = $translators;
                     break;
-                case 'manufacture':
-                    $items = $publishers;
+                case 'manufacturer':
+                    $items = $manufacturers;
                     break;
             }
 
