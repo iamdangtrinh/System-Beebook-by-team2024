@@ -42,9 +42,14 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::orderBy('created_at', 'desc')->paginate(12);
+        $products = Product::where('status', '!=', 'draft')->orderBy('created_at', 'desc')->paginate(12);
+        $drafts = Product::where('status', 'draft')->orderBy('created_at', 'desc')->get();
+        $trashedProducts = Product::onlyTrashed()->get();
+        // dd($trashedProducts);
         return view('admin.products.index', compact([
             'products',
+            'drafts',
+            'trashedProducts',
         ]));
     }
     public function add()
@@ -59,6 +64,48 @@ class ProductController extends Controller
             'translators',
             'manufacturers',
         ]));
+    }
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id); // Tìm sản phẩm
+        // Kiểm tra sản phẩm có trong bill hay không
+        if ($product->billDetails()->exists()) {
+            // Nếu sản phẩm có trong đơn hàng, cập nhật trạng thái
+            $product->update(['status' => 'inactive']);
+            return redirect()->back()->with('error', 'Không thể xóa sản phẩm này vì đã có trong đơn hàng. Trạng thái được đặt về inactive.');
+        }
+        $product->delete(); // Xóa mềm (soft delete)
+        return redirect()->back()->with('success', 'Sản phẩm đã được xóa.');
+    }
+    public function forceDelete($id)
+    {
+        $product = Product::withTrashed()->findOrFail($id);
+        $product->forceDelete(); // Xóa vĩnh viễn
+        return redirect()->back()->with('success', 'Sản phẩm đã được xóa vĩnh viễn.');
+    }
+    public function forceDeleteAll()
+    {
+        $trashedProducts = Product::onlyTrashed();
+        if ($trashedProducts->count() == 0) {
+            return redirect()->back()->with('error', 'Không có sản phẩm nào để xóa.');
+        }
+        $trashedProducts->forceDelete(); // Xóa vĩnh viễn tất cả
+        return redirect()->back()->with('success', 'Tất cả sản phẩm đã được xóa vĩnh viễn.');
+    }
+    public function restore($id)
+    {
+        // Khôi phục sản phẩm từ bảng soft deleted
+        $product = Product::onlyTrashed()->findOrFail($id);
+        $product->restore();
+
+        return redirect()->route('adminproduct.index')->with('success', 'Sản phẩm đã được khôi phục!');
+    }
+    public function restoreAll()
+    {
+        // Khôi phục tất cả sản phẩm đã xóa mềm
+        Product::onlyTrashed()->restore();
+
+        return redirect()->route('adminproduct.index')->with('success', 'Tất cả sản phẩm đã được khôi phục!');
     }
     public function store(Request $request)
     {
@@ -114,13 +161,15 @@ class ProductController extends Controller
         $product->hot = $request->hot;
         $product->year = $request->year;
         $product->meta_seo = $request->meta_seo;
+        $product->url_video = $request->url_video;
+        $product->status = $request->status;
         $product->description_seo = !empty($request->description_seo)
             ? $request->description_seo
             : substr($request->content, 0, 150);
         $product->image_cover = $request->image_cover;
         $product->description = $request->content;
         $product->save();
-        if ( $request->form && !empty( $request->form)) {
+        if ($request->form && !empty($request->form)) {
             // Create and save product metadata for each image
             $meta = new ProductMeta();
             $meta->id_product = $product->id; // Link metadata to the newly created product
@@ -150,5 +199,47 @@ class ProductController extends Controller
         }
 
         return redirect()->route('adminproduct.index')->with('success', 'Thêm sản phẩm thành công!');
+    }
+    public function edit($id)
+    {
+        $product = Product::findOrFail($id);
+        $categories = CategoryProduct::where('status', 'active')->get();
+        $authors = Taxonomy::where('type', 'author')->get();
+        $translators = Taxonomy::where('type', 'translator')->get();
+        $manufacturers = Taxonomy::where('type', 'manufacturer')->get();
+        return view('admin.products.edit', compact([
+            'product',
+            'categories',
+            'authors',
+            'translators',
+            'manufacturers',
+        ]));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+
+        // Xác thực dữ liệu
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'price' => 'required|numeric',
+            'price_sale' => 'nullable|numeric',
+            'image_cover' => 'nullable|image|max:1024', // Kiểm tra ảnh
+            // Thêm các quy tắc xác thực khác tùy vào trường bạn cần
+        ]);
+
+        // Cập nhật thông tin sản phẩm
+        $product->update([
+            'name' => $request->name,
+            'category_id' => $request->category_id,
+            'price' => $request->price,
+            'price_sale' => $request->price_sale,
+            'image_cover' => $request->image_cover ? $request->file('image_cover')->store('images') : $product->image_cover,
+            // Cập nhật các trường khác nếu cần
+        ]);
+
+        return redirect()->route('adminproduct.index')->with('success', 'Sản phẩm đã được cập nhật thành công!');
     }
 }
