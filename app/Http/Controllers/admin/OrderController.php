@@ -34,7 +34,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $payload = $request->except(['_token']);
-        $query = BillModel::select($this->selected());
+        $query = BillModel::select($this->selected())->orderBy('id', 'desc');
         if (!empty($payload['order_id'])) {
             $query->where('id', $payload['order_id']);
         }

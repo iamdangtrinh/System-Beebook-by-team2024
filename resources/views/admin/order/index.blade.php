@@ -100,7 +100,7 @@
                                     <td>{{ $dateUpdate }}</td>
                                     <td>
                                         <span
-                                            class="label cus_tom_label rounded label-<?= $result->payment_status == 'PAID' ? 'primary' : 'warning' ?>">{{ $payment_status }}</span>
+                                            class="label cus_tom_label rounded label-<?= $result->payment_status == 'PAID' ? 'success' : 'warning' ?>">{{ $payment_status }}</span>
                                     </td>
                                     <td>
                                         <span class="label cus_tom_label">{{ $payment_method }}</span>
