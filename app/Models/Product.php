@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use SoftDeletes;
     use HasFactory;
     protected $table = 'products';
     protected $primaryKey = 'id';
@@ -48,6 +50,9 @@ class Product extends Model
     }
     public function comments() {
         return $this->hasMany(Comment::class, 'id_product', 'id');
+    }
+    public function billDetails() {
+        return $this->hasMany(BillDetailModel::class, 'id_product', 'id');
     }
     public function countComments() {
         return $this->comments()->count(); // Đếm số bình luận

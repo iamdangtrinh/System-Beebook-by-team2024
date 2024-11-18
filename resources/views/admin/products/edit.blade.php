@@ -1,4 +1,4 @@
-<title>@yield('title', 'Thêm sách')</title>
+<title>@yield('title', 'Sửa sách')</title>
 @extends('layout.admin')
 
 @section('body')
@@ -29,13 +29,14 @@
 <div class="row wrapper wrapper-content" style="padding: 20px 0 0 !important">
     <div class="ibox">
         <div class="ibox-content">
-            <form id="form" action="{{ route('product.store') }}" method="POST">
+            <form id="form" action="{{ route('adminproduct.update', $product->id) }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="form-group @error('name') has-error @enderror">
                             <label>Tên sách <span class="text-danger">*</span></label>
-                            <input id="name" name="name" type="text" class="form-control" value="{{ old('name') }}">
+                            <input id="name" name="name" type="text" class="form-control" value="{{ old('name', $product->name) }}">
                             @error('name')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -46,9 +47,8 @@
                             <label class="font-normal">Ngôn ngữ <span class="text-danger">*</span></label>
                             <div>
                                 <select data-placeholder="Chọn ngôn ngữ..." name="language" class="chosen-select" tabindex="2">
-                                    <option value="tieng-viet" {{ old('language') == 'tieng-viet' ? 'selected' : '' }}>Tiếng Việt</option>
-                                    <option value="tieng-anh" {{ old('language') == 'tieng-anh' ? 'selected' : '' }}>Tiếng Anh</option>
-                                    <!-- Continue for other language options -->
+                                <option value="tieng-viet" {{ old('language', $product->language) == 'tieng-viet' ? 'selected' : '' }}>Tiếng Việt</option>
+                                <option value="tieng-anh" {{ old('language', $product->language) == 'tieng-anh' ? 'selected' : '' }}>Tiếng Anh</option>
                                 </select>
                                 @error('language')
                                 <span class="text-danger">{{ $message }}</span>
@@ -178,7 +178,7 @@
                         </div>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-3">
                         <div class="i-checks">
                             <label>Hình thức</label> <br>
                             <label> <input type="radio" value="bia-cung" name="form" {{ old('form') == 'bia-cung' ? 'checked' : '' }}> <i></i> Bìa cứng </label>
@@ -186,11 +186,18 @@
                         </div>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-2">
                         <div class="i-checks">
                             <label>Hot</label> <br>
                             <label> <input type="radio" value="1" name="hot" {{ old('hot') == '1' ? 'checked' : '' }}> <i></i> Có </label>
                             <label> <input type="radio" value="0" name="hot" {{ old('hot',0) == '0' ? 'checked' : '' }}> <i></i> Không </label>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="i-checks">
+                            <label>Trạng thái</label> <br>
+                            <label> <input type="radio" value="active" name="status" checked=""> <i></i> Hiện </label>
+                            <label> <input type="radio" value="inactive" name="status"> <i></i> Ẩn </label>
                         </div>
                     </div>
                     <div class="col-4">
@@ -199,13 +206,6 @@
                             <input id="url_video" name="url_video" type="text" class="form-control">
                         </div>
                     </div>
-                    <!-- <div class="col-4">
-                        <div class="i-checks">
-                            <label>Trạng thái</label> <br>
-                            <label> <input type="radio" value="active" name="status" checked=""> <i></i> Hiện </label>
-                            <label> <input type="radio" value="inactive" name="status"> <i></i> Ẩn </label>
-                        </div>
-                    </div> -->
                     <div class="col-6">
                         <div class="form-group">
                             <label>Từ khóa chính</label>
