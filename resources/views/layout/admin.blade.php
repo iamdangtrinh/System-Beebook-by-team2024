@@ -15,7 +15,7 @@ $currentSegment = Request::segment(2);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Bee Book | @yield('title', "Quản trị")</title>
+    <title>Bee Book | @yield('title', 'Quản trị')</title>
 
     <link href="{{ asset('/') }}backend/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -24,7 +24,8 @@ $currentSegment = Request::segment(2);
     <link href="{{ asset('/') }}backend/css/style.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/custom.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="{{ asset('/') }}backend/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="{{ asset('/') }}backend/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css"
+        rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/plugins/dropzone/basic.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/plugins/dropzone/dropzone.css" rel="stylesheet">
@@ -49,22 +50,25 @@ $currentSegment = Request::segment(2);
                     <li class="active"><a href="{{ route('overview.index') }}"><i class="fa fa-th-large"></i> <span
                                 class="nav-label">Dashboards</span><span class="fa arrow"></span></a>
                     </li>
-                    <li class=""><a href="{{ route('order.index') }}"><i class="fa fa-th-large"></i> <span
+                    <li class=""><a href="{{ route('order.index') }}"><i class="fa fa-list"></i> <span
                                 class="nav-label">Đơn hàng</span></a>
                     </li>
                     <li class=""><a href="{{ route('adminproduct.index') }}"><i class="fa fa-book"></i> <span
                                 class="nav-label">Sách</span></a>
                     </li>
                     <li class=""><a href="{{ route('adminUser.index') }}"><i class="fa fa-user"></i> <span
-                        class="nav-label">Tài Khoản</span></a>
-            </li>
+                                class="nav-label">Tài Khoản</span></a>
+                    </li>
+                    <li class=""><a href="{{ route('adminUser.index') }}"><i class="fa fa-image"></i> <span
+                                class="nav-label">Quản lý banner</span></a>
+                    </li>
                 </ul>
             </div>
         </nav>
 
-        <div  id="page-wrapper" class="gray-bg sidebar-content" >
-            <div class="row border-bottom"  >
-                <nav class="navbar navbar-static-top white-bg" role="navigation" >
+        <div id="page-wrapper" class="gray-bg sidebar-content">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top white-bg" role="navigation">
                     <div class="navbar-header">
                         <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i
                                 class="fa fa-bars"></i> </a>
@@ -85,7 +89,8 @@ $currentSegment = Request::segment(2);
             </div>
 
             <div class="footer">
-                <a class="text-dark" href="https://www.facebook.com/profile.php?id=61566989045999">Được xây dựng bởi nhóm Bee Book 2024</a>
+                <a class="text-dark" href="https://www.facebook.com/profile.php?id=61566989045999">Được xây dựng bởi
+                    nhóm Bee Book 2024</a>
             </div>
         </div>
     </div>

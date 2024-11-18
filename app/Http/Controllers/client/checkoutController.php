@@ -29,9 +29,9 @@ class CheckoutController extends Controller
         $this->CheckoutRepository = $CheckoutRepository;
         $this->CartService = $CartService;
     }
-    public function ApplyCoupon()
+    public function ApplyCoupon(Request $request)
     {
-        dd('ok');
+        dd($request);
     }
     public function index()
     {

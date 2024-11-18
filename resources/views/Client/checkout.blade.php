@@ -74,12 +74,12 @@
     <!--End Page Title-->
 
     <div class="container">
-        <div class="row billing-fields">
-            {{--  đơn hàng --}}
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
-                <div class="checkout bg-light-gray padding-20px-all">
-                    <form action="{{ route('checkout.store') }}" method="post" id="formcheckout">
-                        @csrf
+        <form action="{{ route('checkout.store') }}" method="post" id="formcheckout">
+            @csrf
+            <div class="row billing-fields">
+                {{--  đơn hàng --}}
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
+                    <div class="checkout bg-light-gray padding-20px-all">
 
                         <h2 class="login-title mb-3">Chi tiết đơn hàng</h2>
 
@@ -157,123 +157,125 @@
                                 </div>
                             </div>
                         </fieldset>
-                </div>
-            </div>
-
-            {{-- đơn hàng --}}
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
-                <input type="hidden" name="shipping_method" value="GHN">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                    <h2 class="order-title">Đơn hàng của bạn</h2>
-                    <form id="formCouponCode" action="{{route('apply.coupon')}}" method="post">
-                        @csrf
-                    <div class="row mt-3 mb-3" >
-                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" >
-                            <input name="code" type="text" style="border:1px solid black; border-radius: 6px " placeholder="Mã giảm giá  ">
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" >
-                            <button type="submit"  class="btn">Áp dụng</button>
-                        </div>
                     </div>
-                  </form>
-                    <div class="your-order-payment">
-                        <div class="your-order">
-                            @php
-                                $subTotal = 0;
-                            @endphp
-                            <ul class="list_order">
-                                @foreach ($result as $product)
-                                    @php
-                                        $subTotal += $product['quantity'] * $product['price'];
-                                    @endphp
-                                    <li class="item_checkout mb-3 d-flex align-items-start">
+                </div>
 
-                                        @foreach ($product->cartProduct as $cartProduct)
-                                            <img class="__custom_image" width="80px"
-                                                src="{{ $cartProduct->image_cover ?? '/no_image.jpg' }}"
-                                                alt="{{ $cartProduct->name }}">
-                                            <p class="__name_product_checkout">
-                                                <strong>{{ $product['quantity'] }}</strong> x
-                                                <span class="w-75">{{ $cartProduct->name }}</span>
-                                            </p>
-                                        @endforeach
-                                        <span>{{ number_format($product['quantity'] * $product['price'], 0, '.', '.') }}
-                                            đ</span>
-
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-
-                        <div class="total">
-                            <div class="row border-bottom mb-3">
-                                <span class="col-12 col-sm-6 cart__subtotal-title">Tạm tính:</span>
-                                <span class="col-12 col-sm-6 text-right"><span data-sub-total="{{ $subTotal }}"
-                                        id="subTotal">{{ number_format($subTotal, '0', '.', '.') }} đ</span></span>
+                {{-- đơn hàng --}}
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
+                    <input type="hidden" name="shipping_method" value="GHN">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <h2 class="order-title">Đơn hàng của bạn</h2>
+                        <form id="formCouponCode" action="{{ route('apply.coupon') }}" method="post">
+                            @csrf
+                            <div class="row mt-3 mb-3">
+                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                    <input name="code" type="text" style="border:1px solid black; border-radius: 6px "
+                                        placeholder="Mã giảm giá  ">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                    <button type="button" class="btn">Áp dụng</button>
+                                </div>
                             </div>
-                            <div class="row border-bottom mb-3">
-                                <span class="col-12 col-sm-6 cart__subtotal-title">Phí vận chuyển:</span>
-                                <span class="col-12 col-sm-6 text-right"><span id="freeShipping">
-                                        @if ($subTotal < 1000000)
-                                            {{ env('fee_shipping') }} đ
-                                            @php
-                                                $subTotal += env('fee_shipping');
-                                            @endphp
-                                            <input type="hidden" name="fee_shipping" value="{{ env('fee_shipping') }}">
-                                        @else
-                                            <input type="hidden" name="fee_shipping" value="0">
-                                            Miễn phí vận chuyển
-                                        @endif
-                                    </span></span>
-                            </div>
-                            <div class="row border-bottom mb-3">
-                                <span class="col-12 col-sm-6 cart__subtotal-title">Tổng tiền:</span>
-                                <span class="col-12 col-sm-6 text-right"><span id="totalAmout">
-                                        {{ number_format($subTotal, '0', '.', '.') }} đ</span></span>
-                            </div>
-                        </div>
+                        </form>
+                        <div class="your-order-payment">
+                            <div class="your-order">
+                                @php
+                                    $subTotal = 0;
+                                @endphp
+                                <ul class="list_order">
+                                    @foreach ($result as $product)
+                                        @php
+                                            $subTotal += $product['quantity'] * $product['price'];
+                                        @endphp
+                                        <li class="item_checkout mb-3 d-flex align-items-start">
 
-                        <div class="your-payment">
-                            <h4 class="payment-title color-black mb-3">Phương thức thanh toán</h4>
-                            <div class="payment-method">
-                                <div class="payment-accordion">
-                                    <div id="accordion" class="payment-section">
-                                        @foreach (config('checkout.payment.paymentCheckout') as $method)
-                                            <div class="card mb-2">
-                                                <div class="card-header d-flex">
-                                                    <input type="radio"
-                                                        {{ $method['value'] == 'ONLINE_VALUE' ? 'checked' : '' }}
-                                                        id="{{ $method['value'] }}" name="payment_method"
-                                                        value="{{ $method['method'] }}" >
-                                                    <label for="{{ $method['value'] }}" class="mx-2 card-link w-100"
-                                                        data-bs-toggle="collapse" href="#{{ $method['method'] }}"
-                                                        role="button" aria-expanded="false"
-                                                        aria-controls="{{ $method['method'] }}">
-                                                        {{ $method['title'] }}
-                                                    </label>
-                                                </div>
-                                                <div id="{{ $method['method'] }}" class="collapse"
-                                                    data-bs-parent="#accordion">
-                                                    <div class="card-body">
-                                                        <p class="no-margin font-15">{{ $method['description'] }}</p>
+                                            @foreach ($product->cartProduct as $cartProduct)
+                                                <img class="__custom_image" width="80px"
+                                                    src="{{ $cartProduct->image_cover ?? '/no_image.jpg' }}"
+                                                    alt="{{ $cartProduct->name }}">
+                                                <p class="__name_product_checkout">
+                                                    <strong>{{ $product['quantity'] }}</strong> x
+                                                    <span class="w-75">{{ $cartProduct->name }}</span>
+                                                </p>
+                                            @endforeach
+                                            <span>{{ number_format($product['quantity'] * $product['price'], 0, '.', '.') }}
+                                                đ</span>
+
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            <div class="total">
+                                <div class="row border-bottom mb-3">
+                                    <span class="col-12 col-sm-6 cart__subtotal-title">Tạm tính:</span>
+                                    <span class="col-12 col-sm-6 text-right"><span data-sub-total="{{ $subTotal }}"
+                                            id="subTotal">{{ number_format($subTotal, '0', '.', '.') }} đ</span></span>
+                                </div>
+                                <div class="row border-bottom mb-3">
+                                    <span class="col-12 col-sm-6 cart__subtotal-title">Phí vận chuyển:</span>
+                                    <span class="col-12 col-sm-6 text-right"><span id="freeShipping">
+                                            @if ($subTotal < 1000000)
+                                                {{ env('fee_shipping') }} đ
+                                                @php
+                                                    $subTotal += env('fee_shipping');
+                                                @endphp
+                                                <input type="hidden" name="fee_shipping"
+                                                    value="{{ env('fee_shipping') }}">
+                                            @else
+                                                <input type="hidden" name="fee_shipping" value="0">
+                                                Miễn phí vận chuyển
+                                            @endif
+                                        </span></span>
+                                </div>
+                                <div class="row border-bottom mb-3">
+                                    <span class="col-12 col-sm-6 cart__subtotal-title">Tổng tiền:</span>
+                                    <span class="col-12 col-sm-6 text-right"><span id="totalAmout">
+                                            {{ number_format($subTotal, '0', '.', '.') }} đ</span></span>
+                                </div>
+                            </div>
+
+                            <div class="your-payment">
+                                <h4 class="payment-title color-black mb-3">Phương thức thanh toán</h4>
+                                <div class="payment-method">
+                                    <div class="payment-accordion">
+                                        <div id="accordion" class="payment-section">
+                                            @foreach (config('checkout.payment.paymentCheckout') as $method)
+                                                <div class="card mb-2">
+                                                    <div class="card-header d-flex">
+                                                        <input type="radio"
+                                                            {{ $method['value'] == 'ONLINE_VALUE' ? 'checked' : '' }}
+                                                            id="{{ $method['value'] }}" name="payment_method"
+                                                            value="{{ $method['method'] }}">
+                                                        <label for="{{ $method['value'] }}" class="mx-2 card-link w-100"
+                                                            data-bs-toggle="collapse" href="#{{ $method['method'] }}"
+                                                            role="button" aria-expanded="false"
+                                                            aria-controls="{{ $method['method'] }}">
+                                                            {{ $method['title'] }}
+                                                        </label>
+                                                    </div>
+                                                    <div id="{{ $method['method'] }}" class="collapse"
+                                                        data-bs-parent="#accordion">
+                                                        <div class="card-body">
+                                                            <p class="no-margin font-15">{{ $method['description'] }}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endforeach
+                                            @endforeach
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="order-button-payment">
-                                    <button class="btn w-100" value="submit_checkout" name="checkout"
-                                        type="submit">Tiến hành thanh
-                                        toán</button>
-                                    </form>
+                                    <div class="order-button-payment">
+                                        <button class="btn w-100" value="submit_checkout" name="checkout"
+                                            type="submit">Tiến hành thanh
+                                            toán</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
     <!--Scoll Top-->
     <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
@@ -286,12 +288,12 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-         function submitCouponCode(event) {
-        event.preventDefault(); // Ngăn chặn việc gửi form cha
-        const couponForm = document.getElementById('formCouponCode');
-        // Sử dụng JavaScript để submit form con
-        couponForm.submit();
-    }
+        function submitCouponCode(event) {
+            event.preventDefault(); // Ngăn chặn việc gửi form cha
+            const couponForm = document.getElementById('formCouponCode');
+            // Sử dụng JavaScript để submit form con
+            couponForm.submit();
+        }
     </script>
-    
+
 @endsection
