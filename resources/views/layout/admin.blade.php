@@ -50,6 +50,9 @@ $currentSegment = Request::segment(2);
                     <li class="active"><a href="{{ route('overview.index') }}"><i class="fa fa-th-large"></i> <span
                                 class="nav-label">Dashboards</span><span class="fa arrow"></span></a>
                     </li>
+                    <li class=""><a href="{{ route('adminCategory.index') }}"><i class="fa fa-list"></i> <span
+                        class="nav-label">Danh mục</span></a>
+            </li>
                     <li class=""><a href="{{ route('order.index') }}"><i class="fa fa-list"></i> <span
                                 class="nav-label">Đơn hàng</span></a>
                     </li>
