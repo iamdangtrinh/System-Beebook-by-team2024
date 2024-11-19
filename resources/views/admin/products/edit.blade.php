@@ -63,7 +63,7 @@
                             <div>
                                 <select data-placeholder="Chọn tác giả..." name="id_author" class="chosen-select" tabindex="2">
                                     @foreach($authors as $author)
-                                    <option value="{{ $author->id }}" {{ old('id_author') == $author->id ? 'selected' : '' }}>{{ $author->name }}</option>
+                                    <option value="{{ $author->id }}" {{ old('id_author', $product->id_author) == $author->id ? 'selected' : '' }}>{{ $author->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('id_author')
@@ -76,7 +76,7 @@
                     <div class="col-4">
                         <div class="form-group @error('slug') has-error @enderror">
                             <label>Slug <span class="text-danger">*</span></label>
-                            <input id="slug" name="slug" type="text" class="form-control" placeholder="ten-san-pham" value="{{ old('slug') }}">
+                            <input id="slug" name="slug" type="text" class="form-control" placeholder="ten-san-pham" value="{{ old('slug', $product->slug) }}">
                             @error('slug')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -86,7 +86,7 @@
                     <div class="col-2">
                         <div class="form-group @error('quantity') has-error @enderror">
                             <label>Số lượng <span class="text-danger">*</span></label>
-                            <input id="quantity" name="quantity" value="{{ old('quantity', 0) }}" type="number" class="form-control required">
+                            <input id="quantity" name="quantity" value="{{ old('quantity', $product->quantity) }}" type="number" class="form-control required">
                             @error('quantity')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -98,7 +98,7 @@
                             <div>
                                 <select data-placeholder="Chọn danh mục..." name="id_category" class="chosen-select" tabindex="2">
                                     @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" {{ old('id_category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}" {{ old('id_category', $product->id_category) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('id_category')
@@ -114,7 +114,7 @@
                             <div>
                                 <select data-placeholder="Chọn ngôn ngữ..." name="id_manufacturer" class="chosen-select" tabindex="2">
                                     @foreach($manufacturers as $manufacturer)
-                                    <option value="{{ $manufacturer->id }}" {{ old('id_manufacturer') == $manufacturer->id ? 'selected' : '' }}>{{ $manufacturer->name }}</option>
+                                    <option value="{{ $manufacturer->id }}" {{ old('id_manufacturer', $product->id_manufacturer) == $manufacturer->id ? 'selected' : '' }}>{{ $manufacturer->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('id_manufacturer')
@@ -128,9 +128,9 @@
                             <label class="font-normal">Người dịch</label>
                             <div>
                                 <select data-placeholder="Chọn người dịch..." name="id_translator" class="chosen-select" tabindex="2">
-                                    <option value="" {{ !old('id_translator') ? 'selected' : '' }}>Chọn người dịch</option>
+                                    <option value="" {{ !old('id_translator', $product->id_translator) ? 'selected' : '' }}>Chọn người dịch</option>
                                     @foreach($translators as $translator)
-                                    <option value="{{ $translator->id }}" {{ old('id_translator') == $translator->id ? 'selected' : '' }}>
+                                    <option value="{{ $translator->id }}" {{ old('id_translator', $product->id_translator) == $translator->id ? 'selected' : '' }}>
                                         {{ $translator->name }}
                                     </option>
                                     @endforeach
@@ -153,7 +153,7 @@
                     <div class="col-4">
                         <div class="form-group @error('price_sale') has-error @enderror">
                             <label>Giá giảm</label>
-                            <input id="price_sale" name="price_sale" type="number" class="form-control" value="{{ old('price_sale') }}">
+                            <input id="price_sale" name="price_sale" type="number" class="form-control" value="{{ old('price_sale', $product->price_sale) }}">
                             @error('price_sale')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -162,7 +162,7 @@
                     <div class="col-2">
                         <div class="form-group  @error('weight') has-error @enderror">
                             <label>Cân nặng (g) <span class="text-danger">*</span></label>
-                            <input id="weight" name="weight" value="{{ old('weight') }}" type="number" class="form-control required">
+                            <input id="weight" name="weight" value="{{ old('weight',$product->weight) }}" type="number" class="form-control required">
                             @error('weight')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -171,7 +171,7 @@
                     <div class="col-2">
                         <div class="form-group @error('year') has-error @enderror">
                             <label>Năm xuất bản <span class="text-danger">*</span></label>
-                            <input id="year" name="year" value="{{ old('year') }}" type="number" class="form-control required">
+                            <input id="year" name="year" value="{{ old('year', $product->year) }}" type="number" class="form-control required">
                             @error('year')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -181,50 +181,50 @@
                     <div class="col-3">
                         <div class="i-checks">
                             <label>Hình thức</label> <br>
-                            <label> <input type="radio" value="bia-cung" name="form" {{ old('form') == 'bia-cung' ? 'checked' : '' }}> <i></i> Bìa cứng </label>
-                            <label> <input type="radio" value="bia-mem" name="form" {{ old('form') == 'bia-mem' ? 'checked' : '' }}> <i></i> Bìa mềm </label>
+                            <label> <input type="radio" value="bia-cung" name="form" {{ old( 'form' , $product->form) == 'bia-cung' ? 'checked' : '' }}> <i></i> Bìa cứng </label>
+                            <label> <input type="radio" value="bia-mem" name="form" {{ old( 'form' , $product->form) == 'bia-mem' ? 'checked' : '' }}> <i></i> Bìa mềm </label>
                         </div>
                     </div>
 
                     <div class="col-2">
                         <div class="i-checks">
                             <label>Hot</label> <br>
-                            <label> <input type="radio" value="1" name="hot" {{ old('hot') == '1' ? 'checked' : '' }}> <i></i> Có </label>
-                            <label> <input type="radio" value="0" name="hot" {{ old('hot',0) == '0' ? 'checked' : '' }}> <i></i> Không </label>
+                            <label> <input type="radio" value="1" name="hot" {{ old('hot' , $product->hot) == '1' ? 'checked' : '' }}> <i></i> Có </label>
+                            <label> <input type="radio" value="0" name="hot" {{ old('hot', $product->hot) == '0' ? 'checked' : '' }}> <i></i> Không </label>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="i-checks">
                             <label>Trạng thái</label> <br>
-                            <label> <input type="radio" value="active" name="status" checked=""> <i></i> Hiện </label>
-                            <label> <input type="radio" value="inactive" name="status"> <i></i> Ẩn </label>
+                            <label> <input type="radio" value="active" name="status" {{ old('status' , $product->status) == 'active' ? 'checked' : '' }} > <i></i> Hiện </label>
+                            <label> <input type="radio" value="inactive" name="status" {{ old('status' , $product->status) == 'inactive' ? 'checked' : '' }}> <i></i> Ẩn </label>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label>Link video sách</label>
-                            <input id="url_video" name="url_video" type="text" class="form-control">
+                            <input id="url_video" name="url_video" type="text" class="form-control" value="{{ old('url_video', $product->url_video) }}">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label>Từ khóa chính</label>
-                            <input id="meta_seo" name="meta_seo" type="text" class="form-control">
+                            <input id="meta_seo" name="meta_seo" type="text" class="form-control" value="{{ old('meta_seo', $product->meta_seo) }}">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label>Description SEO</label>
-                            <textarea id="description_seo" placeholder="(Không nhập sẽ tự động lấy phần đầu của description)" name="description_seo" class="form-control"></textarea>
+                            <textarea id="description_seo" placeholder="(Không nhập sẽ tự động lấy phần đầu của description)" name="description_seo" class="form-control">{{ old('description_seo', $product->description_seo) }}</textarea>
                         </div>
                     </div>
 
                     <div class="col-6">
                         <label>Ảnh chính</label>
                         <span class="image img-cover image-target">
-                            <img src="{{ old('image_cover') ? old('image_cover') : '/no_image.jpg' }}" class="img-fluid rounded-top" alt="" />
+                            <img src="{{ old('image_cover',$product->image_cover) ? old('image_cover',$product->image_cover) : '/no_image.jpg' }}" class="img-fluid rounded-top" alt="" />
                         </span>
-                        <input type="hidden" value="{{ old('image_cover') }}" name="image_cover" class="url_image">
+                        <input type="hidden" value="{{ old('image_cover', $product->image_cover) }}" name="image_cover" class="url_image">
                     </div>
 
                     <div class="col-6">
@@ -234,10 +234,10 @@
                             <!-- First image shown initially -->
                             <div class="col-3 mt-1 image-wrapper">
                                 <span class="image img-cover image-target" style="position: relative;">
-                                    <img src="{{ old('hinh1') ? old('hinh1') : '/no_image.jpg' }}" class="img-fluid rounded-top" alt="Ảnh phụ" />
+                                    <img src="{{ old('hinh1',$product->hinh1) ? old('hinh1',$product->hinh1) : '/no_image.jpg' }}" class="img-fluid rounded-top" alt="Ảnh phụ" />
                                 </span>
                                 <button type="button" class="btn btn-danger btn-sm remove-image mt-1">Xóa ảnh</button>
-                                <input type="hidden" value="{{ old('hinh1') }}" name="hinh1" class="url_image">
+                                <input type="hidden" value="{{ old('hinh1',$product->hinh1) }}" name="hinh1" class="url_image">
                             </div>
 
                             <!-- Additional images added dynamically based on old inputs -->
@@ -245,10 +245,10 @@
                                 @if(old("hinh$i"))
                                 <div class="col-3 mt-1 image-wrapper">
                                 <span class="image img-cover image-target" style="position: relative;">
-                                    <img src="{{ old("hinh$i", '/no_image.jpg') }}" class="img-fluid rounded-top main-image" alt="Ảnh phụ" />
+                                    <img src="{{ old("hinh$i" , $product->hinh$i) ? old("hinh$i",$product->hinh$i) : '/no_image.jpg' }}" class="img-fluid rounded-top main-image" alt="Ảnh phụ" />
                                 </span>
                                 <button type="button" class="btn btn-danger btn-sm remove-image mt-1">Xóa ảnh</button>
-                                <input type="hidden" value="{{ old("hinh$i") }}" name="hinh{{ $i }}" class="url_image">
+                                <input type="hidden" value="{{ old("hinh$i" , $product->hinh$i) }}" name="hinh{{ $i }}" class="url_image">
                         </div>
                         @endif
                         @endfor
@@ -260,7 +260,7 @@
                 <div class="col-12">
                     <div class="form-group @error('content') has-error @enderror">
                         <label>Description <span class="text-danger">*</span></label>
-                        <textarea name="content" id="content" class="content form-control" cols="30" rows="10">{{ old('content') }}</textarea>
+                        <textarea name="content" id="content" class="content form-control" cols="30" rows="10">{{ old('content', $product->description) }}</textarea>
                         @error('content')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -268,8 +268,7 @@
                 </div>
 
                 <div class="col-12 mt-3">
-                    <button name="status" value="draft" class="btn btn-default">Lưu nháp</button>
-                    <button name="status" value="active" class="btn btn-success">Lưu</button>
+                    <button class="btn btn-success">Lưu</button>
                 </div>
         </div>
         </form>
