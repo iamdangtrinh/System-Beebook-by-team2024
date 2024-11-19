@@ -48,17 +48,21 @@ class Product extends Model
     {
         return $this->belongsTo(CategoryProduct::class, 'id_category', 'id');
     }
-    public function comments() {
+    public function comments()
+    {
         return $this->hasMany(Comment::class, 'id_product', 'id');
     }
-    public function billDetails() {
+    public function billDetails()
+    {
         return $this->hasMany(BillDetailModel::class, 'id_product', 'id');
     }
-    public function countComments() {
+    public function countComments()
+    {
         return $this->comments()->count(); // Đếm số bình luận
     }
 
-    public function averageRating() {
+    public function averageRating()
+    {
         return $this->comments()->avg('rating'); // Tính trung bình rating
     }
     public function author()
@@ -81,5 +85,9 @@ class Product extends Model
         }
 
         return $user->favorite()->where('id_product', $this->id)->exists();
+    }
+    public function metas()
+    {
+        return $this->hasMany(ProductMeta::class, 'id_product', 'id');
     }
 }

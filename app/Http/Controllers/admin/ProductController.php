@@ -58,8 +58,22 @@ class ProductController extends Controller
         $authors = Taxonomy::where('type', 'author')->get();
         $translators = Taxonomy::where('type', 'translator')->get();
         $manufacturers = Taxonomy::where('type', 'manufacturer')->get();
+        $images = [];
+        for ($i = 1; $i <= 8; $i++) {
+            $key = "hinh$i";
+            // Check if there's a value in old input or database, and stop if null is encountered
+            $image = old($key, $dbImages[$key] ?? null);
+
+            if ($image === null) {
+                break; // Exit the loop if no image is found
+            }
+
+            $images[$key] = $image; // Store the image if it's not null
+        }
+        // dd($images);
         return view('admin.products.add', compact([
             'categories',
+            'images',
             'authors',
             'translators',
             'manufacturers',
@@ -207,8 +221,35 @@ class ProductController extends Controller
         $authors = Taxonomy::where('type', 'author')->get();
         $translators = Taxonomy::where('type', 'translator')->get();
         $manufacturers = Taxonomy::where('type', 'manufacturer')->get();
+        // Fetch images in the order of hinh1, hinh2, ...
+        // Fetch images from the database
+        $form = ProductMeta::where('id_product', $id)
+        ->where('product_key', 'form')
+        ->first();
+        $dbImages = ProductMeta::where('id_product', $id)
+            ->where('product_key', 'like', 'hinh%')
+            ->orderByRaw("CAST(SUBSTRING(product_key, 5) AS UNSIGNED)") // Sort by hinhX numerically
+            ->pluck('product_value', 'product_key')
+            ->toArray();
+
+        // Prepare images: prioritize old() values, fallback to database values
+        $images = [];
+        for ($i = 1; $i <= 8; $i++) {
+            $key = "hinh$i";
+            // Check if there's a value in old input or database, and stop if null is encountered
+            $image = old($key, $dbImages[$key] ?? null);
+
+            if ($image === null) {
+                break; // Exit the loop if no image is found
+            }
+
+            $images[$key] = $image; // Store the image if it's not null
+        }
+        // dd($form);
         return view('admin.products.edit', compact([
             'product',
+            'images',
+            'form',
             'categories',
             'authors',
             'translators',

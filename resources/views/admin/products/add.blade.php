@@ -196,7 +196,7 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label>Link video sách</label>
-                            <input id="url_video" name="url_video" type="text" class="form-control">
+                            <input id="url_video" name="url_video" type="text" class="form-control" value="{{ old('url_video') }}">
                         </div>
                     </div>
                     <!-- <div class="col-4">
@@ -209,20 +209,20 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label>Từ khóa chính</label>
-                            <input id="meta_seo" name="meta_seo" type="text" class="form-control">
+                            <input id="meta_seo" name="meta_seo" type="text" class="form-control" value="{{ old('meta_seo') }}">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label>Description SEO</label>
-                            <textarea id="description_seo" placeholder="(Không nhập sẽ tự động lấy phần đầu của description)" name="description_seo" class="form-control"></textarea>
+                            <textarea id="description_seo" placeholder="(Không nhập sẽ tự động lấy phần đầu của description)" name="description_seo" class="form-control">{{ old('meta_seo') }}</textarea>
                         </div>
                     </div>
 
                     <div class="col-6">
                         <label>Ảnh chính</label>
                         <span class="image img-cover image-target">
-                            <img src="{{ old('image_cover') ? old('image_cover') : '/no_image.jpg' }}" class="img-fluid rounded-top" alt="" />
+                            <img src="/{{ old('image_cover') ? old('image_cover') : 'no_image.jpg' }}" class="img-fluid rounded-top" alt="" />
                         </span>
                         <input type="hidden" value="{{ old('image_cover') }}" name="image_cover" class="url_image">
                     </div>
@@ -231,52 +231,47 @@
                         <label>Ảnh phụ</label><br>
                         <button type="button" class="btn btn-success my-2" id="add-image">Thêm ảnh</button>
                         <div class="row" id="image-container">
-                            <!-- First image shown initially -->
+                            @foreach ($images as $key => $image)
                             <div class="col-3 mt-1 image-wrapper">
                                 <span class="image img-cover image-target" style="position: relative;">
-                                    <img src="{{ old('hinh1') ? old('hinh1') : '/no_image.jpg' }}" class="img-fluid rounded-top" alt="Ảnh phụ" />
+                                    <img
+                                        src="/{{ $image ?: 'no_image.jpg' }}"
+                                        class="img-fluid rounded-top"
+                                        alt="Ảnh phụ" style="height: 120px; object-fit: contain;" />
                                 </span>
                                 <button type="button" class="btn btn-danger btn-sm remove-image mt-1">Xóa ảnh</button>
-                                <input type="hidden" value="{{ old('hinh1') }}" name="hinh1" class="url_image">
+                                <input
+                                    type="hidden"
+                                    value="{{ $image }}"
+                                    name="{{ $key }}"
+                                    class="url_image">
                             </div>
-
-                            <!-- Additional images added dynamically based on old inputs -->
-                            @for ($i = 2; $i <= 8; $i++)
-                                @if(old("hinh$i"))
-                                <div class="col-3 mt-1 image-wrapper">
-                                <span class="image img-cover image-target" style="position: relative;">
-                                    <img src="{{ old("hinh$i", '/no_image.jpg') }}" class="img-fluid rounded-top main-image" alt="Ảnh phụ" />
-                                </span>
-                                <button type="button" class="btn btn-danger btn-sm remove-image mt-1">Xóa ảnh</button>
-                                <input type="hidden" value="{{ old("hinh$i") }}" name="hinh{{ $i }}" class="url_image">
+                            @endforeach
                         </div>
-                        @endif
-                        @endfor
+                    </div>
+
+
+                    <!-- Description and Submit Button -->
+                    <div class="col-12">
+                        <div class="form-group @error('content') has-error @enderror">
+                            <label>Description <span class="text-danger">*</span></label>
+                            <textarea name="content" id="content" class="content form-control" cols="30" rows="10">{{ old('content') }}</textarea>
+                            @error('content')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-3">
+                        <button name="status" value="draft" class="btn btn-default">Lưu nháp</button>
+                        <button name="status" value="active" class="btn btn-success">Lưu</button>
                     </div>
                 </div>
+            </form>
 
 
-                <!-- Description and Submit Button -->
-                <div class="col-12">
-                    <div class="form-group @error('content') has-error @enderror">
-                        <label>Description <span class="text-danger">*</span></label>
-                        <textarea name="content" id="content" class="content form-control" cols="30" rows="10">{{ old('content') }}</textarea>
-                        @error('content')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="col-12 mt-3">
-                    <button name="status" value="draft" class="btn btn-default">Lưu nháp</button>
-                    <button name="status" value="active" class="btn btn-success">Lưu</button>
-                </div>
         </div>
-        </form>
-
-
     </div>
-</div>
 </div>
 <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
 
@@ -362,12 +357,12 @@
                 const newImageDiv = document.createElement('div');
                 newImageDiv.classList.add('col-3', 'mt-1', 'image-wrapper');
                 newImageDiv.innerHTML = `
-            <span class="image img-cover image-target" style="position: relative;">
-                <img src="/no_image.jpg" class="img-fluid rounded-top main-image" alt="Ảnh phụ" />
-            </span>
-            <button type="button" class="btn btn-danger btn-sm remove-image mt-1">Xóa ảnh</button>
-            <input type="hidden" value="" name="hinh${imageCount}" class="url_image">
-        `;
+        <span class="image img-cover image-target" style="position: relative;">
+            <img src="/no_image.jpg" class="img-fluid rounded-top main-image" alt="Ảnh phụ" style="height: 120px; object-fit: contain;" />
+        </span>
+        <button type="button" class="btn btn-danger btn-sm remove-image mt-1">Xóa ảnh</button>
+        <input type="hidden" value="" name="hinh${imageCount}" class="url_image">
+    `;
 
                 // Add new image container to the container
                 imageContainer.appendChild(newImageDiv);
@@ -376,12 +371,7 @@
                 newImageDiv.querySelector('.remove-image').addEventListener('click', function() {
                     newImageDiv.remove(); // Remove image container
                     imageCount--; // Decrease image count
-
-                    // Adjust remaining image input names to avoid gaps
-                    const imageWrappers = imageContainer.querySelectorAll('.image-wrapper');
-                    imageWrappers.forEach((wrapper, index) => {
-                        wrapper.querySelector('.url_image').name = `hinh${index + 1}`;
-                    });
+                    updateImageNames(); // Update image names after removal
                 });
             } else {
                 toastr.error('Đã đạt đến giới hạn tối đa 8 ảnh.');
@@ -394,14 +384,17 @@
                 const imageWrapper = this.closest('.image-wrapper');
                 imageWrapper.remove(); // Remove image container
                 imageCount--; // Decrease image count
-
-                // Adjust remaining image input names to avoid gaps
-                const imageWrappers = document.getElementById('image-container').querySelectorAll('.image-wrapper');
-                imageWrappers.forEach((wrapper, index) => {
-                    wrapper.querySelector('.url_image').name = `hinh${index + 1}`;
-                });
+                updateImageNames(); // Update image names after removal
             });
         });
+
+        // Function to update image names after an image is removed
+        function updateImageNames() {
+            const imageWrappers = document.getElementById('image-container').querySelectorAll('.image-wrapper');
+            imageWrappers.forEach((wrapper, index) => {
+                wrapper.querySelector('.url_image').name = `hinh${index + 1}`;
+            });
+        }
         var editor_one = CodeMirror.fromTextArea(document.getElementById("code1"), {
             lineNumbers: true,
             matchBrackets: true

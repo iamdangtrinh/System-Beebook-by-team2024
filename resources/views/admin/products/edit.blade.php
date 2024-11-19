@@ -47,8 +47,8 @@
                             <label class="font-normal">Ngôn ngữ <span class="text-danger">*</span></label>
                             <div>
                                 <select data-placeholder="Chọn ngôn ngữ..." name="language" class="chosen-select" tabindex="2">
-                                <option value="tieng-viet" {{ old('language', $product->language) == 'tieng-viet' ? 'selected' : '' }}>Tiếng Việt</option>
-                                <option value="tieng-anh" {{ old('language', $product->language) == 'tieng-anh' ? 'selected' : '' }}>Tiếng Anh</option>
+                                    <option value="tieng-viet" {{ old('language', $product->language) == 'tieng-viet' ? 'selected' : '' }}>Tiếng Việt</option>
+                                    <option value="tieng-anh" {{ old('language', $product->language) == 'tieng-anh' ? 'selected' : '' }}>Tiếng Anh</option>
                                 </select>
                                 @error('language')
                                 <span class="text-danger">{{ $message }}</span>
@@ -143,7 +143,7 @@
                     <div class="col-4">
                         <div class="form-group @error('price') has-error @enderror">
                             <label>Giá <span class="text-danger">*</span></label>
-                            <input id="price" name="price" type="number" class="form-control required" value="{{ old('price') }}">
+                            <input id="price" name="price" type="number" class="form-control required" value="{{ old('price', $product->price) }}">
                             @error('price')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -181,8 +181,27 @@
                     <div class="col-3">
                         <div class="i-checks">
                             <label>Hình thức</label> <br>
-                            <label> <input type="radio" value="bia-cung" name="form" {{ old( 'form' , $product->form) == 'bia-cung' ? 'checked' : '' }}> <i></i> Bìa cứng </label>
-                            <label> <input type="radio" value="bia-mem" name="form" {{ old( 'form' , $product->form) == 'bia-mem' ? 'checked' : '' }}> <i></i> Bìa mềm </label>
+                            @if($form)
+                            <label>
+                                <input type="radio" value="bia-cung" name="form" {{ old('form', $form->product_value) == 'bia-cung' ? 'checked' : '' }}>
+                                <i></i> Bìa cứng
+                            </label>
+                            <label>
+                                <input type="radio" value="bia-mem" name="form" {{ old('form', $form->product_value) == 'bia-mem' ? 'checked' : '' }}>
+                                <i></i> Bìa mềm
+                            </label>
+                            @else
+                            <label>
+                                <input type="radio" value="bia-cung" name="form" {{ old('form') == 'bia-cung' ? 'checked' : '' }}>
+                                <i></i> Bìa cứng
+                            </label>
+                            <label>
+                                <input type="radio" value="bia-mem" name="form" {{ old('form') == 'bia-mem' ? 'checked' : '' }}>
+                                <i></i> Bìa mềm
+                            </label>
+                            @endif
+
+
                         </div>
                     </div>
 
@@ -196,7 +215,7 @@
                     <div class="col-3">
                         <div class="i-checks">
                             <label>Trạng thái</label> <br>
-                            <label> <input type="radio" value="active" name="status" {{ old('status' , $product->status) == 'active' ? 'checked' : '' }} > <i></i> Hiện </label>
+                            <label> <input type="radio" value="active" name="status" {{ old('status' , $product->status) == 'active' ? 'checked' : '' }}> <i></i> Hiện </label>
                             <label> <input type="radio" value="inactive" name="status" {{ old('status' , $product->status) == 'inactive' ? 'checked' : '' }}> <i></i> Ẩn </label>
                         </div>
                     </div>
@@ -222,7 +241,7 @@
                     <div class="col-6">
                         <label>Ảnh chính</label>
                         <span class="image img-cover image-target">
-                            <img src="{{ old('image_cover',$product->image_cover) ? old('image_cover',$product->image_cover) : '/no_image.jpg' }}" class="img-fluid rounded-top" alt="" />
+                            <img src="/{{ old('image_cover',$product->image_cover) ? old('image_cover',$product->image_cover) : 'no_image.jpg' }}" class="img-fluid rounded-top" alt="" />
                         </span>
                         <input type="hidden" value="{{ old('image_cover', $product->image_cover) }}" name="image_cover" class="url_image">
                     </div>
@@ -231,51 +250,45 @@
                         <label>Ảnh phụ</label><br>
                         <button type="button" class="btn btn-success my-2" id="add-image">Thêm ảnh</button>
                         <div class="row" id="image-container">
-                            <!-- First image shown initially -->
+                            @foreach ($images as $key => $image)
                             <div class="col-3 mt-1 image-wrapper">
                                 <span class="image img-cover image-target" style="position: relative;">
-                                    <img src="{{ old('hinh1',$product->hinh1) ? old('hinh1',$product->hinh1) : '/no_image.jpg' }}" class="img-fluid rounded-top" alt="Ảnh phụ" />
+                                    <img
+                                        src="/{{ $image ?: 'no_image.jpg' }}"
+                                        class="img-fluid rounded-top"
+                                        alt="Ảnh phụ" style="height: 120px; object-fit: contain;" />
                                 </span>
                                 <button type="button" class="btn btn-danger btn-sm remove-image mt-1">Xóa ảnh</button>
-                                <input type="hidden" value="{{ old('hinh1',$product->hinh1) }}" name="hinh1" class="url_image">
+                                <input
+                                    type="hidden"
+                                    value="{{ $image }}"
+                                    name="{{ $key }}"
+                                    class="url_image">
                             </div>
-
-                            <!-- Additional images added dynamically based on old inputs -->
-                            @for ($i = 2; $i <= 8; $i++)
-                                @if(old("hinh$i"))
-                                <div class="col-3 mt-1 image-wrapper">
-                                <span class="image img-cover image-target" style="position: relative;">
-                                    <img src="{{ old("hinh$i" , $product->hinh$i) ? old("hinh$i",$product->hinh$i) : '/no_image.jpg' }}" class="img-fluid rounded-top main-image" alt="Ảnh phụ" />
-                                </span>
-                                <button type="button" class="btn btn-danger btn-sm remove-image mt-1">Xóa ảnh</button>
-                                <input type="hidden" value="{{ old("hinh$i" , $product->hinh$i) }}" name="hinh{{ $i }}" class="url_image">
+                            @endforeach
                         </div>
-                        @endif
-                        @endfor
+                    </div>
+
+
+
+                    <!-- Description and Submit Button -->
+                    <div class="col-12">
+                        <div class="form-group @error('content') has-error @enderror">
+                            <label>Description <span class="text-danger">*</span></label>
+                            <textarea name="content" id="content" class="content form-control" cols="30" rows="10">{{ old('content', $product->description) }}</textarea>
+                            @error('content')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-3">
+                        <button class="btn btn-success">Lưu</button>
                     </div>
                 </div>
-
-
-                <!-- Description and Submit Button -->
-                <div class="col-12">
-                    <div class="form-group @error('content') has-error @enderror">
-                        <label>Description <span class="text-danger">*</span></label>
-                        <textarea name="content" id="content" class="content form-control" cols="30" rows="10">{{ old('content', $product->description) }}</textarea>
-                        @error('content')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="col-12 mt-3">
-                    <button class="btn btn-success">Lưu</button>
-                </div>
+            </form>
         </div>
-        </form>
-
-
     </div>
-</div>
 </div>
 <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
 
@@ -361,12 +374,12 @@
                 const newImageDiv = document.createElement('div');
                 newImageDiv.classList.add('col-3', 'mt-1', 'image-wrapper');
                 newImageDiv.innerHTML = `
-            <span class="image img-cover image-target" style="position: relative;">
-                <img src="/no_image.jpg" class="img-fluid rounded-top main-image" alt="Ảnh phụ" />
-            </span>
-            <button type="button" class="btn btn-danger btn-sm remove-image mt-1">Xóa ảnh</button>
-            <input type="hidden" value="" name="hinh${imageCount}" class="url_image">
-        `;
+        <span class="image img-cover image-target" style="position: relative;">
+            <img src="/no_image.jpg" class="img-fluid rounded-top main-image" alt="Ảnh phụ" style="height: 120px; object-fit: contain;" />
+        </span>
+        <button type="button" class="btn btn-danger btn-sm remove-image mt-1">Xóa ảnh</button>
+        <input type="hidden" value="" name="hinh${imageCount}" class="url_image">
+    `;
 
                 // Add new image container to the container
                 imageContainer.appendChild(newImageDiv);
@@ -375,12 +388,7 @@
                 newImageDiv.querySelector('.remove-image').addEventListener('click', function() {
                     newImageDiv.remove(); // Remove image container
                     imageCount--; // Decrease image count
-
-                    // Adjust remaining image input names to avoid gaps
-                    const imageWrappers = imageContainer.querySelectorAll('.image-wrapper');
-                    imageWrappers.forEach((wrapper, index) => {
-                        wrapper.querySelector('.url_image').name = `hinh${index + 1}`;
-                    });
+                    updateImageNames(); // Update image names after removal
                 });
             } else {
                 toastr.error('Đã đạt đến giới hạn tối đa 8 ảnh.');
@@ -393,14 +401,17 @@
                 const imageWrapper = this.closest('.image-wrapper');
                 imageWrapper.remove(); // Remove image container
                 imageCount--; // Decrease image count
-
-                // Adjust remaining image input names to avoid gaps
-                const imageWrappers = document.getElementById('image-container').querySelectorAll('.image-wrapper');
-                imageWrappers.forEach((wrapper, index) => {
-                    wrapper.querySelector('.url_image').name = `hinh${index + 1}`;
-                });
+                updateImageNames(); // Update image names after removal
             });
         });
+
+        // Function to update image names after an image is removed
+        function updateImageNames() {
+            const imageWrappers = document.getElementById('image-container').querySelectorAll('.image-wrapper');
+            imageWrappers.forEach((wrapper, index) => {
+                wrapper.querySelector('.url_image').name = `hinh${index + 1}`;
+            });
+        }
         var editor_one = CodeMirror.fromTextArea(document.getElementById("code1"), {
             lineNumbers: true,
             matchBrackets: true
