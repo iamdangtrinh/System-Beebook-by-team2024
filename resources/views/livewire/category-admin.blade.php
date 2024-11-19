@@ -151,7 +151,7 @@
                 @if (count($getAllCategory) === 0)
                 <div class="d-flex flex-column" >
                     <img style="height: 200px; object-fit: contain" src='/client/images/manager-user/no-data.webp' alt="">
-                    <p class="text-center" style="font-size:1rem " >Không tồn tại tài khoản</p>
+                    <p class="text-center" style="font-size:1rem " >Không tồn tại danh mục</p>
                 </div>
                 @endif
             </div>
