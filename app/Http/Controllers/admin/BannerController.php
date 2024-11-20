@@ -17,7 +17,7 @@ class BannerController extends Controller
     {
         // hiển thị danh sách banner
 
-        $results = BannerModel::orderBy('id', 'desc')->paginate('20');
+        $results = BannerModel::orderBy('id', 'desc')->paginate('10');
         return view('admin.banner.index', compact(['results']));
     }
 

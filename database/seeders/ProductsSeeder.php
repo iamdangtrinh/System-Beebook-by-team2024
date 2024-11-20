@@ -106,14 +106,11 @@ class ProductsSeeder extends Seeder
                             // Lấy và tải xuống hình ảnh bổ sung từ phần tử lightgallery-product-media
                             $extraImages = $this->fetchAndDownloadGalleryImages($slug);
                             if ($extraImages) {
-                                // Insert each image with a dynamic product_key (hinh1, hinh2, ...)
-                                foreach ($extraImages as $index => $image) {
-                                    DB::table('product_meta')->insert([
-                                        'id_product' => $productId,
-                                        'product_key' => 'hinh' . ($index + 1), // Dynamic key: hinh1, hinh2, ...
-                                        'product_value' => $image,             // Corresponding image URL or path
-                                    ]);
-                                }
+                                DB::table('product_meta')->insert([
+                                    'id_product' => $productId,
+                                    'product_key' => 'thumbnail',
+                                    'product_value' => implode(',', $extraImages),
+                                ]);
                             }
                         }
                     } else {

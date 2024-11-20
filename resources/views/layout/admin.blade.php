@@ -95,10 +95,10 @@ $currentSegment = Request::segment(2);
                 @yield('body')
             </div>
 
-            <div class="footer mt-3">
+            {{-- <div class="footer mt-3">
                 <a class="text-dark" href="https://www.facebook.com/profile.php?id=61566989045999">Được xây dựng bởi
                     nhóm Bee Book 2024</a>
-            </div>
+            </div> --}}
         </div>
     </div>
 
