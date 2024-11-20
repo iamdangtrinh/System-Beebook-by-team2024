@@ -29,10 +29,19 @@
             <button class="btn btn-primary">Lưu thay đổi</button>
         </form> --}}
 
-        <form action="{{ route('admin.banner.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-xl-3">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-xl-3">
+                <form action="{{ route('admin.banner.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                                {{ $error }}
+                            @endforeach
+                        </div>
+                    @endif
+
                     <div class="product-gallery">
                         <label>Danh sách hình ảnh banner</label>
                         <div class="file-upload" id="gallery-upload">
@@ -50,49 +59,50 @@
                                 <option value="{{ $key }}">{{ $item }}</option>
                             @endforeach
                         </select>
-                    </div>
-                </div>
 
-
-                <div class="col-sm-12 col-md-12 col-xl-9">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <th>Hình ảnh</th>
-                                <th>Đường dẫn</th>
-                                <th>Trạng thái</th>
-                                <th>Thứ tự</th>
-                                <th>Hành động</th>
-                            </thead>
-                            <tbody>
-                                @foreach ($results as $item)
-                                    <tr>
-                                        <td><span class="d-block" style="width: 140px"><img class="w-100 rounded"
-                                                    src="{{ $item->image }}" alt="{{ $item->image }}"></span></td>
-                                        <td><span>{{ $item->text_link }}</span></td>
-                                        <td>
-                                            @if ($item->status == 'active')
-                                                <span class="badge badge-info">Đang hoạt động</span>
-                                            @elseif($item->status == 'inactive')
-                                                <span class="badge">Ngưng hoạt động</span>
-                                            @endif
-                                        </td>
-
-                                        <td><span>{{ $item->order }}</span></td>
-                                        <td>
-                                            <button class="btn btn-warning">Chỉnh sửa</button>
-                                            <button class="btn btn-danger">Xóa</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                        <button class="mt-3 btn btn-primary">Lưu thay đổi</button>
+                </form>
             </div>
+        </div>
 
-            <button class="btn btn-primary">Lưu thay đổi</button>
-        </form>
+        <div class="col-sm-12 col-md-12 col-xl-9">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <th>Hình ảnh</th>
+                        <th>Đường dẫn</th>
+                        <th>Trạng thái</th>
+                        <th>Thứ tự</th>
+                        <th>Hành động</th>
+                    </thead>
+                    <tbody>
+                        @foreach ($results as $item)
+                            <tr>
+                                <td><span class="d-block" style="width: 140px"><img class="w-100 rounded"
+                                            src="{{ $item->image }}" alt="{{ $item->image }}"></span></td>
+                                <td><span>{{ $item->text_link }}</span></td>
+                                <td>
+                                    @if ($item->status == 'active')
+                                        <span class="badge badge-info">Đang hoạt động</span>
+                                    @elseif($item->status == 'inactive')
+                                        <span class="badge">Ngưng hoạt động</span>
+                                    @endif
+                                </td>
+
+                                <td><span>{{ $item->order }}</span></td>
+                                <td>
+                                    <button class="btn btn-warning">Chỉnh sửa</button>
+                                    <button class="btn btn-danger">Xóa</button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
 
 
     </div>
