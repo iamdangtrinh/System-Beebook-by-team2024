@@ -35,7 +35,8 @@ Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index')-
 // admin
 Route::prefix('admin')->group(function () {
       Route::get('/order', [OrderController::class, 'index'])->name('order.index')->middleware('CheckAdmin');
-      Route::get('/order/{id}', [OrderController::class, 'edit'])->name('order.detail')->middleware('CheckAdmin');
+      Route::get('/order/{id}', [OrderController::class, 'edit'])->name('admin.order.detail')->middleware('CheckAdmin');
+      Route::post('/order/update', [OrderController::class, 'store'])->name('admin.order.store')->middleware('CheckAdmin');
 });
 
 // hiển thị qr thanh toán đơn hàng

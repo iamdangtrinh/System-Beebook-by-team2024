@@ -70,7 +70,15 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $payload = $request->except(['_token']);
+
+        BillModel::where('id', $payload['id'])
+            ->update([
+                'status' => $payload['status'],
+                'note_admin' => $payload['note_admin']
+            ]);
+
+        return redirect()->route('admin.order.detail', ['id' => $payload['id']])->with('success', 'Cập nhật đơn hàng thành công!');
     }
 
     /**

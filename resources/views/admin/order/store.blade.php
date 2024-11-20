@@ -9,10 +9,16 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xl-9">
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
                         <div class="card mt-3">
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
-                                    <h5 class="card-title flex-grow-1 mb-0">Đơn hàng</h5>
+                                    <h5 class="card-title flex-grow-1 mb-0">Thông tin sản phẩm</h5>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -145,8 +151,9 @@
                                         </table>
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-xl-6">
-                                        <form action="" method="post">
+                                        <form action="{{ route('admin.order.store') }}" method="post">
                                             @csrf
+                                            <input type="hidden" name="id" value="{{ $orderDetails->id }}">
                                             <div class="row ">
                                                 <div class="col-sm-12 col-md-6 col-xl-6">
                                                     <label style="padding-top: 8px" for="status">Cập nhật trạng thái đơn
@@ -156,7 +163,8 @@
                                                 <div class="col-sm-12 col-md-6 col-xl-6">
                                                     <select name="status" id="status" class="form-control setupSelect2">
                                                         @foreach (config('admin.order.statusOrder') as $key => $status)
-                                                            <option value="{{ $key }}">{{ $status }}
+                                                            <option {{ $orderDetails->status == $key ? 'selected' : '' }}
+                                                                value="{{ $key }}">{{ $status }}
                                                             </option>
                                                         @endforeach
                                                     </select>
