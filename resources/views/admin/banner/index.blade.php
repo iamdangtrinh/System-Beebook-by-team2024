@@ -25,22 +25,21 @@
                         <label>Danh sách hình ảnh banner</label>
                         <div class="file-upload" id="2gallery-upload">
                             <i class="fa fa-cloud-arrow-up"></i> <br> Thả hình ảnh vào đây hoặc bấm vào để tải lên.
-                            <input type="text" value="" name="image"
-                                class="url_image form-control">
+                            <input type="text" value="" name="image" class="url_image form-control">
                         </div>
                         <div class="mb-3" id="gallery-preview">
                         </div>
 
                         <label for="text_link">Nhập đường dẫn hình ảnh</label>
-                        <input type="text" id="text_link" name="text_link" class="mb-3 form-control"
-                            value="" placeholder="{{ env('APP_URL') }}">
+                        <input type="text" id="text_link" name="text_link" class="mb-3 form-control" value=""
+                            placeholder="{{ env('APP_URL') }}">
 
                         <select name="type" id="" class="mb-3 form-control setupSelect2">
                             @foreach (config('admin.dashboard.banner') as $key => $item)
                                 <option value="{{ $key }}"> {{ $item }}</option>
                             @endforeach
                         </select>
-                        <button class="mt-3 btn btn-primary">{{'Lưu thay đổi' }}</button>
+                        <button class="mt-3 btn btn-primary">{{ 'Lưu thay đổi' }}</button>
                 </form>
             </div>
         </div>
@@ -59,8 +58,8 @@
                         @foreach ($results as $item)
                             <tr>
                                 <td><span class="d-block" style="width: 140px; height: 100px;"><img
-                                            style=" object-fit: cover" class="w-100 h-100 rounded"
-                                            src="{{ $item->image }}" alt="{{ $item->image }}"></span></td>
+                                            style=" object-fit: cover" class="w-100 h-100 rounded" src="{{ $item->image }}"
+                                            alt="{{ $item->image }}"></span></td>
                                 <td><span>{{ $item->text_link }}</span></td>
                                 <td>
                                     @if ($item->status == 'active')

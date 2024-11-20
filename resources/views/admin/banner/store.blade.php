@@ -5,9 +5,10 @@
     <div class="container-fuild">
         <div class="row">
             <div class="col-sm-12 col-md-12 col-xl-3">
-                <form action="{{ route( $showBannerDetail ? 'admin.banner.update'  : 'admin.banner.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route($showBannerDetail ? 'admin.banner.update' : 'admin.banner.store') }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="id" value="{{$showBannerDetail ?  $showBannerDetail->id : '' }}">
+                    <input type="hidden" name="id" value="{{ $showBannerDetail ? $showBannerDetail->id : '' }}">
 
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -27,7 +28,8 @@
                         <label>Danh sách hình ảnh banner</label>
                         <div class="file-upload" id="2gallery-upload">
                             <i class="fa fa-cloud-arrow-up"></i> <br> Thả hình ảnh vào đây hoặc bấm vào để tải lên.
-                            <input type="hidden" value="{{ $showBannerDetail->image ?? "" }}" name="image" class="url_image form-control">
+                            <input type="hidden" value="{{ $showBannerDetail->image ?? '' }}" name="image"
+                                class="url_image form-control">
                         </div>
                         <div class="mb-3" id="gallery-preview">
                             @if ($showBannerDetail->image)
@@ -83,8 +85,10 @@
                                 <td><span>{{ $item->order }}</span></td>
                                 <td>
                                     <div class="btn-group gap-2 w-100 __custom_btn_group">
-                                        <a href="{{ route('admin.banner.detail', ['id' => $item->id]) }}" class="btn btn-sm btn-warning">Sửa</a>
-                                        <a href="{{ route('admin.banner.destroy', ['id' => $item->id]) }}" class="btn btn-sm btn-danger _deleteBanner">Xóa</a>
+                                        <a href="{{ route('admin.banner.detail', ['id' => $item->id]) }}"
+                                            class="btn btn-sm btn-warning">Sửa</a>
+                                        <a href="{{ route('admin.banner.destroy', ['id' => $item->id]) }}"
+                                            class="btn btn-sm btn-danger _deleteBanner">Xóa</a>
                                     </div>
                                 </td>
                             </tr>
