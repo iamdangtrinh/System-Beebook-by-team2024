@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BannerRequest;
 use App\Models\BannerModel;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,10 @@ class BannerController extends Controller
     public function index()
     {
         // hiển thị danh sách banner
-        return view('admin.banner.index');
+
+        $results = BannerModel::get();
+
+        return view('admin.banner.index', compact(['results']));
     }
 
     /**
@@ -28,7 +32,7 @@ class BannerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BannerRequest $request)
     {
         $payload = $request->except(['_token']);
         $payload['order'] = 0;

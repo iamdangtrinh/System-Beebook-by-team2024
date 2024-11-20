@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Models\BannerModel;
 use App\Models\BlogModel;
 use App\Models\Product;
 use App\Models\CategoryProduct;
@@ -10,25 +11,28 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    
+
     public function home()
     {
         $categories = CategoryProduct::get();
         $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
         $saleProducts = Product::whereNotNull('price_sale')->inRandomOrder()->limit(8)->get();
         $blogs = BlogModel::inRandomOrder()->limit(value: 8)->get();
+
+        $bannerMain = BannerModel::where('type', '=', 'banner')->where('status', 'active')->get();
         return view('Client.home', data: compact([
             'hotProducts',
             'categories',
             'saleProducts',
-            'blogs'
+            'blogs',
+            'bannerMain'
         ]));
     }
     public function shop()
     {
         return view('Client.shop');
     }
-    
+
     public function blog()
     {
         return view('Client.blog');
@@ -49,6 +53,4 @@ class ClientController extends Controller
     {
         return view('Client.shortdescription');
     }
-
-    
 }
