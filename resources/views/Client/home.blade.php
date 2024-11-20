@@ -11,18 +11,13 @@
                     <div class="col-xl-8 col-md-12 col-12">
                         <div class="swiper mySwiper">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="https://cdn0.fahasa.com/media/magentothem/banner7/Banner2_9_0924_840x320.jpg"
-                                        alt="Banner 1">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://cdn0.fahasa.com/media/magentothem/banner7/MCbooks_KC_Slide_840x320.jpg"
-                                        alt="Banner 2">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://cdn0.fahasa.com/media/magentothem/banner7/Resize_TrangDoiTacThang09_SlideBanner_840x320.jpg"
-                                        alt="Banner 3">
-                                </div>
+                                @foreach ($bannerMain as $item)
+                                    <div class="swiper-slide">
+                                        <a href="{{ $item->text_link }}">
+                                            <img src="{{ $item->image }}" alt="{{ $item->image }}">
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
                             <div class="swiper-pagination"></div>
                         </div>
@@ -100,7 +95,8 @@
                                                         <div class="button-set">
                                                             <div class="wishlist-btn">
                                                                 @if (!auth()->check())
-                                                                    <a class="wishlist" href="{{ route('wishlist.index') }}"
+                                                                    <a class="wishlist"
+                                                                        href="{{ route('wishlist.index') }}"
                                                                         title="Thêm vào yêu thích"><i
                                                                             class="icon anm anm-heart-l"></i></a>
                                                                 @elseif($product->isFavoritedByUser())

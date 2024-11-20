@@ -14,7 +14,10 @@ class BannerController extends Controller
     public function index()
     {
         // hiển thị danh sách banner
-        return view('admin.banner.index');
+
+        $results = BannerModel::get();
+
+        return view('admin.banner.index', compact(['results']));
     }
 
     /**

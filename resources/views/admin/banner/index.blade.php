@@ -32,30 +32,63 @@
         <form action="{{ route('admin.banner.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
-                <div class="col-sm-12 col-md-12 col-xl-6">
+                <div class="col-sm-12 col-md-12 col-xl-3">
                     <div class="product-gallery">
                         <label>Danh sách hình ảnh banner</label>
                         <div class="file-upload" id="gallery-upload">
                             <i class="fa fa-cloud-arrow-up"></i> <br> Thả hình ảnh vào đây hoặc bấm vào để tải lên.
                             <input type="hidden" value="" name="image" class="url_image">
                         </div>
-                        <div id="gallery-preview"></div>
-                        
-                        <input type="text" name="text_link" class="mt-3 form-control" placeholder="Nhập đường dẫn hình ảnh">
+                        <div class="mb-3" id="gallery-preview"></div>
+
+                        <label for="text_link">Nhập đường dẫn hình ảnh</label>
+                        <input type="text" id="text_link" name="text_link" class="mb-3 form-control"
+                            placeholder="{{ env('APP_URL') }}">
+
+                        <select name="type" id="" class="mb-3 form-control setupSelect2">
+                            @foreach (config('admin.dashboard.banner') as $key => $item)
+                                <option value="{{ $key }}">{{ $item }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 
 
-                {{-- <div class="col-sm-12 col-md-12 col-xl-6">
-                    <div class="product-image">
-                        <label>Hình ảnh banner phụ</label>
-                        <div class="file-upload" id="main-image">
-                            <i class="fa fa-cloud-arrow-up"></i> <br> Thả hình ảnh vào đây hoặc bấm vào để tải lên.
-                        </div>
-                        <div id="main-image-preview"></div>
-                        <input type="hidden" name="main_image" id="main-image-path">
+                <div class="col-sm-12 col-md-12 col-xl-9">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <th>Hình ảnh</th>
+                                <th>Đường dẫn</th>
+                                <th>Trạng thái</th>
+                                <th>Thứ tự</th>
+                                <th>Hành động</th>
+                            </thead>
+                            <tbody>
+                                @foreach ($results as $item)
+                                    <tr>
+                                        <td><span class="d-block" style="width: 140px"><img class="w-100 rounded"
+                                                    src="{{ $item->image }}" alt="{{ $item->image }}"></span></td>
+                                        <td><span>{{ $item->text_link }}</span></td>
+                                        <td>
+                                            @if ($item->status == 'active')
+                                                <span class="badge badge-info">Đang hoạt động</span>
+                                            @elseif($item->status == 'inactive')
+                                                <span class="badge">Ngưng hoạt động</span>
+                                            @endif
+                                        </td>
+
+                                        <td><span>{{ $item->order }}</span></td>
+                                        <td>
+                                            <button class="btn btn-warning">Chỉnh sửa</button>
+                                            <button class="btn btn-danger">Xóa</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                </div> --}}
+                </div>
             </div>
 
             <button class="btn btn-primary">Lưu thay đổi</button>
@@ -147,4 +180,6 @@
     </style>
     <script src="{{ asset('/') }}backend/plugins/ckfinder_2/ckfinder.js"></script>
     <script src="{{ asset('/') }}backend/js/banner/index.js"></script>
+    <script src="{{ asset('/') }}backend/js/plugins/select2/select2.full.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('/') }}backend/css/plugins/select2/select2.min.css">
 @endsection
