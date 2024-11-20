@@ -25,7 +25,7 @@
                         <label>Danh sách hình ảnh banner</label>
                         <div class="file-upload" id="2gallery-upload">
                             <i class="fa fa-cloud-arrow-up"></i> <br> Thả hình ảnh vào đây hoặc bấm vào để tải lên.
-                            <input type="text" value="" name="image" class="url_image form-control">
+                            <input type="hidden" value="" name="image" class="url_image form-control">
                         </div>
                         <div class="mb-3" id="gallery-preview">
                         </div>
