@@ -54,13 +54,6 @@ class CheckoutController extends Controller
         return $result;
     }
 
-    // tạo view hiển thị giỏ hàng
-    // public function edit($id)
-    // {
-    //     $cart = $this->CheckoutRepository->findById($id);
-    //     return response()->json($cart);
-    // }
-
     public function update(Request $request) {}
 
     public function delete(Request $request) {}

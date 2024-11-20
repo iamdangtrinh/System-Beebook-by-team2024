@@ -241,13 +241,6 @@
     <link rel="stylesheet" href="{{ asset('/') }}backend/css/plugins/select2/select2.min.css">
 
     <style>
-        .select2-container--default .select2-selection--single .select2-selection__arrow,
-        .select2-container .select2-selection--single {
-            height: 40px;
-        }
-
-        .select2-container--default .select2-selection--single .select2-selection__rendered {
-            line-height: 40px;
-        }
+        
     </style>
 @endsection
