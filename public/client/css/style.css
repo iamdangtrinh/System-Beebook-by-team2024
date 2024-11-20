@@ -558,7 +558,7 @@ th {
   5. Container
 ========================================================================*/
 .container {
-  max-width: 1200px;
+  max-width: 1320px;
   padding-left: 30px;
   padding-right: 30px;
 }
@@ -614,7 +614,7 @@ th {
   border: 1px solid transparent;
   border-radius: 0;
   padding: 8px 15px 8px;
-  background-color: #ce2626ff;
+  background-color: #f6c506;
   color: #fff;
   font-family: roboto, Helvetica, Tahoma, Arial, sans-serif;
   font-weight: 400;
@@ -634,7 +634,7 @@ th {
 .btn:focus,
 .shopify-payment-button__button--unbranded:hover,
 .shopify-payment-button__button--unbranded:focus {
-  background-color: #ce2626ff;
+  background-color: #f6c506;
   color: #fff;
   text-decoration: none;
   -webkit-transition: all 0.4s ease 0s;
@@ -768,7 +768,7 @@ textarea:-ms-input-placeholder {
   display: flex;
   align-items: center;
 
-  background: #CE2626;
+  background: #f6c506;
   height: 40px;
 }
 
@@ -2255,7 +2255,7 @@ a.quick-view,
 a.wishlist,
 .cartIcon,
 .add-to-compare {
-  color: #CE2626;
+  color: #f6c506;
   background-color: #ffffff;
   border: 0;
   width: 35px;
@@ -2274,7 +2274,7 @@ a.wishlist:hover,
 .variants.add button:hover,
 .add-to-compare:hover {
   color: #ffffff;
-  background-color: #CE2626;
+  background-color: #f6c506;
 }
 
 a.quick-view {
@@ -3702,7 +3702,7 @@ h1.product-single__title,
 }
 
 .product-template__container .prInfoRow .outstock {
-  color: #CE2626;
+  color: #f6c506;
 }
 
 .product-template__container .prInfoRow .spr-badge-caption {
