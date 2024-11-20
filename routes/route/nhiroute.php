@@ -28,5 +28,5 @@ Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
     Route::post('/product/{id}/restore', [AdminProductController::class, 'restore'])->name('adminproduct.restore');
     Route::post('/product/restore-all', [AdminProductController::class, 'restoreAll'])->name('adminproduct.restoreAll');
     Route::get('product/{id}/edit', [AdminProductController::class, 'edit'])->name('adminproduct.edit');
-    Route::post('product/{id}', [AdminProductController::class, 'update'])->name('adminproduct.update');
+    Route::put('product/{id}', [AdminProductController::class, 'update'])->name('adminproduct.update');
 });
