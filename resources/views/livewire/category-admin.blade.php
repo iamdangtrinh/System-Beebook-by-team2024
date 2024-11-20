@@ -253,15 +253,13 @@
                             @endif
                             </div>
                     </div>
-                 
-                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" style="border-radius: 4px" class="btn btn-secondary" wire:click="closeModal">Đóng</button>
                     @if ($dataEditCategory)
-                    <button type="button" @if ($errors->any() ||  $valueNameCategory==='' || $valueOrderCategory === ''|| $valueIdParentCategory === '') disabled  @endif  style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="UpdateCategory" class="btn rounded-1  fs-6">Cập nhật</button>
+                    <button type="button" @if ($errors->any() ||  $valueNameCategory==='' || $valueOrderCategory === '') disabled  @endif  style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="UpdateCategory" class="btn rounded-1  fs-6">Cập nhật</button>
                     @else    
-                    <button type="button" @if ($errors->any() ||  $valueNameCategory==='' || $valueOrderCategory === ''|| $valueIdParentCategory === '') disabled  @endif  style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="createCategory" class="btn rounded-1  fs-6">Xác nhận thêm</button>
+                    <button type="button" @if ($errors->any() ||  $valueNameCategory==='' || $valueOrderCategory === '') disabled  @endif  style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="createCategory" class="btn rounded-1  fs-6">Xác nhận thêm</button>
                     @endif
                 </div>
             </div>
@@ -279,7 +277,6 @@
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script>
         document.addEventListener('livewire:initialized',()=>{
     @this.on('swal',(event)=>{

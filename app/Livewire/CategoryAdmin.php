@@ -31,7 +31,6 @@ class CategoryAdmin extends Component
     #[Validate('required', message: 'Số thứ tự không được để rỗng')]
     #[Validate('numeric', message: 'Số thứ tự chỉ được nhập số')]
     public $valueOrderCategory = '';
-    #[Validate('required', message: 'Danh mục cha không được để rỗng')]
     public $valueIdParentCategory = '';
     public $valueStatus = 'active';
     public $dataEditCategory;
@@ -175,7 +174,7 @@ class CategoryAdmin extends Component
                 'slug' => $this->valueSlug,
                 'status' => $this->valueStatus,
                 'order' => $this->valueOrderCategory,
-                'parent_id' => $this->valueIdParentCategory,
+                'parent_id' => $this->valueIdParentCategory === '' ? null : $this->valueIdParentCategory,
             ]);
             $this->reset([
                 'valueNameCategory',
@@ -191,6 +190,8 @@ class CategoryAdmin extends Component
             $this->updatePaginationData($paginator);
             session()->flash('create_success', 'Thêm danh mục thành công');
         } catch (\Throwable $th) {
+            dd($th->getMessage());
+            $this->isModal = false;
             session()->flash('create_error', 'Thêm danh mục thất bại');
         }
     }
