@@ -1,4 +1,4 @@
-<title>@yield('title', 'Thêm sách')</title>
+<title>@yield('title', 'Sửa sách')</title>
 @extends('layout.admin')
 
 @section('body')
@@ -29,13 +29,14 @@
 <div class="row wrapper wrapper-content" style="padding: 20px 0 0 !important">
     <div class="ibox">
         <div class="ibox-content">
-            <form id="form" action="{{ route('product.store') }}" method="POST">
+            <form id="form" action="{{ route('adminproduct.update', $product->id) }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="form-group @error('name') has-error @enderror">
                             <label>Tên sách <span class="text-danger">*</span></label>
-                            <input id="name" name="name" type="text" class="form-control" value="{{ old('name') }}">
+                            <input id="name" name="name" type="text" class="form-control" value="{{ old('name', $product->name) }}">
                             @error('name')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -46,9 +47,8 @@
                             <label class="font-normal">Ngôn ngữ <span class="text-danger">*</span></label>
                             <div>
                                 <select data-placeholder="Chọn ngôn ngữ..." name="language" class="chosen-select" tabindex="2">
-                                    <option value="tieng-viet" {{ old('language') == 'tieng-viet' ? 'selected' : '' }}>Tiếng Việt</option>
-                                    <option value="tieng-anh" {{ old('language') == 'tieng-anh' ? 'selected' : '' }}>Tiếng Anh</option>
-                                    <!-- Continue for other language options -->
+                                    <option value="tieng-viet" {{ old('language', $product->language) == 'tieng-viet' ? 'selected' : '' }}>Tiếng Việt</option>
+                                    <option value="tieng-anh" {{ old('language', $product->language) == 'tieng-anh' ? 'selected' : '' }}>Tiếng Anh</option>
                                 </select>
                                 @error('language')
                                 <span class="text-danger">{{ $message }}</span>
@@ -63,7 +63,7 @@
                             <div>
                                 <select data-placeholder="Chọn tác giả..." name="id_author" class="chosen-select" tabindex="2">
                                     @foreach($authors as $author)
-                                    <option value="{{ $author->id }}" {{ old('id_author') == $author->id ? 'selected' : '' }}>{{ $author->name }}</option>
+                                    <option value="{{ $author->id }}" {{ old('id_author', $product->id_author) == $author->id ? 'selected' : '' }}>{{ $author->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('id_author')
@@ -76,7 +76,7 @@
                     <div class="col-4">
                         <div class="form-group @error('slug') has-error @enderror">
                             <label>Slug <span class="text-danger">*</span></label>
-                            <input id="slug" name="slug" type="text" class="form-control" placeholder="ten-san-pham" value="{{ old('slug') }}">
+                            <input id="slug" name="slug" type="text" class="form-control" placeholder="ten-san-pham" value="{{ old('slug', $product->slug) }}">
                             @error('slug')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -86,7 +86,7 @@
                     <div class="col-2">
                         <div class="form-group @error('quantity') has-error @enderror">
                             <label>Số lượng <span class="text-danger">*</span></label>
-                            <input id="quantity" name="quantity" value="{{ old('quantity', 0) }}" type="number" class="form-control required">
+                            <input id="quantity" name="quantity" value="{{ old('quantity', $product->quantity) }}" type="number" class="form-control required">
                             @error('quantity')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -98,7 +98,7 @@
                             <div>
                                 <select data-placeholder="Chọn danh mục..." name="id_category" class="chosen-select" tabindex="2">
                                     @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" {{ old('id_category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}" {{ old('id_category', $product->id_category) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('id_category')
@@ -114,7 +114,7 @@
                             <div>
                                 <select data-placeholder="Chọn ngôn ngữ..." name="id_manufacturer" class="chosen-select" tabindex="2">
                                     @foreach($manufacturers as $manufacturer)
-                                    <option value="{{ $manufacturer->id }}" {{ old('id_manufacturer') == $manufacturer->id ? 'selected' : '' }}>{{ $manufacturer->name }}</option>
+                                    <option value="{{ $manufacturer->id }}" {{ old('id_manufacturer', $product->id_manufacturer) == $manufacturer->id ? 'selected' : '' }}>{{ $manufacturer->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('id_manufacturer')
@@ -128,9 +128,9 @@
                             <label class="font-normal">Người dịch</label>
                             <div>
                                 <select data-placeholder="Chọn người dịch..." name="id_translator" class="chosen-select" tabindex="2">
-                                    <option value="" {{ !old('id_translator') ? 'selected' : '' }}>Chọn người dịch</option>
+                                    <option value="" {{ !old('id_translator', $product->id_translator) ? 'selected' : '' }}>Chọn người dịch</option>
                                     @foreach($translators as $translator)
-                                    <option value="{{ $translator->id }}" {{ old('id_translator') == $translator->id ? 'selected' : '' }}>
+                                    <option value="{{ $translator->id }}" {{ old('id_translator', $product->id_translator) == $translator->id ? 'selected' : '' }}>
                                         {{ $translator->name }}
                                     </option>
                                     @endforeach
@@ -143,7 +143,7 @@
                     <div class="col-4">
                         <div class="form-group @error('price') has-error @enderror">
                             <label>Giá <span class="text-danger">*</span></label>
-                            <input id="price" name="price" type="number" class="form-control required" value="{{ old('price') }}">
+                            <input id="price" name="price" type="number" class="form-control required" value="{{ old('price', $product->price) }}">
                             @error('price')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -153,7 +153,7 @@
                     <div class="col-4">
                         <div class="form-group @error('price_sale') has-error @enderror">
                             <label>Giá giảm</label>
-                            <input id="price_sale" name="price_sale" type="number" class="form-control" value="{{ old('price_sale') }}">
+                            <input id="price_sale" name="price_sale" type="number" class="form-control" value="{{ old('price_sale', $product->price_sale) }}">
                             @error('price_sale')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -162,7 +162,7 @@
                     <div class="col-2">
                         <div class="form-group  @error('weight') has-error @enderror">
                             <label>Cân nặng (g) <span class="text-danger">*</span></label>
-                            <input id="weight" name="weight" value="{{ old('weight') }}" type="number" class="form-control required">
+                            <input id="weight" name="weight" value="{{ old('weight',$product->weight) }}" type="number" class="form-control required">
                             @error('weight')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -171,51 +171,70 @@
                     <div class="col-2">
                         <div class="form-group @error('year') has-error @enderror">
                             <label>Năm xuất bản <span class="text-danger">*</span></label>
-                            <input id="year" name="year" value="{{ old('year') }}" type="number" class="form-control required">
+                            <input id="year" name="year" value="{{ old('year', $product->year) }}" type="number" class="form-control required">
                             @error('year')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-3">
                         <div class="i-checks">
                             <label>Hình thức</label> <br>
-                            <label> <input type="radio" value="bia-cung" name="form" {{ old('form') == 'bia-cung' ? 'checked' : '' }}> <i></i> Bìa cứng </label>
-                            <label> <input type="radio" value="bia-mem" name="form" {{ old('form') == 'bia-mem' ? 'checked' : '' }}> <i></i> Bìa mềm </label>
+                            @if($form)
+                            <label>
+                                <input type="radio" value="bia-cung" name="form" {{ old('form', $form->product_value) == 'bia-cung' ? 'checked' : '' }}>
+                                <i></i> Bìa cứng
+                            </label>
+                            <label>
+                                <input type="radio" value="bia-mem" name="form" {{ old('form', $form->product_value) == 'bia-mem' ? 'checked' : '' }}>
+                                <i></i> Bìa mềm
+                            </label>
+                            @else
+                            <label>
+                                <input type="radio" value="bia-cung" name="form" {{ old('form') == 'bia-cung' ? 'checked' : '' }}>
+                                <i></i> Bìa cứng
+                            </label>
+                            <label>
+                                <input type="radio" value="bia-mem" name="form" {{ old('form') == 'bia-mem' ? 'checked' : '' }}>
+                                <i></i> Bìa mềm
+                            </label>
+                            @endif
+
+
                         </div>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-2">
                         <div class="i-checks">
                             <label>Hot</label> <br>
-                            <label> <input type="radio" value="1" name="hot" {{ old('hot') == '1' ? 'checked' : '' }}> <i></i> Có </label>
-                            <label> <input type="radio" value="0" name="hot" {{ old('hot',0) == '0' ? 'checked' : '' }}> <i></i> Không </label>
+                            <label> <input type="radio" value="1" name="hot" {{ old('hot' , $product->hot) == '1' ? 'checked' : '' }}> <i></i> Có </label>
+                            <label> <input type="radio" value="0" name="hot" {{ old('hot', $product->hot) == '0' ? 'checked' : '' }}> <i></i> Không </label>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="i-checks">
+                            <label>Trạng thái</label> <br>
+                            <label> <input type="radio" value="active" name="status" {{ old('status' , $product->status) == 'active' ? 'checked' : '' }}> <i></i> Hiện </label>
+                            <label> <input type="radio" value="inactive" name="status" {{ old('status' , $product->status) == 'inactive' ? 'checked' : '' }}> <i></i> Ẩn </label>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label>Link video sách</label>
-                            <input id="url_video" name="url_video" type="text" class="form-control" value="{{ old('url_video') }}">
+                            <input id="url_video" name="url_video" type="text" class="form-control" value="{{ old('url_video', $product->url_video) }}">
                         </div>
                     </div>
-                    <!-- <div class="col-4">
-                        <div class="i-checks">
-                            <label>Trạng thái</label> <br>
-                            <label> <input type="radio" value="active" name="status" checked=""> <i></i> Hiện </label>
-                            <label> <input type="radio" value="inactive" name="status"> <i></i> Ẩn </label>
-                        </div>
-                    </div> -->
                     <div class="col-6">
                         <div class="form-group">
                             <label>Từ khóa chính</label>
-                            <input id="meta_seo" name="meta_seo" type="text" class="form-control" value="{{ old('meta_seo') }}">
+                            <input id="meta_seo" name="meta_seo" type="text" class="form-control" value="{{ old('meta_seo', $product->meta_seo) }}">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label>Description SEO</label>
-                            <textarea id="description_seo" placeholder="(Không nhập sẽ tự động lấy phần đầu của description)" name="description_seo" class="form-control">{{ old('meta_seo') }}</textarea>
+                            <textarea id="description_seo" placeholder="(Không nhập sẽ tự động lấy phần đầu của description)" name="description_seo" class="form-control">{{ old('description_seo', $product->description_seo) }}</textarea>
                         </div>
                     </div>
 
@@ -224,7 +243,7 @@
                             <label>Ảnh chính</label>
                             <div class="image-container">
                                 <img
-                                    src="{{ old('image_cover') ?: '/no_image.jpg' }}"
+                                    src="{{ old('image_cover', $product->image_cover) ?: '/no_image.jpg' }}"
                                     id="main-image"
                                     class="rounded"
                                     alt="Ảnh chính"
@@ -232,11 +251,11 @@
                                 <button
                                     type="button"
                                     id="delete-main-image"
-                                    class="delete-main-image" style = " {{ old('image_cover') ? 'display: block;' : 'display: none;' }} " >
+                                    class="delete-main-image" style = " {{ old('image_cover', $product->image_cover) ? 'display: block;' : 'display: none;' }} " >
                                     Xóa ảnh
                                 </button>
                             </div>
-                            <input type="hidden" id="main-image-hidden" name="image_cover" value="{{ old('image_cover') }}" />
+                            <input type="hidden" id="main-image-hidden" name="image_cover" value="{{ old('image_cover', $product->image_cover) }}" />
                         </div>
 
                     </div>
@@ -251,7 +270,7 @@
                                 @foreach ($images as $key => $image)
                                 <div class="gallery-item">
                                     <img src="{{$image}}" alt="Gallery Image">
-                                    <button class="delete-button">Delete</button>
+                                    <button class="delete-button">Xóa ảnh</button>
                                     <input type="hidden" name="{{ $key }}" class="hidden-input" value="{{ $image }}">
                                 </div>
                                 @endforeach
@@ -260,11 +279,12 @@
                     </div>
 
 
+
                     <!-- Description and Submit Button -->
                     <div class="col-12">
                         <div class="form-group @error('content') has-error @enderror">
                             <label>Description <span class="text-danger">*</span></label>
-                            <textarea name="content" id="content" class="content form-control" cols="30" rows="10">{{ old('content') }}</textarea>
+                            <textarea name="content" id="content" class="content form-control" cols="30" rows="10">{{ old('content', $product->description) }}</textarea>
                             @error('content')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -272,13 +292,10 @@
                     </div>
 
                     <div class="col-12 mt-3">
-                        <button name="status" value="draft" class="btn btn-default">Lưu nháp</button>
-                        <button name="status" value="active" class="btn btn-success">Lưu</button>
+                        <button class="btn btn-success">Lưu</button>
                     </div>
                 </div>
             </form>
-
-
         </div>
     </div>
 </div>

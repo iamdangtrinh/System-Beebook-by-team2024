@@ -100,14 +100,14 @@
                                     <td>{{ $dateUpdate }}</td>
                                     <td>
                                         <span
-                                            class="label cus_tom_label rounded label-<?= $result->payment_status == 'PAID' ? 'primary' : 'warning' ?>">{{ $payment_status }}</span>
+                                            class="label cus_tom_label rounded label-<?= $result->payment_status == 'PAID' ? 'success' : 'warning' ?>">{{ $payment_status }}</span>
                                     </td>
                                     <td>
                                         <span class="label cus_tom_label">{{ $payment_method }}</span>
                                     </td>
                                     <td class="text-right">
                                         <div class="btn-group gap-2 w-100 __custom_btn_group">
-                                            <a href="{{route('order.detail', ['id' => $result->id])}}" class="badge text-light text-bg-warning">Chi tiết</a>
+                                            <a href="{{route('admin.order.detail', ['id' => $result->id])}}" class="badge text-light text-bg-warning">Chi tiết</a>
                                         </div>
                                     </td>
                                 </tr>

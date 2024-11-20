@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\client\ProductController;
@@ -22,4 +22,11 @@ Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
     Route::get('/product', [AdminProductController::class, 'index'])->name('adminproduct.index');
     Route::get('/product/add', [AdminProductController::class, 'add'])->name('adminproduct.add');
     Route::post('/product/store', [AdminProductController::class, 'store'])->name('product.store');
+    Route::delete('/product/destroy/{id}', [AdminProductController::class, 'destroy'])->name('adminproduct.destroy');
+    Route::delete('/product/{id}/force-delete', [AdminProductController::class, 'forceDelete'])->name('adminproduct.forceDelete');
+    Route::delete('/product/force-delete-all', [AdminProductController::class, 'forceDeleteAll'])->name('adminproduct.forceDeleteAll');
+    Route::post('/product/{id}/restore', [AdminProductController::class, 'restore'])->name('adminproduct.restore');
+    Route::post('/product/restore-all', [AdminProductController::class, 'restoreAll'])->name('adminproduct.restoreAll');
+    Route::get('product/{id}/edit', [AdminProductController::class, 'edit'])->name('adminproduct.edit');
+    Route::put('product/{id}', [AdminProductController::class, 'update'])->name('adminproduct.update');
 });

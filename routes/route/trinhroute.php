@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\BannerController;
 use App\Http\Controllers\admin\couponController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\client\cartController;
@@ -33,9 +34,17 @@ Route::get('thank-you/{id}', [CheckoutController::class, 'thankyou'])->name('tha
 Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index')->middleware('CheckLogin');
 
 // admin
-Route::prefix('admin')->group(function () {
-      Route::get('/order', [OrderController::class, 'index'])->name('order.index')->middleware('CheckAdmin');
-      Route::get('/order/{id}', [OrderController::class, 'edit'])->name('order.detail')->middleware('CheckAdmin');
+Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
+      Route::get('/order', [OrderController::class, 'index'])->name('order.index');
+      Route::get('/order/{id}', [OrderController::class, 'edit'])->name('admin.order.detail');
+      Route::post('/order/update', [OrderController::class, 'store'])->name('admin.order.store');
+      
+      Route::get('/banner', [BannerController::class, 'index'])->name('admin.banner.index');
+      Route::post('/banner', [BannerController::class, 'store'])->name('admin.banner.store');
+      Route::post('/banner/update/', [BannerController::class, 'update'])->name('admin.banner.update');
+      Route::get('/destroy/banner/{id}', [BannerController::class, 'destroy'])->name('admin.banner.destroy');
+      Route::get('/banner/edit/{id}', [BannerController::class, 'show'])->name('admin.banner.detail');
+
 });
 
 // hiển thị qr thanh toán đơn hàng
@@ -49,10 +58,9 @@ Route::post('/order-check-status', [CheckoutController::class, 'checkStatus'])->
 // Route::get('/profile/your-order', [ManagerUserController::class, 'yourOrder'])->name('your-order.index')->middleware('CheckLogin');
 // Route::get('/profile/your-order/{id}', [ManagerUserController::class, 'yourOrderDetail'])->name('your-order.detail-index')->middleware('CheckLogin:Vui lòng đăng nhập để thực hiện chức năng!');
 
-Route::prefix('profile/your-order')->middleware('CheckLogin')->name('your-order.')->group(function () {
+Route::prefix('profile/your-order')->middleware('CheckLogin:Vui lòng đăng nhập để thực hiện chức năng!')->name('your-order.')->group(function () {
       Route::get('/', [ManagerUserController::class, 'yourOrder'])->name('index');
-      Route::get('/{id}', [ManagerUserController::class, 'yourOrderDetail'])->name('detail-index')
-            ->middleware('CheckLogin:Vui lòng đăng nhập để thực hiện chức năng!');
+      Route::get('/{id}', [ManagerUserController::class, 'yourOrderDetail'])->name('detail-index');
 });
 
 Route::get('/redis-test', function () {

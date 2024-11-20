@@ -11,18 +11,13 @@
                     <div class="col-xl-8 col-md-12 col-12">
                         <div class="swiper mySwiper">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="https://cdn0.fahasa.com/media/magentothem/banner7/Banner2_9_0924_840x320.jpg"
-                                        alt="Banner 1">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://cdn0.fahasa.com/media/magentothem/banner7/MCbooks_KC_Slide_840x320.jpg"
-                                        alt="Banner 2">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="https://cdn0.fahasa.com/media/magentothem/banner7/Resize_TrangDoiTacThang09_SlideBanner_840x320.jpg"
-                                        alt="Banner 3">
-                                </div>
+                                @foreach ($bannerMain as $item)
+                                    <div class="swiper-slide">
+                                        <a href="{{ $item->text_link }}">
+                                            <img src="{{ $item->image }}" alt="{{ $item->image }}">
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
                             <div class="swiper-pagination"></div>
                         </div>
@@ -60,18 +55,20 @@
         </div>
 
         <div class="section">
-            <div class="flashSale mb-3">
-                <div class="productList">
-                    <div class="border rounded row rounded mb-3 pt-3"
-                        style="background: url('/client/images/flash_sale_background_image.webp') no-repeat center center;
-  background-size: cover;">
-                        <div class="container">
-                            <div class="title-custom bg-white rounded my-3">
-                                <div class="d-flex justify-content-between align-items-center px-3">
-                                    <h2 class="p-3 m-0"><strong>SẢN PHẨM NỔI BẬT</strong></h2>
-                                    <a class="link-danger" href="{{ route('product.hot') }}">Xem tất cả >></a>
-                                </div>
+            {{-- <div class="flashSale mb-3"> --}}
+            <div class="productList">
+                <div class="border rounded row rounded mb-3 pt-3"
+                    style="background: url('/client/images/flash_sale_background_image.webp') no-repeat center center; background-size: cover;">
+                    <div class="container">
+                        <div class="title-custom bg-white rounded my-3">
+                            <div class="d-flex justify-content-between align-items-center px-3">
+                                <h2 class="p-3 m-0"><strong>SẢN PHẨM NỔI BẬT</strong></h2>
+                                <a class="link-danger" href="{{ route('product.hot') }}">Xem tất cả >></a>
                             </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12 rounded">
                                 <div class="grid-products py-3 mb-3">
                                     <div class="row">
@@ -98,7 +95,8 @@
                                                         <div class="button-set">
                                                             <div class="wishlist-btn">
                                                                 @if (!auth()->check())
-                                                                    <a class="wishlist" href="{{ route('wishlist.index') }}"
+                                                                    <a class="wishlist"
+                                                                        href="{{ route('wishlist.index') }}"
                                                                         title="Thêm vào yêu thích"><i
                                                                             class="icon anm anm-heart-l"></i></a>
                                                                 @elseif($product->isFavoritedByUser())
@@ -146,6 +144,7 @@
                     </div>
                 </div>
             </div>
+            {{-- </div> --}}
         </div>
 
         <!--End Image Banners-->
@@ -265,21 +264,24 @@
                     @foreach ($blogs as $blog)
                         <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
                             <a class="article_featured-image" href="/posts/{{ $blog['slug'] }}"><img
-                                    class="blur-up lazyload" src= {{ asset($blog['image'] ?$blog['image'] :"no_image.jpg") }}  alt="It's all about how you wear"></a>
+                                    class="blur-up lazyload"
+                                    src={{ asset($blog['image'] ? $blog['image'] : 'no_image.jpg') }}
+                                    alt="It's all about how you wear"></a>
                             <h2 class="h3"><a href="/posts/{{ $blog['slug'] }}">{{ $blog['title'] }}</a></h2>
                             <p>{{ $blog['tags'] }}</p>
                             <ul class="publish-detail">
                                 <li><i class="anm anm-eye" aria-hidden="true"></i>{{ $blog['views'] }}</li>
                                 <li><i class="icon anm anm-clock-r"></i>
-                                    <time datetime="{{ \Carbon\Carbon::parse($blog['updated_at'])->format('Y-m-d\TH:i:s') }}">
+                                    <time
+                                        datetime="{{ \Carbon\Carbon::parse($blog['updated_at'])->format('Y-m-d\TH:i:s') }}">
                                         {{ \Carbon\Carbon::parse($blog['updated_at'])->format('  H:i d/m/Y') }}
                                     </time>
                                 </li>
                             </ul>
-                            
-                            
-                            
-                            
+
+
+
+
                             <p><a href="/posts/{{ $blog['slug'] }}"></a></p>
                         </div>
                     @endforeach
@@ -290,18 +292,19 @@
         </div>
         <div class="section home-lookbook">
             <div class="container">
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 text-center mb-5">
-                        <img class="rounded" src="{{ asset('/') }}userfiles/image/butmau_SlideBanner_840x320.webp" alt="title"
-                            title="" />
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 text-center mb-5">
-                        <img class="rounded" src="{{ asset('/') }}userfiles/image/TrangCTT11_1124_Mainbanner_840x320.webp"
+                        <img class="rounded" src="{{ asset('/') }}userfiles/image/butmau_SlideBanner_840x320.webp"
                             alt="title" title="" />
                     </div>
-                </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 text-center mb-5">
+                        <img class="rounded"
+                            src="{{ asset('/') }}userfiles/image/TrangCTT11_1124_Mainbanner_840x320.webp"
+                            alt="title" title="" />
+                    </div>
+                </div> --}}
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center custom-text">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center text-dark">
                         <p class="mb-4">Để có thể xem được đa dạng sách hơn, nhấp ngay vào cửa hàng để có thể tìm thêm
                             nhiều quyển sách hay nữa nhé!</p>
                         <a class="btn" href="{{ asset('/') }}cua-hang">Ghé thăm cửa hàng</a>

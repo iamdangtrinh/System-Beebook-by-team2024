@@ -9,10 +9,16 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xl-9">
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
                         <div class="card mt-3">
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
-                                    <h5 class="card-title flex-grow-1 mb-0">Đơn hàng</h5>
+                                    <h5 class="card-title flex-grow-1 mb-0">Thông tin sản phẩm</h5>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -51,37 +57,6 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                            {{-- <tr class="border-top border-top-dashed">
-                                                <td colspan="3"></td>
-                                                <td colspan="2" class="fw-medium p-0">
-                                                    <table class="table table-borderless mb-0">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Tạm tính :</td>
-                                                                <td class="text-end">
-                                                                    {{ number_format($orderDetails->total_amount, '0', '.', '.') . ' đ' }}
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Giảm giá :</td>
-                                                                <td class="text-end">-$53.99</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Phí vận chuyển :</td>
-                                                                <td class="text-end">
-                                                                    {{ number_format($orderDetails->fee_shipping, '0', '.', '.') . ' đ' }}
-                                                                </td>
-                                                            </tr>
-                                                            <tr class="border-top border-top-dashed">
-                                                                <th scope="row">Tổng tiền :</th>
-                                                                <th class="text-end">
-                                                                    {{ number_format($orderDetails->total_amount + $orderDetails->fee_shipping, '0', '.', '.') . ' đ' }}
-                                                                </th>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr> --}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -97,7 +72,6 @@
                                     : 'Thanh toán khi nhận hàng';
 
                         @endphp
-
 
                         <div class="card mt-3">
                             <div class="card-header">
@@ -145,7 +119,9 @@
                                         </table>
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-xl-6">
-                                        <form action="" method="post">
+                                        <form action="{{ route('admin.order.store') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $orderDetails->id }}">
                                             <div class="row ">
                                                 <div class="col-sm-12 col-md-6 col-xl-6">
                                                     <label style="padding-top: 8px" for="status">Cập nhật trạng thái đơn
@@ -153,9 +129,10 @@
                                                 </div>
 
                                                 <div class="col-sm-12 col-md-6 col-xl-6">
-                                                    <select name="status" id="status" class="form-control">
+                                                    <select name="status" id="status" class="form-control setupSelect2">
                                                         @foreach (config('admin.order.statusOrder') as $key => $status)
-                                                            <option value="{{ $key }}">{{ $status }}
+                                                            <option {{ $orderDetails->status == $key ? 'selected' : '' }}
+                                                                value="{{ $key }}">{{ $status }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -163,12 +140,12 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-12 col-md-6 col-xl-6">
-                                                    <span>Quản trị ghi chú đơn hàng:</span>
+                                                    <span class="mt-3 d-block">Quản trị ghi chú đơn hàng:</span>
                                                 </div>
 
                                                 <div class="col-sm-12 col-md-6 col-xl-6">
                                                     <textarea name="note_admin" id="" class="form-control mt-3" cols="20" rows="5"
-                                                        placeholder="Nội dung ghi chú"></textarea>
+                                                        placeholder="Nội dung ghi chú">{{$orderDetails->note_admin}}</textarea>
                                                 </div>
                                             </div>
 
@@ -259,4 +236,11 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('/') }}backend/js/order/index.js"></script>
+    <script src="{{ asset('/') }}backend/js/plugins/select2/select2.full.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('/') }}backend/css/plugins/select2/select2.min.css">
+
+    <style>
+        
+    </style>
 @endsection

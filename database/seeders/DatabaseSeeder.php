@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             // ProductsSeeder::class,
             CouponSeeder::class,
             UsersSeeder::class,
-            PostSeeder::class,
+            // PostSeeder::class,
             CartSeeder::class,
             Comments::class,
         ]);

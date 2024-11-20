@@ -6,6 +6,8 @@ use App\Http\Controllers\client\LoginFaceBookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\ManagerUserAdmin;
 use App\Http\Controllers\client\CheckoutController;
+use App\Http\Controllers\admin\CategoryAdmin;
+
 
 Route::middleware(['CheckAuth'])->group(function () {
     Route::get('/sign-in', [ManagerUserController::class, 'SignIn'])->name('sign-in.index');
@@ -37,4 +39,5 @@ Route::post('/apply-coupon', [CheckoutController::class, 'ApplyCoupon'])->name('
 // admin
 Route::prefix('admin')->middleware('CheckLogin')->group(function () {
     Route::get('/user', [ManagerUserAdmin::class, 'Index'])->name('adminUser.index');
+    Route::get('/category', [CategoryAdmin::class, 'Index'])->name('adminCategory.index');
 });

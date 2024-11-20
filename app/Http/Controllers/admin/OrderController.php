@@ -34,7 +34,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $payload = $request->except(['_token']);
-        $query = BillModel::select($this->selected());
+        $query = BillModel::select($this->selected())->orderBy('id', 'desc');
         if (!empty($payload['order_id'])) {
             $query->where('id', $payload['order_id']);
         }
@@ -70,7 +70,15 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $payload = $request->except(['_token']);
+
+        BillModel::where('id', $payload['id'])
+            ->update([
+                'status' => $payload['status'],
+                'note_admin' => $payload['note_admin']
+            ]);
+
+        return redirect()->route('admin.order.detail', ['id' => $payload['id']])->with('success', 'Cập nhật đơn hàng thành công!');
     }
 
     /**

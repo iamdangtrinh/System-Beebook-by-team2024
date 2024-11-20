@@ -29,9 +29,9 @@ class CheckoutController extends Controller
         $this->CheckoutRepository = $CheckoutRepository;
         $this->CartService = $CartService;
     }
-    public function ApplyCoupon()
+    public function ApplyCoupon(Request $request)
     {
-        dd('ok');
+        dd($request);
     }
     public function index()
     {
@@ -53,13 +53,6 @@ class CheckoutController extends Controller
         $result = $this->CheckoutService->create($request);
         return $result;
     }
-
-    // tạo view hiển thị giỏ hàng
-    // public function edit($id)
-    // {
-    //     $cart = $this->CheckoutRepository->findById($id);
-    //     return response()->json($cart);
-    // }
 
     public function update(Request $request) {}
 
