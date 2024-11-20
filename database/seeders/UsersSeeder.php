@@ -31,7 +31,6 @@ class UsersSeeder extends Seeder
                 'roles' => $faker->randomElement(['admin', 'customer']),
                 'status' => $faker->randomElement(['active', 'inactive']),
                 'avatar' => 'path/to/image' . $index . '.jpg',
-                'facebook_id' => $faker->optional()->randomNumber(),
                 'google_id' => $faker->optional()->randomNumber(),
                 'address' => $faker->address,
             ]);

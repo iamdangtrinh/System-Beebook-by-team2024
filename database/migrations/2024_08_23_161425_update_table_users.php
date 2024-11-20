@@ -16,11 +16,11 @@ return new class extends Migration
             $table->enum('roles', ['admin', 'customer'])->default('customer');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->string('avatar', 100)->nullable();
-            $table->string('facebook_id', 50)->nullable();
+            // $table->string('facebook_id', 50)->nullable();
             $table->string('google_id', 50)->nullable();
-            $table->unsignedBigInteger('id_city')->nullable();
-            $table->unsignedBigInteger('id_province')->nullable();
-            $table->unsignedBigInteger('id_ward')->nullable();
+            // $table->unsignedBigInteger('id_city')->nullable();
+            // $table->unsignedBigInteger('id_province')->nullable();
+            // $table->unsignedBigInteger('id_ward')->nullable();
             $table->string('address', 255)->nullable();
             // $table->foreign('city_id')->references('id')->on('cities')->onDelete('set null');
             // $table->foreign('province_id')->references('id')->on('provinces')->onDelete('set null');

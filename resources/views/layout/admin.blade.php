@@ -62,8 +62,11 @@ $currentSegment = Request::segment(2);
                     <li class=""><a href="{{ route('adminUser.index') }}"><i class="fa fa-user"></i> <span
                                 class="nav-label">Tài Khoản</span></a>
                     </li>
-                    <li class=""><a href="{{ route('adminUser.index') }}"><i class="fa fa-image"></i> <span
+                    <li class=""><a href="{{ route('admin.banner.index') }}"><i class="fa fa-image"></i> <span
                                 class="nav-label">Quản lý banner</span></a>
+                    </li>
+                    <li class=""><a href="{{ route('adminUser.index') }}"><i class="fa fa-image"></i> <span
+                                class="nav-label">Lịch sử giao dịch</span></a>
                     </li>
                 </ul>
             </div>
