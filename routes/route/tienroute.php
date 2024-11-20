@@ -37,7 +37,7 @@ Route::get('/confirm-password/{token}', [ManagerUserController::class, 'HandleCo
 // coupon 
 Route::post('/apply-coupon', [CheckoutController::class, 'ApplyCoupon'])->name('apply.coupon');
 // admin
-Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
+Route::prefix('admin')->middleware('CheckLogin')->group(function () {
     Route::get('/user', [ManagerUserAdmin::class, 'Index'])->name('adminUser.index');
     Route::get('/category', [CategoryAdmin::class, 'Index'])->name('adminCategory.index');
 });
