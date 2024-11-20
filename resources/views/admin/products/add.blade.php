@@ -220,33 +220,42 @@
                     </div>
 
                     <div class="col-6">
-                        <label>Ảnh chính</label>
-                        <span class="image img-cover image-target">
-                            <img src="/{{ old('image_cover') ? old('image_cover') : 'no_image.jpg' }}" class="img-fluid rounded-top" alt="" />
-                        </span>
-                        <input type="hidden" value="{{ old('image_cover') }}" name="image_cover" class="url_image">
+                        <div class="main-image-wrapper">
+                            <label>Ảnh chính</label>
+                            <div class="image-container">
+                                <img
+                                    src="{{ old('image_cover') ?: '/no_image.jpg' }}"
+                                    id="main-image"
+                                    class="rounded"
+                                    alt="Ảnh chính"
+                                    style="height: 200px; object-fit: contain; cursor: pointer; display: block;" />
+                                <button
+                                    type="button"
+                                    id="delete-main-image"
+                                    class="delete-main-image" style = " {{ old('image_cover') ? 'display: block;' : 'display: none;' }} " >
+                                    Xóa ảnh
+                                </button>
+                            </div>
+                            <input type="hidden" id="main-image-hidden" name="image_cover" value="{{ old('image_cover') }}" />
+                        </div>
+
                     </div>
 
                     <div class="col-6">
-                        <label>Ảnh phụ</label><br>
-                        <button type="button" class="btn btn-success my-2" id="add-image">Thêm ảnh</button>
-                        <div class="row" id="image-container">
-                            @foreach ($images as $key => $image)
-                            <div class="col-3 mt-1 image-wrapper">
-                                <span class="image img-cover image-target" style="position: relative;">
-                                    <img
-                                        src="/{{ $image ?: 'no_image.jpg' }}"
-                                        class="img-fluid rounded-top"
-                                        alt="Ảnh phụ" style="height: 120px; object-fit: contain;" />
-                                </span>
-                                <button type="button" class="btn btn-danger btn-sm remove-image mt-1">Xóa ảnh</button>
-                                <input
-                                    type="hidden"
-                                    value="{{ $image }}"
-                                    name="{{ $key }}"
-                                    class="url_image">
+                        <div class="product-gallery">
+                            <label>Danh sách hình ảnh banner</label>
+                            <div class="file-upload" id="gallery-upload">
+                                <i class="fa fa-cloud-arrow-up"></i> <br> Thả hình ảnh vào đây hoặc bấm vào để tải lên.
                             </div>
-                            @endforeach
+                            <div id="gallery-preview">
+                                @foreach ($images as $key => $image)
+                                <div class="gallery-item">
+                                    <img src="{{$image}}" alt="Gallery Image">
+                                    <button class="delete-button">Delete</button>
+                                    <input type="hidden" name="{{ $key }}" class="hidden-input" value="{{ $image }}">
+                                </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
 
@@ -274,7 +283,87 @@
     </div>
 </div>
 <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
+<style>
+    .product-image,
+    .product-gallery {
+        margin-bottom: 30px;
+    }
 
+    label {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .file-upload {
+        width: 100%;
+        padding: 40px;
+        border: 2px dashed #ccc;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 8px;
+        background-color: #fafafa;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .file-upload:hover {
+        border-color: #f6c506;
+    }
+
+    .file-upload i {
+        font-size: 32px;
+        color: #f6c506;
+    }
+
+    .file-upload img {
+        max-width: 100%;
+        max-height: 150px;
+        margin-top: 10px;
+        border-radius: 8px;
+    }
+
+    #gallery-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .gallery-item, .main-image-wrapper {
+        position: relative;
+        display: inline-block;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .gallery-item img {
+        max-width: 100px;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .delete-button, .delete-main-image {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        background-color: #ff4d4d;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 12px;
+    }
+
+    .delete-button:hover {
+        background-color: #e03a3a;
+    }
+
+    #main-image-preview {
+        margin-top: 10px;
+    }
+</style>
+<script src="{{ asset('/') }}backend/js/product/index.js"></script>
 <!-- Jquery Validate -->
 <script src="{{ asset('/') }}backend/js/plugins/validate/jquery.validate.min.js"></script>
 <!-- Chosen -->
@@ -337,64 +426,6 @@
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green',
         });
-        let imageCount = document.querySelectorAll('.image-wrapper').length; // Count initial images
-
-        // Handle "Add Image" button
-        $('#add-image').click(function() {
-            const imageContainer = document.getElementById('image-container');
-            const lastImageWrapper = imageContainer.querySelector(`.image-wrapper:nth-child(${imageCount}) img`);
-
-            // Check if the last image is still the default placeholder
-            if (lastImageWrapper && lastImageWrapper.src.includes('/no_image.jpg')) {
-                toastr.error('Vui lòng thay đổi ảnh mặc định trước khi thêm ảnh mới.');
-                return;
-            }
-
-            if (imageCount < 8) { // Maximum limit of 8 images
-                imageCount++; // Increase image count
-
-                // Create new image container
-                const newImageDiv = document.createElement('div');
-                newImageDiv.classList.add('col-3', 'mt-1', 'image-wrapper');
-                newImageDiv.innerHTML = `
-        <span class="image img-cover image-target" style="position: relative;">
-            <img src="/no_image.jpg" class="img-fluid rounded-top main-image" alt="Ảnh phụ" style="height: 120px; object-fit: contain;" />
-        </span>
-        <button type="button" class="btn btn-danger btn-sm remove-image mt-1">Xóa ảnh</button>
-        <input type="hidden" value="" name="hinh${imageCount}" class="url_image">
-    `;
-
-                // Add new image container to the container
-                imageContainer.appendChild(newImageDiv);
-
-                // Add delete functionality to the new delete button
-                newImageDiv.querySelector('.remove-image').addEventListener('click', function() {
-                    newImageDiv.remove(); // Remove image container
-                    imageCount--; // Decrease image count
-                    updateImageNames(); // Update image names after removal
-                });
-            } else {
-                toastr.error('Đã đạt đến giới hạn tối đa 8 ảnh.');
-            }
-        });
-
-        // Add delete functionality to any existing images
-        document.querySelectorAll('.remove-image').forEach(button => {
-            button.addEventListener('click', function() {
-                const imageWrapper = this.closest('.image-wrapper');
-                imageWrapper.remove(); // Remove image container
-                imageCount--; // Decrease image count
-                updateImageNames(); // Update image names after removal
-            });
-        });
-
-        // Function to update image names after an image is removed
-        function updateImageNames() {
-            const imageWrappers = document.getElementById('image-container').querySelectorAll('.image-wrapper');
-            imageWrappers.forEach((wrapper, index) => {
-                wrapper.querySelector('.url_image').name = `hinh${index + 1}`;
-            });
-        }
         var editor_one = CodeMirror.fromTextArea(document.getElementById("code1"), {
             lineNumbers: true,
             matchBrackets: true
