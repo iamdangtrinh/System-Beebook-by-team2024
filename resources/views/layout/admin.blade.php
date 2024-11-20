@@ -16,6 +16,7 @@ $currentSegment = Request::segment(2);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Bee Book | @yield('title', 'Quản trị')</title>
+    <meta name="csrf_token" content="{{ csrf_token() }}" />
 
     <link href="{{ asset('/') }}backend/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -94,7 +95,7 @@ $currentSegment = Request::segment(2);
                 @yield('body')
             </div>
 
-            <div class="footer">
+            <div class="footer mt-3">
                 <a class="text-dark" href="https://www.facebook.com/profile.php?id=61566989045999">Được xây dựng bởi
                     nhóm Bee Book 2024</a>
             </div>

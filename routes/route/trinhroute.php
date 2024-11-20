@@ -41,7 +41,9 @@ Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
       
       Route::get('/banner', [BannerController::class, 'index'])->name('admin.banner.index');
       Route::post('/banner', [BannerController::class, 'store'])->name('admin.banner.store');
-      Route::get('/banner/{id}', [BannerController::class, 'index'])->name('admin.banner.detail');
+      Route::post('/banner/update/', [BannerController::class, 'update'])->name('admin.banner.update');
+      Route::get('/destroy/banner/{id}', [BannerController::class, 'destroy'])->name('admin.banner.destroy');
+      Route::get('/banner/edit/{id}', [BannerController::class, 'show'])->name('admin.banner.detail');
 
 });
 

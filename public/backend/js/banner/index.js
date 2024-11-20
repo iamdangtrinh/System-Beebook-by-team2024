@@ -11,8 +11,12 @@
     DT.browServerAvatar = (object) => {
         var finder = new CKFinder();
         finder.selectActionFunction = function (fileUrl) {
-            object.siblings("input.url_image").val(`/${fileUrl}`);
-            object.find("img").attr("src", `/${fileUrl}`);
+            // object.siblings("input.url_image").val(`/${fileUrl}`);
+            // object.find("img").attr("src", `/${fileUrl}`);
+            $("#gallery-preview").empty();
+            var galleryItem ='<div class="gallery-item"><img src="/' + fileUrl +'" alt="Gallery Image"><button class="delete-button">Xóa</button></div>';
+            $("#gallery-preview").append(galleryItem);
+            $(".url_image").val(`/${fileUrl}`);
         };
         finder.popup();
     };
@@ -50,9 +54,32 @@
         });
     };
 
+    DT.showAler = () => {
+        $("._deleteBanner").on("click", function (e) {
+            e.preventDefault();
+            const href = $(this).attr("href");
+
+            Swal.fire({
+                title: "Xác nhận xóa?",
+                text: "Bạn có muốn xác nhận xóa hình ảnh này không!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                cancelButtonText: "Đóng",
+                confirmButtonText: "Chắc chắn!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = href;
+                }
+            });
+        });
+    };
+
     $(document).ready(function () {
         DT.uploadImageAvatar();
         DT.uploadGalleryImages();
         DT.configSelect2();
+        DT.showAler();
     });
 })(jQuery);
