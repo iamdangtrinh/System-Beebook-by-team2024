@@ -74,7 +74,7 @@ swiper {
 }
 
 .swiper.mySwiper {
-    height: 95%;
+    /* height: 95%; */
     border-radius: 6px;
     overflow: hidden;
 }

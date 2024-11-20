@@ -146,6 +146,7 @@
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-xl-6">
                                         <form action="" method="post">
+                                            @csrf
                                             <div class="row ">
                                                 <div class="col-sm-12 col-md-6 col-xl-6">
                                                     <label style="padding-top: 8px" for="status">Cập nhật trạng thái đơn
@@ -153,7 +154,7 @@
                                                 </div>
 
                                                 <div class="col-sm-12 col-md-6 col-xl-6">
-                                                    <select name="status" id="status" class="form-control">
+                                                    <select name="status" id="status" class="form-control setupSelect2">
                                                         @foreach (config('admin.order.statusOrder') as $key => $status)
                                                             <option value="{{ $key }}">{{ $status }}
                                                             </option>
@@ -163,7 +164,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-12 col-md-6 col-xl-6">
-                                                    <span>Quản trị ghi chú đơn hàng:</span>
+                                                    <span class="mt-3 d-block">Quản trị ghi chú đơn hàng:</span>
                                                 </div>
 
                                                 <div class="col-sm-12 col-md-6 col-xl-6">
@@ -259,4 +260,18 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('/') }}backend/js/order/index.js"></script>
+    <script src="{{ asset('/') }}backend/js/plugins/select2/select2.full.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('/') }}backend/css/plugins/select2/select2.min.css">
+
+    <style>
+        .select2-container--default .select2-selection--single .select2-selection__arrow,
+        .select2-container .select2-selection--single {
+            height: 40px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 40px;
+        }
+    </style>
 @endsection
