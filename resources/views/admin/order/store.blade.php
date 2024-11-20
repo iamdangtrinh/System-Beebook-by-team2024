@@ -57,37 +57,6 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                            {{-- <tr class="border-top border-top-dashed">
-                                                <td colspan="3"></td>
-                                                <td colspan="2" class="fw-medium p-0">
-                                                    <table class="table table-borderless mb-0">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Tạm tính :</td>
-                                                                <td class="text-end">
-                                                                    {{ number_format($orderDetails->total_amount, '0', '.', '.') . ' đ' }}
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Giảm giá :</td>
-                                                                <td class="text-end">-$53.99</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Phí vận chuyển :</td>
-                                                                <td class="text-end">
-                                                                    {{ number_format($orderDetails->fee_shipping, '0', '.', '.') . ' đ' }}
-                                                                </td>
-                                                            </tr>
-                                                            <tr class="border-top border-top-dashed">
-                                                                <th scope="row">Tổng tiền :</th>
-                                                                <th class="text-end">
-                                                                    {{ number_format($orderDetails->total_amount + $orderDetails->fee_shipping, '0', '.', '.') . ' đ' }}
-                                                                </th>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr> --}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -103,7 +72,6 @@
                                     : 'Thanh toán khi nhận hàng';
 
                         @endphp
-
 
                         <div class="card mt-3">
                             <div class="card-header">
@@ -177,7 +145,7 @@
 
                                                 <div class="col-sm-12 col-md-6 col-xl-6">
                                                     <textarea name="note_admin" id="" class="form-control mt-3" cols="20" rows="5"
-                                                        placeholder="Nội dung ghi chú"></textarea>
+                                                        placeholder="Nội dung ghi chú">{{$orderDetails->note_admin}}</textarea>
                                                 </div>
                                             </div>
 
