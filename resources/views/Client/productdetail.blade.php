@@ -146,17 +146,17 @@
                             </div>
                             <div class="prInfoRow">
                                 <div class="product-stock">
-                                    @if ($product->status !== 'active')
-                                    @if ($product->quantity > 5)
-                                    <span class="instock">Còn {{ $product->quantity }} quyển sách</span>
-                                    @elseif ($product->quantity > 0 && $product->quantity <= 5)
+                                    @if ($product->status !== 'inactive')
+                                        @if ($product->quantity > 5)
+                                        <span class="instock">Còn {{ $product->quantity }} quyển sách</span>
+                                        @elseif ($product->quantity > 0 && $product->quantity <= 5)
                                         <span class="outstock">Còn {{ $product->quantity }} quyển sách</span>
                                         @else
                                         <span class="outstock">Hết hàng</span>
                                         @endif
-                                        @else
-                                        <span class="outstock">Ngưng hoạt động</span>
-                                        @endif
+                                    @else
+                                    <span class="outstock">Ngưng hoạt động</span>
+                                    @endif
                                 </div>
                                 <div class="product-sku">Lượt xem: <span
                                         class="variant-sku">{{ $product->views }}</span></div>
