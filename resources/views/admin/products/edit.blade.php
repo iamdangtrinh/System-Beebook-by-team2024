@@ -5,22 +5,22 @@
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Thêm sách</h2>
+        <h2>Sửa sách</h2>
         <ol class="breadcrumb">
-            <li>
-                <a href="index.html">Trang chủ</a>
+        <li>
+                <a href="{{ route('overview.index') }}">Trang chủ</a>
             </li>
             <li>
                 <i class="fa fa-angle-right mx-1"></i>
             </li>
             <li>
-                <a href="index.html">Sách</a>
+                <a href="{{ route('adminproduct.index') }}">Sách</a>
             </li>
             <li>
                 <i class="fa fa-angle-right mx-1"></i>
             </li>
             <li class="active">
-                <strong>Thêm sách</strong>
+                <strong>Sửa sách</strong>
             </li>
         </ol>
     </div>
@@ -434,29 +434,6 @@
     // Add an event listener to detect if the slug field has been manually edited
     document.getElementById('slug').addEventListener('input', function() {
         this.dataset.modified = true; // Mark as modified
-    });
-    $(document).ready(function() {
-        $('.chosen-select').chosen({
-            width: "100%"
-        });
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green',
-        });
-        var editor_one = CodeMirror.fromTextArea(document.getElementById("code1"), {
-            lineNumbers: true,
-            matchBrackets: true
-        });
-
-        var editor_two = CodeMirror.fromTextArea(document.getElementById("code2"), {
-            lineNumbers: true,
-            matchBrackets: true
-        });
-
-        var editor_two = CodeMirror.fromTextArea(document.getElementById("code3"), {
-            lineNumbers: true,
-            matchBrackets: true
-        });
     });
 </script>
 @endsection

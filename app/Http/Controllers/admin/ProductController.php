@@ -40,18 +40,72 @@ class ProductController extends Controller
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::where('status', '!=', 'draft')->orderBy('created_at', 'desc')->paginate(12);
+        // Lấy danh sách danh mục
+        $categories = CategoryProduct::where('status', 'active')->get();
+
+        // Bắt đầu query sản phẩm
+        $query = Product::query();
+
+        // Lọc theo danh mục
+        if ($request->filled('id_category')) {
+            $query->where('id_category', $request->id_category);
+        }
+
+        // Lọc theo trạng thái
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Lọc theo sản phẩm hot
+        if ($request->filled('hot')) {
+            $query->where('hot', $request->hot);
+        }
+
+        // Lọc theo tên sách
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        // Lọc theo giá
+        if ($request->filled('price')) {
+            $priceRange = explode('-', $request->price);
+            if (count($priceRange) == 2) {
+                $minPrice = $priceRange[0];
+                $maxPrice = $priceRange[1];
+        
+                $query->where(function ($q) use ($minPrice, $maxPrice) {
+                    $q->where(function ($q) use ($minPrice, $maxPrice) {
+                        // Lọc theo giá giảm nếu có
+                        $q->whereNotNull('price_sale')
+                          ->whereBetween('price_sale', [$minPrice, $maxPrice]);
+                    })->orWhere(function ($q) use ($minPrice, $maxPrice) {
+                        // Lọc theo giá gốc nếu không có giá giảm
+                        $q->whereNull('price_sale')
+                          ->whereBetween('price', [$minPrice, $maxPrice]);
+                    });
+                });
+            }
+        }
+        
+
+        // Truy vấn sản phẩm không phải trạng thái 'draft'
+        $products = $query->where('status', '!=', 'draft')->orderBy('created_at', 'desc')->paginate(12);
+
+        // Lấy các sản phẩm nháp và sản phẩm đã bị xóa mềm
         $drafts = Product::where('status', 'draft')->orderBy('created_at', 'desc')->get();
         $trashedProducts = Product::onlyTrashed()->get();
-        // dd($trashedProducts);
+
+        // Trả về view
         return view('admin.products.index', compact([
             'products',
             'drafts',
             'trashedProducts',
+            'categories',
         ]));
     }
+
     public function add()
     {
         $categories = CategoryProduct::where('status', 'active')->get();
@@ -116,6 +170,10 @@ class ProductController extends Controller
     }
     public function restoreAll()
     {
+        $trashedProducts = Product::onlyTrashed();
+        if ($trashedProducts->count() == 0) {
+            return redirect()->back()->with('error', 'Không có sản phẩm nào để khôi phục.');
+        }
         // Khôi phục tất cả sản phẩm đã xóa mềm
         Product::onlyTrashed()->restore();
 
@@ -357,5 +415,23 @@ class ProductController extends Controller
             }
         }
         return redirect()->route('adminproduct.index')->with('success', 'Sản phẩm đã được cập nhật thành công!');
+    }
+    public function updateHot(Request $request)
+    {
+        try {
+            $product = Product::findOrFail($request->id);
+            $product->hot = $request->hot; // Cập nhật giá trị hot
+            $product->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Cập nhật trạng thái sản phẩm thành công!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Cập nhật trạng thái sản phẩm thất bại!'
+            ]);
+        }
     }
 }

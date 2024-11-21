@@ -7,7 +7,7 @@
         <h2>Sách</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="index.html">Trang chủ</a>
+                <a href="{{ route('overview.index') }}">Trang chủ</a>
             </li>
             <li>
                 <i class="fa fa-angle-right mx-1"></i>
@@ -127,69 +127,87 @@
 </div>
 
 <div class="row wrapper wrapper-content" style="padding: 20px 0 0 !important">
-    <div class="ibox-content m-b-sm border-bottom">
-        @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-        @elseif(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-        @endif
+    <form action="" method="get">
+        <div class="ibox-content m-b-sm border-bottom">
+            <!-- Alert -->
+            @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @elseif(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            @endif
 
-        <div class="row">
-            <div class="col-sm-4 mb-3">
-                <div class="form-group">
-                    <label class="control-label" for="order_id">Order ID</label>
-                    <input type="text" id="order_id" name="order_id" value="" placeholder="Order ID"
-                        class="form-control">
+            <!-- Các bộ lọc -->
+            <div class="row">
+                <div class="col-sm-4 mb-3">
+                    <div class="form-group">
+                        <label class="control-label" for="id_category">Danh mục</label>
+                        <div>
+                            <select data-placeholder="Chọn danh mục..." name="id_category" class="chosen-select" tabindex="2">
+                                <option value="" selected>Chọn danh mục</option>
+                                @foreach($categories as $category)
+                                <option value="{{ $category->id }}" {{ request('id_category') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                            @error('id_category')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-4 mb-3">
-                <div class="form-group">
-                    <label class="control-label" for="status">Order status</label>
-                    <input type="text" id="status" name="status" value="" placeholder="Status"
-                        class="form-control">
+                <div class="col-sm-4 mb-3">
+                    <div class="form-group">
+                        <label class="control-label" for="status">Trạng thái</label>
+                        <div>
+                            <select data-placeholder="Chọn trạng thái..." name="status" class="chosen-select" tabindex="2">
+                                <option value="" selected>Chọn trạng thái</option>
+                                <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Đang hoạt động</option>
+                                <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Không hoạt động</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-4 mb-3">
-                <div class="form-group">
-                    <label class="control-label" for="customer">Customer</label>
-                    <input type="text" id="customer" name="customer" value="" placeholder="Customer"
-                        class="form-control">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4 mb-3">
-                <div class="form-group">
-                    <label class="control-label" for="date_added">Date added</label>
-                    <div class="input-group date">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input id="date_added"
-                            type="text" class="form-control" value="03/04/2014">
+                <div class="col-sm-4 mb-3">
+                    <div class="form-group">
+                        <label class="control-label" for="hot">Sách hot</label>
+                        <div>
+                            <select data-placeholder="Chọn trạng thái..." name="hot" class="chosen-select" tabindex="2">
+                                <option value="" selected>Chọn trạng thái</option>
+                                <option value="1" {{ request('hot') == '1' ? 'selected' : '' }}>Có</option>
+                                <option value="0" {{ request('hot') == '0' ? 'selected' : '' }}>Không</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 mb-3">
-                <div class="form-group">
-                    <label class="control-label" for="date_modified">Date modified</label>
-                    <div class="input-group date">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input id="date_modified"
-                            type="text" class="form-control" value="03/06/2014">
+
+            <div class="row">
+                <div class="col-sm-4 mb-3">
+                    <div class="form-group">
+                        <label class="control-label" for="name">Tên sách</label>
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Nhập tên sách" value="{{ request('name') }}">
+                    </div>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <div class="form-group">
+                        <label class="control-label" for="price">Giá</label>
+                        <input type="text" id="price" name="price" value="{{ request('price') }}" placeholder="0-150000" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 mb-3">
-                <div class="form-group">
-                    <label class="control-label" for="amount">Amount</label>
-                    <input type="text" id="amount" name="amount" value="" placeholder="Amount"
-                        class="form-control">
-                </div>
-            </div>
         </div>
+    </form>
 
-    </div>
 
     <div class="ibox">
         <div class="ibox-content">
@@ -232,11 +250,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if($product->hot == 1)
-                                                <span class="badge badge-success">Có</span>
-                                                @else
-                                                <span class="badge">Không</span>
-                                                @endif
+                                                <input type="checkbox" class="js-switch hot-checkbox" data-id="{{ $product->id }}" {{ $product->hot == 1 ? 'checked' : '' }} />
                                             </td>
 
                                             <td>
@@ -268,8 +282,7 @@
                                         @endif
                                     </tbody>
                                 </table>
-                                {{ $products->links('pagination::bootstrap-5') }}
-                            </div>
+                                {{ $products->appends(request()->query())->links('pagination::bootstrap-5') }}
                         </div>
                     </div>
                     <div id="tab-2" class="tab-pane">
@@ -347,6 +360,11 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
 <script src="{{ asset('/') }}backend/js/product/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Switchery -->
+<script src="{{ asset('/') }}backend/js/plugins/switchery/switchery.js"></script>
+<!-- Chosen -->
+<script src="{{ asset('/') }}backend/js/plugins/chosen/chosen.jquery.js"></script>
 @endsection

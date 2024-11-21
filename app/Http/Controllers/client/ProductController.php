@@ -15,24 +15,24 @@ class ProductController extends Controller
 {
     public function index($page = 1)
     {
-        // $title = 'Cửa hàng';
-        // $routeName = 'product.index';
-        // $products = Product::orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
-        // $categories = CategoryProduct::whereNull('parent_id')
-        //     ->where('status', 'active')
-        //     ->with(['children' => function ($query) {
-        //         $query->where('status', 'active');
-        //     }])->get();
-        // $totalProducts = $products->count();
-        // $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
-        // return view('Client.shop', compact([
-        //     'products',
-        //     'routeName',
-        //     'totalProducts',
-        //     'hotProducts',
-        //     'categories',
-        //     'title',
-        // ]));
+        $title = 'Cửa hàng';
+        $routeName = 'product.index';
+        $products = Product::orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
+        $categories = CategoryProduct::whereNull('parent_id')
+            ->where('status', 'active')
+            ->with(['children' => function ($query) {
+                $query->where('status', 'active');
+            }])->get();
+        $totalProducts = $products->count();
+        $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
+        return view('Client.shop', compact([
+            'products',
+            'routeName',
+            'totalProducts',
+            'hotProducts',
+            'categories',
+            'title',
+        ]));
         return view('Client.shop2');
     }
     public function hot($page = 1)
@@ -135,6 +135,9 @@ class ProductController extends Controller
     public function detail($slug)
     {
         $product = Product::with('author', 'translator', 'manufacturer')->where('slug', $slug)->firstOrFail();
+        // Tăng số lượt xem lên 1
+        $product->increment('views');
+        $product->save();
         $product_meta = ProductMeta::where('id_product', $product->id)->get();
         $product_same = Product::where('id_category', $product->id_category)->where('id', '!=', $product->id)->inRandomOrder()->limit(4)->get();
         $comments = Comment::where('id_product', $product->id)->latest()->get();
@@ -198,5 +201,4 @@ class ProductController extends Controller
 
         return view('Client.products.partials.filtered-products', compact(['products']))->render();
     }
-
 }
