@@ -17,6 +17,17 @@
             <div class="col-lg-9 col-md-9 col-sm-12">
                 <div class="bg-white w-100"
                     style="box-shadow: 0 0 40px rgba(0, 0, 0, 0.1); padding: 20px 15px; border-radius: 8px">
+                    @if (session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if (session()->has('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <div class="table-responsive">
                         <table style="white-space: nowrap;" class="table table-bordered">
                             <thead>
@@ -36,7 +47,18 @@
                                         <td>{{ $order->status }}</td>
                                         <td>{{ $order->payment_status }}</td>
                                         <td class="d-flex"style="gap: 8px">
-                                            <button class="btn btn-warning">Hủy</button>
+                                            {{-- <a href="{{ route('your-order.update.cancel', ['id' => $order->id]) }}"
+                                                class="btn btn-danger bg-danger">Hủy</a> --}}
+
+                                            @if ($order->status !== 'cancel')
+                                                <button wire:click="showAlert('{{ $order->id }}')"
+                                                    class="btn btn-danger bg-danger">
+                                                    Hủy
+                                                </button>
+                                            @else
+                                                <span class="btn btn-danger bg-secondary">Đã hủy</span>
+                                            @endif
+
                                             <a href="/profile/your-order/{{ $order->id }}"
                                                 class="btn btn-danger">Xem</a>
                                         </td>
@@ -69,4 +91,46 @@
             color: #BF9A61;
         }
     </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Livewire.on('swal', (data) => {
+                data = data[0]
+                Swal.fire({
+                    title: data.title,
+                    text: data.text,
+                    icon: data.icon,
+                    showCancelButton: data.showCancelButton,
+                    confirmButtonText: data.confirmButtonText,
+                    cancelButtonText: data.cancelButtonText,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Livewire.emit('cancel', data.id);
+                        if (typeof Livewire !== 'undefined') {
+                            Livewire.dispatch('cancel', {id: data.id});
+                        } else {
+                            console.error('Livewire is not available');
+                        }
+                    }
+                });
+            });
+            Livewire.on('swal:success', (data) => {
+                data = data[0]
+                Swal.fire({
+                    title: data.title,
+                    text: data.text,
+                    icon: 'success',
+                });
+            });
+
+            Livewire.on('swal:error', (data) => {
+                data = data[0]
+                Swal.fire({
+                    title: data.title,
+                    text: data.text,
+                    icon: 'error',
+                });
+            });
+        });
+    </script>
 </div>

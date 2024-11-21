@@ -35,8 +35,8 @@
                             <div class="zoompro-wrap product-zoom-right pl-20">
                                 <div class="zoompro-span">
                                     <img class="blur-up lazyload zoompro"
-                                        data-zoom-image="{{ asset('/') . $product->image_cover }}" alt=""
-                                        src="{{ asset('/') . $product->image_cover }}" />
+                                        data-zoom-image="{{ $product->image_cover }}" alt=""
+                                        src="{{ $product->image_cover }}" />
                                 </div>
                                 <div class="product-labels"><span class="lbl on-sale">Sale</span><span
                                         class="lbl pr-label1">new</span></div>
@@ -52,56 +52,46 @@
                             </div>
                             <div class="product-thumb product-thumb-1">
                                 <div id="gallery" class="product-dec-slider-1 product-tab-left">
-                                    <a data-image="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
-                                        data-zoom-image="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
+                                    <a data-image="{{ $product->image_cover ? $product->image_cover : 'no_image.jpg' }}"
+                                        data-zoom-image="{{ $product->image_cover ? $product->image_cover : 'no_image.jpg' }}"
                                         class="slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true"
                                         tabindex="-1">
                                         <img class="blur-up lazyload" style="height: 60px; object-fit: cover; object-position: center;"
-                                            src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
+                                            src="{{ $product->image_cover ? $product->image_cover : 'no_image.jpg' }}"
                                             alt="" />
                                     </a>
-                                    @foreach ($product_meta as $meta)
-                                    @if ($meta['product_key'] == 'thumbnail')
                                     @php
-                                    $product_value = trim($meta['product_value']);
-
-                                    $product_images = explode(',', $product_value);
+                                    // Sắp xếp mảng $product_meta theo thứ tự của product_key (hinh1, hinh2, hinh3,...)
+                                    $sortedMeta = $product_meta->sortBy(function ($meta) {
+                                    return (int) filter_var($meta['product_key'], FILTER_SANITIZE_NUMBER_INT);
+                                    });
                                     @endphp
 
-                                    @foreach ($product_images as $image)
+                                    @foreach ($sortedMeta as $meta)
+                                    @if (strpos($meta['product_key'], 'hinh') === 0) <!-- Kiểm tra nếu product_key bắt đầu bằng 'hinh' -->
                                     @php
-                                    $image = trim($image, '" ');
+                                    $product_value = trim($meta['product_value']); // Khai báo và gán giá trị cho $product_value
                                     @endphp
-
-                                    <a data-image="{{ asset($image) }}"
-                                        data-zoom-image="{{ asset($image) }}"
+                                    <a data-image="{{ $product_value }}"
+                                        data-zoom-image="{{ $product_value }}"
                                         class="slick-slide slick-cloned" data-slick-index="-3"
                                         aria-hidden="true" tabindex="-1">
-                                        <img class="blur-up lazyload" style="height: 60px; object-fit: cover; object-position: center;" src="{{ asset($image) }}"
-                                            alt="Product Image" />
+                                        <img class="blur-up lazyload" style="height: 60px; object-fit: cover; object-position: center;"
+                                            src="{{ $product_value }}" alt="Product Image" />
                                     </a>
-                                    @endforeach
                                     @endif
                                     @endforeach
+
                                 </div>
                             </div>
                             <div class="lightboximages">
-                                <a href="{{ asset('/') . $product->image_cover }}" data-size="1462x2048"></a>
-                                @foreach ($product_meta as $meta)
-                                @if ($meta['product_key'] == 'thumbnail')
+                                <a href="{{ $product->image_cover }}" data-size="1462x2048"></a>
+                                @foreach ($sortedMeta as $meta)
+                                @if (strpos($meta['product_key'], 'hinh') === 0) <!-- Kiểm tra nếu product_key bắt đầu bằng 'hinh' -->
                                 @php
-                                $product_value = trim($meta['product_value']);
-
-                                $product_images = explode(',', $product_value);
+                                $product_value = trim($meta['product_value']); // Khai báo và gán giá trị cho $product_value
                                 @endphp
-
-                                @foreach ($product_images as $image)
-                                @php
-                                $image = trim($image, '" ');
-                                @endphp
-
-                                <a href="{{ asset($image) }}" data-size="1462x2048"></a>
-                                @endforeach
+                                <a href="{{ $product_value }}" data-size="1462x2048"></a>
                                 @endif
                                 @endforeach
                             </div>
@@ -156,13 +146,17 @@
                             </div>
                             <div class="prInfoRow">
                                 <div class="product-stock">
-                                    @if ($product->quantity > 5)
-                                    <span class="instock">Còn {{ $product->quantity }} quyển sách</span>
-                                    @elseif($product->quantity > 0 && $product->quantity <= 5)
+                                    @if ($product->status !== 'inactive')
+                                        @if ($product->quantity > 5)
+                                        <span class="instock">Còn {{ $product->quantity }} quyển sách</span>
+                                        @elseif ($product->quantity > 0 && $product->quantity <= 5)
                                         <span class="outstock">Còn {{ $product->quantity }} quyển sách</span>
                                         @else
                                         <span class="outstock">Hết hàng</span>
                                         @endif
+                                    @else
+                                    <span class="outstock">Ngưng hoạt động</span>
+                                    @endif
                                 </div>
                                 <div class="product-sku">Lượt xem: <span
                                         class="variant-sku">{{ $product->views }}</span></div>
@@ -211,7 +205,6 @@
                             </p>
                             <div>
                                 <p class="infolinks"><a href="#sizechart" class="sizelink btn">Thông tin chi tiết</a>
-                                    <a href="#productInquiry" class="emaillink btn">Hỏi về sách</a>
                                 </p>
                                 <!-- Product Action -->
                                 <form action={{ route('cart.store') }} method="post">
@@ -310,6 +303,18 @@
                                             </tr>
                                             @endif
                                             @endforeach
+                                            @if ($product->language)
+                                            <tr>
+                                                <th>Ngôn ngữ</th>
+                                                <td>
+                                                    @if ($product->language == 'tieng-viet')
+                                                    Tiếng Việt
+                                                    @elseif ($product->language == 'tieng-anh')
+                                                    Tiếng Anh
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                            @endif
                                             @if ($product->year)
                                             <tr>
                                                 <th>Năm XB</th>
@@ -367,7 +372,7 @@
                                     <div class="wishlist-btn">
                                         @if (!auth()->check())
                                         <a class="wishlist" href="{{ route('wishlist.index') }}" title="Thêm vào yêu thích"><i
-                                                    class="icon anm anm-heart-l"></i></a>
+                                                class="icon anm anm-heart-l"></i></a>
                                         @elseif($pro->isFavoritedByUser())
                                         <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $pro->id }}" title="Thêm vào yêu thích"><i
                                                 class="icon anm anm-heart text-danger"></i></a>
@@ -560,6 +565,18 @@
                 </tr>
                 @endif
                 @endforeach
+                @if ($product->language)
+                <tr>
+                    <th>Ngôn ngữ</th>
+                    <td>
+                        @if ($product->language == 'tieng-viet')
+                        Tiếng Việt
+                        @elseif ($product->language == 'tieng-anh')
+                        Tiếng Anh
+                        @endif
+                    </td>
+                </tr>
+                @endif
                 @if ($product->year)
                 <tr>
                     <th>Năm XB</th>
@@ -574,41 +591,6 @@
                 @endif
             </tbody>
         </table>
-    </div>
-</div>
-<div class="hide">
-    <div id="productInquiry">
-        <div class="contact-form form-vertical">
-            <div class="page-title">
-                <h3>Gửi câu hỏi về sách "{{$product->name}}"</h3>
-            </div>
-            <form method="post" action="#" id="contact_form" class="contact-form">
-                <input type="hidden" name="product_name" value="{{$product->name}}" />
-                <input type="hidden" name="product_link" value="{{asset('san-pham/' . $product->slug) }}" />
-                <div class="formFeilds">
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <input type="text" id="ContactFormName" name="user_name" placeholder="Tên của bạn"
-                                value="" required>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                            <input type="email" id="ContactFormEmail" name="user_email" placeholder="Email"
-                                autocapitalize="off" value="" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <textarea required rows="10" id="ContactFormMessage" name="user_content" placeholder="Nhập câu hỏi ở đây...."></textarea>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <input type="submit" class="btn" value="Gửi tin nhắn">
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
     </div>
 </div>
 @endsection

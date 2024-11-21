@@ -17,4 +17,14 @@ class OrderController extends Controller
             ->update(['status' => $payload['status']])
         ;
     }
+    public function cancel(string $id)
+    {
+        $result = BillModel::where('id', $id)
+            ->where('id_user', Auth::user()->id)
+            ->update(['status' => 'cancel']);
+        if ($result) {
+            return redirect()->route('your-order.index')->with('success', 'Hủy đơn hàng thành công!');
+        }
+        return redirect()->route('your-order.index')->with('success', 'Hủy đơn hàng thành công!');
+    }
 }

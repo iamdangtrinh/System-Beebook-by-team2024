@@ -10,6 +10,44 @@ use Livewire\WithPagination;
 
 class YourOrder extends Component
 {
+
+    protected $listeners = ['cancel'];
+    public function cancel($id)
+    {
+        $result = BillModel::where('id', $id)
+            ->where('id_user', Auth::user()->id)
+            ->update(['status' => 'cancel']);
+        // if ($result) {
+        //     return session()->flash('success', 'Hủy đơn hàng thành công!');
+        // }
+        // return session()->flash('error', 'Hủy đơn hàng không thành công!');
+
+        if ($result) {
+            $this->dispatch('swal:success', (object)[
+                'title' => 'Thành công',
+                'text' => 'Đơn hàng đã được hủy.',
+            ]);
+        } else {
+            $this->dispatch('swal:error', (object)[
+                'title' => 'Lỗi',
+                'text' => 'Không thể hủy đơn hàng, vui lòng thử lại.',
+            ]);
+        }
+    }
+
+    public function showAlert(string $id)
+    {
+        $this->dispatch('swal', (object)[
+            'title' => 'Xác nhận hủy đơn hàng?',
+            'text' => 'Bạn có chắc chắn hủy đơn hàng không?',
+            'icon' => 'warning',
+            'showCancelButton' => true,
+            'confirmButtonText' => 'Chắc chắn, hủy!',
+            'cancelButtonText' => 'Đóng',
+            'id' => $id,  // Pass the order ID
+        ]);
+    }
+
     use WithPagination, WithoutUrlPagination;
     public function render()
     {
