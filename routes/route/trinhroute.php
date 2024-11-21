@@ -61,6 +61,7 @@ Route::post('/order-check-status', [CheckoutController::class, 'checkStatus'])->
 Route::prefix('profile/your-order')->middleware('CheckLogin:Vui lòng đăng nhập để thực hiện chức năng!')->name('your-order.')->group(function () {
       Route::get('/', [ManagerUserController::class, 'yourOrder'])->name('index');
       Route::get('/{id}', [ManagerUserController::class, 'yourOrderDetail'])->name('detail-index');
+      Route::get('/cancel/{id}', [ClientOrderController::class, 'cancel'])->name('update.cancel');
 });
 
 Route::get('/redis-test', function () {

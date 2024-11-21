@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\BillDetailModel;
+use App\Models\Product;
 use App\Services\Interfaces\CheckoutServiceInterface;
 // use App\Models\User;
 use App\Repositories\Interfaces\CheckoutRepositoryInterface as CheckoutRepository;
@@ -76,7 +78,7 @@ class CheckoutService implements CheckoutServiceInterface
                         return redirect()->route('product.index')->with('error', "Vui lòng thêm sản phẩm vào giỏ hàng");
                   }
                   $carts = $this->CartService->findCartByUser(Auth::id());
-                  if (count($carts) === 0) {
+                  if ($carts->isEmpty()) {
                         return redirect()->route('product.index')->with('error', "Vui lòng thêm sản phẩm vào giỏ hàng");
                   }
 
@@ -100,12 +102,31 @@ class CheckoutService implements CheckoutServiceInterface
 
                   $payload['total_amount'] = $total_amount;
                   $payload['id_user'] = Auth::user()->id;
-                  $id_bill = $this->CheckoutRepository->create($payload)->id;
-                  foreach ($billDetails as $billDetail) {
-                        $billDetail['id_bill'] = $id_bill;
-                        $this->BillDetailRepository->create($billDetail);
-                  }
+                  
+                  // $id_bill = $this->CheckoutRepository->create($payload)->id;
+                  // foreach ($billDetails as $billDetail) {
+                  //       $billDetail['id_bill'] = $id_bill;
+                  //       $this->BillDetailRepository->create($billDetail);
+                  // }
 
+                  $id_bill = $this->CheckoutRepository->create($payload)->id;
+                  // Thêm id_bill vào từng chi tiết hóa đơn
+                  $billDetails = array_map(function ($billDetail) use ($id_bill) {
+                        $billDetail['id_bill'] = $id_bill;
+                        return $billDetail;
+                  }, $billDetails);
+
+                  $this->BillDetailRepository->insert($billDetails);
+
+                  foreach ($carts as $cart) {
+                        $updated = Product::where('id', $cart['id_product'])
+                              ->where('quantity', '>=', $cart['quantity'])
+                              ->decrement('quantity', $cart['quantity']);
+
+                        if (!$updated) {
+                              throw new \Exception("Sản phẩm với ID {$cart['id_product']} không đủ số lượng hoặc không tồn tại");
+                        }
+                  }
                   $this->CartService->destroyAll();
 
                   DB::commit();
@@ -113,8 +134,8 @@ class CheckoutService implements CheckoutServiceInterface
                         return redirect()->route('order.show', ['id' => $id_bill]);
                   } else if ($payload['payment_method'] === "OFFLINE") {
                         // duyệt
-                        Mail::to(env('MAIL_ADMIN'))->send(new \App\Mail\NewOrderAdminEmail($id_bill));
-                        Mail::to($payload['email'])->send(new \App\Mail\sendEmailOrder($id_bill));
+                        Mail::to(env('MAIL_ADMIN'))->queue(new \App\Mail\NewOrderAdminEmail($id_bill));
+                        Mail::to($payload['email'])->queue(new \App\Mail\sendEmailOrder($id_bill));
                         return redirect()->route('thankyou.index', ['id' => $id_bill]);
                   }
             } catch (\Exception $exception) {
