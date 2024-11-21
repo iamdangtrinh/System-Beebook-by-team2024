@@ -77,5 +77,61 @@
         DT.uploadMainImage(); // Gọi hàm xử lý chọn ảnh
         DT.deleteMainImage(); // Gọi hàm xử lý xóa ảnh
         DT.uploadGalleryImages(); // Gọi hàm uploadGalleryImages khi trang đã sẵn sàng
+        var elems = document.querySelectorAll('.js-switch');
+        elems.forEach(function (elem) {
+            var switchery = new Switchery(elem, { color: '#1AB394' });
+        });
+        // Lắng nghe sự kiện thay đổi giá trị của checkbox
+        $('.hot-checkbox').on('change', function () {
+            let $this = $(this);
+            const productId = $this.data('id'); // Lấy ID sản phẩm từ data-id
+            const isHot = $this.is(':checked') ? 1 : 0; // Trạng thái của checkbox
+
+            // Gửi yêu cầu AJAX đến server
+            $.ajax({
+                url: '/admin/product/update-hot',
+                method: 'POST',
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf_token"]').attr("content"),
+                },
+                data: JSON.stringify({
+                    id: parseInt(productId),
+                    hot: isHot,
+                }),
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data.status) {
+                        toastr.success(data.message);
+                    } else {
+                        toastr.error(data.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Lỗi:', error);
+                    toastr.error('Đã xảy ra lỗi!');
+                }
+            });
+        });
+        $('.chosen-select').chosen({
+            width: "100%"
+        });
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+        var editor_one = CodeMirror.fromTextArea(document.getElementById("code1"), {
+            lineNumbers: true,
+            matchBrackets: true
+        });
+
+        var editor_two = CodeMirror.fromTextArea(document.getElementById("code2"), {
+            lineNumbers: true,
+            matchBrackets: true
+        });
+
+        var editor_two = CodeMirror.fromTextArea(document.getElementById("code3"), {
+            lineNumbers: true,
+            matchBrackets: true
+        });
     });
 })(jQuery);

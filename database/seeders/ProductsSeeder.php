@@ -247,7 +247,7 @@ class ProductsSeeder extends Seeder
             // Save the image content directly to the specified path
             file_put_contents($imagePath, $imageContent);
 
-            return 'userfiles/image/' . $imageName;
+            return '/userfiles/image/' . $imageName;
         } catch (\Exception $e) {
             $this->command->error('Error downloading image: ' . $e->getMessage());
             return null; // Return null if unable to download the image        
