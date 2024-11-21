@@ -24,6 +24,12 @@ class BaseRepository implements BaseRepositoryInterface
         return $model->fresh();
     }
 
+    public function insert(array $payload = [])
+    {
+        return $this->model->insert($payload);
+    }
+
+
     public function all()
     {
         return $this->model->all();
