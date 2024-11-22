@@ -99,18 +99,11 @@ class CheckoutService implements CheckoutServiceInterface
                   } else {
                         $payload['fee_shipping'] = 0;
                   }
-
+                  
                   $payload['total_amount'] = $total_amount;
                   $payload['id_user'] = Auth::user()->id;
                   
-                  // $id_bill = $this->CheckoutRepository->create($payload)->id;
-                  // foreach ($billDetails as $billDetail) {
-                  //       $billDetail['id_bill'] = $id_bill;
-                  //       $this->BillDetailRepository->create($billDetail);
-                  // }
-
                   $id_bill = $this->CheckoutRepository->create($payload)->id;
-                  // Thêm id_bill vào từng chi tiết hóa đơn
                   $billDetails = array_map(function ($billDetail) use ($id_bill) {
                         $billDetail['id_bill'] = $id_bill;
                         return $billDetail;

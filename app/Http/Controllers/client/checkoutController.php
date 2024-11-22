@@ -61,24 +61,23 @@ class CheckoutController extends Controller
     public function thankyou(Request $request, $idBill)
     {
         // nếu đơn hàng chưa thanh toán thì mới hiển thị
-        $resultBill = BillModel::findOrFail($idBill);
+        $resultBill = BillModel::where('id_user', Auth::user()->id)->findOrFail($idBill);
 
-        if ($resultBill->send_email === false) {
-            Mail::to(env('MAIL_ADMIN'))->send(new \App\Mail\NewOrderAdminEmail($idBill));
-            Mail::to($resultBill->email)->send(new \App\Mail\sendEmailOrder($idBill));
+        if ($resultBill->send_email === 0) {
+            Mail::to(env('MAIL_ADMIN'))->queue(new \App\Mail\NewOrderAdminEmail($idBill));
+            Mail::to($resultBill->email)->queue(new \App\Mail\sendEmailOrder($idBill));
             BillModel::find($idBill)
                 ->where('id_user', Auth::user()->id)
                 ->update(['send_email' => true]);
         }
 
         if ($resultBill->payment_status === 'PAID') {
-            return redirect()->route('your-order-detail.index', ['id' => $idBill]);
+            // return redirect()->route('your-order.index', ['id' => $idBill]);
         }
         return view('Client.thankyou', compact('resultBill'));
     }
 
-    public function show($id)
-    {
+    public function show($id) {
         // Lấy thông tin đơn hàng
         $order_details = BillModel::find($id);
         if (!$order_details) {
@@ -88,9 +87,6 @@ class CheckoutController extends Controller
         return view('Client.qr-payment', compact('order_details'));
     }
 
-    // hàm tìm payment status của đơn hàng
-    // gửi email cho đơn hàng
-    // chuyển về trang thank you
     function checkStatus(Request $request)
     {
         $payload = $request->except(['_token']);
@@ -101,7 +97,6 @@ class CheckoutController extends Controller
 
         $bill = BillModel::select(['payment_status', 'email'])
             ->where('id', $payload['id'])
-            // ->where('payment_status', 'PAID')
             ->first();
         return $bill->payment_status;
     }
