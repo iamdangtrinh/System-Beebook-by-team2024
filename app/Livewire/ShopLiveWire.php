@@ -69,7 +69,7 @@ class ShopLiveWire extends Component
     public function render()
     {
         $query = Product::query();
-
+        $query->where('status', 'active');
         // Lọc theo khoảng giá nếu có
         if (!empty($this->priceRange)) {
             $query->where(function ($q) {
