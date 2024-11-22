@@ -38,30 +38,28 @@ class CartService implements CartServiceInterface
         if (Auth::check()) {
             $cart = $this->CartRepository->findCart($this->paginateSelect(), Auth::user()->id, $perPage);
         } else {
-            // Lấy giỏ hàng từ session
             $carts = session()->get('cart', []);
-            // Khởi tạo mảng chứa các ID sản phẩm từ giỏ hàng
             $proIdArr = array_column($carts, 'product_id');
-            // Truy vấn sản phẩm từ cơ sở dữ liệu dựa trên các product_id
-            $products = Product::whereIn('id', $proIdArr)->get() ?? [];
-            // Tạo một mảng để lưu kết hợp dữ liệu từ giỏ hàng và sản phẩm
+            $products = Product::whereIn('id', $proIdArr)->where('status', 'active')->get() ?? [];
             $cart = [];
             foreach ($products as $product) {
                 $productId = $product->id;
-                // Lấy thông tin từ session giỏ hàng dựa trên product_id
                 $sessionCartItem = $carts[$productId];
-                // Kết hợp dữ liệu của sản phẩm và giỏ hàng (giá và số lượng)
                 $cart[] = [
                     'id' => $product->id,
                     'name' => $product->name,
                     'image_cover' => $product->image_cover,
                     'slug' => $product->slug,
-                    'price_product' => $product->price, // Giá từ giỏ hàng
-                    'quantity_product' => $product->quantity, // Giá từ giỏ hàng
-                    'quantity' => $sessionCartItem['quantity'], // Số lượng từ giỏ hàng
-                    'price' => $sessionCartItem['product_price'], // Giá từ giỏ hàng
+                    'price_product' => $product->price,
+                    'quantity_product' => $product->quantity,
+                    'quantity' => $sessionCartItem['quantity'],
+                    'price' => $sessionCartItem['product_price'],
                 ];
             }
+
+            session()->put('cart', array_filter($carts, function ($item) use ($products) {
+                return $products->contains('id', $item['product_id']);
+            }));
         }
 
         return $cart;

@@ -59,7 +59,6 @@
                                             $quantity = $isAuthenticated ? $cartItem->quantity : $cartItem['quantity'];
                                             $idCart = $isAuthenticated ? $cartItem->id : 0;
                                         @endphp
-                                        @if(!$products->isEmpty())
                                         <tr class="cartItem cart__row border-bottom border-top">
                                             @foreach ($products as $product)
                                                 <td class="text-center d-none">
@@ -134,7 +133,6 @@
                                                 </a>
                                             </td>
                                         </tr>
-                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>

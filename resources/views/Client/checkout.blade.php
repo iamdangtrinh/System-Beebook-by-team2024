@@ -139,6 +139,7 @@
                                     <div class="position-relative">
                                         <label for="input-address">Địa chỉ <span class="text-danger">*</span> </label>
                                         <input class="form-control" name="address"
+                                        autocomplete="off"
                                             value="{{ old('address') ?? Auth::user()->address }}"
                                             id="input-address-autocomplete" type="text">
 

@@ -30,8 +30,16 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
         $query = $this->model
             ->select($column)
             ->where('id_user', '=', $id_user)
-            ->with('cartProduct')
+            ->with(['cartProduct' => function ($query) {
+                $query->where('status', 'active');
+            }])
             ->paginate($perpage);
+
+        $query->each(function ($cartItem) {
+            if ($cartItem->cartProduct->isEmpty()) {
+                $cartItem->delete();
+            }
+        });
         return $query;
     }
 
