@@ -35,8 +35,8 @@
                             <div class="zoompro-wrap product-zoom-right pl-20">
                                 <div class="zoompro-span">
                                     <img class="blur-up lazyload zoompro"
-                                        data-zoom-image="{{ $product->image_cover }}" alt=""
-                                        src="{{ $product->image_cover }}" />
+                                        data-zoom-image="{{ $product->image_cover ? $product->image_cover : '/no_image.jpg' }}" alt=""
+                                        src="{{ $product->image_cover ? $product->image_cover : '/no_image.jpg' }}" />
                                 </div>
                                 <div class="product-labels"><span class="lbl on-sale">Sale</span><span
                                         class="lbl pr-label1">new</span></div>
@@ -52,12 +52,12 @@
                             </div>
                             <div class="product-thumb product-thumb-1">
                                 <div id="gallery" class="product-dec-slider-1 product-tab-left">
-                                    <a data-image="{{ $product->image_cover ? $product->image_cover : 'no_image.jpg' }}"
-                                        data-zoom-image="{{ $product->image_cover ? $product->image_cover : 'no_image.jpg' }}"
+                                    <a data-image="{{ $product->image_cover ? $product->image_cover : '/no_image.jpg' }}"
+                                        data-zoom-image="{{ $product->image_cover ? $product->image_cover : '/no_image.jpg' }}"
                                         class="slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true"
                                         tabindex="-1">
                                         <img class="blur-up lazyload" style="height: 60px; object-fit: cover; object-position: center;"
-                                            src="{{ $product->image_cover ? $product->image_cover : 'no_image.jpg' }}"
+                                            src="{{ $product->image_cover ? $product->image_cover : '/no_image.jpg' }}"
                                             alt="" />
                                     </a>
                                     @php
@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                             <div class="lightboximages">
-                                <a href="{{ $product->image_cover }}" data-size="1462x2048"></a>
+                                <a href="{{ $product->image_cover ? $product->image_cover : '/no_image.jpg' }}" data-size="1462x2048"></a>
                                 @foreach ($sortedMeta as $meta)
                                 @if (strpos($meta['product_key'], 'hinh') === 0) <!-- Kiểm tra nếu product_key bắt đầu bằng 'hinh' -->
                                 @php

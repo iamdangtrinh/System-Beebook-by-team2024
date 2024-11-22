@@ -283,6 +283,7 @@
                                     </tbody>
                                 </table>
                                 {{ $products->appends(request()->query())->links('pagination::bootstrap-5') }}
+                            </div>
                         </div>
                     </div>
                     <div id="tab-2" class="tab-pane">
