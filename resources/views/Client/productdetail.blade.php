@@ -350,11 +350,11 @@
                             <!-- start product image -->
                             <div class="product-image">
                                 <!-- start product image -->
-                                <a href="{{ asset('san-pham/' . $pro->slug) }}" class="grid-view-item__link">
+                                <a href="{{ 'san-pham/' . $pro->slug }}" class="grid-view-item__link">
                                     <!-- image -->
                                     <img class="primary lazyload"
-                                        data-src="{{ asset($pro->image_cover ? $pro->image_cover : 'no_image.jpg') }}"
-                                        src="{{ asset($pro->image_cover ? $pro->image_cover : 'no_image.jpg') }}"
+                                        data-src="{{ $pro->image_cover ? $pro->image_cover : '/no_image.jpg' }}"
+                                        src="{{ $pro->image_cover ? $pro->image_cover : '/no_image.jpg' }}"
                                         alt="image" title="product">
                                     <!-- End image -->
                                 </a>

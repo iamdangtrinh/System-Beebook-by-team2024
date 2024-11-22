@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\client\ProductController;
 use App\Http\Controllers\client\WishlistController;
 use App\Http\Controllers\admin\ProductController as AdminProductController;
+use App\Http\Controllers\admin\CommentController as AdminCommentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('san-pham/{slug}', [ProductController::class, 'detail'])->name('product.detail');
@@ -30,4 +31,6 @@ Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
     Route::get('product/{id}/edit', [AdminProductController::class, 'edit'])->name('adminproduct.edit');
     Route::put('product/{id}', [AdminProductController::class, 'update'])->name('adminproduct.update');
     Route::post('product/update-hot', [AdminProductController::class, 'updateHot'])->name('adminproduct.update-hot');
+    Route::get('/comments', [AdminCommentController::class, 'index'])->name('admincomment.index');
+    Route::get('/comments/{product}', [AdminCommentController::class, 'show'])->name('admincomment.show');
 });
