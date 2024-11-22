@@ -22,7 +22,7 @@ class cartModel extends Model
     ];
 
     public function cartProduct() {
-        return $this->belongsToMany(Product::class, 'carts', 'id', 'id_product');
+        return $this->belongsToMany(Product::class, 'carts', 'id', 'id_product')->where('status', 'active');
     }
 
 }
