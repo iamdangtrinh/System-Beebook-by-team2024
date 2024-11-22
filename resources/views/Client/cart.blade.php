@@ -2,11 +2,12 @@
 @section('title', 'Giỏ hàng')
 
 @section('body')
-<head>
-    <link rel="stylesheet" href="{{ asset('/') }}client/css/customCart.css">
-</head>
 
-<div id="page-content">
+    <head>
+        <link rel="stylesheet" href="{{ asset('/') }}client/css/customCart.css">
+    </head>
+
+    <div id="page-content">
         <div class="page section-header text-center">
             <div class="page-title">
                 <div class="wrapper">
@@ -50,20 +51,16 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($result as $cartItem)
+                                        @php
+                                            $isAuthenticated = Auth::check();
+
+                                            $products = $isAuthenticated ? $cartItem->cartProduct : [$cartItem];
+                                            $price = $isAuthenticated ? $cartItem->price : $cartItem['price'];
+                                            $quantity = $isAuthenticated ? $cartItem->quantity : $cartItem['quantity'];
+                                            $idCart = $isAuthenticated ? $cartItem->id : 0;
+                                        @endphp
+                                        @if(!$products->isEmpty())
                                         <tr class="cartItem cart__row border-bottom border-top">
-                                            {{-- sản phẩm --}}
-                                            @php
-                                                $isAuthenticated = Auth::check();
-
-                                                $products = $isAuthenticated ? $cartItem->cartProduct : [$cartItem];
-
-                                                $price = $isAuthenticated ? $cartItem->price : $cartItem['price'];
-                                                $quantity = $isAuthenticated
-                                                    ? $cartItem->quantity
-                                                    : $cartItem['quantity'];
-                                                $idCart = $isAuthenticated ? $cartItem->id : 0;
-                                            @endphp
-
                                             @foreach ($products as $product)
                                                 <td class="text-center d-none">
                                                     <input name="id_product[]" class="inputCheckCart" checked
@@ -77,7 +74,8 @@
 
                                                 {{-- Hình ảnh và tên --}}
                                                 <td class="cart__image-wrapper cart-flex-item">
-                                                    <a href="san-pham/{{ $isAuthenticated ? $product->slug : $product['slug'] }}">
+                                                    <a
+                                                        href="san-pham/{{ $isAuthenticated ? $product->slug : $product['slug'] }}">
                                                         <img class="cart__image"
                                                             src="{{ $isAuthenticated ? ($product->image_cover ? asset($product->image_cover) : asset('no_image.jpg')) : ($product['image_cover'] ? asset($product['image_cover']) : asset('no_image.jpg')) }}"
                                                             alt="{{ $isAuthenticated ? $product->name : $product['name'] }}">
@@ -136,6 +134,7 @@
                                                 </a>
                                             </td>
                                         </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>
@@ -157,7 +156,9 @@
                             </div>
                             <div class="row border-bottom pb-2 pt-2">
                                 <span class="col-12 col-sm-6 cart__subtotal-title">Phí vận chuyển:</span>
-                                <span class="col-12 col-sm-6 text-right">{{number_format(env('fee_shipping'), 0, '.', '.')}} đ</span>
+                                <span
+                                    class="col-12 col-sm-6 text-right">{{ number_format(env('fee_shipping'), 0, '.', '.') }}
+                                    đ</span>
                             </div>
                             <div class="row border-bottom pb-2 pt-2">
                                 <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Tổng cộng:</strong></span>
@@ -180,7 +181,7 @@
                 <div class="__custom_cart_empty">
                     <img src="{{ asset('/') }}client/images/ico_emptycart.svg" alt="Cart empty">
                     <h4 class="">Chưa có sản phẩm trong giỏ hàng của bạn.</h4>
-                    <a href="{{route('product.index')}}" class="btn rounded btn-medium">Mua sắm ngay</a>
+                    <a href="{{ route('product.index') }}" class="btn rounded btn-medium">Mua sắm ngay</a>
                 </div>
             @endif
         </div>
