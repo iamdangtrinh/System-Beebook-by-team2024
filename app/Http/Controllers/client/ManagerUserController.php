@@ -26,7 +26,6 @@ class ManagerUserController extends Controller
     {
         if (User::where('status', 'active')->whereNotNull('email_verified_at')->first()) {
             $user = Auth::attempt(['email' => $request->email, 'password' => $request->password1]);
-
             if ($user === true) {
                 if (Auth::user()->status === 'inactive') {
                     Auth::logout();
@@ -93,7 +92,8 @@ class ManagerUserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                'password' => Hash::make($request->password_confirm)
+                'password' => Hash::make($request->password_confirm),
+                'status' => "inactive"
             ]);
             Mail::to($request->email)->send(new verifySignUp($user->id));
             session()->flash('success-sign-up', 'Đăng ký thành công, vui lòng kiểm tra email để kích hoạt tài khoản');
