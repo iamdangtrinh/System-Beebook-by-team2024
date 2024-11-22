@@ -25,14 +25,14 @@ class ProductController extends Controller
             }])->get();
         $totalProducts = $products->count();
         $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
-        return view('Client.shop', compact([
-            'products',
-            'routeName',
-            'totalProducts',
-            'hotProducts',
-            'categories',
-            'title',
-        ]));
+        // return view('Client.shop', compact([
+        //     'products',
+        //     'routeName',
+        //     'totalProducts',
+        //     'hotProducts',
+        //     'categories',
+        //     'title',
+        // ]));
         return view('Client.shop2');
     }
     public function hot($page = 1)
