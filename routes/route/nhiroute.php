@@ -33,4 +33,5 @@ Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
     Route::post('product/update-hot', [AdminProductController::class, 'updateHot'])->name('adminproduct.update-hot');
     Route::get('/comments', [AdminCommentController::class, 'index'])->name('admincomment.index');
     Route::get('/comments/{product}', [AdminCommentController::class, 'show'])->name('admincomment.show');
+    Route::delete('/comments/{comment}', [AdminCommentController::class, 'destroy'])->name('admincomment.destroy');
 });
