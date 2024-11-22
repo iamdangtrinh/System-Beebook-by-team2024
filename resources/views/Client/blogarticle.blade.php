@@ -156,14 +156,14 @@
                                             <div class="grid__item">
                                                 <div class="mini-list-item">
                                                     <div class="mini-view_image">
-                                                        <a class="grid-view-item__link" href="#">
+                                                        <a class="grid-view-item__link" href="/posts/{{$mostpost->slug}}">
                                                             <img class="grid-view-item__image blur-up lazyload"
-                                                                src="{{ asset($mostpost['image'] ? $mostpost['image'] : no_image . jpg) }}"
+                                                                src="{{ asset($mostpost->image ? $mostpost->image : 'no_image.jpg') }}"
                                                                 alt="" />
                                                         </a>
                                                     </div>
                                                     <div class="details"> <a class="grid-view-item__title"
-                                                            href="#">{{ $mostpost->title }}</a>
+                                                            href="/posts/{{$mostpost->slug}}">{{ $mostpost->title }}</a>
                                                         <p>{{ $mostpost->tags }}</p>
                                                     </div>
 
@@ -188,7 +188,7 @@
                                             <div class="grid__item">
                                                 <div class="mini-list-item">
                                                     <div class="mini-view_image">
-                                                        <a class="grid-view-item__link" href="#">
+                                                        <a class="grid-view-item__link" href="/posts/{{$postmore->slug}}">
                                                             <img class="grid-view-item__image blur-up lazyload"
                                                                 src="{{ asset($postmore['image'] ? $postmore['image'] : 'no_image.jpg') }}"
                                                                 alt="{{ $postmore->title }}" />
@@ -196,7 +196,7 @@
                                                     </div>
 
                                                     <div class="details"> <a class="grid-view-item__title"
-                                                            href="#">{{ $postmore->title }}</a>
+                                                            href="/posts/{{$postmore->slug}}">{{ $postmore->title }}</a>
                                                         <p>{{ $postmore->tags }}</p>
                                                     </div>
                                                 </div>
