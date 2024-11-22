@@ -27,8 +27,7 @@
                                                     <div class="mini-view_image">
                                                         <a class="grid-view-item__link" href="/posts/{{$mostpost->slug}}">
                                                             <img class="grid-view-item__image blur-up lazyload"
-                                                                data-src="
-                                                                "
+                                                                data-src="{{ asset($mostpost->image ? $mostpost->image : 'no_image.jpg') }}"
                                                                 alt="{{ $mostpost->title }}" />
 
                                                         </a>
@@ -67,7 +66,7 @@
                                     <!-- Article Image -->
                                     <a class="article_featured-image" href="/posts/{{ $blog['slug'] }}"><img
                                             class="blur-up lazyload rounded"
-                                            src="{{ asset($blog['image'] ? $blog['image'] : 'no_image.jpg') }}"
+                                            src="{{ asset($blog->image ? $blog->image : 'no_image.jpg') }}"
                                             alt="{{ $blog['title'] }}"></a>
                                     <h2 class="h3"><a href="/posts/{{ $blog['slug'] }}">{{ $blog['title'] }}</a></h2>
                                     <p>{{ $blog['tags'] }}</p>
