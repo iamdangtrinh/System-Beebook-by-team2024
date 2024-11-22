@@ -199,10 +199,14 @@
                                             </div>
                                         
                                             {{-- Content --}}
-                                            <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
-                                                <label for="Content">Nội dung</label>
-                                                <textarea wire:model="content" class="form-control rounded-3" placeholder="Nội dung bài viết" id="Content" rows="5"></textarea>
-                                                @error('content') <span class="error text-danger">{{ $message }}</span> @enderror
+                                            <div class="col-12">
+                                                <div class="form-group @error('content') has-error @enderror">
+                                                    <label>Description <span class="text-danger">*</span></label>
+                                                    <textarea name="content" id="content" class="content form-control" cols="30" rows="10">{{ old('content') }}</textarea>
+                                                    @error('content')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         
                                             {{-- Tags --}}
@@ -213,11 +217,11 @@
                                             </div>
                                         
                                             {{-- Image --}}
-                                            <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
+                                            {{-- <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
                                                 <label for="Image">Hình ảnh</label>
                                                 <input type="file" wire:model="image" class="form-control rounded-3" id="Image">
                                                 @error('image') <span class="error text-danger">{{ $message }}</span> @enderror
-                                            </div>
+                                            </div> --}}
                                         
                                             {{-- Slug --}}
                                             <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
@@ -287,7 +291,7 @@
                                             <label for="file-upload" style="cursor: pointer;">
                                                 <img 
                                                      style="width: 100%; border: 1px solid black" 
-                                                     src="{{ asset('storage/uploads/' . ($image === '' ? 'no_image.jpg' : $image)) }}" 
+                                                     src="{{ asset(($image === '' ? 'no_image.jpg' : $image)) }}" 
                                                      alt="">
                                             </label>
                                             <input type="file" id="file-upload" wire:model.change="image" style="display: none;" accept="image/*">
@@ -356,3 +360,4 @@
     </script>
 
 </div>
+<script src="{{ asset('/') }}backend/plugins/ckeditor/ckeditor.js"></script>

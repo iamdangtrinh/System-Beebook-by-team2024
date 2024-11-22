@@ -18,6 +18,7 @@ class CategoryAdmin extends Component
     use WithFileUploads;
     use WithPagination;
     public $getAllCategory = [];
+    
     public $paginationData;
     public $idCategory = '';
     public $nameCategory = '';
