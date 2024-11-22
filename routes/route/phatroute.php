@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\client\ClientController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\client\BlogController;
-
+use App\Http\Controllers\admin\BlogController as AdminBlogController;
+use App\Http\Controllers\admin\BlogAdmin;
 
 //client
 
@@ -26,6 +27,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/blogs', [AdminController::class, 'blogs']);
     Route::get('/article', [AdminController::class, 'article']);
     Route::get('/dashboard_3', [AdminController::class, 'dashboard_3']);
+    Route::get('/blog', [BlogAdmin::class,'index'])->name('adminblog.index');
+    // Route::get('/blog/add', [AdminBlogController::class, 'add'])->name('adminblog.add');
+
 });
 
 // Route::get('/activity_stream', [AdminController::class, 'activity_stream']);

@@ -27,7 +27,8 @@
                                                     <div class="mini-view_image">
                                                         <a class="grid-view-item__link" href="/posts/{{$mostpost->slug}}">
                                                             <img class="grid-view-item__image blur-up lazyload"
-                                                                data-src="{{ asset($mostpost->image ? $mostpost->image : 'no_image.jpg') }}"
+                                                                data-src="
+                                                                "
                                                                 alt="{{ $mostpost->title }}" />
 
                                                         </a>

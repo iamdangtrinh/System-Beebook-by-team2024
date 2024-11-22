@@ -85,12 +85,15 @@ class BlogController extends Controller
         $getMostPost =  BlogModel::where('post_type', $getPost['post_type'])->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(10)->get();
         if (Auth::user()) {
 
-            $time = Carbon::parse(Auth::user()->email_verified_at);
-            if (!$time->isToday() && !Carbon::now()->diffInMinutes($time) < 5) {
-                User::where('id', Auth::user()->id)->update(['email_verified_at' => Carbon::now()]);
-                BlogModel::where('id', $getPost->id)->increment('views');
+            try {
+                //code...
+                BlogModel::where('id', $getPost->id)->increment('views'); $getPost =  BlogModel::where('slug', $slug)->firstOrFail();
+            } catch (\Throwable $th) {
+                //throw $th;
+                dd($th->getMessage());
             }
-        }
+            }
+        
         if ($getPost['post_type'] === 'blog') {
             $getProduct = [];
             return view('Client.blogarticle', compact('getPost', 'getProduct', 'getPostMore', 'getMostPost'));

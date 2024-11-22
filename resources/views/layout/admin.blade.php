@@ -61,6 +61,9 @@ $currentSegment = Request::segment(2);
                     <li class=""><a href="{{ route('adminproduct.index') }}"><i class="fa fa-book"></i> <span
                                 class="nav-label">Sách</span></a>
                     </li>
+                    <li class=""><a href="{{ route('adminblog.index') }}"><i class="fa fa-book"></i> <span
+                                class="nav-label">Bài viết</span></a>
+                    </li>
                     <li class=""><a href="{{ route('adminUser.index') }}"><i class="fa fa-user"></i> <span
                                 class="nav-label">Tài Khoản</span></a>
                     </li>

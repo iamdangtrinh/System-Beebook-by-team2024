@@ -35,6 +35,9 @@
                             <h1><a href="blog-left-sidebar.html">{{ $getPost['title'] }}</a></h1>
                             <ul class="publish-detail">
                                 <li><i class="anm anm-user-al" aria-hidden="true"></i></li>
+                                
+                                    <li><i class="anm anm-eye" aria-hidden="true"></i>{{ $getPost['views'] }}</li>
+                                  
                                 <li><i class="icon anm anm-clock-r"></i> <time
                                         datetime="{{ date('d-m-Y', strtotime($getPost['updated_at'])) }}">{{ date('d-m-Y', strtotime($getPost['updated_at'])) }}</time>
                                 </li>
