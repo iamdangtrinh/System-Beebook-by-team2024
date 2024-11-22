@@ -23,7 +23,7 @@
             email của bạn.</p>
         <p
             style="color: white; background-color: #198754; padding: 5px 10px; border-radius: 5px; display: inline-block; margin: 10px 0; text-align: center;">
-            Đơn hàng của bạn: <b>{{ base64_encode($resultBill->id) }}</b></p>
+            Đơn hàng của bạn: <b>{{ $resultBill->id }}</b></p>
         <p style="text-align: center; color: #555;">Thời gian đặt hàng:
             {{ date('H:i:s d-m-Y', strtotime($resultBill->created_at)) }}</p>
     </div>

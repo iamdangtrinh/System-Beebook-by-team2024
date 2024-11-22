@@ -1,15 +1,3 @@
-{{-- mã giảm giá --}}
-{{-- <h5 class="title_coupon">Khuyến mãi</h5>
-                        <form action="#" id="formCouponCode" method="post">
-                            <div class="form-group">
-                                <label for="coupon">Nhập mã phiếu giảm giá của bạn nếu bạn có.</label>
-                                <input type="text" id="couponCode" name="coupon">
-                            </div>
-                            <div class="actionRow">
-                                <button type="button" class="btn sendCouponCode btn w-100">Áp dụng</button>
-                            </div>
-                        </form> --}}
-
 @extends('layout.client')
 @section('title', 'Thanh toán')
 
