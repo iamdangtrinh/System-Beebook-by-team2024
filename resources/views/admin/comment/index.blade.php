@@ -63,8 +63,8 @@
                                 @endif
                             </td>
                             <td class="text-center">{{ $product->comments->count() }}</td>
-                            <td>{{ optional($product->comments->last())->content ?? 'Không có' }}</td>
-                            <td>{{ optional($product->comments->first())->content ?? 'Không có' }}</td>
+                            <td>{{ optional($product->comments->last())->created_at ?? 'Không có' }}</td>
+                            <td>{{ optional($product->comments->first())->created_at ?? 'Không có' }}</td>
                             <td>
                                 <a href="{{ route('admincomment.show', $product->id) }}" class="btn btn-sm btn-info">Xem chi tiết</a>
                             </td>
