@@ -71,7 +71,7 @@ class CheckoutService implements CheckoutServiceInterface
 
       public function create($request)
       {
-            DB::beginTransaction();
+            // DB::beginTransaction();
             try {
                   $payload = $request->except(['_token']);
                   if (empty($payload['checkout']) || $payload['checkout'] !== 'submit_checkout') {
@@ -122,7 +122,7 @@ class CheckoutService implements CheckoutServiceInterface
                   }
                   $this->CartService->destroyAll();
 
-                  DB::commit();
+                  // DB::commit();
                   if ($payload['payment_method'] == "ONLINE") {
                         return redirect()->route('order.show', ['id' => $id_bill]);
                   } else if ($payload['payment_method'] == "OFFLINE") {
