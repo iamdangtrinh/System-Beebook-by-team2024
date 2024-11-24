@@ -129,6 +129,7 @@ class CheckoutService implements CheckoutServiceInterface
                         // duyệt
                         Mail::to(env('MAIL_ADMIN'))->queue(new \App\Mail\NewOrderAdminEmail($id_bill));
                         Mail::to($payload['email'])->queue(new \App\Mail\sendEmailOrder($id_bill));
+                        dd('123');
                         return redirect()->route('thankyou.index', ['id' => $id_bill]);
                   }
             } catch (\Exception $exception) {
