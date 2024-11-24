@@ -120,7 +120,7 @@ class CheckoutService implements CheckoutServiceInterface
                               throw new \Exception("Sản phẩm với ID {$cart['id_product']} không đủ số lượng hoặc không tồn tại");
                         }
                   }
-                  $this->CartService->destroyAll();
+                  // $this->CartService->destroyAll();
 
                   // DB::commit();
                   if ($payload['payment_method'] == "ONLINE") {
