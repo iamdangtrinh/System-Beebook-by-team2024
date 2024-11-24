@@ -56,18 +56,18 @@ class CheckoutService implements CheckoutServiceInterface
             ];
       }
 
-      public function paginate($request)
-      {
-            $perPage = $request->integer('perpage');
-            $users = $this->CheckoutRepository->pagination(
-                  $this->paginateSelect(),
-                  [],
-                  [],
-                  ['path' => 'users'],
-                  $perPage,
-            );
-            return $users;
-      }
+      // public function paginate($request)
+      // {
+      //       $perPage = $request->integer('perpage');
+      //       $users = $this->CheckoutRepository->pagination(
+      //             $this->paginateSelect(),
+      //             [],
+      //             [],
+      //             ['path' => 'users'],
+      //             $perPage,
+      //       );
+      //       return $users;
+      // }
 
       public function create($request)
       {
@@ -119,7 +119,6 @@ class CheckoutService implements CheckoutServiceInterface
                               throw new \Exception("Sản phẩm với ID {$cart['id_product']} không đủ số lượng hoặc không tồn tại");
                         }
                   }
-
                   $this->CartService->destroyAll();
                   DB::commit();
                   if ($payload['payment_method'] == "ONLINE") {
@@ -128,8 +127,7 @@ class CheckoutService implements CheckoutServiceInterface
                         // duyệt
                         Mail::to(env('MAIL_ADMIN'))->send(new \App\Mail\NewOrderAdminEmail($id_bill));
                         Mail::to($payload['email'])->send(new \App\Mail\sendEmailOrder($id_bill));
-                        // dd('123');
-                        return redirect()->route('thankyou.index', ['id' => '1']);
+                        return redirect()->route('thankyou.index', ['id' => $id_bill]);
                   }
             } catch (\Exception $exception) {
                   DB::rollBack();
