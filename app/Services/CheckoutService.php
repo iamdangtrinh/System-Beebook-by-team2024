@@ -56,18 +56,18 @@ class CheckoutService implements CheckoutServiceInterface
             ];
       }
 
-      public function paginate($request)
-      {
-            $perPage = $request->integer('perpage');
-            $users = $this->CheckoutRepository->pagination(
-                  $this->paginateSelect(),
-                  [],
-                  [],
-                  ['path' => 'users'],
-                  $perPage,
-            );
-            return $users;
-      }
+      // public function paginate($request)
+      // {
+      //       $perPage = $request->integer('perpage');
+      //       $users = $this->CheckoutRepository->pagination(
+      //             $this->paginateSelect(),
+      //             [],
+      //             [],
+      //             ['path' => 'users'],
+      //             $perPage,
+      //       );
+      //       return $users;
+      // }
 
       public function create($request)
       {
