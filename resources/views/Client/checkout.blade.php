@@ -154,19 +154,9 @@
                     <input type="hidden" name="shipping_method" value="GHN">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                         <h2 class="order-title">Đơn hàng của bạn</h2>
-                        <form id="formCouponCode" action="{{ route('apply.coupon') }}" method="post">
-                            @csrf
-                            <div class="row mt-3 mb-3">
-                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                    <input name="code" type="text" style="border:1px solid black; border-radius: 6px "
-                                        placeholder="Mã giảm giá  ">
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    <button type="button" class="btn">Áp dụng</button>
-                                </div>
-                            </div>
-                        </form>
+                        @livewire('discount')
                         <div class="your-order-payment">
+
                             <div class="your-order">
                                 @php
                                     $subTotal = 0;
@@ -216,11 +206,22 @@
                                                 Miễn phí vận chuyển
                                             @endif
                                         </span></span>
-                                </div>
+                                    </div>
+                                    @if ($price_sale !== 0) 
+                                    <div class="row border-bottom mb-3">
+                                        <span class="col-12 col-sm-6 cart__subtotal-title">Giảm giá:</span>
+                                        <span class="col-12 col-sm-6 text-right"><span id="totalAmout">
+                                                {{ number_format($price_sale) }} đ</span></span>
+                                    </div>
+                                    @endif
                                 <div class="row border-bottom mb-3">
                                     <span class="col-12 col-sm-6 cart__subtotal-title">Tổng tiền:</span>
                                     <span class="col-12 col-sm-6 text-right"><span id="totalAmout">
-                                            {{ number_format($subTotal, '0', '.', '.') }} đ</span></span>
+                                        @if ($price_sale !== 0)
+                                        {{ number_format($subTotal -$price_sale) }} đ</span></span>
+                                        @else
+                                        {{ number_format($subTotal, '0', '.', '.') }} đ</span></span>
+                                        @endif
                                 </div>
                             </div>
 
