@@ -29,17 +29,14 @@ class CheckoutController extends Controller
         $this->CheckoutRepository = $CheckoutRepository;
         $this->CartService = $CartService;
     }
-    public function ApplyCoupon(Request $request)
-    {
-        dd($request);
-    }
     public function index()
     {
         $result = $this->CartService->findCartByUser(20);
+        $price_sale = session()->get('price', 0);
         if (count($result) == 0) {
             return redirect()->route('product.index')->with('error', 'Vui lòng thêm sản phẩm vào giỏ hàng!');
         }
-        return view('Client.checkout', compact(['result']));
+        return view('Client.checkout', compact(['result', 'price_sale']));
     }
 
     public function cartToCheckout(Request $request) {}
@@ -77,7 +74,8 @@ class CheckoutController extends Controller
         return view('Client.thankyou', compact('resultBill'));
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         // Lấy thông tin đơn hàng
         $order_details = BillModel::find($id);
         if (!$order_details) {

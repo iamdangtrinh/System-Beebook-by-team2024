@@ -24,61 +24,61 @@ class ManagerUserController extends Controller
     }
     public function HandleSignIn(SignInRequest $request)
     {
-        if (User::where('status', 'active')->whereNotNull('email_verified_at')->first()) {
-            $user = Auth::attempt(['email' => $request->email, 'password' => $request->password1]);
-            if ($user === true) {
-                if (Auth::user()->status === 'inactive') {
-                    Auth::logout();
-                    session()->flash('errorSignIn', 'Tài khoản của bạn đã bị khóa !');
-                    return redirect('/sign-in');
-                } else {
-                    $sessionCart = Session::get('cart', []);
-                    foreach ($sessionCart as $item) {
-                        // Lấy thông tin sản phẩm từ database để kiểm tra số lượng tồn kho
-                        $product = Product::find($item['product_id']);
+        // if (User::where('status', 'active')->whereNotNull('email_verified_at')->first()) {
+        $user = Auth::attempt(['email' => $request->email, 'password' => $request->password1]);
+        if ($user === true) {
+            if (Auth::user()->status === 'inactive') {
+                Auth::logout();
+                session()->flash('errorSignIn', 'Tài khoản của bạn đã chưa được kích hoạt !');
+                return redirect('/sign-in');
+            } else {
+                $sessionCart = Session::get('cart', []);
+                foreach ($sessionCart as $item) {
+                    // Lấy thông tin sản phẩm từ database để kiểm tra số lượng tồn kho
+                    $product = Product::find($item['product_id']);
 
-                        if ($product) {
-                            // Kiểm tra nếu sách đã có trong bảng carts của người dùng
-                            $cartItem = cartModel::where('id_user', Auth::user()->id)
-                                ->where('id_product', $item['product_id'])
-                                ->first();
+                    if ($product) {
+                        // Kiểm tra nếu sách đã có trong bảng carts của người dùng
+                        $cartItem = cartModel::where('id_user', Auth::user()->id)
+                            ->where('id_product', $item['product_id'])
+                            ->first();
 
-                            // số lượng sản phẩm
-                            $newQuantity = $cartItem ? $cartItem->quantity + $item['quantity'] : $item['quantity'];
-                            // cho sl sản phẩm = tối đa
-                            $finalQuantity = min($newQuantity, $product->quantity);
+                        // số lượng sản phẩm
+                        $newQuantity = $cartItem ? $cartItem->quantity + $item['quantity'] : $item['quantity'];
+                        // cho sl sản phẩm = tối đa
+                        $finalQuantity = min($newQuantity, $product->quantity);
 
-                            if ($cartItem) {
-                                // Nếu đã có, cập nhật số lượng sách và giá tiền
-                                $cartItem->quantity = $finalQuantity;
-                                $cartItem->price += $item['product_price'];
-                                $cartItem->save();
-                            } else {
-                                // Nếu chưa có, sách vào bảng carts
-                                cartModel::create([
-                                    'id_user' => Auth::user()->id,
-                                    'id_product' => $item['product_id'],
-                                    'quantity' => $finalQuantity,
-                                    'price' => $item['product_price'],
-                                ]);
-                            }
+                        if ($cartItem) {
+                            // Nếu đã có, cập nhật số lượng sách và giá tiền
+                            $cartItem->quantity = $finalQuantity;
+                            $cartItem->price += $item['product_price'];
+                            $cartItem->save();
+                        } else {
+                            // Nếu chưa có, sách vào bảng carts
+                            cartModel::create([
+                                'id_user' => Auth::user()->id,
+                                'id_product' => $item['product_id'],
+                                'quantity' => $finalQuantity,
+                                'price' => $item['product_price'],
+                            ]);
                         }
                     }
-                    Session::forget('cart');
-                    if (Auth::user()->roles === 'admin') {
-                        return redirect('/admin');
-                    } else {
-                        return redirect('/profile');
-                    }
                 }
-            } else {
-                session()->flash('SignInFailed', 'Tài khoản hoặc mật khẩu của bạn không đúng!');
-                return redirect('/sign-in');
+                Session::forget('cart');
+                if (Auth::user()->roles === 'admin') {
+                    return redirect('/admin');
+                } else {
+                    return redirect('/profile');
+                }
             }
         } else {
-            session()->flash('errorSignIn', 'Tài khoản của bạn chưa được kích hoạt !');
+            session()->flash('SignInFailed', 'Tài khoản hoặc mật khẩu của bạn không đúng!');
             return redirect('/sign-in');
         }
+        // } else {
+        //     session()->flash('errorSignIn', 'Tài khoản của bạn chưa được kích hoạt !');
+        //     return redirect('/sign-in');
+        // }
     }
     public function SignUp()
     {
