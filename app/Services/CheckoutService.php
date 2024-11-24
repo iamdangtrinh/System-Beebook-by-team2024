@@ -121,7 +121,6 @@ class CheckoutService implements CheckoutServiceInterface
                         }
                   }
                   // $this->CartService->destroyAll();
-
                   // DB::commit();
                   if ($payload['payment_method'] == "ONLINE") {
                         return redirect()->route('order.show', ['id' => $id_bill]);
@@ -129,7 +128,8 @@ class CheckoutService implements CheckoutServiceInterface
                         // duyệt
                         Mail::to(env('MAIL_ADMIN'))->send(new \App\Mail\NewOrderAdminEmail($id_bill));
                         Mail::to($payload['email'])->send(new \App\Mail\sendEmailOrder($id_bill));
-                        return redirect()->route('thankyou.index', ['id' => $id_bill]);
+                        // dd('123');
+                        return redirect()->route('thankyou.index', ['id' => '1']);
                   }
             } catch (\Exception $exception) {
                   DB::rollBack();
