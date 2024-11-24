@@ -110,7 +110,6 @@ class CheckoutService implements CheckoutServiceInterface
                   }, $billDetails);
 
                   $this->BillDetailRepository->insert($billDetails);
-
                   foreach ($carts as $cart) {
                         $updated = Product::where('id', $cart['id_product'])
                               ->where('quantity', '>=', $cart['quantity'])
@@ -122,7 +121,6 @@ class CheckoutService implements CheckoutServiceInterface
                   }
 
                   $this->CartService->destroyAll();
-
                   DB::commit();
                   if ($payload['payment_method'] == "ONLINE") {
                         return redirect()->route('order.show', ['id' => $id_bill]);
