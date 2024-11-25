@@ -239,8 +239,13 @@ a {
     border-radius: 6px;
 }
 
-
 .grid-products .item .product-image img {
     min-height: 230px;
     object-fit: cover;
+}
+
+@media screen and (max-width: 678px) {
+    .product-template__container .product-form__item--submit .btn {
+        width: 100% !important;
+    }
 }

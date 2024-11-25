@@ -39,7 +39,7 @@
                                                     <td>
                                                         <div class="d-flex">
                                                             <div class="flex-shrink-0 avatar-md bg-light rounded p-1">
-                                                                <img src=" {{ asset('/') }}{{ $order->image_cover ?? 'no_image.jpg' }}"
+                                                                <img src="{{ $order->image_cover ?? '/no_image.jpg' }}"
                                                                     alt="" class="img-fluid d-block"
                                                                     style="width: 120px">
                                                             </div>
