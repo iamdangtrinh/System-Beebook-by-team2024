@@ -1,6 +1,6 @@
 
 
-<div class="container my-5 p-4 text-white rounded bg-white" style="max-width: 550px;">
+<div class="container my-5 p-4 text-white rounded bg-white" style="max-width: 550px; background-color:#f9f9f9;">
    <a href={{env('APP_URL')}}>
       <img src="{{env('APP_URL')}}.{{ asset('/') }}client/images/logo.webp" alt="background" class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover; z-index: -1; filter: brightness(50%);">
    </a>

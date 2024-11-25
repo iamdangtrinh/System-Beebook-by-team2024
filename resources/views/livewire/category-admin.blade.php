@@ -1,18 +1,6 @@
 <div>
     <div class="row wrapper border-bottom white-bg page-heading" >
         <div class="col-lg-10">
-            <h2>Danh mục</h2>
-            <ol class="breadcrumb">
-                <li>
-                    <a href="index.html">Trang chủ</a>
-                </li>
-                <li>
-                    <i class="fa fa-angle-right mx-1"></i>
-                </li>
-                <li class="active">
-                    <strong>Danh mục</strong>
-                </li>
-            </ol>
         </div>
         <div class="col-lg-2">
             <a wire:click="closeModal" class="btn btn-outline btn-primary btn-rounded">Thêm danh mục</a>
@@ -234,13 +222,14 @@
                                                      style="width: 100%; border: 1px solid black" 
                                                      src="{{ asset('storage/uploads/' . ($imageCategory === '' ? 'no_image.jpg' : $imageCategory)) }}" 
                                                      alt="">
+
                                             </label>
                                             <input type="file" id="file-upload" wire:model.change="imageCategory" style="display: none;" accept="image/*">
                                         </div>
                                         @error('avatar')
                                         <span class="error text-danger">{{ $message }}</span>
                                     @enderror
-                                       </div>
+                                </div>
                                    </div>
                                 </div>
                                 @if ($imageCategory !=='')
