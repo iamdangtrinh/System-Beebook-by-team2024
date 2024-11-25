@@ -46,6 +46,7 @@ class UserAdmin extends Component
     public $address = '';
     public $disabled = false;
     public $valueStatusConfirm = '';
+    public $DataEditUser;
     public function mount()
     {
         $this->loadUsers();
@@ -54,7 +55,7 @@ class UserAdmin extends Component
     // Load users với phân trang, có thể áp dụng bộ lọc
     public function loadUsers()
     {
-        $query = User::query();
+        $query = User::query()->orderBy('id', 'desc');
 
         if (!empty($this->idUser)) {
             $query->where('id', 'like', '%' . $this->idUser . '%');
@@ -154,11 +155,9 @@ class UserAdmin extends Component
         try {
             // Kiểm tra và tạo thư mục nếu chưa tồn tại
             $fileName = time() . '_' . $value->getClientOriginalName();
-            $value->storeAs('uploads', $fileName, 'public');
-            $this->valueAvatar = '';
             $this->valueAvatar = $fileName;
+            $value->storeAs('uploads', $fileName, 'public');
         } catch (\Exception $th) {
-
             session()->flash('error', 'Không thể cập nhật ảnh đại diện. Vui lòng thử lại.');
         }
     }
@@ -168,16 +167,7 @@ class UserAdmin extends Component
     }
     public function updatedValueStatus1($value)
     {
-        try {
-            User::where('id', $this->edit)->update(['status' => $value]);
-            $paginator = User::paginate(20);
-            $this->getAllUser = $paginator->items();
-            $this->updatePaginationData($paginator);
-            session()->flash('updateSuccess', 'Bạn đã đổi trạng thái thành công');
-        } catch (\Throwable $th) {
-            dd($th->getMessage());
-            session()->flash('update', 'Bạn đã đổi trạng thái thất bại');
-        }
+        $this->valueStatus1 = $value;
     }
     public function updatedValueStatusConfirm($value)
     {
@@ -235,10 +225,45 @@ class UserAdmin extends Component
     }
     public function editUser($value)
     {
-        if ($this->edit === $value) {
-            $this->edit = '';
-        } else {
-            $this->edit = $value;
+        $this->isModal = true;
+        $this->DataEditUser = User::where('id', $value)->first();
+        $this->valueName = $this->DataEditUser['name'];
+        $this->valueEmail = $this->DataEditUser['email'];
+        $this->valuePhone = $this->DataEditUser['phone'];
+        $this->valueStatus = $this->DataEditUser['roles'];
+        $this->valueStatus1 = $this->DataEditUser['status'];
+        $this->valueAvatar = $this->DataEditUser['avatar'];
+        $this->address = $this->DataEditUser['address'];
+    }
+    public function updateUser()
+    {
+        try {
+            User::where('id', $this->DataEditUser['id'])->update([
+                'name' => $this->valueName,
+                'phone' => $this->valuePhone,
+                'email' => $this->valueEmail,
+                'address' => $this->address,
+                'status' => $this->valueStatus1,
+                'roles' => $this->valueStatus,
+            ]);
+            $paginator = User::paginate(20);
+            $this->getAllUser = $paginator->items();
+            $this->updatePaginationData($paginator);
+            $this->isModal = false;
+            $this->reset([
+                'valueName',
+                'valueEmail',
+                'valuePhone',
+                'address',
+                'valueStatus',
+                'valueStatus1'
+            ]);
+            $this->valueStatus = 'customer';
+            $this->DataEditUser = [];
+            session()->flash('success_update', 'Cập nhật tài khoản thành công');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            session()->flash('error_update', 'Cập nhật tài khoản thất bại');
         }
     }
     public function render()

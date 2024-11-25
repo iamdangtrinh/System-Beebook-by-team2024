@@ -1,18 +1,6 @@
 <div>
     <div class="row wrapper border-bottom white-bg page-heading" >
         <div class="col-lg-10">
-            <h2>Tài khoản</h2>
-            <ol class="breadcrumb">
-                <li>
-                    <a href="index.html">Trang chủ</a>
-                </li>
-                <li>
-                    <i class="fa fa-angle-right mx-1"></i>
-                </li>
-                <li class="active">
-                    <strong>Sách</strong>
-                </li>
-            </ol>
         </div>
         <div class="col-lg-2">
             <a wire:click="closeModal" class="btn btn-outline btn-primary btn-rounded">Thêm tài khoản</a>
@@ -46,8 +34,7 @@
             </div>
           
     
-        </div>
-    
+        </div>    
         <div class="ibox">
             <div class="ibox-content">
                 <div class="table-responsive">
@@ -80,36 +67,22 @@
                                 <td>{{ $user->phone }}</td>
                                 <td style="width: 20%">{{ $user->address }}</td>
                                 <td class="d-flex justify-content-center" style="border: none" > 
-                                    @if ($edit===$user->id)
-                                    <select name="" id="" wire:model.change="valueStatus1" style="border: 1px solid #e5e6e7; width: 100%; border-radius: 8px; padding: 6px 12px;" >
-                                        <option   value="active">Hoạt Động</option>
-                                        <option value="inactive">Tạm Khóa</option>
-                                    </select>
-                                    @else
                                     @if ($user->status === 'active')
                                     <div style="width: 10px; height: 10px; background: #00FF00; border-radius: 50%; border: none" class="dot"></div>
                                     @else
                                     <div style="width: 10px; height: 10px; background: red; border-radius: 50%; border: none" class="dot"></div>
                                     @endif
-                                    @endif
                                 </td>
                                 <td>
-                                    @if ($edit === $user->id)
-                                    <select name="" id="" wire:model.change="valueStatusConfirm" style="border: 1px solid #e5e6e7; width: 100%; border-radius: 8px; padding: 6px 12px;" >
-                                        <option  value="customer">Khách hàng</option>
-                                        <option  value="admin">Quản lý</option>
-                                    </select>
-                                    @else    
                                     @if ($user->roles === 'admin') 
                                     Quản lý
                                     @else
                                     Khách hàng
                                     @endif
-                                    @endif
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group gap-2 w-100 __custom_btn_group">
-                                        <a wire:click="editUser({{$user->id}})" class="btn badge text-light {{$edit===$user->id ?"text-bg-success":"text-bg-warning"}}">{{$edit === $user->id ?"Hoàn thành":"Chỉnh sửa" }}</a>
+                                        <a wire:click="editUser({{$user->id}})" class="btn badge text-light text-bg-warning">Chỉnh sửa</a>
                                         {{-- <a wire:click="confirmDelete" href="" class="btn badge text-light text-bg-danger">Xóa</a> --}}
                                     </div>
                                 </td>
@@ -157,7 +130,6 @@
                 @endif
             </div>
         </div>
-
         @if (session('errorCreate'))
         <div class="error text-danger">
             {{ session('errorCreate') }}
@@ -200,7 +172,7 @@
                                             <label for="file-upload" style="cursor: pointer;">
                                                 <img 
                                                      style="width: 100px; height: 100px; border-radius: 50%; border: 1px solid black" 
-                                                     src={{asset('storage/uploads/'.$valueAvatar)}}
+                                                     src={{ asset('storage/uploads/' . ($valueAvatar === '' ? 'no_image.jpg' : $valueAvatar)) }}
                                                      alt="User Avatar">
                                             </label>
                                             <input type="file" wire:model.change="valueAvatar" id="file-upload" wire:model.live="avatar" style="display: none;" accept="image/*">
@@ -210,6 +182,7 @@
                                     @enderror
                                        </div>
                                    </div>
+
                                     {{-- Name --}}
                                     <div class="form-group " style="display: flex; flex-direction: column; gap:5px">
                                         <label for="CustomerName">Họ tên</label>
@@ -232,7 +205,7 @@
                                     <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
                                         <div class="position-relative">
                                             <label for="input-address">Địa chỉ </label>
-                                            <input class="form-control" wire:model.live="address" 
+                                            <input class="form-control rounded-3" wire:model.live="address" 
                                                 type="text" placeholder="Địa chỉ">
                                             <ul class="list-group position-absolute w-100">
                                                 @if ($chooseAddress)
@@ -246,14 +219,22 @@
                                         </div>
                                     </div>
                                      {{-- Role --}}
-                                    
                                     <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
                                         <label for="CustomerEmail">Quyền</label>
                                         <select name="" id="" wire:model.live="valueStatus" style="border: 1px solid #e5e6e7; width: 100%; border-radius: 8px; padding: 6px 12px;" >
-                                            <option value="customer">Khách hàng</option>
+                                            <option  value="customer">Khách hàng</option>
                                             <option value="admin">Quản lý</option>
                                         </select>
                                     </div>
+                                    @if ($DataEditUser)      
+                                    <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
+                                        <label for="CustomerEmail">Trạng thái</label>
+                                        <select name="" id="" wire:model.live="valueStatus1" style="border: 1px solid #e5e6e7; width: 100%; border-radius: 8px; padding: 6px 12px;" >
+                                            <option value="active">Hoạt động</option>
+                                            <option value="inactive">Tạm khóa</option>
+                                        </select>
+                                    </div>
+                                    @endif
                                      {{-- Success Message --}}
                                     @if (session('success-sign-up'))
                                         <div class="alert alert-success">
@@ -268,13 +249,16 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" style="border-radius: 4px" class="btn btn-secondary" wire:click="closeModal">Đóng</button>
+                    @if ($DataEditUser)
+                    <button type="button"  style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="updateUser" class="btn rounded-1  fs-6">Cập nhật</button>
+                    @else
                     <button type="button"  @if ($errors->any() ||  $valuePhone==='' || $valueName === ''||$valueEmail === '' || $disabled )  disabled @endif style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="createUser" class="btn rounded-1  fs-6">Xác nhận thêm</button>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
     <div class="modal-backdrop fade show"></div>
-
     @endif
     <style>
         .pagination .page-item.active .page-link {
@@ -283,5 +267,4 @@
             color:black !important
         }
     </style>
-    
 </div>
