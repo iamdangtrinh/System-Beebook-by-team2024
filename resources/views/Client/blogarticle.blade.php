@@ -16,13 +16,7 @@
             </div>
         </div>
         <!--End Page Title-->
-        <div class="bredcrumbWrap">
-            <div class="container breadcrumbs">
-                <a href="index.html" title="Back to the home page">Home</a><span aria-hidden="true">›</span>
-                <a href="blog-left-sidebar.html" title="Back to News">News</a><span aria-hidden="true">›</span><span>Blog
-                    Article</span>
-            </div>
-        </div>
+        
         <div class="container">
             <div class="row">
                 <!--Main Content-->
@@ -34,8 +28,8 @@
                                     alt="{{ $getPost['title'] }}"></a>
                             <h1><a href="blog-left-sidebar.html">{{ $getPost['title'] }}</a></h1>
                             <ul class="publish-detail">
-                                <li><i class="anm anm-user-al" aria-hidden="true"></i></li>
                                 
+                                <li>{{ $getPost['post_type'] }}</li>
                                     <li><i class="anm anm-eye" aria-hidden="true"></i>{{ $getPost['views'] }}</li>
                                   
                                 <li><i class="icon anm anm-clock-r"></i> <time

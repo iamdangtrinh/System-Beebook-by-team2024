@@ -1,38 +1,20 @@
 <div>
-    <div class="row wrapper border-bottom white-bg page-heading" >
-        <div class="col-lg-10">
-            <h2>Bài viết</h2>
-            <ol class="breadcrumb">
-                <li>
-                    <a href="index.html">Trang chủ</a>
-                </li>
-                <li>
-                    <i class="fa fa-angle-right mx-1"></i>
-                </li>
-                <li class="active">
-                    <strong>Bài viết</strong>
-                </li>
-            </ol>
-        </div>
-        <div class="col-lg-2">
-            <a wire:click="closeModal" class="btn btn-outline btn-primary btn-rounded">Thêm bài viết</a>
-        </div>
-    </div>
+    
     
     <div class="row wrapper wrapper-content" style="padding: 10px 0 0 !important">
         <div class="ibox-content m-b-sm border-bottom">
             <div class="row">
                 <div class="col-sm-4 mb-3">
                     <div class="form-group">
-                        <label class="control-label" for="id">Mã bài viết</label>
+                        <label class="control-label" for="id">Mã tác giả</label>
                         <input type="text" id="" wire:model.live="id" value="" placeholder="Mã bài viết"
                             class="form-control">
                     </div>
                 </div>
                 <div class="col-sm-4 mb-3">
                     <div class="form-group">
-                        <label class="control-label" for="title">Tên bài viết</label>
-                        <input type="text" id="title" wire:model.live="title" value="" placeholder="Tên bài viết"
+                        <label class="control-label" for="title">Tên tác giả</label>
+                        <input type="text" id="title" wire:model.live="title" value="" placeholder="Tên tác giả"
                             class="form-control">
                     </div>
                 </div>
@@ -75,50 +57,28 @@
                     <table class=" table table-bordered toggle-arrow-tiny" data-page-size="15">
                         <thead>
                             <tr>
-                                <th>Mã bài viết</th>
-                                <th >Ảnh</th>
-                                <th >Tên bài viết</th>
+                                <th >ID</th>
+                                <th >Type</th>
+                                <th>Tác giả, người dịch, nhà sản xuất</th>
                                 <th >Slug</th>
-                                <th >Status</th>
-                                <th >Nổi bật</th>
-                                <th >Trạng thái</th>
-                                <th >Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($getposts as $posts)
+                            @foreach ($gettaxonomy as $tax)
                             <tr>
-                                <td>{{ $posts->id }}</td>
-                                <td>
-                                    <img 
-                                    style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid black" 
-                                    src="{{ asset($posts->image ? $posts->image : 'no_image.jpg') }}" 
-                                    >
-                                </td>
-                                <td>{{ $posts->title }}</td>
-                                <td>{{ $posts->slug }}</td>
-                                <td>{{ $posts->status }}</td>
-                                <td>{{ $posts->hot }}</td>
+                                <td>{{ $tax->id }}</td>
                                 
-                                <td class="d-flex justify-content-center" style="border: none" > 
-                                    @if ($posts->status === 'active')
-                                    <div style="width: 10px; height: 10px; background: #00FF00; border-radius: 50%; border: none" class="dot"></div>
-                                    @else
-                                    <div style="width: 10px; height: 10px; background: red; border-radius: 50%; border: none" class="dot"></div>
-                                    @endif
-                                </td>
-                                <td class="text-right">
-                                    <div class="d-flex gap-2">
-                                        <a wire:click="editpost({{$posts->id}})"  class="btn btn-sm btn-warning">Sửa</a>
-                                        <a wire:click="deleted_post({{ $posts->id }}, '{{ $posts->image }}')" class="btn btn-sm btn-danger">Xóa</a>
-
-                                    </div>
-                                </td>
+                                <td>{{ $tax->type }}</td>
+                                <td>{{ $tax->name }}</td>
+                                <td>{{ $tax->slug }}</td>
+                
+                                
+                                
                             </tr>
                             @endforeach                
                         </tbody>
                     </table>
-                    @if (count($getposts) !== 0)
+                   
                     @if ($paginationData['total'] > $paginationData['perPage'])
                     <nav class="d-flex justify-content-end" role="Page navigation example" aria-label="Pagination Navigation">
                         <ul class="pagination">
@@ -147,14 +107,9 @@
                         </ul>
                     </nav>
                 @endif  
-                    @endif
+                    
                 </div>
-                @if (count($getposts) === 0)
-                <div class="d-flex flex-column" >
-                    <img style="height: 200px; object-fit: contain" src='/client/images/manager-user/no-data.webp' alt="">
-                    <p class="text-center" style="font-size:1rem " >Không tồn tại bài viết</p>
-                </div>
-                @endif
+                
             </div>
         </div>
         @if ($isModal)
@@ -162,7 +117,7 @@
         <div style="max-width: 70%;" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    @if ($dataEditpost)
+                    @if ($editTaxonomy)
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Cập nhật bài viết</h1>
                     @else
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm bài viết</h1>
