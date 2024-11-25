@@ -79,7 +79,7 @@
                                             <td>
                                                 <div class="d-flex mb-2">
                                                     <div class="flex-shrink-0">
-                                                        <img src="{{ asset('/') }}{{ $billDetail->image_cover }}"
+                                                        <img src="{{ $billDetail->image_cover }}"
                                                             alt="{{ $billDetail->name }}" width="50" class="img-fluid">
                                                     </div>
                                                     <div class="flex-lg-grow-1 ms-3">

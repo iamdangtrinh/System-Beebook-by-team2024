@@ -262,7 +262,7 @@
             <div class="container">
                 <div class="row">
                     @foreach ($blogs as $blog)
-                        <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
+                        <div class="col-sm-12 col-md-12 col-lg-3 item">
                             <a class="article_featured-image" href="/posts/{{ $blog['slug'] }}"><img
                                     class="blur-up lazyload"
                                     src={{ asset($blog['image'] ? $blog['image'] : 'no_image.jpg') }}
@@ -285,7 +285,6 @@
                             <p><a href="/posts/{{ $blog['slug'] }}"></a></p>
                         </div>
                     @endforeach
-
 
                 </div>
             </div>
