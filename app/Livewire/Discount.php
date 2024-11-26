@@ -29,8 +29,8 @@ class Discount extends Component
     public function ApplyCoupon()
     {
         $result_coupon = couponModel::where('code_coupon', $this->code)->where('status', 'active')->first();
-        session()->put('id', $result_coupon['id']);
         if ($result_coupon !== null) {
+            session()->put('id', $result_coupon['id']);
             $start = Carbon::parse($result_coupon['start_date']);
             $expires_at = Carbon::parse($result_coupon['expires_at']);
             $now = Carbon::now();
