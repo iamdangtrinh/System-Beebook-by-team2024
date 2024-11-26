@@ -11,212 +11,211 @@
                 @csrf
                 @method('PUT')
                 <div class="row">
-                    <div class="col-lg-8">
-                        <div class="form-group @error('name') has-error @enderror">
-                            <label>Tên sách <span class="text-danger">*</span></label>
-                            <input id="name" name="name" type="text" class="form-control" value="{{ old('name', $product->name) }}">
-                            @error('name')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
+                    <div class="col-12 d-flex justify-content-end mb-3">
+                        <button style="width: 200px;" class="btn btn-success">Lưu</button>
                     </div>
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label class="font-normal">Ngôn ngữ <span class="text-danger">*</span></label>
-                            <div>
-                                <select data-placeholder="Chọn ngôn ngữ..." name="language" class="chosen-select" tabindex="2">
-                                    <option value="tieng-viet" {{ old('language', $product->language) == 'tieng-viet' ? 'selected' : '' }}>Tiếng Việt</option>
-                                    <option value="tieng-anh" {{ old('language', $product->language) == 'tieng-anh' ? 'selected' : '' }}>Tiếng Anh</option>
-                                </select>
-                                @error('language')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group @error('name') has-error @enderror">
+                                    <label>Tên sách <span class="text-danger">*</span></label>
+                                    <input id="name" name="name" type="text" class="form-control" value="{{ old('name', $product->name) }}">
+                                    @error('name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label class="font-normal">Tác giả <span class="text-danger">*</span></label>
-                            <div>
-                                <select data-placeholder="Chọn tác giả..." name="id_author" class="chosen-select" tabindex="2">
-                                    @foreach($authors as $author)
-                                    <option value="{{ $author->id }}" {{ old('id_author', $product->id_author) == $author->id ? 'selected' : '' }}>{{ $author->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('id_author')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                            <div class="col-8">
+                                <div class="form-group @error('slug') has-error @enderror">
+                                    <label>Slug <span class="text-danger">*</span></label>
+                                    <input id="slug" name="slug" type="text" class="form-control" placeholder="ten-san-pham" value="{{ old('slug', $product->slug) }}">
+                                    @error('slug')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-4">
-                        <div class="form-group @error('slug') has-error @enderror">
-                            <label>Slug <span class="text-danger">*</span></label>
-                            <input id="slug" name="slug" type="text" class="form-control" placeholder="ten-san-pham" value="{{ old('slug', $product->slug) }}">
-                            @error('slug')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-2">
-                        <div class="form-group @error('quantity') has-error @enderror">
-                            <label>Số lượng <span class="text-danger">*</span></label>
-                            <input id="quantity" name="quantity" value="{{ old('quantity', $product->quantity) }}" type="number" class="form-control required">
-                            @error('quantity')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label class="font-normal">Danh mục <span class="text-danger">*</span></label>
-                            <div>
-                                <select data-placeholder="Chọn danh mục..." name="id_category" class="chosen-select" tabindex="2">
-                                    @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" {{ old('id_category', $product->id_category) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('id_category')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                            <div class="col-4">
+                                <div class="form-group @error('quantity') has-error @enderror">
+                                    <label>Số lượng <span class="text-danger">*</span></label>
+                                    <input id="quantity" name="quantity" value="{{ old('quantity', $product->quantity) }}" type="number" class="form-control required">
+                                    @error('quantity')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label class="font-normal">Nhà xuất bản <span class="text-danger">*</span></label>
-                            <div>
-                                <select data-placeholder="Chọn ngôn ngữ..." name="id_manufacturer" class="chosen-select" tabindex="2">
-                                    @foreach($manufacturers as $manufacturer)
-                                    <option value="{{ $manufacturer->id }}" {{ old('id_manufacturer', $product->id_manufacturer) == $manufacturer->id ? 'selected' : '' }}>{{ $manufacturer->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('id_manufacturer')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                            <div class="col-6">
+                                <div class="form-group @error('price') has-error @enderror">
+                                    <label>Giá <span class="text-danger">*</span></label>
+                                    <input id="price" name="price" type="number" class="form-control required" value="{{ old('price', $product->price) }}">
+                                    @error('price')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="form-group">
-                            <label class="font-normal">Người dịch</label>
-                            <div>
-                                <select data-placeholder="Chọn người dịch..." name="id_translator" class="chosen-select" tabindex="2">
-                                    <option value="" {{ !old('id_translator', $product->id_translator) ? 'selected' : '' }}>Chọn người dịch</option>
-                                    @foreach($translators as $translator)
-                                    <option value="{{ $translator->id }}" {{ old('id_translator', $product->id_translator) == $translator->id ? 'selected' : '' }}>
-                                        {{ $translator->name }}
-                                    </option>
-                                    @endforeach
-                                </select>
+                            <div class="col-6">
+                                <div class="form-group @error('price_sale') has-error @enderror">
+                                    <label>Giá giảm</label>
+                                    <input id="price_sale" name="price_sale" type="number" class="form-control" value="{{ old('price_sale', $product->price_sale) }}">
+                                    @error('price_sale')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-4">
-                        <div class="form-group @error('price') has-error @enderror">
-                            <label>Giá <span class="text-danger">*</span></label>
-                            <input id="price" name="price" type="number" class="form-control required" value="{{ old('price', $product->price) }}">
-                            @error('price')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-4">
-                        <div class="form-group @error('price_sale') has-error @enderror">
-                            <label>Giá giảm</label>
-                            <input id="price_sale" name="price_sale" type="number" class="form-control" value="{{ old('price_sale', $product->price_sale) }}">
-                            @error('price_sale')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="form-group  @error('weight') has-error @enderror">
-                            <label>Cân nặng (g) <span class="text-danger">*</span></label>
-                            <input id="weight" name="weight" value="{{ old('weight',$product->weight) }}" type="number" class="form-control required">
-                            @error('weight')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="form-group @error('year') has-error @enderror">
-                            <label>Năm xuất bản <span class="text-danger">*</span></label>
-                            <input id="year" name="year" value="{{ old('year', $product->year) }}" type="number" class="form-control required">
-                            @error('year')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-3">
-                        <div class="i-checks">
-                            <label>Hình thức</label> <br>
-                            @if($form)
-                            <label>
-                                <input type="radio" value="bia-cung" name="form" {{ old('form', $form->product_value) == 'bia-cung' ? 'checked' : '' }}>
-                                <i></i> Bìa cứng
-                            </label>
-                            <label>
-                                <input type="radio" value="bia-mem" name="form" {{ old('form', $form->product_value) == 'bia-mem' ? 'checked' : '' }}>
-                                <i></i> Bìa mềm
-                            </label>
-                            @else
-                            <label>
-                                <input type="radio" value="bia-cung" name="form" {{ old('form') == 'bia-cung' ? 'checked' : '' }}>
-                                <i></i> Bìa cứng
-                            </label>
-                            <label>
-                                <input type="radio" value="bia-mem" name="form" {{ old('form') == 'bia-mem' ? 'checked' : '' }}>
-                                <i></i> Bìa mềm
-                            </label>
-                            @endif
-
-
-                        </div>
-                    </div>
-
-                    <div class="col-2">
-                        <div class="i-checks">
-                            <label>Hot</label> <br>
-                            <label> <input type="radio" value="1" name="hot" {{ old('hot' , $product->hot) == '1' ? 'checked' : '' }}> <i></i> Có </label>
-                            <label> <input type="radio" value="0" name="hot" {{ old('hot', $product->hot) == '0' ? 'checked' : '' }}> <i></i> Không </label>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="i-checks">
-                            <label>Trạng thái</label> <br>
-                            <label> <input type="radio" value="active" name="status" {{ old('status' , $product->status) == 'active' ? 'checked' : '' }}> <i></i> Hiện </label>
-                            <label> <input type="radio" value="inactive" name="status" {{ old('status' , $product->status) == 'inactive' ? 'checked' : '' }}> <i></i> Ẩn </label>
+                            <div class="col-6">
+                                <div class="form-group  @error('weight') has-error @enderror">
+                                    <label>Cân nặng (g) <span class="text-danger">*</span></label>
+                                    <input id="weight" name="weight" value="{{ old('weight',$product->weight) }}" type="number" class="form-control required">
+                                    @error('weight')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group @error('year') has-error @enderror">
+                                    <label>Năm xuất bản <span class="text-danger">*</span></label>
+                                    <input id="year" name="year" value="{{ old('year', $product->year) }}" type="number" class="form-control required">
+                                    @error('year')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Link video sách</label>
+                                    <input id="url_video" name="url_video" type="text" class="form-control" value="{{ old('url_video', $product->url_video) }}">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Từ khóa chính</label>
+                                    <input id="meta_seo" name="meta_seo" type="text" class="form-control" value="{{ old('meta_seo', $product->meta_seo) }}">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Description SEO</label>
+                                    <textarea id="description_seo" placeholder="(Không nhập sẽ tự động lấy phần đầu của description)" name="description_seo" class="form-control">{{ old('description_seo', $product->description_seo) }}</textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="form-group">
-                            <label>Link video sách</label>
-                            <input id="url_video" name="url_video" type="text" class="form-control" value="{{ old('url_video', $product->url_video) }}">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="font-normal">Ngôn ngữ <span class="text-danger">*</span></label>
+                                    <div>
+                                        <select data-placeholder="Chọn ngôn ngữ..." name="language" class="chosen-select" tabindex="2">
+                                            <option value="tieng-viet" {{ old('language', $product->language) == 'tieng-viet' ? 'selected' : '' }}>Tiếng Việt</option>
+                                            <option value="tieng-anh" {{ old('language', $product->language) == 'tieng-anh' ? 'selected' : '' }}>Tiếng Anh</option>
+                                        </select>
+                                        @error('language')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="font-normal">Tác giả <span class="text-danger">*</span></label>
+                                    <div>
+                                        <select data-placeholder="Chọn tác giả..." name="id_author" class="chosen-select" tabindex="2">
+                                            @foreach($authors as $author)
+                                            <option value="{{ $author->id }}" {{ old('id_author', $product->id_author) == $author->id ? 'selected' : '' }}>{{ $author->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_author')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="font-normal">Danh mục <span class="text-danger">*</span></label>
+                                    <div>
+                                        <select data-placeholder="Chọn danh mục..." name="id_category" class="chosen-select" tabindex="2">
+                                            @foreach($categories as $category)
+                                            <option value="{{ $category->id }}" {{ old('id_category', $product->id_category) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_category')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="font-normal">Nhà xuất bản <span class="text-danger">*</span></label>
+                                    <div>
+                                        <select data-placeholder="Chọn ngôn ngữ..." name="id_manufacturer" class="chosen-select" tabindex="2">
+                                            @foreach($manufacturers as $manufacturer)
+                                            <option value="{{ $manufacturer->id }}" {{ old('id_manufacturer', $product->id_manufacturer) == $manufacturer->id ? 'selected' : '' }}>{{ $manufacturer->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('id_manufacturer')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="font-normal">Người dịch</label>
+                                    <div>
+                                        <select data-placeholder="Chọn người dịch..." name="id_translator" class="chosen-select" tabindex="2">
+                                            <option value="" {{ !old('id_translator', $product->id_translator) ? 'selected' : '' }}>Chọn người dịch</option>
+                                            @foreach($translators as $translator)
+                                            <option value="{{ $translator->id }}" {{ old('id_translator', $product->id_translator) == $translator->id ? 'selected' : '' }}>
+                                                {{ $translator->name }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="i-checks">
+                                    <label>Hình thức</label> <br>
+                                    @if($form)
+                                    <label>
+                                        <input type="radio" value="bia-cung" name="form" {{ old('form', $form->product_value) == 'bia-cung' ? 'checked' : '' }}>
+                                        <i></i> Bìa cứng
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="bia-mem" name="form" {{ old('form', $form->product_value) == 'bia-mem' ? 'checked' : '' }}>
+                                        <i></i> Bìa mềm
+                                    </label>
+                                    @else
+                                    <label>
+                                        <input type="radio" value="bia-cung" name="form" {{ old('form') == 'bia-cung' ? 'checked' : '' }}>
+                                        <i></i> Bìa cứng
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="bia-mem" name="form" {{ old('form') == 'bia-mem' ? 'checked' : '' }}>
+                                        <i></i> Bìa mềm
+                                    </label>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="i-checks">
+                                    <label>Hot</label> <br>
+                                    <label> <input type="radio" value="1" name="hot" {{ old('hot' , $product->hot) == '1' ? 'checked' : '' }}> <i></i> Có </label>
+                                    <label> <input type="radio" value="0" name="hot" {{ old('hot', $product->hot) == '0' ? 'checked' : '' }}> <i></i> Không </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="i-checks">
+                                    <label>Trạng thái</label> <br>
+                                    <label> <input type="radio" value="active" name="status" {{ old('status' , $product->status) == 'active' ? 'checked' : '' }}> <i></i> Hiện </label>
+                                    <label> <input type="radio" value="inactive" name="status" {{ old('status' , $product->status) == 'inactive' ? 'checked' : '' }}> <i></i> Ẩn </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label>Từ khóa chính</label>
-                            <input id="meta_seo" name="meta_seo" type="text" class="form-control" value="{{ old('meta_seo', $product->meta_seo) }}">
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label>Description SEO</label>
-                            <textarea id="description_seo" placeholder="(Không nhập sẽ tự động lấy phần đầu của description)" name="description_seo" class="form-control">{{ old('description_seo', $product->description_seo) }}</textarea>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
+                    <div class="col-6 my-3">
                         <div class="main-image-wrapper">
                             <label>Ảnh chính</label>
                             <div class="image-container">
@@ -229,7 +228,7 @@
                                 <button
                                     type="button"
                                     id="delete-main-image"
-                                    class="delete-main-image" style = " {{ old('image_cover', $product->image_cover) ? 'display: block;' : 'display: none;' }} " >
+                                    class="delete-main-image" style=" {{ old('image_cover', $product->image_cover) ? 'display: block;' : 'display: none;' }} ">
                                     Xóa ảnh
                                 </button>
                             </div>
@@ -238,7 +237,7 @@
 
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-6 my-3">
                         <div class="product-gallery">
                             <label>Danh sách hình ảnh banner</label>
                             <div class="file-upload" id="gallery-upload">
@@ -269,7 +268,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 mt-3">
+                    <div class="col-12 mt-3 d-flex justify-content-end">
                         <button style="width: 200px;" class="btn btn-success">Lưu</button>
                     </div>
                 </div>
@@ -323,7 +322,8 @@
         gap: 10px;
     }
 
-    .gallery-item, .main-image-wrapper {
+    .gallery-item,
+    .main-image-wrapper {
         position: relative;
         display: inline-block;
         border-radius: 8px;
@@ -337,7 +337,8 @@
         border-radius: 8px;
     }
 
-    .delete-button, .delete-main-image {
+    .delete-button,
+    .delete-main-image {
         position: absolute;
         bottom: 5px;
         right: 5px;
