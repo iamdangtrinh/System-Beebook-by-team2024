@@ -3,28 +3,6 @@
 
 @section('body')
 
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
-        <h2>Sửa sách</h2>
-        <ol class="breadcrumb">
-        <li>
-                <a href="{{ route('overview.index') }}">Trang chủ</a>
-            </li>
-            <li>
-                <i class="fa fa-angle-right mx-1"></i>
-            </li>
-            <li>
-                <a href="{{ route('adminproduct.index') }}">Sách</a>
-            </li>
-            <li>
-                <i class="fa fa-angle-right mx-1"></i>
-            </li>
-            <li class="active">
-                <strong>Sửa sách</strong>
-            </li>
-        </ol>
-    </div>
-</div>
 
 <div class="row wrapper wrapper-content" style="padding: 20px 0 0 !important">
     <div class="ibox">
@@ -292,7 +270,7 @@
                     </div>
 
                     <div class="col-12 mt-3">
-                        <button class="btn btn-success">Lưu</button>
+                        <button style="width: 200px;" class="btn btn-success">Lưu</button>
                     </div>
                 </div>
             </form>

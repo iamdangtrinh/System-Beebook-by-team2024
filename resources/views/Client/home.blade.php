@@ -3,27 +3,29 @@
 @section('body')
 <!--Body Content-->
 <div id="page-content">
-    <div class="container row justify-content-center">
-        <div class="col-md-6 col-sm-12">
-            <form class="d-flex gap-1 m-0" method="GET" action="{{ route('search') }}">
-                <div class="w-75 flex-fill position-relative">
-                    <input class="rounded"
-                        type="text"
-                        id="search"
-                        name="query"
-                        placeholder="Tìm kiếm sách, tác giả, nhà xuất bản"
-                        autocomplete="off">
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-md-6 col-sm-12">
+                <form class="d-flex gap-1 m-0 position-relative" method="GET" action="{{ route('search') }}">
+                    <div class="w-75 flex-fill">
+                        <input class="rounded"
+                            type="text"
+                            id="search"
+                            name="query"
+                            placeholder="Tìm kiếm sách, tác giả, nhà xuất bản"
+                            autocomplete="off">
+                    </div>
+                    <button class="btn btn-primary" type="submit"><i class="icon anm anm-search-l"></i></button>
                     <div id="search-results"
                         class="search-results p-3 row"
                         style="display: none;">
                         <!-- Kết quả tìm kiếm sẽ hiển thị ở đây -->
                     </div>
-                </div>
-                <button class="btn btn-primary" type="submit"><i class="icon anm anm-search-l"></i></button>
-            </form>
+                </form>
 
 
-            <!-- <form class="d-flex gap-1" method="GET">
+                <!-- <form class="d-flex gap-1" method="GET">
                 <div class="w-75 flex-fill position-relative">
                     <input class="rounded" type="text" id="search" name="query" placeholder="Tìm kiếm sách, tác giả, nhà xuất bản" autocomplete="off">
                     <div id="search-results p-3" class="search-results">
@@ -43,6 +45,7 @@
                 <button class="btn btn-primary"><i class="icon anm anm-search-l"></i></button>
 
             </form> -->
+            </div>
         </div>
 
     </div>
@@ -97,7 +100,7 @@
         </div>
     </div>
 
-    <div class="section pt-0">
+    <div class="container section pt-0">
         {{-- <div class="flashSale mb-3"> --}}
         <div class="productList">
             <div class="border rounded row rounded mb-3 pt-3"

@@ -40,7 +40,7 @@
                         if (response.publishers && response.publishers.length > 0) {
                             resultsHTML += '<div class="col-12"><strong>Nhà xuất bản</strong></div>';
                             response.publishers.forEach(publisher => {
-                                resultsHTML += `<div class="col-md-6 col-sm-12"><a class="text-truncate" href="/nha-xuat-ban/${publisher.slug}">${publisher.name}</a></div>`;
+                                resultsHTML += `<div class="col-md-6 col-sm-12"><a class="my-1 px-1 border border-secondary rounded-pill text-truncate" href="/nha-xuat-ban/${publisher.slug}">${publisher.name}</a></div>`;
                             });
                         }
 
