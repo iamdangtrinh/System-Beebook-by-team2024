@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use App\Models\CategoryProduct;
 use App\Models\Product;
-use App\Models\TaxonomyModel;
+use App\Models\Taxonomy;
 use App\Models\Favorite; // Include Favorite model
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -44,7 +44,7 @@ class ShopLiveWire extends Component
             $this->relatedEntity = CategoryProduct::where('slug', $slug)->firstOrFail();
             $this->title = 'Danh mục: ' . $this->relatedEntity->name;
         } elseif ($type === 'author' || $type === 'manufacturer') {
-            $this->relatedEntity = TaxonomyModel::where('slug', $slug)->firstOrFail();
+            $this->relatedEntity = Taxonomy::where('slug', $slug)->firstOrFail();
             $this->title = $type === 'author' ? 'Tác giả: ' . $this->relatedEntity->name : $this->relatedEntity->name;
         } elseif ($type === 'hot') {
             $this->title = 'Sản phẩm nổi bật';
