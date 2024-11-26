@@ -2,35 +2,13 @@
 @extends('layout.admin')
 
 @section('body')
-<div class="row wrapper border-bottom white-bg page-heading align-items-center">
-    <div class="col-lg-6">
-        <h2>Sách</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a href="{{ route('overview.index') }}">Trang chủ</a>
-            </li>
-            <li>
-                <i class="fa fa-angle-right mx-1"></i>
-            </li>
-            <li class="active">
-                <strong>Sách</strong>
-            </li>
-        </ol>
-    </div>
-    <div class="col-lg-6">
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-4">
-                <a href="{{ route('adminproduct.add') }}" class="btn btn-outline btn-success btn-rounded">Thêm sách</a>
-            </div>
-            <div class="col-5">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-default btn-rounded" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Đã xóa gần đây
-                </button>
-            </div>
-        </div>
-    </div>
+<div class="d-flex gap-3 wrapper border-bottom white-bg page-heading align-items-center justify-content-end">
+    <a href="{{ route('adminproduct.add') }}" style="width: 200px;" class="btn btn-success btn-rounded">Thêm sách</a>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-default btn-rounded" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Đã xóa gần đây
+    </button>
 </div>
 
 <!-- Modal -->
