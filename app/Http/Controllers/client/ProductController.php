@@ -13,18 +13,17 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index($page = 1)
+    public function index()
     {
-        $title = 'Cửa hàng';
-        $routeName = 'product.index';
-        $products = Product::where('status', 'active')->orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
-        $categories = CategoryProduct::whereNull('parent_id')
-            ->where('status', 'active')
-            ->with(['children' => function ($query) {
-                $query->where('status', 'active');
-            }])->get();
-        $totalProducts = $products->count();
-        $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
+        // $title = 'Cửa hàng';
+        // $products = Product::where('status', 'active')->orderBy('created_at', 'desc')->paginate(12);
+        // $categories = CategoryProduct::whereNull('parent_id')
+        //     ->where('status', 'active')
+        //     ->with(['children' => function ($query) {
+        //         $query->where('status', 'active');
+        //     }])->get();
+        // $totalProducts = $products->count();
+        // $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
         // return view('Client.shop', compact([
         //     'products',
         //     'routeName',
@@ -35,103 +34,123 @@ class ProductController extends Controller
         // ]));
         return view('Client.shop2');
     }
-    public function hot($page = 1)
-    {
-        $title = 'Sản phẩm nổi bật';
-        $routeName = 'product.hot';
-        $products = Product::where('status', 'active')->where('hot', 1)->orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
-        $categories = CategoryProduct::whereNull('parent_id')
-            ->where('status', 'active')
-            ->with(['children' => function ($query) {
-                $query->where('status', 'active');
-            }])->get();
-        $totalProducts = $products->count();
-        $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
-        return view('Client.shop', compact([
-            'products',
-            'routeName',
-            'totalProducts',
-            'hotProducts',
-            'categories',
-            'title',
-        ]));
-    }
-    public function category($slug, $page = 1)
-    {
-        $category = CategoryProduct::where('slug', $slug)->firstOrFail();
-        $title = 'Danh mục: ' . $category->name;
-        $routeName = 'product.category';
-        $categories = CategoryProduct::whereNull('parent_id')
-            ->where('status', 'active')
-            ->with(['children' => function ($query) {
-                $query->where('status', 'active');
-            }])->get();
-        // Lấy tất cả danh mục con của danh mục cha
-        $childCategories = $category->children->pluck('id');
 
-        // Thêm ID của danh mục cha vào danh sách ID
-        $categoryIds = $childCategories->push($category->id);
+    public function hot()
+    {
+        return view('Client.shop2', ['type' => 'hot']);
+    }
 
-        // Lấy sản phẩm từ cả danh mục cha và danh mục con, sắp xếp theo ngày tạo
-        $products = Product::where('status', 'active')->whereIn('id_category', $categoryIds)->orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
-        $totalProducts = $products->count();
-        $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
-        return view('Client.shop', compact([
-            'category',
-            'routeName',
-            'products',
-            'totalProducts',
-            'hotProducts',
-            'categories',
-            'title',
-        ]));
-    }
-    public function author($slug, $page = 1)
+    public function category($slug)
     {
-        $author = Taxonomy::where('slug', $slug)->firstOrFail();
-        $title = 'Tác giả: ' . $author->name;
-        $routeName = 'product.author';
-        $categories = CategoryProduct::whereNull('parent_id')
-            ->where('status', 'active')
-            ->with(['children' => function ($query) {
-                $query->where('status', 'active');
-            }])->get();
-        $products = Product::where('status', 'active')->where('id_author', $author->id)->orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
-        $totalProducts = $products->count();
-        $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
-        return view('Client.shop', compact([
-            'author',
-            'routeName',
-            'products',
-            'totalProducts',
-            'hotProducts',
-            'categories',
-            'title',
-        ]));
+        return view('Client.shop2', ['type' => 'category', 'slug' => $slug]);
     }
-    public function manufacturer($slug, $page = 1)
+
+    public function author($slug)
     {
-        $manufacturer = Taxonomy::where('slug', $slug)->firstOrFail();
-        $title = $manufacturer->name;
-        $routeName = 'product.manufacturer';
-        $categories = CategoryProduct::whereNull('parent_id')
-            ->where('status', 'active')
-            ->with(['children' => function ($query) {
-                $query->where('status', 'active');
-            }])->get();
-        $products = Product::where('status', 'active')->where('id_manufacturer', $manufacturer->id)->orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
-        $totalProducts = $products->count();
-        $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
-        return view('Client.shop', compact([
-            'manufacturer',
-            'routeName',
-            'products',
-            'totalProducts',
-            'hotProducts',
-            'categories',
-            'title',
-        ]));
+        return view('Client.shop2', ['type' => 'author', 'slug' => $slug]);
     }
+
+    public function manufacturer($slug)
+    {
+        return view('Client.shop2', ['type' => 'manufacturer', 'slug' => $slug]);
+    }
+    // public function hot($page = 1)
+    // {
+    //     $title = 'Sản phẩm nổi bật';
+    //     $routeName = 'product.hot';
+    //     $products = Product::where('status', 'active')->where('hot', 1)->orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
+    //     $categories = CategoryProduct::whereNull('parent_id')
+    //         ->where('status', 'active')
+    //         ->with(['children' => function ($query) {
+    //             $query->where('status', 'active');
+    //         }])->get();
+    //     $totalProducts = $products->count();
+    //     $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
+    //     return view('Client.shop', compact([
+    //         'products',
+    //         'routeName',
+    //         'totalProducts',
+    //         'hotProducts',
+    //         'categories',
+    //         'title',
+    //     ]));
+    // }
+    // public function category($slug, $page = 1)
+    // {
+    //     $category = CategoryProduct::where('slug', $slug)->firstOrFail();
+    //     $title = 'Danh mục: ' . $category->name;
+    //     $routeName = 'product.category';
+    //     $categories = CategoryProduct::whereNull('parent_id')
+    //         ->where('status', 'active')
+    //         ->with(['children' => function ($query) {
+    //             $query->where('status', 'active');
+    //         }])->get();
+    //     // Lấy tất cả danh mục con của danh mục cha
+    //     $childCategories = $category->children->pluck('id');
+
+    //     // Thêm ID của danh mục cha vào danh sách ID
+    //     $categoryIds = $childCategories->push($category->id);
+
+    //     // Lấy sản phẩm từ cả danh mục cha và danh mục con, sắp xếp theo ngày tạo
+    //     $products = Product::where('status', 'active')->whereIn('id_category', $categoryIds)->orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
+    //     $totalProducts = $products->count();
+    //     $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
+    //     return view('Client.shop', compact([
+    //         'category',
+    //         'routeName',
+    //         'products',
+    //         'totalProducts',
+    //         'hotProducts',
+    //         'categories',
+    //         'title',
+    //     ]));
+    // }
+    // public function author($slug, $page = 1)
+    // {
+    //     $author = Taxonomy::where('slug', $slug)->firstOrFail();
+    //     $title = 'Tác giả: ' . $author->name;
+    //     $routeName = 'product.author';
+    //     $categories = CategoryProduct::whereNull('parent_id')
+    //         ->where('status', 'active')
+    //         ->with(['children' => function ($query) {
+    //             $query->where('status', 'active');
+    //         }])->get();
+    //     $products = Product::where('status', 'active')->where('id_author', $author->id)->orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
+    //     $totalProducts = $products->count();
+    //     $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
+    //     return view('Client.shop', compact([
+    //         'author',
+    //         'routeName',
+    //         'products',
+    //         'totalProducts',
+    //         'hotProducts',
+    //         'categories',
+    //         'title',
+    //     ]));
+    // }
+    // public function manufacturer($slug, $page = 1)
+    // {
+    //     $manufacturer = Taxonomy::where('slug', $slug)->firstOrFail();
+    //     $title = $manufacturer->name;
+    //     $routeName = 'product.manufacturer';
+    //     $categories = CategoryProduct::whereNull('parent_id')
+    //         ->where('status', 'active')
+    //         ->with(['children' => function ($query) {
+    //             $query->where('status', 'active');
+    //         }])->get();
+    //     $products = Product::where('status', 'active')->where('id_manufacturer', $manufacturer->id)->orderBy('created_at', 'desc')->paginate(12, ['*'], 'page', $page);
+    //     $totalProducts = $products->count();
+    //     $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
+    //     return view('Client.shop', compact([
+    //         'manufacturer',
+    //         'routeName',
+    //         'products',
+    //         'totalProducts',
+    //         'hotProducts',
+    //         'categories',
+    //         'title',
+    //     ]));
+    // }
     public function detail($slug)
     {
         $product = Product::with('author', 'translator', 'manufacturer')->where('slug', $slug)->firstOrFail();
