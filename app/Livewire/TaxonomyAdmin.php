@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\TaxonomyModel;
+use App\Models\Taxonomy;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\On;
@@ -32,7 +32,7 @@ class TaxonomyAdmin extends Component
 
     public function loadTaxonomy()
     {
-        $query = TaxonomyModel::query()->orderBy('id', 'desc');
+        $query = Taxonomy::query()->orderBy('id', 'desc');
 
       
         $paginator = $query->paginate(20);
@@ -70,7 +70,7 @@ class TaxonomyAdmin extends Component
     public function createtaxonomy()
     {
         try {
-            TaxonomyModel::create([
+            Taxonomy::create([
                 'type' => $this->type,
                 'name' => $this->name,
                 'slug' => $this->slug,
@@ -85,7 +85,7 @@ class TaxonomyAdmin extends Component
                 
             ]);
             $this->isModal = false;
-            $paginator = BlogModel::orderBy('id', 'desc')->paginate(20);
+            $paginator = Taxonomy::orderBy('id', 'desc')->paginate(20);
             $this->gettaxonomy = $paginator->items();
             $this->updatePaginationData($paginator);
             session()->flash('create_success', 'Thêm tác giả thành công');
