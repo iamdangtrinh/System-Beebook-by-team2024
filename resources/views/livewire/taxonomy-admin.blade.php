@@ -1,5 +1,10 @@
 <div>
-    
+    <div class="row wrapper border-bottom white-bg page-heading" >
+       
+        <div class="col-lg-2">
+            <a wire:click="closeModal" class="btn btn-outline btn-primary btn-rounded">Thêm tác giả</a>
+        </div>
+    </div>
     
     <div class="row wrapper wrapper-content" style="padding: 10px 0 0 !important">
         <div class="ibox-content m-b-sm border-bottom">
@@ -68,10 +73,21 @@
                             <tr>
                                 <td>{{ $tax->id }}</td>
                                 
-                                <td>{{ $tax->type }}</td>
+                                <td>
+                                    @if ($tax->type === 'author') 
+                                        Tác giả
+                                    @elseif ($tax->type === 'translator') 
+                                        Người phiên dịch
+                                    @elseif ($tax->type === 'manufacture') 
+                                        Nhà sản xuất
+                                    @else
+                                        Không xác định
+                                    @endif
+                                </td>
                                 <td>{{ $tax->name }}</td>
                                 <td>{{ $tax->slug }}</td>
-                
+                                
+                                
                                 
                                 
                             </tr>
