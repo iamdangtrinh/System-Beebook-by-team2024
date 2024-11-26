@@ -220,4 +220,20 @@ class ProductController extends Controller
 
         return view('Client.products.partials.filtered-products', compact(['products']))->render();
     }
+    public function search(Request $request)
+    {
+        if ($request->ajax()) {
+            $query = $request->get('query');
+
+            // Tìm kiếm sách, tác giả, và nhà xuất bản
+            $products = Product::where('name', 'like', "%{$query}%")
+                ->orWhere('author', 'like', "%{$query}%")
+                ->orWhere('publisher', 'like', "%{$query}%")
+                ->get();
+
+            return response()->json($products);
+        }
+
+        return view('search.index');
+    }
 }

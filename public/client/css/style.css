@@ -381,7 +381,7 @@ button,
 select,
 textarea {
   background: transparent;
-  border: 1px solid #d7d7d7;
+  border: 1px solid #8f8b8b;
   transition: all 0.4s ease-out 0s;
   -webkit-transition: all 0.4s ease-out 0s;
   color: #424242;

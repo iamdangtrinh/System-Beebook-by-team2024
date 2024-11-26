@@ -194,10 +194,10 @@
                                 </span>
                             </a>
                         </div>
-                        <div  class="site-header__search">
+                        <!-- <div  class="site-header__search">
                                 <button style="padding-bottom: 0 !important" type="submit" class="form-control search-trigger"><i class="icon anm anm-search-l"></i></button>
                        
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -207,7 +207,7 @@
         <!--Mobile Menu-->
         <div class="mobile-nav-wrapper" role="navigation">
             <ul id="MobileNav" class="mobile-nav">
-                <li class="lvl1 parent megamenu"><a href="/">Trang chủ<i class="anm anm-angle-down-l"></i></a>
+                <li class="lvl1 parent megamenu"><a href="/">Trang chủ</a>
                 </li>
                 @php
                     $categories_header = \App\Models\CategoryProduct::where('parent_id', null)
@@ -244,8 +244,8 @@
                 <li class="lvl1 parent megamenu"><a href="{{ route('product.index') }}">Cửa hàng</a>
                 </li>
 
-                <li class="lvl1 parent dropdown"><a href="#">Tìm đơn hàng<i
-                            class="anm anm-angle-down-l"></i></a></li>
+                <!-- <li class="lvl1 parent dropdown"><a href="#">Tìm đơn hàng<i
+                            class="anm anm-angle-down-l"></i></a></li> -->
                 <li class="lvl1 parent dropdown"><a href="#">Blog <i class="anm anm-angle-down-l"></i></a>
                     <ul class="dropdown">
                         <li><a href="/post/blog" class="site-nav">Blog</a></li>
