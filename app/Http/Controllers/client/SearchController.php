@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\TaxonomyModel;
+use App\Models\Taxonomy;
 
 class SearchController extends Controller
 {
@@ -17,12 +17,12 @@ class SearchController extends Controller
         $books = Product::where('name', 'like', "%{$query}%")->get();
 
         // Tìm kiếm tác giả
-        $authors = TaxonomyModel::where('name', 'like', "%{$query}%")
+        $authors = Taxonomy::where('name', 'like', "%{$query}%")
             ->where('type', 'author') // Giả sử bạn có cột `type` để phân biệt loại taxonomy
             ->get();
 
         // Tìm kiếm nhà xuất bản
-        $publishers = TaxonomyModel::where('name', 'like', "%{$query}%")
+        $publishers = Taxonomy::where('name', 'like', "%{$query}%")
             ->where('type', 'manufacturer')
             ->get();
 
@@ -37,13 +37,13 @@ class SearchController extends Controller
         $books = Product::where('name', 'like', "%{$query}%")->limit(6)->get();
 
         // Tìm kiếm tác giả
-        $authors = TaxonomyModel::where('name', 'like', "%{$query}%")
+        $authors = Taxonomy::where('name', 'like', "%{$query}%")
             ->where('type', 'author')
             ->limit(6)
             ->get();
 
         // Tìm kiếm nhà xuất bản
-        $publishers = TaxonomyModel::where('name', 'like', "%{$query}%")
+        $publishers = Taxonomy::where('name', 'like', "%{$query}%")
             ->where('type', 'manufacturer')
             ->limit(6)
             ->get();
