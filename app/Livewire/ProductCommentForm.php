@@ -55,7 +55,7 @@ class ProductCommentForm extends Component
         // Fetch the latest comments after submitting
         $this->fetchComments();
 
-        // Reset form fields
+        // Reset form fields to empty values
         $this->reset(['rating', 'content']);
     }
 
