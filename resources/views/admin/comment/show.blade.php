@@ -18,11 +18,11 @@
 
 
             <!-- Ảnh và thông tin sản phẩm -->
-            <div class="row mb-4 align-items-center">
-                <div class="col-3">
+            <div class="row align-items-center">
+                <div class="col-1">
                     <img src="{{ $product->image_cover ? $product->image_cover : '/no_image.jpg' }}" alt="{{ $product->name }}" width="100%">
                 </div>
-                <div class="col-7">
+                <div class="col-9">
                     <h3>{{ $product->name }}</h3>
                 </div>
                 <div class="col-2">
