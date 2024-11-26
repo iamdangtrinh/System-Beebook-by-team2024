@@ -15,8 +15,8 @@ class ClientController extends Controller
     public function home()
     {
         $categories = CategoryProduct::get();
-        $hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
-        $saleProducts = Product::whereNotNull('price_sale')->inRandomOrder()->limit(8)->get();
+        $hotProducts = Product::where('status', 'active')->where('hot', 1)->inRandomOrder()->limit(4)->get();
+        $saleProducts = Product::where('status', 'active')->whereNotNull('price_sale')->inRandomOrder()->limit(8)->get();
         $blogs = BlogModel::inRandomOrder()->limit(value: 8)->get();
 
         $bannerMain = BannerModel::where('type', '=', 'banner')->where('status', 'active')->get();
