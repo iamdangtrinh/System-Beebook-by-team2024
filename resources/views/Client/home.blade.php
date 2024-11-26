@@ -5,7 +5,7 @@
 <div id="page-content">
     <div class="container row justify-content-center">
         <div class="col-md-6 col-sm-12">
-            <form class="d-flex gap-1" method="GET" action="{{ route('search') }}">
+            <form class="d-flex gap-1 m-0" method="GET" action="{{ route('search') }}">
                 <div class="w-75 flex-fill position-relative">
                     <input class="rounded"
                         type="text"
