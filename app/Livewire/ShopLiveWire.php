@@ -19,6 +19,7 @@ class ShopLiveWire extends Component
     public $hotProducts;
     public $priceRange = [];
     public $languages = [];
+    public $searchQuery = '';
     public $type; // Loại dữ liệu (hot, category, author, manufacturer, wishlist)
     public $slug; // Dùng cho slug của danh mục, tác giả, hoặc nhà sản xuất
     public $relatedEntity; // Thực thể liên quan (CategoryProduct hoặc Taxonomy)
@@ -78,7 +79,10 @@ class ShopLiveWire extends Component
 
         $this->resetPage();
     }
-
+    public function updatedSearchQuery()
+    {
+        $this->resetPage(); // Reset pagination when search query changes
+    }
     public function render()
     {
         $query = Product::query()->where('status', 'active');
@@ -118,6 +122,9 @@ class ShopLiveWire extends Component
 
         if (!empty($this->languages)) {
             $query->whereIn('language', $this->languages);
+        }
+        if (!empty($this->searchQuery)) {
+            $query->where('name', 'like', '%' . $this->searchQuery . '%');
         }
 
         $products = $query->orderBy('created_at', 'desc')->paginate(12);
