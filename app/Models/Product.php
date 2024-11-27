@@ -90,4 +90,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductMeta::class, 'id_product', 'id');
     }
+    public function getIsNewAttribute()
+    {
+        // Sản phẩm được coi là mới nếu được tạo trong vòng 15 ngày
+        return $this->created_at->greaterThanOrEqualTo(now()->subDays(15));
+    }
 }

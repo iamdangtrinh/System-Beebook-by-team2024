@@ -16,11 +16,12 @@ Route::get('/tac-gia/{slug}', [ProductController::class, 'author'])->name('produ
 Route::get('/nha-xuat-ban/{slug}', [ProductController::class, 'manufacturer'])->name('product.manufacturer');
 Route::get('/filter-products', [ProductController::class, 'filter'])->name('products.filter');
 Route::get('/yeu-thich', [WishlistController::class, 'getWishlist'])->name('wishlist.index');
+// Route cho trang kết quả tìm kiếm
+Route::get('/search', [SearchController::class, 'index'])->name('search');
 // Route cho tìm kiếm AJAX
 Route::get('/search/ajax', [SearchController::class, 'ajaxSearch'])->name('search.ajax');
 
-// Route cho trang kết quả tìm kiếm
-Route::get('/search', [SearchController::class, 'index'])->name('search');
+
 
 Route::middleware('auth')->group(function () {
     Route::post('/wishlist/toggle/{idproduct}', [WishlistController::class, 'toggle'])->name('wishlist.toggle');

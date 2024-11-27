@@ -10,9 +10,13 @@
                           </div> -->
     <!--End Collection Banner-->
 
-    <h1 class="text-center mt-3">
-        {{ $title ?? 'Sản phẩm' }}
-    </h1>
+    <div class="page section-header text-center">
+        <div class="page-title">
+            <div class="wrapper">
+                <h1 class="page-width">{{ $title ?? 'Sản phẩm' }}</h1>
+            </div>
+        </div>
+    </div>
 
 
     <div class="container mt-3">
@@ -22,8 +26,14 @@
             <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar filterbar">
                 <div class="closeFilter d-block d-md-none d-lg-none"><i class="icon icon anm anm-times-l"></i></div>
                 <div class="sidebar_tags">
-                <input type="text" wire:model="searchQuery" class="rounded mb-3" placeholder="Tìm kiếm sách...">
-
+                    <div class="custom-search">
+                        <div class="input-group search-header search position-relative rounded" role="search">
+                            <input class="search-header__input search__input input-group__field rounded" type="search"
+                            wire:model.defer="searchQuery" placeholder="Tìm kiếm sách..." aria-label="Search" autocomplete="off">
+                            <span class="input-group__btn"><button wire:click="search" class="btnSearch" type="submit"> <i
+                                        class="icon anm anm-search-l"></i> </button></span>
+                        </div>
+                    </div>
                     <!--Categories-->
                     <div class="sidebar_widget categories filter-widget">
                         <div class="widget-title">
@@ -123,12 +133,12 @@
                         </div>
                         <ul>
                             <li>
-                                <input type="checkbox" id="language1" @if (in_array('Tiếng việt', $languages)) checked @endif
+                                <input type="checkbox" id="language1" @if (in_array('tieng-viet', $languages)) checked @endif
                                     wire:click="toggleLanguage('tieng-viet')">
                                 <label for="language1"><span><span></span></span>Tiếng Việt</label>
                             </li>
                             <li>
-                                <input type="checkbox" id="language2" @if (in_array('Tiếng anh', $languages)) checked @endif
+                                <input type="checkbox" id="language2" @if (in_array('tieng-anh', $languages)) checked @endif
                                     wire:click="toggleLanguage('tieng-anh')">
                                 <label for="language2"><span><span></span></span>Tiếng Anh</label>
                             </li>
@@ -207,16 +217,19 @@
                                 <div class="col-4 col-md-4 col-lg-4 text-right">
                                     <div class="filters-toolbar__item">
                                         <label for="SortBy" class="hidden">Lọc</label>
-                                        <select name="SortBy" id="SortBy"
-                                            class="filters-toolbar__input filters-toolbar__input--sort">
+                                        <select name="SortBy" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort">
                                             <option value="default" selected="selected">Lọc</option>
-                                            <option value="bestseller">Bán chạy</option>
-                                            <option value="newest">Mới nhất</option>
-                                            <option value="oldest">Cũ nhất</option>
-                                            <option value="price-desc">Giá cao tới thấp</option>
-                                            <option value="price-asc">Giá thấp tới cao</option>
+                                            <option value="newest" @if ($sortBy==='newest' ) selected @endif
+                                                wire:click="sortBy('newest')">Mới nhất</option>
+                                            <option value="oldest" @if ($sortBy==='oldest' ) selected @endif
+                                                wire:click="sortBy('oldest')">Cũ nhất</option>
+                                            <option value="price-desc" @if ($sortBy==='price-desc' ) selected @endif
+                                                wire:click="sortBy('price-desc')">Giá cao tới thấp</option>
+                                            <option value="price-asc" @if ($sortBy==='price-asc' ) selected @endif
+                                                wire:click="sortBy('price-asc')">Giá thấp tới cao</option>
                                         </select>
-                                        <input class="collection-header__default-sort" type="hidden" value="manual">
+
+
                                     </div>
                                 </div>
 
@@ -227,7 +240,11 @@
 
                     <div class="grid-products grid--view-items">
                         <div class="row" id="product-list">
-                            @if($products && $products->count() > 0)
+                            @if($products->isEmpty() && Request::is('yeu-thich'))
+                            <p>Chưa có sản phẩm yêu thích. Thêm vào ngay để dễ chọn lựa hơn nào!</p>
+                            @elseif($products->isEmpty())
+                            <p>Chưa có sản phẩm. Chúng tôi sẽ cố gắng cập nhật thêm nhiều sách trong tương lai!</p>
+                            @else
                             @foreach ($products as $product)
                             <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
                                 <!-- start product image -->
@@ -237,67 +254,74 @@
                                             data-src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
                                             src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
                                             alt="image" title="product">
-                                    </a>
-                                    <!-- Start product button -->
-                                    <form class="variants add add_to_cart" action="{{ route('cart.store') }}" method="post">
-                                        @csrf
-                                        <input type="hidden" value="{{ $product->id }}" name="id_product">
-                                        <input type="hidden" value="1" name="quantity">
-                                        <button class="btn btn-addto-cart" type="submit">Thêm giỏ hàng</button>
-                                    </form>
-                                    <div class="button-set">
-                                        <div class="wishlist-btn">
-                                            @if (!auth()->check())
-                                            <a class="wishlist" href="{{ route('wishlist.index') }}" title="Thêm vào yêu thích">
-                                                <i class="icon anm anm-heart-l"></i>
-                                            </a>
-                                            @elseif($product->isFavoritedByUser())
-                                            <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích">
-                                                <i class="icon anm anm-heart text-danger"></i>
-                                            </a>
-                                            @else
-                                            <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích">
-                                                <i class="icon anm anm-heart-l"></i>
-                                            </a>
-                                            @endif
-                                        </div>
-                                    </div>
+                                        @if ($product->status == 'inactive'|| $product->quantity <=0)
+                                            <div class="status">
+                                            @if ($product->status == 'inactive')
+                                            <div class="bg-warning text-center p-2">Ngưng hoạt động</div>
+                                            @elseif($product->quantity <=0)
+                                                <div class="bg-danger text-center text-light p-2">Hết hàng
                                 </div>
-                                <!-- end product image -->
-                                <!--start product details -->
-                                <div class="product-details text-center">
-                                    <div class="product-name">
-                                        <a href="{{ asset('san-pham/' . $product->slug) }}">{{ $product->name }}</a>
-                                    </div>
-                                    <div class="product-price">
-                                        @if (!$product->price_sale)
-                                        <span class="price">{{ number_format($product->price, 0, ',', '.') }} đ</span>
-                                        @else
-                                        <span class="old-price">{{ number_format($product->price, 0, ',', '.') }} đ</span>
-                                        <span class="price">{{ number_format($product->price_sale, 0, ',', '.') }} đ</span>
-                                        @endif
-                                    </div>
+                                @endif
+                            </div>
+                            @endif
+                            </a>
+                            <!-- Start product button -->
+                            @if ($product->status === 'active' && $product->quantity > 0)
+                            <form class="variants add add_to_cart" action="{{ route('cart.store') }}" method="post">
+                                @csrf
+                                <input type="hidden" value="{{ $product->id }}" name="id_product">
+                                <input type="hidden" value="1" name="quantity">
+                                <button class="btn btn-addto-cart" type="submit">Thêm giỏ hàng</button>
+                            </form>
+                            @endif
+                            <div class="button-set">
+                                <div class="wishlist-btn">
+                                    @if (!auth()->check())
+                                    <a class="wishlist" href="{{ route('wishlist.index') }}" title="Thêm vào yêu thích">
+                                        <i class="icon anm anm-heart-l"></i>
+                                    </a>
+                                    @elseif($product->isFavoritedByUser())
+                                    <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích">
+                                        <i class="icon anm anm-heart text-danger"></i>
+                                    </a>
+                                    @else
+                                    <a class="wishlist add-to-wishlist" href="#" data-product-id="{{ $product->id }}" title="Thêm vào yêu thích">
+                                        <i class="icon anm anm-heart-l"></i>
+                                    </a>
+                                    @endif
                                 </div>
                             </div>
-                            @endforeach
-                            @elseif(!$products && Request::is('yeu-thich'))
-                            Chưa có sản phẩm yêu thích. Thêm vào ngay để dễ chọn lựa hơn nào!
-                            @else
-                            <p>Chưa có sản phẩm. Chúng tôi sẽ cố gắng cập nhật thêm nhiều sách trong tương lai!</p>
-                            @endif
-
+                        </div>
+                        <!-- end product image -->
+                        <!--start product details -->
+                        <div class="product-details text-center">
+                            <div class="product-name">
+                                <a href="{{ asset('san-pham/' . $product->slug) }}">{{ $product->name }}</a>
+                            </div>
+                            <div class="product-price">
+                                @if (!$product->price_sale)
+                                <span class="price">{{ number_format($product->price, 0, ',', '.') }} đ</span>
+                                @else
+                                <span class="old-price">{{ number_format($product->price, 0, ',', '.') }} đ</span>
+                                <span class="price">{{ number_format($product->price_sale, 0, ',', '.') }} đ</span>
+                                @endif
+                            </div>
                         </div>
                     </div>
-
+                    @endforeach
+                    @endif
                 </div>
             </div>
-            <div class="col-12">
-                {{ $products->links() }}
-            </div>
+
         </div>
-        {{-- <script src="{{ asset('/') }}client/js/vendor/jquery.cookie.js"></script> --}}
-        {{-- <script src="{{ asset('/') }}client/js/customShop.js"></script> --}}
-        <script src="{{ asset('/') }}client/js/customFavorite.js"></script>
-        <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
     </div>
+    <div class="col-12">
+        {{ $products->links() }}
+    </div>
+</div>
+{{-- <script src="{{ asset('/') }}client/js/vendor/jquery.cookie.js"></script> --}}
+{{-- <script src="{{ asset('/') }}client/js/customShop.js"></script> --}}
+<script src="{{ asset('/') }}client/js/customFavorite.js"></script>
+<script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
+</div>
 </div>

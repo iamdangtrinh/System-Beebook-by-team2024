@@ -1850,7 +1850,7 @@ textarea:-ms-input-placeholder {
 }
 
 .grid-products .item .product-image>a {
-  display: block;
+  /* display: block; */
   white-space: nowrap;
   opacity: 1;
   min-height: 270px;
@@ -2107,7 +2107,19 @@ textarea:-ms-input-placeholder {
 .grid-products.slick-slider .item {
   margin-bottom: 0;
 }
+/* status */
+.status {
+  position: absolute;
+  top: 50%; /* Đưa status xuống giữa theo chiều dọc */
+  left: 50%; /* Đưa status vào giữa theo chiều ngang */
+  transform: translate(-50%, -50%); /* Căn chỉnh chính giữa */
+  z-index: 10; /* Nổi lên trên các thành phần khác */
+}
 
+.status div {
+  border-radius: 5px; 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng nổi */
+}
 .product-labels {
   position: absolute;
   left: 5px;
