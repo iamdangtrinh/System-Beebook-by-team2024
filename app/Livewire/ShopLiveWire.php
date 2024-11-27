@@ -14,6 +14,7 @@ class ShopLiveWire extends Component
     use WithPagination;
 
     public $title = 'Cửa hàng';
+    public $sortBy = 'default';
     public $totalProducts;
     public $categories;
     public $hotProducts;
@@ -37,7 +38,7 @@ class ShopLiveWire extends Component
             }])->get();
 
         // Tải sản phẩm nổi bật
-        $this->hotProducts = Product::where('hot', 1)->inRandomOrder()->limit(4)->get();
+        $this->hotProducts = Product::where('status', 'active')->where('hot', 1)->inRandomOrder()->limit(4)->get();
 
         // Xử lý tiêu đề và thực thể liên quan
         if ($type === 'category') {
@@ -79,56 +80,118 @@ class ShopLiveWire extends Component
 
         $this->resetPage();
     }
-    public function updatedSearchQuery()
+    public function search()
     {
-        $this->resetPage(); // Reset pagination when search query changes
+        $this->resetPage(); // Reset phân trang nếu có
+    }
+    public function sortBy($sortOption)
+    {
+        // Cập nhật giá trị của sortBy
+        $this->sortBy = $sortOption;
+
+        // Sau khi thay đổi giá trị, bạn sẽ tự động gọi lại phương thức render để hiển thị sản phẩm đã sắp xếp
+        $this->resetPage(); // Reset phân trang khi thay đổi cách sắp xếp
     }
     public function render()
     {
-        $query = Product::query()->where('status', 'active');
+        // dd($this->sortBy);
+        $query = Product::query();
 
+        // Xử lý trường hợp Category
         if ($this->type === 'category' && $this->relatedEntity) {
             $childCategories = $this->relatedEntity->children->pluck('id');
             $categoryIds = $childCategories->push($this->relatedEntity->id);
             $query->whereIn('id_category', $categoryIds);
-        } elseif ($this->type === 'author' && $this->relatedEntity) {
+        }
+        // Xử lý trường hợp Author
+        elseif ($this->type === 'author' && $this->relatedEntity) {
             $query->where('id_author', $this->relatedEntity->id);
-        } elseif ($this->type === 'manufacturer' && $this->relatedEntity) {
+        }
+        // Xử lý trường hợp Manufacturer
+        elseif ($this->type === 'manufacturer' && $this->relatedEntity) {
             $query->where('id_manufacturer', $this->relatedEntity->id);
-        } elseif ($this->type === 'hot') {
+        }
+        // Xử lý trường hợp Hot
+        elseif ($this->type === 'hot') {
             $query->where('hot', 1);
-        } elseif ($this->type === 'wishlist') {
-            if (!auth()->check()) {
-                session()->flash('error', 'Vui lòng đăng nhập để xem và thêm sản phẩm yêu thích!');
-                return redirect('/sign-in');
-            }
-
+        }
+        // Xử lý trường hợp Wishlist
+        elseif ($this->type === 'wishlist') {
             $wishlist = Favorite::where('id_user', auth()->id())->pluck('id_product');
             $query->whereIn('id', $wishlist);
         }
 
+        // Kiểm tra trạng thái và quantity đối với các loại khác
+        if ($this->type !== 'wishlist') {
+            $query->where(function ($q) {
+                $q->where('quantity', '>', 0)
+                    ->where('status', '!=', 'inactive');
+            });
+        }
+
+        // Lọc theo khoảng giá
         if (!empty($this->priceRange)) {
             $query->where(function ($q) {
                 foreach ($this->priceRange as $range) {
                     [$min, $max] = explode('-', $range) + [null, null];
+
+                    // Kiểm tra nếu có price_sale, sẽ sử dụng price_sale, ngược lại dùng price
                     if ($max) {
-                        $q->orWhereBetween('price', [$min, $max]);
+                        // Sử dụng price_sale nếu có, nếu không thì dùng price
+                        $q->orWhere(function ($subQuery) use ($min, $max) {
+                            $subQuery->where(function ($subQuery) use ($min, $max) {
+                                $subQuery->whereBetween('price_sale', [$min, $max])
+                                    ->orWhereNull('price_sale') // Trường hợp không có price_sale
+                                    ->whereBetween('price', [$min, $max]);
+                            });
+                        });
                     } else {
-                        $q->orWhere('price', '>=', $min);
+                        // Xử lý trường hợp không có giá tối đa (chỉ có giá tối thiểu)
+                        $q->orWhere(function ($subQuery) use ($min) {
+                            $subQuery->where(function ($subQuery) use ($min) {
+                                $subQuery->where('price_sale', '>=', $min)
+                                    ->orWhereNull('price_sale') // Trường hợp không có price_sale
+                                    ->where('price', '>=', $min);
+                            });
+                        });
                     }
                 }
             });
         }
 
+
+        // Lọc theo ngôn ngữ
         if (!empty($this->languages)) {
             $query->whereIn('language', $this->languages);
         }
+
+        // Lọc theo tìm kiếm tên sản phẩm
         if (!empty($this->searchQuery)) {
             $query->where('name', 'like', '%' . $this->searchQuery . '%');
         }
 
-        $products = $query->orderBy('created_at', 'desc')->paginate(12);
+        // Sắp xếp sản phẩm dựa trên lựa chọn của người dùng
+        switch ($this->sortBy) {
+            case 'newest':
+                $query->orderBy('created_at', 'desc');
+                break;
+            case 'oldest':
+                $query->orderBy('created_at', 'asc');
+                break;
+            case 'price-desc':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'price-asc':
+                $query->orderBy('price', 'asc');
+                break;
+            default:
+                break; // Không sắp xếp nếu không có lựa chọn
+        }
+
+        // Phân trang và lấy sản phẩm
+        $products = $query->paginate(12);
         $this->totalProducts = $products->total();
+
         return view('livewire.shop', [
             'products' => $products,
             'categories' => $this->categories,
