@@ -127,6 +127,7 @@ class ShopLiveWire extends Component
                 $q->where('quantity', '>', 0)
                     ->where('status', '!=', 'inactive');
             });
+            $query->orderBy('created_at', 'desc');
         }
 
         // Lọc theo khoảng giá
