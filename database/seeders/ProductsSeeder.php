@@ -126,6 +126,31 @@ class ProductsSeeder extends Seeder
         }
     }
 
+    // private function getDescriptionContent($slug): ?string
+    // {
+    //     try {
+    //         $url = "https://www.fahasa.com/$slug.html";
+
+    //         $client = new Client();
+    //         $response = $client->request('GET', $url, [
+    //             'headers' => [
+    //                 'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
+    //             ]
+    //         ]);
+
+    //         if ($response->getStatusCode() === 200) {
+    //             $html = $response->getBody()->getContents();
+    //             $crawler = new Crawler($html);
+
+    //             $description = $crawler->filter('#desc_content')->html();
+
+    //             return trim($description);
+    //         }
+    //     } catch (\Exception $e) {
+    //         $this->command->error("Error fetching description for slug $slug: " . $e->getMessage());
+    //         return null;
+    //     }
+    // }
     private function getDescriptionContent($slug): ?string
     {
         try {
@@ -142,16 +167,19 @@ class ProductsSeeder extends Seeder
                 $html = $response->getBody()->getContents();
                 $crawler = new Crawler($html);
 
-                $description = $crawler->filter('#desc_content')->html();
-
-                return trim($description);
+                // Kiểm tra và lấy nội dung từ phần tử
+                if ($crawler->filter('#desc_content')->count() > 0) {
+                    $description = $crawler->filter('#desc_content')->html();
+                    return trim($description);
+                }
             }
         } catch (\Exception $e) {
             $this->command->error("Error fetching description for slug $slug: " . $e->getMessage());
-            return null;
         }
-    }
 
+        // Trả về null nếu không lấy được dữ liệu
+        return null;
+    }
     private function fetchAndDownloadGalleryImages($slug): array
     {
         $downloadedImages = [];

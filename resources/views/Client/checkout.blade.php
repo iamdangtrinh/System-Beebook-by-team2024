@@ -64,6 +64,7 @@
     <div class="container">
         <form action="{{ route('checkout.store') }}" method="post" id="formcheckout">
             @csrf
+            <input type="hidden" name="id_coupon" value={{$id_coupon}}>
             <div class="row billing-fields">
                 {{--  đơn hàng --}}
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">

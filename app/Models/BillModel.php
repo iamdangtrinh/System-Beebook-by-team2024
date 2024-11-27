@@ -15,6 +15,7 @@ class BillModel extends Model
 
     protected $fillable = [
         "id",
+        "id_coupon",
         "id_user",
         "status",
         "reason_cancel",
@@ -52,7 +53,8 @@ class BillModel extends Model
         );
     }
 
-    public function billUser() {
+    public function billUser()
+    {
         return $this->hasOne(User::class, 'id', 'id_user')->select(['id', 'name', 'phone', 'email', 'address', 'avatar']);
     }
 }

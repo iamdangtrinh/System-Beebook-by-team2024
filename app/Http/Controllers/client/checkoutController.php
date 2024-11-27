@@ -33,10 +33,11 @@ class CheckoutController extends Controller
     {
         $result = $this->CartService->findCartByUser(20);
         $price_sale = session()->get('price', 0);
+        $id_coupon = session()->get('id_coupon');
         if (count($result) == 0) {
             return redirect()->route('product.index')->with('error', 'Vui lòng thêm sản phẩm vào giỏ hàng!');
         }
-        return view('Client.checkout', compact(['result', 'price_sale']));
+        return view('Client.checkout', compact(['result', 'price_sale', 'id_coupon']));
     }
 
     public function cartToCheckout(Request $request) {}

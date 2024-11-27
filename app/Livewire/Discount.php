@@ -42,10 +42,10 @@ class Discount extends Component
             } else {
                 if ($result_coupon['quantity'] !== 0) {
                     if ($result_coupon['coupon-min-spend'] < $this->price && $this->price > $result_coupon['coupon-max-spend']) {
+                        session()->put('id_coupon', $result_coupon['id']);
                         if ($result_coupon['type_coupon'] === 'percent') {
                             session()->put('price', $this->price * ($result_coupon['discount'] / 100));
                             session()->put('code', $this->code);
-
                             session()->put('disable', true);
                             session()->flash('successCoupon', 'Sử dụng mã khuyến mãi thành công  ');
                             couponModel::where('id', $result_coupon['id'])->decrement('quantity', 1);
