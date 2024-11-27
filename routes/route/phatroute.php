@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\client\BlogController;
 use App\Http\Controllers\admin\BlogController as AdminBlogController;
 use App\Http\Controllers\admin\BlogAdmin;
+use App\Http\Controllers\admin\CouponAdmin;
 use App\Http\Controllers\admin\TaxonomyAdmin;
 //client
 
@@ -29,7 +30,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard_3', [AdminController::class, 'dashboard_3']);
     Route::get('/blog', [BlogAdmin::class,'index'])->name('adminblog.index');
     Route::get('/taxonomy', [TaxonomyAdmin::class,'index'])->name('admintaxonomy.index');
-    // Route::get('/blog/add', [AdminBlogController::class, 'add'])->name('adminblog.add');
+    Route::get('/coupon', [CouponAdmin::class,'index'])->name('admincoupon.index');
 
 });
 
