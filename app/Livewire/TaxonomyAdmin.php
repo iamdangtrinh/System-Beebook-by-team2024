@@ -10,12 +10,14 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Livewire\WithoutUrlPagination;
+
 
 class TaxonomyAdmin extends Component
 {
     use WithFileUploads;
     use WithPagination;
-    
+
     public $gettaxonomy = [];
     public $paginationData;
     public $id = '';
@@ -33,13 +35,11 @@ class TaxonomyAdmin extends Component
     public function loadTaxonomy()
     {
         $query = Taxonomy::query()->orderBy('id', 'desc');
-
-      
         $paginator = $query->paginate(20);
         $this->gettaxonomy = $paginator->items();
         $this->updatePaginationData($paginator);
-
     }
+
     public function updatePaginationData($paginator)
     {
         $this->paginationData = [
@@ -74,15 +74,11 @@ class TaxonomyAdmin extends Component
                 'type' => $this->type,
                 'name' => $this->name,
                 'slug' => $this->slug,
-
-                
             ]);
             $this->reset([
                 'type',
                 'name',
                 'slug',
-                
-                
             ]);
             $this->isModal = false;
             $paginator = Taxonomy::orderBy('id', 'desc')->paginate(20);
@@ -143,6 +139,7 @@ class TaxonomyAdmin extends Component
         }
     }
 
+    use WithPagination, WithoutUrlPagination;
     public function render()
     {
         return view('livewire.taxonomy-admin');

@@ -1,4 +1,4 @@
-<title>@yield('title', 'tác giả')</title>
+<title>@yield('title', 'Danh mục phụ')</title>
 @extends('layout.admin')
 @section('body')
 @livewireStyles
