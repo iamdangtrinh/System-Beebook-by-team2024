@@ -91,7 +91,8 @@
                                 <th>ID</th>
                                 <th>Loại</th>
                                 <th>Tên</th>
-                                <th>Slug</th>
+                                <th>Đường dẫn</th>
+                                <th>Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -112,6 +113,10 @@
                                     </td>
                                     <td>{{ $tax->name }}</td>
                                     <td>{{ $tax->slug }}</td>
+                                    <td class="text-right">
+                                        <button class="btn btn-warning">Sửa</button>
+                                        <button class="btn btn-danger">Xóa</button>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
