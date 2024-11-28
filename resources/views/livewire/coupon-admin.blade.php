@@ -1,18 +1,6 @@
 <div>
     <div class="row wrapper border-bottom white-bg page-heading" >
         <div class="col-lg-10">
-            <h2>Mã giảm giá</h2>
-            <ol class="breadcrumb">
-                <li>
-                    <a href="index.html">Trang chủ</a>
-                </li>
-                <li>
-                    <i class="fa fa-angle-right mx-1"></i>
-                </li>
-                <li class="active">
-                    <strong>Mã giảm giá</strong>
-                </li>
-            </ol>
         </div>
         <div class="col-lg-2">
             <a wire:click="closeModal" class="btn btn-outline btn-primary btn-rounded">Thêm Mã giảm giá</a>
@@ -82,25 +70,34 @@
                                 <th >Số tiền tối thiểu để áp dụng mã giảm giá </th>
                                 <th >Số tiền tối đa áp dụng mã giảm giá</th>
                                 <th >Số tiền giảm giá</th>
-                                <th >Hành động</th>
                                 <th >Loại mã giảm giá</th>
                                 <th >Số lượng mã giảm giá</th>
                                 <th >Trạng thái</th>
+                                <th >Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($coupons as $sale)
                             <tr>
-                                <td>{{ $sale->couponId }}</td>
+
+                                <td>{{ $sale->id }}</td>
                                 <td>{{ $sale->code_coupon }}</td>
-                                <td>{{ $sale->start_date }}</td>
-                                <td>{{ $sale->expires_at }}</td>
-                                <td>{{ $sale->coupon_min_spend }}</td>
-                                <td>{{ $sale->coupon_max_spend }}</td>
+                                <td>{{ \Carbon\Carbon::parse($sale['start_date'])->format('H:i-d-m-Y') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($sale['expires_at'])->format('H:i-d-m-Y') }}</td>
+                                <td>{{ number_format($sale['coupon_min_spend'], 0, ',', '.') }}Đ</td>
+                                <td>{{ number_format($sale['coupon_max_spend'], 0, ',', '.') }}Đ</td>
                                 <td>{{ $sale->discount }}</td>
-                                <td>{{ $sale->type_coupon }}</td>
+                                <td>
+                                    @if ($sale->type_coupon == 'percent')
+                                        Phần trăm
+                                    @elseif ($sale->type_coupon == 'amount')
+                                        Số tiền
+                                    @else
+                                        {{ $sale->type_coupon }}
+                                    @endif
+                                </td>
                                 <td>{{ $sale->quantity }}</td>
-                                <td>{{ $sale->status }}</td>
+                                
                                 <td class="d-flex justify-content-center" style="border: none" > 
                                     @if ($sale->status === 'active')
                                     <div style="width: 10px; height: 10px; background: #00FF00; border-radius: 50%; border: none" class="dot"></div>
@@ -110,8 +107,8 @@
                                 </td>
                                 <td class="text-right">
                                     <div class="d-flex gap-2">
-                                        <a wire:click="editpost({{$sale->couponId}})"  class="btn btn-sm btn-warning">Sửa</a>
-                                        <a wire:click="deleted_post({{ $sale->couponId }} class="btn btn-sm btn-danger">Xóa</a>
+                                        <a wire:click="editCoupon({{$sale->id}})"  class="btn btn-sm btn-warning">Sửa</a>
+                                        <a wire:click="deletedCoupon({{ $sale->id }}" class="btn btn-sm btn-danger">Xóa</a>
 
                                     </div>
                                 </td>
@@ -270,7 +267,7 @@
                                            
                                         
                                             {{-- Success Message --}}
-                                            {{-- @if (session('success'))
+                                            @if (session('success'))
                                                 <div class="alert alert-success">
                                                     {{ session('success') }}
                                                 </div>
@@ -282,18 +279,18 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="d-flex flex-col gap-4">
                                 <div class="form-group" >
                                     <div class="w-100 d-flex justify-content-center flex-col">
                                         <div class="image-upload">
-                                            {{-- <label for="file-upload" style="cursor: pointer;">
+                                            <label for="file-upload" style="cursor: pointer;">
                                                 <img 
                                                      style="width: 100%; border: 1px solid black" 
                                                      src="{{ asset(($image === '' ? 'no_image.jpg' : $image)) }}" 
                                                      alt="">
-                                            </label> --}}
+                                            </label>
                                             <input type="file" id="file-upload" wire:model.change="image" style="display: none;" accept="image/*">
                                         </div>
                                         @error('avatar')
@@ -302,14 +299,14 @@
                                        </div>
                                    </div>
                                 </div>
-                                {{-- @if ($image !=='')
+                                @if ($image !=='')
                                 <button wire:click="removeImage">Xóa ảnh</button> 
                                 @endif
                                 @if (session('removeImageSuccess'))
                                 <div class="success text-success">
                                     {{ session('removeImageSuccess') }}
                                 </div>
-                            @endif --}}
+                            @endif
                             </div>
                     </div>
                 </div>
@@ -343,7 +340,7 @@
         const data=event;
         swal.fire({
             icon: 'warning',
-            title: 'Bạn có muốn xóa danh mục này không?',
+            title: 'Bạn có muốn xóa mã giảm giá này không?',
             text: 'Nếu bạn xóa, hành động này không thể hoàn tác!',
             showCancelButton: true,
             reverseButtons: true,

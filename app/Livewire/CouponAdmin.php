@@ -6,12 +6,17 @@ use Livewire\Component;
 use App\Models\couponModel;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
+
 
 class CouponAdmin extends Component
 {
-    use WithFileUploads, WithPagination;
+    use WithFileUploads;
+    use WithPagination;
 
     public $coupons = [];
     public $paginationData;
@@ -53,6 +58,32 @@ class CouponAdmin extends Component
         ];
     }
 
+    // Hàm định dạng số tiền
+    protected function formatCurrency($amount)
+    {
+        return number_format($amount, 0, ',', '.') . 'Đ';
+    }
+
+    public function updatedcouponId($value)
+    {
+        $this->couponId = $value;
+        $this->resetPage(); // Quay về trang đầu
+        $this->loadPosts();
+    }
+
+    public function previousPage()
+    {
+        if ($this->paginationData['currentPage'] > 1) {
+            $this->gotoPage($this->paginationData['currentPage'] - 1);
+        }
+    }
+
+    public function gotoPage($page)
+    {
+        $this->setPage($page);
+        $this->loadCoupons(); // Cập nhật theo trang hiện tại và bộ lọc
+    }
+
     public function closeModal()
     {
         $this->isModal = false;
@@ -72,14 +103,7 @@ class CouponAdmin extends Component
     }
 
     public function createCoupon()
-    {
-        $this->validate([
-            'code_coupon' => 'required|string|unique:coupons,code_coupon',
-            'discount' => 'required|numeric',
-            'type_coupon' => 'required|string',
-            'quantity' => 'required|integer|min:1',
-        ]);
-
+    {   
         try {
             couponModel::create([
                 'code_coupon' => $this->code_coupon,
@@ -94,8 +118,18 @@ class CouponAdmin extends Component
                 'status' => $this->status,
             ]);
 
+            $this->redirect([ // Không cần dùng redirect ở đây, nếu không phải hành động điều hướng
+                'code_coupon' => 'required|string|unique:coupons,code_coupon',
+                'discount' => 'required|numeric',
+                'type_coupon' => 'required|string',
+                'quantity' => 'required|integer|min:1',
+            ]);
+
             $this->closeModal();
             $this->loadCoupons();
+            $paginator = couponModel::orderBy('id', 'desc')->paginate(20);
+            $this->coupons = $paginator->items();
+            $this->updatePaginationData($paginator);
             session()->flash('create_success', 'Thêm mã giảm giá thành công');
         } catch (\Throwable $th) {
             session()->flash('create_error', 'Thêm mã giảm giá thất bại');
@@ -105,24 +139,18 @@ class CouponAdmin extends Component
     public function editCoupon($id)
     {
         $coupon = couponModel::find($id);
-        if (!$coupon) {
-            session()->flash('edit_error', 'Không tìm thấy mã giảm giá');
-            return;
-        }
-
         $this->couponId = $coupon->id;
+        $this->isModal = true;
         $this->code_coupon = $coupon->code_coupon;
         $this->description = $coupon->description;
-        $this->start_date = $coupon->start_date;
-        $this->expires_at = $coupon->expires_at;
-        $this->coupon_min_spend = $coupon->coupon_min_spend;
-        $this->coupon_max_spend = $coupon->coupon_max_spend;
-        $this->discount = $coupon->discount;
+        $this->start_date = Carbon::parse($coupon->start_date)->format('H:i-d-m-Y');
+        $this->expires_at = Carbon::parse($coupon->expires_at)->format('H:i-d-m-Y');
+        $this->coupon_min_spend = $this->formatCurrency($coupon->coupon_min_spend); // Định dạng tiền
+        $this->coupon_max_spend = $this->formatCurrency($coupon->coupon_max_spend); // Định dạng tiền
+        $this->discount = $this->formatCurrency($coupon->discount); // Định dạng tiền
         $this->type_coupon = $coupon->type_coupon;
         $this->quantity = $coupon->quantity;
         $this->status = $coupon->status;
-
-        $this->isModal = true;
     }
 
     public function updateCoupon()
@@ -156,14 +184,17 @@ class CouponAdmin extends Component
         }
     }
 
-    public function deleteCoupon($id)
+    #[On('hanldeDeletedCoupon')]
+    public function deleteCoupon()
     {
         try {
-            couponModel::destroy($id);
+            couponModel::destroy($this->id);
+            Storage::disk('public')->delete('uploads/' . $this->image);
+            
             $this->loadCoupons();
-            session()->flash('delete_success', 'Xóa mã giảm giá thành công');
+            session()->flash('deleted_success', 'Xóa mã giảm giá thành công');
         } catch (\Throwable $th) {
-            session()->flash('delete_error', 'Xóa mã giảm giá thất bại');
+            session()->flash('deleted_error', 'Xóa mã giảm giá không thành công');
         }
     }
 
