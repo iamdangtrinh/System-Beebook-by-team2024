@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_user');
-            $table->unsignedBigInteger('id_coupon');
+            $table->unsignedBigInteger('id_coupon')->nullable();
             $table->enum('status', ['new', 'shipping', 'success', 'cancel', 'refund'])->default('new');
             $table->string('reason_cancel')->nullable();
             $table->decimal('total_amount', 15, 0);
