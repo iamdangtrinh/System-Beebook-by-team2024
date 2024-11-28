@@ -17,7 +17,7 @@ Route::get('/nha-xuat-ban/{slug}', [ProductController::class, 'manufacturer'])->
 Route::get('/filter-products', [ProductController::class, 'filter'])->name('products.filter');
 Route::get('/yeu-thich', [WishlistController::class, 'getWishlist'])->name('wishlist.index');
 // Route cho trang kết quả tìm kiếm
-Route::get('/search', [SearchController::class, 'index'])->name('search');
+Route::get('/tim-kiem', [SearchController::class, 'index'])->name('search');
 // Route cho tìm kiếm AJAX
 Route::get('/search/ajax', [SearchController::class, 'ajaxSearch'])->name('search.ajax');
 

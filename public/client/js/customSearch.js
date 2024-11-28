@@ -44,6 +44,21 @@
                             });
                         }
 
+                        // Hiển thị sách
+                        if (response.blogs && response.blogs.length > 0) {
+                            resultsHTML += '<div class="col-12"><strong>Bài viết</strong></div>';
+                            response.blogs.forEach(book => {
+                                resultsHTML += `
+                                    <div class="col-12 my-3 py-3 border rounded d-flex align-items-center">
+                                        <a href="/posts/${book.slug}" class="d-flex gap-3">
+                                            <img style="object-fit:contain; object-position: center;" width="100px" height = "50px" src="${book.image || '/no_image.jpg'}" alt="${book.title}">
+                                            <p class="text-clamp">${book.title}</p>
+                                        </a>
+                                    </div>
+                                `;
+                            });
+                        }
+
                         // Đổ kết quả tìm kiếm vào container
                         if (resultsHTML) {
                             $('#search-results').html(resultsHTML).show();
