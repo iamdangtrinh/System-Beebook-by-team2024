@@ -624,29 +624,38 @@
 	/*-----------------------------------
 	  33. Infinite Scroll js
 	  -------------------------------------*/
-	function load_more(){
-        $(".product-load-more .item").slice(0, 16).show();
-        $(".loadMore").on('click', function (e) {
-            e.preventDefault();
-            $(".product-load-more .item:hidden").slice(0, 4).slideDown();
-            if ($(".product-load-more .item:hidden").length == 0) {
-                $(".infinitpagin").html('<div class="btn loadMore">Đã hết sản phẩm</div>');
-            }
-        });
-    }
-	load_more();
+	//   function load_more() {
+	// 	// Hiển thị ban đầu 8 sản phẩm
+	// 	$(".product-load-more .item").slice(0, 8).show();
 	
-	function load_more_post(){
-        $(".blog--grid-load-more .article").slice(0, 3).show();
-        $(".loadMorepost").on('click', function (e) {
-            e.preventDefault();
-            $(".blog--grid-load-more .article:hidden").slice(0, 1).slideDown();
-            if ($(".blog--grid-load-more .article:hidden").length == 0) {
-                $(".loadmore-post").html('<div class="btn loadMorepost">No more Blog Post</div>');
-            }
-        });
-    }
-	load_more_post();
+	// 	// Lắng nghe sự kiện click trên nút loadMore
+	// 	$(".loadMore").on('click', function (e) {
+	// 		e.preventDefault();
+	
+	// 		// Hiển thị thêm 8 sản phẩm mỗi lần bấm
+	// 		$(".product-load-more .item:hidden").slice(0, 8).slideDown();
+	
+	// 		// Kiểm tra xem còn sản phẩm nào ẩn không
+	// 		if ($(".product-load-more .item:hidden").length == 0) {
+	// 			// Thay đổi nội dung nút khi hết sản phẩm
+	// 			$(".infinitpagin").html('<div class="btn loadMore disabled">Đã hết sản phẩm</div>');
+	// 		}
+	// 	});
+	// }
+	
+	// load_more();
+	
+	// function load_more_post(){
+    //     $(".blog--grid-load-more .article").slice(0, 3).show();
+    //     $(".loadMorepost").on('click', function (e) {
+    //         e.preventDefault();
+    //         $(".blog--grid-load-more .article:hidden").slice(0, 1).slideDown();
+    //         if ($(".blog--grid-load-more .article:hidden").length == 0) {
+    //             $(".loadmore-post").html('<div class="btn loadMorepost">No more Blog Post</div>');
+    //         }
+    //     });
+    // }
+	// load_more_post();
 	/*-----------------------------------
 	  End Infinite Scroll js
 	  -------------------------------------*/

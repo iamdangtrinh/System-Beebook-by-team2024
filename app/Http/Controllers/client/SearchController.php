@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Taxonomy;
+use App\Models\BlogModel;
 
 class SearchController extends Controller
 {
@@ -13,8 +14,15 @@ class SearchController extends Controller
     {
         $query = $request->get('query');
 
+        // Nếu không có query, điều hướng đến route product.index
+        if (empty($query)) {
+            return redirect()->route('product.index');
+        }
+
         // Tìm kiếm sách theo tên
         $books = Product::where('name', 'like', "%{$query}%")->get();
+        // dd($books);
+        $blogs = BlogModel::where('title', 'like', "%{$query}%")->get();
 
         // Tìm kiếm tác giả
         $authors = Taxonomy::where('name', 'like', "%{$query}%")
@@ -26,7 +34,7 @@ class SearchController extends Controller
             ->where('type', 'manufacturer')
             ->get();
 
-        return view('search.index', compact('books', 'authors', 'publishers'));
+        return view('client.search', compact('query', 'books', 'blogs', 'authors', 'publishers'));
     }
 
     public function ajaxSearch(Request $request)
@@ -35,6 +43,7 @@ class SearchController extends Controller
 
         // Tìm kiếm sách theo tên
         $books = Product::where('name', 'like', "%{$query}%")->limit(6)->get();
+        $blogs = BlogModel::where('title', 'like', "%{$query}%")->limit(3)->get();
 
         // Tìm kiếm tác giả
         $authors = Taxonomy::where('name', 'like', "%{$query}%")
@@ -50,6 +59,7 @@ class SearchController extends Controller
 
         return response()->json([
             'books' => $books,
+            'blogs' => $blogs,
             'authors' => $authors,
             'publishers' => $publishers,
         ]);

@@ -13,7 +13,7 @@
                             type="text"
                             id="search"
                             name="query"
-                            placeholder="Tìm kiếm sách, tác giả, nhà xuất bản"
+                            placeholder="Tìm kiếm sách, tác giả, nhà xuất bản, bài viết"
                             autocomplete="off">
                     </div>
                     <button class="btn btn-primary" type="submit"><i class="icon anm anm-search-l"></i></button>

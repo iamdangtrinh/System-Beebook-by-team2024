@@ -258,7 +258,7 @@
                                 <div class="product-form__item--submit">
                                     @csrf
                                     <input type="hidden" value="{{ $product->id }}" name="id_product">
-                                    <button type="submit" class="btn btn-addto-cart w-50 w-sm-100" style=""
+                                    <button type="submit" class="btn btn-addto-cart w-50 w-sm-100"
                                         name="addToCart"><i class="icon anm anm-bag-l"></i> Thêm vào giỏ
                                         hàng</button>
                                 </div>
