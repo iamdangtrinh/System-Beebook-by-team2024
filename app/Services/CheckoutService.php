@@ -99,16 +99,14 @@ class CheckoutService implements CheckoutServiceInterface
                   } else {
                         $payload['fee_shipping'] = 0;
                   }
-                  
-                  $payload['total_amount'] = $total_amount;
+
+                  $payload['total_amount'] = $total_amount - session()->get('price', 0);
                   $payload['id_user'] = Auth::user()->id;
-                  
                   $id_bill = $this->CheckoutRepository->create($payload)->id;
                   $billDetails = array_map(function ($billDetail) use ($id_bill) {
                         $billDetail['id_bill'] = $id_bill;
                         return $billDetail;
                   }, $billDetails);
-
                   $this->BillDetailRepository->insert($billDetails);
                   foreach ($carts as $cart) {
                         $updated = Product::where('id', $cart['id_product'])
@@ -121,6 +119,7 @@ class CheckoutService implements CheckoutServiceInterface
                   }
                   $this->CartService->destroyAll();
                   DB::commit();
+                  session()->forget(['price', 'id_coupon', 'code', 'disable']);
                   if ($payload['payment_method'] == "ONLINE") {
                         return redirect()->route('order.show', ['id' => $id_bill]);
                   } else if ($payload['payment_method'] == "OFFLINE") {
