@@ -17,8 +17,8 @@ class AfterSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            ProductsSeeder::class,
-            PostSeeder::class,
+            // ProductsSeeder::class,
+            // PostSeeder::class,
             CartSeeder::class,
             Comments::class,
             PostProductSeeder::class
