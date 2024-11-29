@@ -72,6 +72,7 @@ class CheckoutService implements CheckoutServiceInterface
       public function create($request)
       {
             DB::beginTransaction();
+
             try {
                   $payload = $request->except(['_token']);
                   if (empty($payload['checkout']) || $payload['checkout'] !== 'submit_checkout') {
@@ -93,14 +94,10 @@ class CheckoutService implements CheckoutServiceInterface
                         ];
                   }
 
-                  if ($total_amount < 1000000) {
-                        $total_amount += env('fee_shipping');
-                        $payload['fee_shipping'] = env('fee_shipping');
-                  } else {
-                        $payload['fee_shipping'] = 0;
-                  }
+                  $payload['fee_shipping'] = env('fee_shipping');
+                  $payload['total_amount'] = $total_amount;
+                  $payload['discount'] = session()->get('price', 0);
 
-                  $payload['total_amount'] = $total_amount - session()->get('price', 0);
                   $payload['id_user'] = Auth::user()->id;
                   $id_bill = $this->CheckoutRepository->create($payload)->id;
                   $billDetails = array_map(function ($billDetail) use ($id_bill) {
@@ -118,6 +115,7 @@ class CheckoutService implements CheckoutServiceInterface
                         }
                   }
                   $this->CartService->destroyAll();
+
                   DB::commit();
                   session()->forget(['price', 'id_coupon', 'code', 'disable']);
                   if ($payload['payment_method'] == "ONLINE") {
@@ -131,6 +129,7 @@ class CheckoutService implements CheckoutServiceInterface
             } catch (\Exception $exception) {
                   DB::rollBack();
                   Log::error($exception->getMessage());
+                  dd($exception->getMessage());
                   return false;
             }
       }
