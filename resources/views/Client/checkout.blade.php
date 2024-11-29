@@ -64,7 +64,7 @@
     <div class="container">
         <form action="{{ route('checkout.store') }}" method="post" id="formcheckout">
             @csrf
-            <input type="hidden" name="id_coupon" value={{$id_coupon}}>
+            <input type="hidden" name="id_coupon" value={{ $id_coupon }}>
             <div class="row billing-fields">
                 {{--  đơn hàng --}}
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
@@ -127,8 +127,7 @@
                                 <div class="form-group col-md-12 col-lg-12 col-xl-12">
                                     <div class="position-relative">
                                         <label for="input-address">Địa chỉ <span class="text-danger">*</span> </label>
-                                        <input class="form-control" name="address"
-                                        autocomplete="off"
+                                        <input class="form-control" name="address" autocomplete="off"
                                             value="{{ old('address') ?? Auth::user()->address }}"
                                             id="input-address-autocomplete" type="text">
 
@@ -195,34 +194,29 @@
                                 <div class="row border-bottom mb-3">
                                     <span class="col-12 col-sm-6 cart__subtotal-title">Phí vận chuyển:</span>
                                     <span class="col-12 col-sm-6 text-right"><span id="freeShipping">
-                                            @if ($subTotal < 1000000)
-                                                {{ env('fee_shipping') }} đ
-                                                @php
-                                                    $subTotal += env('fee_shipping');
-                                                @endphp
-                                                <input type="hidden" name="fee_shipping"
-                                                    value="{{ env('fee_shipping') }}">
-                                            @else
-                                                <input type="hidden" name="fee_shipping" value="0">
-                                                Miễn phí vận chuyển
-                                            @endif
+                                            {{ number_format(env('fee_shipping'), '0', '.', '.') }} đ
+                                            @php
+                                                $subTotal += env('fee_shipping');
+                                            @endphp
+                                            <input type="hidden" name="fee_shipping" value="{{ env('fee_shipping') }}">
                                         </span></span>
-                                    </div>
-                                    @if ($price_sale !== 0) 
+                                </div>
+                                @if ($price_sale !== 0)
                                     <div class="row border-bottom mb-3">
                                         <span class="col-12 col-sm-6 cart__subtotal-title">Giảm giá:</span>
                                         <span class="col-12 col-sm-6 text-right"><span id="totalAmout">
                                                 {{ number_format($price_sale) }} đ</span></span>
                                     </div>
-                                    @endif
+                                @endif
                                 <div class="row border-bottom mb-3">
                                     <span class="col-12 col-sm-6 cart__subtotal-title">Tổng tiền:</span>
                                     <span class="col-12 col-sm-6 text-right"><span id="totalAmout">
-                                        @if ($price_sale !== 0)
-                                        {{ number_format($subTotal -$price_sale) }} đ</span></span>
-                                        @else
-                                        {{ number_format($subTotal, '0', '.', '.') }} đ</span></span>
-                                        @endif
+                                            @if ($price_sale !== 0)
+                                                {{ number_format($subTotal - $price_sale) }} đ
+                                        </span></span>
+                                @else
+                                    {{ number_format($subTotal, '0', '.', '.') }} đ</span></span>
+                                    @endif
                                 </div>
                             </div>
 
