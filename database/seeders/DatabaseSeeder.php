@@ -10,12 +10,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Database\Seeders\TaxonomySeeder;
 use Database\Seeders\CategoryProductSeeder;
-use Database\Seeders\ProductsSeeder;
 use Database\Seeders\CouponSeeder;
 use Database\Seeders\UsersSeeder;
-use Database\Seeders\PostSeeder;
-use Database\Seeders\Comments;
-use Database\Seeders\CartSeeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,9 +23,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             TaxonomySeeder::class,
             CategoryProductSeeder::class,
-            // ProductsSeeder::class,
             CouponSeeder::class,
             UsersSeeder::class,
+            // ProductsSeeder::class,
             // PostSeeder::class,
             // CartSeeder::class,
             // Comments::class,
