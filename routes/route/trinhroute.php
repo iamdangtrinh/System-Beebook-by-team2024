@@ -53,4 +53,6 @@ Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
       Route::post('/banner/update/', [BannerController::class, 'update'])->name('admin.banner.update');
       Route::get('/destroy/banner/{id}', [BannerController::class, 'destroy'])->name('admin.banner.destroy');
       Route::get('/banner/edit/{id}', [BannerController::class, 'show'])->name('admin.banner.detail');
+      // Route::get('/', [BannerController::class, 'show'])->name('transaction.history');
+
 });

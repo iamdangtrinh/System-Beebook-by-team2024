@@ -1,20 +1,8 @@
 <!DOCTYPE html>
 <html>
-
-<?php
-$routeName = basename(route('order.index'));
-$currentSegment = Request::segment(2);
-
-$routeName = basename(route('order.index')); // Lấy tên route của 'order.index'
-$currentSegment = Request::segment(2);
-
-?>
-
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Bee Book | @yield('title', 'Quản trị')</title>
     <meta name="csrf_token" content="{{ csrf_token() }}" />
 
@@ -44,46 +32,31 @@ $currentSegment = Request::segment(2);
                 <ul class="nav metismenu" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element"> <span>
-                                <img alt="image" class="img-circle" src="/client/images/logo.webp" />
+                                <img alt="image" class="img-circle" src="/logo-admin.webp" />
                             </span>
                         </div>
                     </li>
 
-                    <li class="active"><a href="{{ route('overview.index') }}"><i class="fa fa-th-large"></i> <span
-                                class="nav-label">Dashboards</span><span class="fa arrow"></span></a>
-                    </li>
-                    <li class=""><a href="{{ route('adminCategory.index') }}"><i class="fa fa-list"></i> <span
-                        class="nav-label">Danh mục</span></a>
-            </li>
-                    <li class=""><a href="{{ route('order.index') }}"><i class="fa fa-list"></i> <span
-                                class="nav-label">Đơn hàng</span></a>
-                    </li>
-                    <li class=""><a href="{{ route('adminproduct.index') }}"><i class="fa fa-book"></i> <span
-                                class="nav-label">Sách</span></a>
-                    </li>
-                    <li class=""><a href="{{ route('admincomment.index') }}"><i class="fa fa-comments"></i> <span
-                                class="nav-label">Bình luận</span></a>
-                    </li>
-                    <li class=""><a href="{{ route('adminblog.index') }}"><i class="fa fa-book"></i> <span
-                                class="nav-label">Bài viết</span></a>
-                    </li>
-                    <li class=""><a href="{{ route('admincoupon.index') }}"><i class="fa fa-book"></i> <span
-                        class="nav-label">Mã giảm giá</span></a>
-            </li>
-                    <li class=""><a href="{{ route('admintaxonomy.index') }}"><i class="fa fa-book"></i> <span
-                        class="nav-label">Tác giả</span></a>
-                     </li>
-                    <li class=""><a href="{{ route('adminUser.index') }}"><i class="fa fa-user"></i> <span
-                                class="nav-label">Tài Khoản</span></a>
-                    </li>
-                    <li class=""><a href="{{ route('admin.banner.index') }}"><i class="fa fa-image"></i> <span
-                                class="nav-label">Quản lý banner</span></a>
-                    </li>
-                    <li class=""><a href="{{ route('adminUser.index') }}"><i class="fa fa-image"></i> <span
-                                class="nav-label">Lịch sử giao dịch</span></a>
-                    </li>
+                    @php
+                        $currentRouteName = Route::currentRouteName();
+                        $menuItems = config('admin.dashboard.navMenu');
+                    @endphp
+
+                    @foreach ($menuItems as $item)
+                        <li class="{{ $currentRouteName === $item['route'] ? 'active' : '' }}">
+                            <a href="{{ route($item['route']) }}">
+                                <i class="{{ $item['icon'] }}"></i>
+                                <span class="nav-label">{{ $item['label'] }}</span>
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
+
             </div>
+            {{-- <div>
+                <a class="text-light" href="https://www.facebook.com/profile.php?id=61566989045999">Được xây dựng bởi
+                    nhóm Bee Book 2024</a>
+            </div> --}}
         </nav>
 
         <div id="page-wrapper" class="gray-bg sidebar-content">

@@ -44,7 +44,16 @@
                                         <td>{{ $order->id }}</td>
                                         <td>{{ date('H:i:s d-m-Y', strtotime($order->created_at)) }}</td>
                                         <td>{{ number_format($order->total_amount, '0', '.', '.') . ' đ' }}</td>
-                                        <td>{{ $order->status }}</td>
+                                        <td>
+                                            @foreach (config('admin.order.statusOrderUser') as $key => $status)
+                                                @if ($order->status === $key)
+                                                    <span
+                                                        class="badge {{ $order->status === $key ? config('admin.order.statusOrderColors')[$key] : '' }}">
+                                                        {{ $order->status === $key ? $status : '' }}
+                                                    </span>
+                                                @endif
+                                            @endforeach
+                                        </td>
                                         <td><span
                                                 class="{{ $order->payment_status === 'UNPAID' ? 'text-danger' : 'text-success' }}">{{ $order->payment_status === 'UNPAID' ? 'Chưa thanh toán' : 'Đã thanh toán' }}</span>
                                         </td>
@@ -58,8 +67,8 @@
                                                 <span class="btn btn-danger bg-secondary">Đã hủy</span>
                                             @endif
 
-                                            <a href="/profile/your-order/{{ $order->id }}"
-                                                class="btn btn-danger">Xem</a>
+                                            <a
+                                                href="/profile/your-order/{{ $order->id }}"class="btn btn-danger">Xem</a>
                                         </td>
                                     </tr>
                                 @endforeach
