@@ -575,7 +575,7 @@ class CKFinder_Connector_Utils_FileSystem
             return -1;
         }
 
-        $imageCheckExtensions = array('gif', 'jpeg', 'jpg', 'png', 'psd', 'bmp', 'tiff');
+        $imageCheckExtensions = array('gif', 'jpeg', 'jpg', 'png', 'psd', 'bmp', 'tiff', 'webp');
 
         // version_compare is available since PHP4 >= 4.0.7
         if ( function_exists( 'version_compare' ) ) {

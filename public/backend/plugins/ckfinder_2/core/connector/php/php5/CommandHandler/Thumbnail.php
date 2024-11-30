@@ -227,6 +227,21 @@ class CKFinder_Connector_CommandHandler_Thumbnail extends CKFinder_Connector_Com
                     }
                 }
                 break;
+            case 'image/webp':
+                {
+                    /*
+                    * This is sad that PHP doesn't support bitmaps.
+                    * Anyway, we will use our custom function at least to display thumbnails.
+                    * We'll not resize images this way (if $sourceFile === $targetFile),
+                    * because user defined imagecreatefrombmp and imagecreatebmp are horribly slow
+                    */
+                    if (@imagetypes() & IMG_WEBP) {
+                        $oImage = @imagecreatefromwebp($sourceFile);
+                    } else {
+                        $ermsg = 'IMG_WEBP images are not supported';
+                    }
+                }
+                break;
             default:
                 $ermsg = $sourceImageAttr['mime'].' images are not supported';
                 break;
@@ -264,6 +279,9 @@ class CKFinder_Connector_CommandHandler_Thumbnail extends CKFinder_Connector_Com
                 break;
             case 'image/wbmp':
                 imagewbmp($oThumbImage, $targetFile);
+                break;
+            case 'image/webp':
+                imagewebp($oThumbImage, $targetFile);
                 break;
         }
 
