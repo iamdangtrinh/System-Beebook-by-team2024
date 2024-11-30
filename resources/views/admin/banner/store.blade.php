@@ -63,6 +63,7 @@
                     <thead>
                         <th style="width: 130px">Hình ảnh</th>
                         <th>Đường dẫn</th>
+                        <th style="width: 130px">Loại</th>
                         <th style="width: 130px">Trạng thái</th>
                         <th style="width: 130px">Thứ tự</th>
                         <th style="width: 130px">Hành động</th>
@@ -75,11 +76,14 @@
                                             src="{{ $item->image }}" alt="{{ $item->image }}"></span></td>
                                 <td><span>{{ $item->text_link }}</span></td>
                                 <td>
-                                    @if ($item->status == 'active')
-                                        <span class="badge badge-info">Đang hoạt động</span>
-                                    @elseif($item->status == 'inactive')
-                                        <span class="badge">Ngưng hoạt động</span>
-                                    @endif
+                                    @foreach (config('admin.dashboard.banner') as $key => $type)
+                                        <span>{{ $key === $item->type ? $type : '' }}</span>
+                                    @endforeach
+
+                                </td>
+                                <td>
+                                    <input type="checkbox" class="js-switch updateStatus" data-id="{{ $item->id }}"
+                                        {{ $item->status === 'active' ? 'checked' : '' }} />
                                 </td>
 
                                 <td><span>{{ $item->order }}</span></td>
@@ -98,92 +102,13 @@
             </div>
         </div>
     </div>
-    <style>
-        .product-image,
-        .product-gallery {
-            margin-bottom: 30px;
-        }
 
-        label {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .file-upload {
-            width: 100%;
-            padding: 40px;
-            border: 2px dashed #ccc;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 8px;
-            background-color: #fafafa;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .file-upload:hover {
-            border-color: #f6c506;
-        }
-
-        .file-upload i {
-            font-size: 32px;
-            color: #f6c506;
-        }
-
-        .file-upload img {
-            max-width: 100%;
-            max-height: 150px;
-            margin-top: 10px;
-            border-radius: 8px;
-        }
-
-        #gallery-preview {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .gallery-item {
-            position: relative;
-            display: inline-block;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .delete-button {
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            background-color: #ff4d4d;
-            color: white;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
-        .delete-button:hover {
-            background-color: #e03a3a;
-        }
-
-        #main-image-preview {
-            margin-top: 10px;
-        }
-    </style>
     <script src="{{ asset('/') }}backend/plugins/ckfinder_2/ckfinder.js"></script>
-    <script src="{{ asset('/') }}backend/js/banner/index.js"></script>
     <script src="{{ asset('/') }}backend/js/plugins/select2/select2.full.min.js"></script>
     <link rel="stylesheet" href="{{ asset('/') }}backend/css/plugins/select2/select2.min.css">
     <script src="{{ asset('/') }}client/js/lib/sweetalert2.js"></script>
-
+    <script src="{{ asset('/') }}backend/js/plugins/switchery/switchery.js"></script>
+    <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
+    <link rel="stylesheet" href="{{ asset('/') }}backend/css/banner/index.css">
+    <script src="{{ asset('/') }}backend/js/banner/index.js"></script>
 @endsection
