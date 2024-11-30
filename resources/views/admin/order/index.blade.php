@@ -2,25 +2,8 @@
 @extends('layout.admin')
 
 @section('body')
-    <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-10">
-            <h2>E-commerce orders</h2>
-            <ol class="breadcrumb">
-                <li>
-                    <a href="index.html">Home</a>
-                </li>
-                <li>
-                    <a href="">E-commerce</a>
-                </li>
-                <li class="active">
-                    <strong>Orders</strong>
-                </li>
-            </ol>
-        </div>
-    </div>
-
-    <div class="row wrapper wrapper-content" style="padding: 20px 0 0 !important">
-        <form action="" method="get">
+    <div class="row wrapper wrapper-content p-0">
+        <form action="" method="get" class="p-0">
             <div class="ibox-content m-b-sm border-bottom">
                 <div class="row">
                     <div class="col-sm-4 mb-3">
