@@ -34,6 +34,14 @@ class YourOrder extends Component
                     }
                 }
 
+                if ($order->Coupon) {
+                    $coupon = $order->Coupon;
+                    if ($coupon->quantity !== null) {
+                        $coupon->quantity += 1; // Tăng số lượng mã giảm giá
+                        $coupon->save();
+                    }
+                }
+
                 $order->status = 'cancel';
                 $order->save();
             });
