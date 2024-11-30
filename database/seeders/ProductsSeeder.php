@@ -226,55 +226,31 @@ class ProductsSeeder extends Seeder
 
     private function downloadImage($url)
     {
+        // Đường dẫn lưu hình ảnh
         $imageDirectory = public_path('userfiles/image/');
         $imageName = basename($url);
         $imageNameWithoutExtension = pathinfo($imageName, PATHINFO_FILENAME);
-        $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp';
+        $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp'; // Lưu với đuôi .webp
 
-        if (!file_exists($imageDirectory)) {
-            mkdir($imageDirectory, 0777, true);
-        }
-
-        // try {
-        //     $imageContent = file_get_contents($url);
-        //     $image = imagecreatefromstring($imageContent);
-
-        //     if ($image === false) {
-        //         $imageNameWithoutExtension = 'a';
-        //     }
-
-        //     imagewebp($image, $imagePath, 80);
-        //     imagedestroy($image);
-
-        //     return '/userfiles/image/' . $imageNameWithoutExtension . '.webp' ?? $url;
-        // } catch (\Exception $e) {
-        //     return $url;
-        // }
+        // Lấy nội dung hình ảnh và chuyển đổi định dạng
         try {
             $imageContent = file_get_contents($url);
             $image = imagecreatefromstring($imageContent);
-        
+
             if ($image === false) {
-                throw new \Exception('Cannot create image from data.');
+                throw new \Exception('Không thể tạo hình ảnh từ dữ liệu.');
             }
-        
-            // Chuyển đổi GIF sang PNG (nếu cần)
-            $tempPath = $imageDirectory . $imageNameWithoutExtension . '.png';
-            imagepng($image, $tempPath);
-        
-            // Tạo lại đối tượng hình ảnh từ PNG
-            $image = imagecreatefrompng($tempPath);
-        
-            // Chuyển sang WebP
-            imagewebp($image, $imagePath, 80);
-            imagedestroy($image);
-        
-            return '/userfiles/image/' . $imageNameWithoutExtension . '.webp';
+
+            // Lưu hình ảnh dưới dạng WebP
+            imagewebp($image, $imagePath, 90); // 80 là chất lượng hình ảnh, bạn có thể điều chỉnh
+            imagedestroy($image); // Giải phóng bộ nhớ
+
+            return '/userfiles/image/' . $imageNameWithoutExtension . '.webp'; // Trả về đường dẫn tương đối
         } catch (\Exception $e) {
+            // Xử lý lỗi nếu không tải được hình ảnh
             $this->command->error('Error downloading or converting image: ' . $e->getMessage());
-            return $defaultImagePath; // Trả về hình ảnh mặc định nếu lỗi
+            return null;
         }
-        
     }
 
     private function generateRandomWeight(): int
