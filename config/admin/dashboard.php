@@ -1,9 +1,5 @@
 <?php
 return [
-      // tên
-      // icon
-      // url
-
       'banner' => [
             'banner' => "Banner chính",
             'secondaryBanner' => "Banner phụ",
