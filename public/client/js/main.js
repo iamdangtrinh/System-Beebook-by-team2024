@@ -232,13 +232,15 @@
 	/*-----------------------------------
 	  12. Sidebar Categories Level links
 	-------------------------------------*/
-	function categories_level(){
-		$(".sidebar_categories .sub-level a").on("click", function() {
-			$(this).toggleClass('active');
-			$(this).next(".sublinks").slideToggle("slow");
-		}); 
+	function categories_level() {
+		$(".sidebar_categories .sub-level > a.site-nav").on("click", function (e) {
+			e.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
+			$(this).toggleClass("active");
+			$(this).closest("li").find(".sublinks").first().slideToggle("slow");
+		});
 	}
 	categories_level();
+	
 	
 	$(".filter-widget .widget-title").on("click", function () {
 		$(this).next().slideToggle('300');
@@ -624,26 +626,27 @@
 	/*-----------------------------------
 	  33. Infinite Scroll js
 	  -------------------------------------*/
-	//   function load_more() {
-	// 	// Hiển thị ban đầu 8 sản phẩm
-	// 	$(".product-load-more .item").slice(0, 8).show();
+	  function load_more() {
+		// Hiển thị ban đầu 4 sản phẩm
+		$(".product-load-more .item").slice(0, 4).show();
 	
-	// 	// Lắng nghe sự kiện click trên nút loadMore
-	// 	$(".loadMore").on('click', function (e) {
-	// 		e.preventDefault();
+		// Lắng nghe sự kiện click trên nút loadMore
+		$(".loadMore").on("click", function (e) {
+			e.preventDefault();
 	
-	// 		// Hiển thị thêm 8 sản phẩm mỗi lần bấm
-	// 		$(".product-load-more .item:hidden").slice(0, 8).slideDown();
+			// Hiển thị thêm 4 sản phẩm mỗi lần bấm
+			$(".product-load-more .item:hidden").slice(0, 4).slideDown();
 	
-	// 		// Kiểm tra xem còn sản phẩm nào ẩn không
-	// 		if ($(".product-load-more .item:hidden").length == 0) {
-	// 			// Thay đổi nội dung nút khi hết sản phẩm
-	// 			$(".infinitpagin").html('<div class="btn loadMore disabled">Đã hết sản phẩm</div>');
-	// 		}
-	// 	});
-	// }
+			// Kiểm tra xem còn sản phẩm nào ẩn không
+			if ($(".product-load-more .item:hidden").length == 0) {
+				// Thay đổi nội dung và trạng thái của nút
+				$(this).text("Đã hết sản phẩm").addClass("disabled").off("click");
+			}
+		});
+	}
 	
-	// load_more();
+	load_more();
+	
 	
 	// function load_more_post(){
     //     $(".blog--grid-load-more .article").slice(0, 3).show();

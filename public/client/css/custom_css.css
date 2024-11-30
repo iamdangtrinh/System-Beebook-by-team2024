@@ -270,9 +270,9 @@ a {
 }
 
 .article_featured-image img {
-    height: 200px;
+    height: 150px;
     width: 100%;
-    border-radius: 6px;
+    object-fit: cover;
 }
 
 .article_featured-image .__custom_image {
@@ -293,8 +293,12 @@ a {
 }
 
 .grid-products .item .product-image img {
-    min-height: 230px;
-    object-fit: cover;
+    height: 280px;
+    object-fit: contain;
+}
+.grid-products .item .product-image img.shop {
+    height: 200px;
+    object-fit: contain;
 }
 
 @media screen and (max-width: 678px) {
