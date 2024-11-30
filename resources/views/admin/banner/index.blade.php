@@ -55,31 +55,40 @@
                         <th style="width: 130px">Hành động</th>
                     </thead>
                     <tbody>
-                        @foreach ($results as $item)
-                            <tr>
-                                <td><span class="d-block" style="width: 140px; height: 100px;"><img
-                                            style=" object-fit: cover" class="w-100 h-100 rounded" src="{{ $item->image }}"
-                                            alt="{{ $item->image }}"></span></td>
-                                <td><span>{{ $item->text_link }}</span></td>
-                                <td>
-                                    @if ($item->status == 'active')
-                                        <span class="badge badge-info">Đang hoạt động</span>
-                                    @elseif($item->status == 'inactive')
-                                        <span class="badge">Ngưng hoạt động</span>
-                                    @endif
-                                </td>
+                        @if (count($results) > 0)
+                            @foreach ($results as $item)
+                                <tr>
+                                    <td><span class="d-block" style="width: 140px; height: 100px;"><img
+                                                style=" object-fit: cover" class="w-100 h-100 rounded"
+                                                src="{{ $item->image }}" alt="{{ $item->image }}"></span></td>
+                                    <td><span>{{ $item->text_link }}</span></td>
+                                    <td>
+                                        @if ($item->status == 'active')
+                                            <span class="badge badge-info">Đang hoạt động</span>
+                                        @elseif($item->status == 'inactive')
+                                            <span class="badge">Ngưng hoạt động</span>
+                                        @endif
+                                    </td>
 
-                                <td><span>{{ $item->order }}</span></td>
-                                <td>
-                                    <div class="btn-group gap-2 w-100 __custom_btn_group">
-                                        <a href="{{ route('admin.banner.detail', ['id' => $item->id]) }}"
-                                            class="btn btn-sm btn-warning">Sửa</a>
-                                        <a href="{{ route('admin.banner.destroy', ['id' => $item->id]) }}"
-                                            class="btn btn-sm btn-danger _deleteBanner">Xóa</a>
-                                    </div>
+                                    <td><span>{{ $item->order }}</span></td>
+                                    <td>
+                                        <div class="btn-group gap-2 w-100 __custom_btn_group">
+                                            <a href="{{ route('admin.banner.detail', ['id' => $item->id]) }}"
+                                                class="btn btn-sm btn-warning">Sửa</a>
+                                            <a href="{{ route('admin.banner.destroy', ['id' => $item->id]) }}"
+                                                class="btn btn-sm btn-danger _deleteBanner">Xóa</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td class="text-center p-5" colspan="20">
+                                    <img src="{{ asset('/') }}client/images/ico_emptycart.svg" alt="Hiện tại không hỉnh ảnh banner">
+                                    <h3 class="mt-3">Hiện tại không hỉnh ảnh banner</h3>
                                 </td>
                             </tr>
-                        @endforeach
+                        @endif
                     </tbody>
                 </table>
                 {{ $results->links() }}
