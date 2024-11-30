@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bee Book | @yield('title', 'Quản trị')</title>
     <meta name="csrf_token" content="{{ csrf_token() }}" />
-
+    <meta property="og:image" content="{{ asset('/') }}client/images/favicon.png" />
+    <link rel="shortcut icon" href="{{ asset('/') }}client/images/favicon-beebook.webp" />
+    
     <link href="{{ asset('/') }}backend/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/') }}client/js/lib/toastr.css">
