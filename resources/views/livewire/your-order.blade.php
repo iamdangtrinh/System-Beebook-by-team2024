@@ -10,7 +10,6 @@
                         <a href="/profile" class="hover-item">Thông tin tài khoản</a>
                         <a href="{{ route('your-order.index') }}" class="hover-item active">Đơn hàng của tôi</a>
                         <a href="{{ route('wishlist.index') }}" class="hover-item">Sản phẩm yêu thích</a>
-
                     </div>
                 </div>
             </div>
@@ -29,6 +28,7 @@
                         </div>
                     @endif
                     <div class="table-responsive">
+                        <caption>Danh sách đơn hàng</caption>
                         <table style="white-space: nowrap;" class="table table-bordered">
                             <thead>
                                 <th>Mã ĐH</th>
@@ -42,14 +42,13 @@
                                 @foreach ($orders as $order)
                                     <tr>
                                         <td>{{ $order->id }}</td>
-                                        <td>{{ $order->created_at }}</td>
-                                        <td>{{ $order->total_amount }}</td>
+                                        <td>{{ date('H:i:s d-m-Y', strtotime($order->created_at)) }}</td>
+                                        <td>{{ number_format($order->total_amount, '0', '.', '.') . ' đ' }}</td>
                                         <td>{{ $order->status }}</td>
-                                        <td>{{ $order->payment_status }}</td>
+                                        <td><span
+                                                class="{{ $order->payment_status === 'UNPAID' ? 'text-danger' : 'text-success' }}">{{ $order->payment_status === 'UNPAID' ? 'Chưa thanh toán' : 'Đã thanh toán' }}</span>
+                                        </td>
                                         <td class="d-flex"style="gap: 8px">
-                                            {{-- <a href="{{ route('your-order.update.cancel', ['id' => $order->id]) }}"
-                                                class="btn btn-danger bg-danger">Hủy</a> --}}
-
                                             @if ($order->status !== 'cancel')
                                                 <button wire:click="showAlert('{{ $order->id }}')"
                                                     class="btn btn-danger bg-danger">
@@ -105,9 +104,10 @@
                     cancelButtonText: data.cancelButtonText,
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Livewire.emit('cancel', data.id);
                         if (typeof Livewire !== 'undefined') {
-                            Livewire.dispatch('cancel', {id: data.id});
+                            Livewire.dispatch('cancel', {
+                                id: data.id
+                            });
                         } else {
                             console.error('Livewire is not available');
                         }

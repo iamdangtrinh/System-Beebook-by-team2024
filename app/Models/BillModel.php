@@ -57,4 +57,8 @@ class BillModel extends Model
     {
         return $this->hasOne(User::class, 'id', 'id_user')->select(['id', 'name', 'phone', 'email', 'address', 'avatar']);
     }
+    public function Coupon()
+    {
+        return $this->hasOne(couponModel::class, 'id', 'id_coupon')->select(['*']);
+    }
 }
