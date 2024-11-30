@@ -34,7 +34,7 @@ class SearchController extends Controller
             ->where('type', 'manufacturer')
             ->get();
 
-        return view('client.search', compact('query', 'books', 'blogs', 'authors', 'publishers'));
+        return view('Client.search', compact('query', 'books', 'blogs', 'authors', 'publishers'));
     }
 
     public function ajaxSearch(Request $request)

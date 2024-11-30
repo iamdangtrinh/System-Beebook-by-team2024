@@ -76,7 +76,7 @@ class ProductsSeeder extends Seeder
                             $description = $this->getDescriptionContent($slug) ?? $name;
 
                             $product = [
-                                'id_category' => rand(1, 25),
+                                'id_category' => rand(1, 34),
                                 'name' => $name,
                                 'description' => $description,
                                 'slug' => $slug,
