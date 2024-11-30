@@ -70,14 +70,8 @@
 
                                     </td>
                                     <td>
-                                        @if ($item->status == 'active')
-                                            <span class="badge badge-info">Đang hoạt động</span>
-                                        @elseif($item->status == 'inactive')
-                                            <span class="badge">Ngưng hoạt động</span>
-                                        @endif
-
-                                        <input type="checkbox" class="js-switch " data-id="{{ $item->id }}" {{ $item->status === 'active' ? 'checked' : '' }} />
-
+                                        <input type="checkbox" class="js-switch updateStatus" data-id="{{ $item->id }}"
+                                            {{ $item->status === 'active' ? 'checked' : '' }} />
                                     </td>
 
                                     <td><span>{{ $item->order }}</span></td>
@@ -189,9 +183,11 @@
         }
     </style>
     <script src="{{ asset('/') }}backend/plugins/ckfinder_2/ckfinder.js"></script>
-    <script src="{{ asset('/') }}backend/js/banner/index.js"></script>
+    <script src="{{ asset('/') }}backend/js/plugins/switchery/switchery.js"></script>
     <script src="{{ asset('/') }}backend/js/plugins/select2/select2.full.min.js"></script>
     <link rel="stylesheet" href="{{ asset('/') }}backend/css/plugins/select2/select2.min.css">
     <script src="{{ asset('/') }}client/js/lib/sweetalert2.js"></script>
-    <script src="{{ asset('/') }}backend/js/plugins/switchery/switchery.js"></script>
+    <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
+    <script src="{{ asset('/') }}backend/js/banner/index.js"></script>
+
 @endsection

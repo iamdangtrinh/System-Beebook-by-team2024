@@ -51,6 +51,8 @@ Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
       Route::get('/banner', [BannerController::class, 'index'])->name('admin.banner.index');
       Route::post('/banner', [BannerController::class, 'store'])->name('admin.banner.store');
       Route::post('/banner/update/', [BannerController::class, 'update'])->name('admin.banner.update');
+      Route::post('/banner/update/status', [BannerController::class, 'updateStatus'])->name('admin.banner.update.status');
+
       Route::get('/destroy/banner/{id}', [BannerController::class, 'destroy'])->name('admin.banner.destroy');
       Route::get('/banner/edit/{id}', [BannerController::class, 'show'])->name('admin.banner.detail');
       // Route::get('/', [BannerController::class, 'show'])->name('transaction.history');

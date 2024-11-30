@@ -14,7 +14,10 @@
             // object.siblings("input.url_image").val(`/${fileUrl}`);
             // object.find("img").attr("src", `/${fileUrl}`);
             $("#gallery-preview").empty();
-            var galleryItem ='<div class="gallery-item"><img src="/' + fileUrl +'" alt="Gallery Image"><button class="delete-button">Xóa</button></div>';
+            var galleryItem =
+                '<div class="gallery-item"><img src="/' +
+                fileUrl +
+                '" alt="Gallery Image"><button class="delete-button">Xóa</button></div>';
             $("#gallery-preview").append(galleryItem);
             $(".url_image").val(`/${fileUrl}`);
         };
@@ -76,10 +79,86 @@
         });
     };
 
+    // DT.switchess = () => {
+    //     // var elem = $("input.js-switch");
+    //     // elem.each(function (index, element) {
+    //     //     new Switchery(element, { color: "#1AB394" });
+    //     // });
+
+    //     $("input.js-switch").on("click", function () {
+    //         const _this = $(this);
+
+    //         let data = {
+    //             id: _this.attr("data-id"),
+    //             status: _this.prop("checked") ? "active" : "inactive",
+    //         };
+
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "/admin/banner/update/status",
+    //             data: data,
+    //             headers: {"X-CSRF-TOKEN": $('meta[name="csrf_token"]').attr("content"),},
+    //             success: function (response) {
+    //                 console.log(response);
+    //             },
+    //             error: function (response) {
+    //                 console.log("Lỗi");
+    //                 console.log(response);
+    //             },
+    //         });
+    //     });
+    // };
+
+    DT.updateStatus = () => {
+        // Initialize Switchery elements
+        const initializeSwitchery = () => {
+            $("input.js-switch").each(function () {
+                new Switchery(this, { color: "#1AB394" });
+            });
+        };
+
+        // Handle status update
+        const handleStatusUpdate = (event) => {
+            const $switch = $(event.target);
+            const data = {
+                id: $switch.data("id"), // Shortened syntax for attr("data-id")
+                status: $switch.prop("checked") ? "active" : "inactive",
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/admin/banner/update/status",
+                data: data,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf_token"]').attr(
+                        "content"
+                    ),
+                },
+                success: (response) => {
+                    toastr.success(response.message);
+                },
+                error: (error) => {
+                    toastr.error(error.responseJSON.error);
+                },
+            });
+        };
+
+        // Initialize functionality
+        const init = () => {
+            initializeSwitchery();
+            $("input.js-switch").on("change", handleStatusUpdate);
+        };
+
+        // Execute initialization
+        init();
+    };
+
     $(document).ready(function () {
         DT.uploadImageAvatar();
         DT.uploadGalleryImages();
         DT.configSelect2();
         DT.showAler();
+        // DT.switchess();
+        DT.updateStatus();
     });
 })(jQuery);

@@ -56,10 +56,7 @@ class BannerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+    public function edit(string $id) {}
 
     /**
      * Update the specified resource in storage.
@@ -72,13 +69,36 @@ class BannerController extends Controller
             'text_link' => $payload['text_link'],
             'type' => $payload['type'],
         ]);
-        
+
         if ($result) {
             return redirect()->route('admin.banner.index')->with('success', 'Cập nhật hình ảnh thành công!');
         } else {
-        return redirect()->route('admin.banner.index')->with('error', 'Cập nhật hình ảnh thất bại. Vui lòng thử lại!');
+            return redirect()->route('admin.banner.index')->with('error', 'Cập nhật hình ảnh thất bại. Vui lòng thử lại!');
         }
     }
+
+    public function updateStatus(Request $request)
+    {
+        try {
+            $payload = $request->except(['_token']);
+            if (!isset($payload['id']) || !isset($payload['status'])) {
+                return response()->json(['error' => 'Invalid data provided.'], 400);
+            }
+
+            $result = BannerModel::where('id', $payload['id'])->update([
+                'status' => $payload['status']
+            ]);
+
+            if ($result) {
+                return response()->json(['message' => 'Cập nhật trạng thái thành công!'], 200);
+            } else {
+                return response()->json(['error' => 'Cập nhật trạng thái thất bại. Vui lòng thử lại!'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Đã xảy ra lỗi khi cập nhật. Vui lòng thử lại sau!'], 404);
+        }
+    }
+
 
     /**
      * Remove the specified resource from storage.
