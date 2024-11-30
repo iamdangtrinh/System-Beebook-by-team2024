@@ -44,12 +44,12 @@
                                 @foreach ($categories as $category)
                                 @if ($category->children->count() > 0)
                                 <li class="level1 sub-level">
-                                    <a href="#" class="site-nav"><a
+                                    <a class="site-nav"><a
                                             href="{{ asset('danh-muc/' . $category->slug) }}">{{ $category->name }}</a></a>
                                     <ul class="sublinks">
                                         @foreach ($category->children as $child)
                                         <li class="level2">
-                                            <a href="{{ asset('danh-muc/' . $category->slug) }}"
+                                            <a href="{{ asset('danh-muc/' . $child->slug) }}"
                                                 class="site-nav">{{ $child->name }}</a>
                                         </li>
                                         @endforeach
@@ -250,7 +250,7 @@
                                 <!-- start product image -->
                                 <div class="product-image">
                                     <a href="{{ asset('san-pham/' . $product->slug) }}" class="grid-view-item__link">
-                                        <img class="primary lazyload"
+                                        <img class="shop primary lazyload"
                                             data-src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
                                             src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
                                             alt="image" title="product">

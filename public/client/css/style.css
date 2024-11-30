@@ -2995,7 +2995,7 @@ a.quick-view {
   position: relative;
 }
 
-.sidebar .sidebar_widget.categories .sub-level>a:after {
+.sidebar .sidebar_widget.categories .sub-level>a.site-nav:after {
   content: '\ebe0';
   font-family: 'annimex-icons';
   display: inline-block;
@@ -3018,6 +3018,7 @@ a.quick-view {
 
 .sidebar .sidebar_widget.categories li a {
   display: block;
+  width: calc(100% - 15px);
 }
 
 .filter-widget .widget-title {
@@ -3268,6 +3269,7 @@ a.quick-view {
 
 .filters-toolbar-wrapper select {
   width: auto;
+  min-width: 120px;
   font-size: 12px;
 }
 

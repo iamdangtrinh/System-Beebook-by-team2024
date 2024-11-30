@@ -120,15 +120,19 @@ class ShopLiveWire extends Component
             $wishlist = Favorite::where('id_user', auth()->id())->pluck('id_product');
             $query->whereIn('id', $wishlist);
         }
-
-        // Kiểm tra trạng thái và quantity đối với các loại khác
-        if ($this->type !== 'wishlist') {
-            $query->where(function ($q) {
-                $q->where('quantity', '>', 0)
-                    ->where('status', '!=', 'inactive');
-            });
-            $query->orderBy('created_at', 'desc');
+        if ($this->type === 'wishlist') {
+            // Đẩy các sản phẩm có status là inactive xuống cuối
+            $query->orderByRaw('status = "inactive" ASC')
+                  ->orderBy('created_at', 'desc'); // Sắp xếp theo created_at sau
+        } else {
+            // Sắp xếp sản phẩm có quantity > 0 trước, quantity <= 0 sau
+            $query->orderByRaw('quantity > 0 DESC')
+                  ->orderBy('created_at', 'desc'); // Sau đó sắp xếp theo created_at
+        
+            // Áp dụng điều kiện trạng thái
+            $query->where('status', '!=', 'inactive');
         }
+        
 
         // Lọc theo khoảng giá
         if (!empty($this->priceRange)) {

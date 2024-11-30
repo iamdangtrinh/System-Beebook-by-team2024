@@ -245,4 +245,6 @@
             });
         </script>
     @endif
+<script src="{{ asset('/') }}client/js/customFavorite.js"></script>
+<script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
 @endsection
