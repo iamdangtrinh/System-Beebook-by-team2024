@@ -12,6 +12,7 @@ use App\Http\Controllers\admin\TaxonomyAdmin;
 //client
 
 Route::get('/', [ClientController::class, 'home']);
+Route::get('/contact', [ClientController::class, 'contact'])->name('contact');
 Route::get('/shop', [ClientController::class, 'shop']);
 Route::get('/blog/{page?}', [BlogController::class, 'indexBlog'])->name('indexBlog');
 
