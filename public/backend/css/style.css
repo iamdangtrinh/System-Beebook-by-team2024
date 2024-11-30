@@ -3744,10 +3744,10 @@ body.body-small .footer.fixed {
 .table-bordered > thead > tr > td,
 .table-bordered > tbody > tr > td,
 .table-bordered > tfoot > tr > td {
-  border: 1px solid #e7e7e7;
+  border: 1px solid #222;
 }
 .table > thead > tr > th {
-  border-bottom: 1px solid #DDDDDD;
+  border-bottom: 1px solid #222;
   vertical-align: bottom;
 }
 .table > thead > tr > th,
@@ -3756,7 +3756,7 @@ body.body-small .footer.fixed {
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-  border-top: 1px solid #e7eaec;
+  border-top: 1px solid #222;
   line-height: 1.42857;
   padding: 8px;
   vertical-align: top;

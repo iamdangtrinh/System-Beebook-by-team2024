@@ -35,7 +35,7 @@ class ProductsSeeder extends Seeder
                     $response = Http::withHeaders([
                         'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
                     ])->retry(3, 1000)
-                        ->get("https://www.fahasa.com/fahasa_catalog/product/loadproducts?category_id=$categoryId&currentPage=$currentPage&limit=400&order=num_orders");
+                        ->get("https://www.fahasa.com/fahasa_catalog/product/loadproducts?category_id=$categoryId&currentPage=$currentPage&limit=200&order=num_orders");
 
                     if ($response->successful()) {
                         $data = $response->json();
@@ -224,65 +224,58 @@ class ProductsSeeder extends Seeder
         return false;
     }
 
-    // private function downloadImage($url)
-    // {
-    //     $imageDirectory = public_path('userfiles/image/');
-    //     $imageName = basename($url);
-    //     $imageNameWithoutExtension = pathinfo($imageName, PATHINFO_FILENAME);
-    //     $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp';
-
-    //     if (!file_exists($imageDirectory)) {
-    //         mkdir($imageDirectory, 0777, true);
-    //     }
-
-    //     try {
-    //         $imageContent = file_get_contents($url);
-    //         $image = imagecreatefromstring($imageContent);
-
-    //         if ($image === false) {
-    //             throw new \Exception('Cannot create image from data.');
-    //         }
-
-    //         imagewebp($image, $imagePath, 90);
-    //         imagedestroy($image);
-
-    //         return 'userfiles/image/' . $imageNameWithoutExtension . '.webp';
-    //     } catch (\Exception $e) {
-    //         $this->command->error('Error downloading or converting image: ' . $e->getMessage());
-    //         return null;
-    //     }
-    // }
-
     private function downloadImage($url)
     {
         $imageDirectory = public_path('userfiles/image/');
         $imageName = basename($url);
-        $imagePath = $imageDirectory . $imageName;
+        $imageNameWithoutExtension = pathinfo($imageName, PATHINFO_FILENAME);
+        $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp';
 
-        // Create the directory if it doesn't exist
         if (!file_exists($imageDirectory)) {
             mkdir($imageDirectory, 0777, true);
         }
 
+        // try {
+        //     $imageContent = file_get_contents($url);
+        //     $image = imagecreatefromstring($imageContent);
+
+        //     if ($image === false) {
+        //         $imageNameWithoutExtension = 'a';
+        //     }
+
+        //     imagewebp($image, $imagePath, 80);
+        //     imagedestroy($image);
+
+        //     return '/userfiles/image/' . $imageNameWithoutExtension . '.webp' ?? $url;
+        // } catch (\Exception $e) {
+        //     return $url;
+        // }
         try {
-            // Get the image content from the URL
             $imageContent = file_get_contents($url);
-
-            if ($imageContent === false) {
-                throw new \Exception('Cannot retrieve image content from URL.');
+            $image = imagecreatefromstring($imageContent);
+        
+            if ($image === false) {
+                throw new \Exception('Cannot create image from data.');
             }
-
-            // Save the image content directly to the specified path
-            file_put_contents($imagePath, $imageContent);
-
-            return '/userfiles/image/' . $imageName;
+        
+            // Chuyển đổi GIF sang PNG (nếu cần)
+            $tempPath = $imageDirectory . $imageNameWithoutExtension . '.png';
+            imagepng($image, $tempPath);
+        
+            // Tạo lại đối tượng hình ảnh từ PNG
+            $image = imagecreatefrompng($tempPath);
+        
+            // Chuyển sang WebP
+            imagewebp($image, $imagePath, 80);
+            imagedestroy($image);
+        
+            return '/userfiles/image/' . $imageNameWithoutExtension . '.webp';
         } catch (\Exception $e) {
-            $this->command->error('Error downloading image: ' . $e->getMessage());
-            return null; // Return null if unable to download the image        
+            $this->command->error('Error downloading or converting image: ' . $e->getMessage());
+            return $defaultImagePath; // Trả về hình ảnh mặc định nếu lỗi
         }
+        
     }
-
-
 
     private function generateRandomWeight(): int
     {
