@@ -50,6 +50,7 @@
                     <thead>
                         <th style="width: 130px">Hình ảnh</th>
                         <th>Đường dẫn</th>
+                        <th style="width: 130px">Loại</th>
                         <th style="width: 130px">Trạng thái</th>
                         <th style="width: 130px">Thứ tự</th>
                         <th style="width: 130px">Hành động</th>
@@ -63,11 +64,20 @@
                                                 src="{{ $item->image }}" alt="{{ $item->image }}"></span></td>
                                     <td><span>{{ $item->text_link }}</span></td>
                                     <td>
+                                        @foreach (config('admin.dashboard.banner') as $key => $type)
+                                            <span>{{ $key === $item->type ? $type : '' }}</span>
+                                        @endforeach
+
+                                    </td>
+                                    <td>
                                         @if ($item->status == 'active')
                                             <span class="badge badge-info">Đang hoạt động</span>
                                         @elseif($item->status == 'inactive')
                                             <span class="badge">Ngưng hoạt động</span>
                                         @endif
+
+                                        <input type="checkbox" class="js-switch " data-id="{{ $item->id }}" {{ $item->status === 'active' ? 'checked' : '' }} />
+
                                     </td>
 
                                     <td><span>{{ $item->order }}</span></td>
@@ -84,7 +94,8 @@
                         @else
                             <tr>
                                 <td class="text-center p-5" colspan="20">
-                                    <img src="{{ asset('/') }}client/images/ico_emptycart.svg" alt="Hiện tại không hỉnh ảnh banner">
+                                    <img src="{{ asset('/') }}client/images/ico_emptycart.svg"
+                                        alt="Hiện tại không hỉnh ảnh banner">
                                     <h3 class="mt-3">Hiện tại không hỉnh ảnh banner</h3>
                                 </td>
                             </tr>
@@ -182,5 +193,5 @@
     <script src="{{ asset('/') }}backend/js/plugins/select2/select2.full.min.js"></script>
     <link rel="stylesheet" href="{{ asset('/') }}backend/css/plugins/select2/select2.min.css">
     <script src="{{ asset('/') }}client/js/lib/sweetalert2.js"></script>
-
+    <script src="{{ asset('/') }}backend/js/plugins/switchery/switchery.js"></script>
 @endsection
