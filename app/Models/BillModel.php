@@ -35,7 +35,6 @@ class BillModel extends Model
 
     public function billDetails()
     {
-        // return $this->hasMany(BillDetailModel::class, 'id_bill', 'id');
         return $this->hasManyThrough(
             Product::class,
             BillDetailModel::class,
