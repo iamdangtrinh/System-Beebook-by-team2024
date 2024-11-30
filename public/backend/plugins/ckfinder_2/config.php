@@ -264,6 +264,15 @@ $config['ResourceType'][] = array(
 	'deniedExtensions' => ''
 );
 
+$config['ResourceType'][] = array(
+	'name' => 'Banner',
+	'url' => $baseUrl . 'banner',
+	'directory' => $baseDir . 'banner',
+	'maxSize' => 0,
+	'allowedExtensions' => 'bmp,gif,jpeg,jpg,png, webp',
+	'deniedExtensions' => ''
+);
+
 /*
  Due to security issues with Apache modules, it is recommended to leave the
  following setting enabled.

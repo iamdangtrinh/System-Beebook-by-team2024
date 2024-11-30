@@ -20,12 +20,17 @@ class ClientController extends Controller
         $blogs = BlogModel::inRandomOrder()->limit(value: 8)->get();
 
         $bannerMain = BannerModel::where('type', '=', 'banner')->where('status', 'active')->get();
-        return view('Client.home', data: compact([
+        $bannerSecondary = BannerModel::where('type', '=', 'secondaryBanner')->where('status', 'active')->limit(2)->orderBy('id','desc')->get();
+        $thirdBanner = BannerModel::where('type', '=', 'thirdBanner')->where('status', 'active')->limit(2)->orderBy('id','desc')->get();
+
+        return view('Client.home', compact([
             'hotProducts',
             'categories',
             'saleProducts',
             'blogs',
-            'bannerMain'
+            'bannerMain',
+            'bannerSecondary',
+            'thirdBanner'
         ]));
     }
     public function shop()
@@ -52,5 +57,9 @@ class ClientController extends Controller
     public function shortdescription()
     {
         return view('Client.shortdescription');
+    }
+    public function contact()
+    {
+        return view('Client.contact');
     }
 }

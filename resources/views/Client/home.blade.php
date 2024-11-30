@@ -5,7 +5,6 @@
 <div id="page-content">
     <div class="container">
         <div class="row justify-content-center">
-
             <div class="col-md-6 col-sm-12">
                 <form class="d-flex gap-1 m-0 position-relative" method="GET" action="{{ route('search') }}">
                     <div class="w-75 flex-fill">
@@ -23,28 +22,6 @@
                         <!-- Kết quả tìm kiếm sẽ hiển thị ở đây -->
                     </div>
                 </form>
-
-
-                <!-- <form class="d-flex gap-1" method="GET">
-                <div class="w-75 flex-fill position-relative">
-                    <input class="rounded" type="text" id="search" name="query" placeholder="Tìm kiếm sách, tác giả, nhà xuất bản" autocomplete="off">
-                    <div id="search-results p-3" class="search-results">
-                        <strong>Sách</strong> <br>
-                        <div class="search-items row">
-                            <div class="search-item col-md-6 col-sm-12 my-1">
-                                <a href="#" class="d-flex">
-                                    <img width="50px" src="/userfiles/image/9786044009674.jpg" alt="">
-                                    <p>teen sasch</p>
-                                </a>
-                            </div>
-                        </div>
-                        <strong>Tác giả</strong><br>
-                        <strong>Nhà xuất bản</strong><br>
-                    </div>
-                </div>
-                <button class="btn btn-primary"><i class="icon anm anm-search-l"></i></button>
-
-            </form> -->
             </div>
         </div>
 
@@ -69,15 +46,14 @@
                     </div>
                 </div>
 
+                {{-- banner  --}}
                 <div class="col-xl-4 d-md-none d-sm-none d-none d-xl-block col-md-12 col-12">
                     <div class="bannerLeft">
                         <div>
-                            <img src="https://cdn0.fahasa.com/media/wysiwyg/Thang-09-2024/btaskeeT9_392x156.jpg"
-                                alt="">
+                            <img src="{{$bannerSecondary[0]['image'] ?? '/no_image.jpg'}}" alt="banner 2">
                         </div>
                         <div>
-                            <img src="https://cdn0.fahasa.com/media/wysiwyg/Thang-09-2024/VNpayT9_392%20x%20156.png"
-                                alt="">
+                            <img src="{{$bannerSecondary[1]['image'] ?? '/no_image.jpg' }}" alt="banner 3">
                         </div>
                     </div>
                 </div>
@@ -195,18 +171,14 @@
 
     <!--End Image Banners-->
 
-    <!--Custom Image Banner-->
     <div class="container">
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
-            <a href="#">
-                <img src="https://pos.nvncdn.com/fd5775-40602/pc/20240319_3OlHiLvo.gif" alt="" title=""
-                    class="lazyload" />
+            <a href="{{$thirdBanner[0]->text_link ?? ''}}">
+                <img src="{{$thirdBanner[0]->image ?? '/no_image.jpg'}}" alt="{{$thirdBanner[0]->text_link ?? 'image'}}" class="lazyload w-100 object-fit-cover" />
             </a>
         </div>
     </div>
-    <!--Custom Image Banner-->
 
-    <!--Hand-picked Items-->
     <div class="section">
         <div class="container">
             <div class="row">
@@ -290,8 +262,10 @@
 
     {{-- Hiển thị banner --}}
     <div class="section">
-        <div class="container">
-            <img src="https://pos.nvncdn.com/fd5775-40602/pc/20240319_OZAP5cEp.gif" alt="">
+        <div class="container text-center">
+            <a href="{{$thirdBanner[1]->text_link ?? ''}}">
+                <img src="{{$thirdBanner[1]->image ?? '/no_image.jpg'}}" alt="{{$thirdBanner[1]->text_link ?? 'image'}}" class="lazyload w-100 object-fit-cover" />
+            </a>
         </div>
     </div>
 
