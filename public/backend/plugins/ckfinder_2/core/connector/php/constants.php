@@ -70,6 +70,6 @@ else {
 define('CKFINDER_CONNECTOR_LIB_DIR',$basedir . '/php5');
 
 define('CKFINDER_CHARS','123456789ABCDEFGHJKLMNPQRSTUVWXYZ');
-define('CKFINDER_REGEX_IMAGES_EXT','/\.(jpg|gif|png|bmp|jpeg)$/i');
+define('CKFINDER_REGEX_IMAGES_EXT','/\.(jpg|gif|png|bmp|jpeg|webp)$/i');
 define('CKFINDER_REGEX_INVALID_PATH',",(/\.)|[[:cntrl:]]|(//)|(\\\\)|([\:\*\?\"\<\>\|]),");
 define('CKFINDER_REGEX_INVALID_FILE',",[[:cntrl:]]|[/\\\:\*\?\"\<\>\|],");
