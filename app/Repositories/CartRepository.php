@@ -25,23 +25,23 @@ class CartRepository extends BaseRepository implements CartRepositoryInterface
     }
 
     // query cart
-    public function findCart(array $column = ['*'], int $id_user = 0, $perpage = 20)
-    {
-        $query = $this->model
-            ->select($column)
-            ->where('id_user', '=', $id_user)
-            ->with(['cartProduct' => function ($query) {
-                $query->where('status', 'active');
-            }])
-            ->paginate($perpage);
+    // public function findCart(array $column = ['*'], int $id_user = 0, $perpage = 20)
+    // {
+    //     $query = $this->model
+    //         ->select($column)
+    //         ->where('id_user', '=', $id_user)
+    //         ->with(['cartProduct' => function ($query) {
+    //             $query->where('status', 'active');
+    //         }])
+    //         ->paginate($perpage);
 
-        $query->each(function ($cartItem) {
-            if ($cartItem->cartProduct->isEmpty()) {
-                $cartItem->delete();
-            }
-        });
-        return $query;
-    }
+    //     $query->each(function ($cartItem) {
+    //         if ($cartItem->cartProduct->isEmpty()) {
+    //             $cartItem->delete();
+    //         }
+    //     });
+    //     return $query;
+    // }
 
     // cập nhật số lượng sản phẩm
     public function updateQuantityCart(array $payload = [])

@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\BillDetailModel;
 use App\Models\BillModel;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -14,25 +15,24 @@ class YourOrder extends Component
     protected $listeners = ['cancel'];
     public function cancel($id)
     {
-        $result = BillModel::where('id', $id)
-            ->where('id_user', Auth::user()->id)
-            ->update(['status' => 'cancel']);
-        // if ($result) {
-        //     return session()->flash('success', 'Hủy đơn hàng thành công!');
-        // }
-        // return session()->flash('error', 'Hủy đơn hàng không thành công!');
+        // $result = BillModel::where('id', $id)
+        //     ->where('id_user', Auth::user()->id)
+        //     ->update(['status' => 'cancel']);
 
-        if ($result) {
-            $this->dispatch('swal:success', (object)[
-                'title' => 'Thành công',
-                'text' => 'Đơn hàng đã được hủy.',
-            ]);
-        } else {
-            $this->dispatch('swal:error', (object)[
-                'title' => 'Lỗi',
-                'text' => 'Không thể hủy đơn hàng, vui lòng thử lại.',
-            ]);
-        }
+        $ressult = BillDetailModel::where('id_bill', $id)->get();
+        dd($ressult);
+
+        // if ($result) {
+        //     $this->dispatch('swal:success', (object)[
+        //         'title' => 'Thành công',
+        //         'text' => 'Đơn hàng đã được hủy.',
+        //     ]);
+        // } else {
+        //     $this->dispatch('swal:error', (object)[
+        //         'title' => 'Lỗi',
+        //         'text' => 'Không thể hủy đơn hàng, vui lòng thử lại.',
+        //     ]);
+        // }
     }
 
     public function showAlert(string $id)
