@@ -97,6 +97,7 @@ class OrderController extends Controller
         $orderDetails = BillModel::where('id', $id)
             ->with('billDetails')
             ->with('billUser')
+            ->with('Coupon')
             ->first();
 
         return view('admin.order.store', compact(['orderDetails']));

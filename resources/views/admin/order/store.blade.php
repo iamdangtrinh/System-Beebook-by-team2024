@@ -93,7 +93,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="border: none; padding-left: 0px">Giá giảm :</td>
-                                                    <td style="border: none; padding-left: 0px" class="text-end">-$53.99
+                                                    <td style="border: none; padding-left: 0px" class="text-end">{{ $orderDetails->Coupon !== null ? '(' . $orderDetails->Coupon->code_coupon . ')' : '' }}
+                                                        {{ number_format($orderDetails->discount, 0, '.', '.'). ' đ' }}
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -145,15 +146,14 @@
 
                                                 <div class="col-sm-12 col-md-6 col-xl-6">
                                                     <textarea name="note_admin" id="" class="form-control mt-3" cols="20" rows="5"
-                                                        placeholder="Nội dung ghi chú">{{$orderDetails->note_admin}}</textarea>
+                                                        placeholder="Nội dung ghi chú">{{ $orderDetails->note_admin }}</textarea>
+                                                        
+                                                        <button type="submit" class="btn btn-primary btn-sm mt-3 w-100">
+                                                            Cập nhật đơn hàng
+                                                        </button>
                                                 </div>
                                             </div>
 
-                                            <div class="text-end w-100 mt-3">
-                                                <button type="submit" class="btn btn-primary btn-sm">
-                                                    Cập nhật đơn hàng
-                                                </button>
-                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -173,8 +173,16 @@
                                     <img src="/shippping.png" alt="shipping">
                                     <p class="text-muted mb-0">Mã đơn hàng: {{ $orderDetails->id }}</p>
                                     <div class="flex-shrink-0 mt-2">
-                                        <span class="d-inline badge bg-primary-subtle text-primary fs-12">Đang vận
-                                            chuyển</span>
+                                        {{-- <span class="d-inline badge bg-primary-subtle text-primary fs-12">Đang vận
+                                            chuyển</span> --}}
+                                        @foreach (config('admin.order.statusOrderUser') as $key => $status)
+                                            @if ($orderDetails->status === $key)
+                                                <span
+                                                    class="badge {{ $orderDetails->status === $key ? config('admin.order.statusOrderColors')[$key] : '' }}">
+                                                    {{ $orderDetails->status === $key ? $status : '' }}
+                                                </span>
+                                            @endif
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -239,8 +247,4 @@
     <script src="{{ asset('/') }}backend/js/order/index.js"></script>
     <script src="{{ asset('/') }}backend/js/plugins/select2/select2.full.min.js"></script>
     <link rel="stylesheet" href="{{ asset('/') }}backend/css/plugins/select2/select2.min.css">
-
-    <style>
-        
-    </style>
 @endsection
