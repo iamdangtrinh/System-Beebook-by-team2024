@@ -142,11 +142,11 @@ class ManagerUserController extends Controller
 
     public function yourOrderDetail($id)
     {
-        $orderDetails = BillModel::where('id_user', Auth::user()->id)
-            ->where('id', $id)
+        $orderDetails = BillModel::where('id', $id)
+            ->where('id_user', Auth::user()->id)
             ->with('billDetails')
             ->with('Coupon')
-            ->first();
+            ->firstOrFail();
         return view('Client.order.detail', compact(['orderDetails']));
     }
 }
