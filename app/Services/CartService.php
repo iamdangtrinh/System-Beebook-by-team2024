@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\cartModel;
 use App\Models\Product;
 use App\Services\Interfaces\CartServiceInterface;
 use App\Repositories\Interfaces\CartRepositoryInterface as CartRepository;
@@ -36,7 +37,19 @@ class CartService implements CartServiceInterface
     {
         $cart = [];
         if (Auth::check()) {
-            $cart = $this->CartRepository->findCart($this->paginateSelect(), Auth::user()->id, $perPage);
+            $cart = cartModel::select('*')
+                ->where('id_user', '=', Auth::user()->id)
+                ->with(['cartProduct' => function ($cart) {
+                    $cart->where('status', 'active');
+                }])
+                ->get();
+
+            $cart->each(function ($cartItem) {
+                if ($cartItem->cartProduct->isEmpty()) {
+                    $cartItem->delete();
+                }
+            });
+
         } else {
             $carts = session()->get('cart', []);
             $proIdArr = array_column($carts, 'product_id');

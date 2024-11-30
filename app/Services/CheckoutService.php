@@ -57,29 +57,15 @@ class CheckoutService implements CheckoutServiceInterface
             ];
       }
 
-      // public function paginate($request)
-      // {
-      //       $perPage = $request->integer('perpage');
-      //       $users = $this->CheckoutRepository->pagination(
-      //             $this->paginateSelect(),
-      //             [],
-      //             [],
-      //             ['path' => 'users'],
-      //             $perPage,
-      //       );
-      //       return $users;
-      // }
-
       public function create($request)
       {
             DB::beginTransaction();
-
             try {
                   $payload = $request->except(['_token']);
                   if (empty($payload['checkout']) || $payload['checkout'] !== 'submit_checkout') {
                         return redirect()->route('product.index')->with('error', "Vui lòng thêm sản phẩm vào giỏ hàng");
                   }
-                  $carts = $this->CartService->findCartByUser(Auth::id());
+                  $carts = $this->CartService->findCartByUser(Auth::user()->id);
                   if ($carts->isEmpty()) {
                         return redirect()->route('product.index')->with('error', "Vui lòng thêm sản phẩm vào giỏ hàng");
                   }
@@ -97,16 +83,16 @@ class CheckoutService implements CheckoutServiceInterface
 
                   $payload['fee_shipping'] = env('fee_shipping');
                   $payload['total_amount'] = $total_amount + (session()->get('price', 0)) + ($payload['fee_shipping'] ?? 0);
-
                   $payload['discount'] = session()->get('price', 0);
-
                   $payload['id_user'] = Auth::user()->id;
                   $id_bill = $this->CheckoutRepository->create($payload)->id;
-                  $billDetails = array_map(function ($billDetail) use ($id_bill) {
+
+                  foreach ($billDetails as $billDetail) {
                         $billDetail['id_bill'] = $id_bill;
-                        return $billDetail;
-                  }, $billDetails);
-                  $this->BillDetailRepository->insert($billDetails);
+                        $this->BillDetailRepository->create($billDetail);
+                  }
+
+                  // $this->BillDetailRepository->insert($billDetails);
                   foreach ($carts as $cart) {
                         $updated = Product::where('id', $cart['id_product'])
                               ->where('quantity', '>=', $cart['quantity'])
@@ -121,8 +107,8 @@ class CheckoutService implements CheckoutServiceInterface
                         $coupon = couponModel::findOrFail(session()->get('id_coupon'));
                         $coupon->decrement('quantity', 1);
                   }
-                  DB::commit();
                   session()->forget(['price', 'id_coupon', 'code', 'disable']);
+                  DB::commit();
                   if ($payload['payment_method'] == "ONLINE") {
                         return redirect()->route('order.show', ['id' => $id_bill]);
                   } else if ($payload['payment_method'] == "OFFLINE") {
