@@ -95,7 +95,8 @@ class CheckoutService implements CheckoutServiceInterface
                   }
 
                   $payload['fee_shipping'] = env('fee_shipping');
-                  $payload['total_amount'] = $total_amount;
+                  $payload['total_amount'] = $total_amount + (session()->get('price', 0)) + ($payload['fee_shipping'] ?? 0);
+
                   $payload['discount'] = session()->get('price', 0);
 
                   $payload['id_user'] = Auth::user()->id;

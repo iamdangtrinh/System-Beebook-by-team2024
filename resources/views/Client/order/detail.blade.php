@@ -65,7 +65,6 @@
                                             @break
                                         @endswitch
                                     </span>
-
                                 </div>
                                 <div class="d-flex">
                                     <button class="btn btn-link d-none d-lg-block btn-icon-text" id="downloadInvoice"> <span
@@ -98,19 +97,19 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="2">Tạm tính</td>
-                                        <td class="text-end">
-                                            {{ number_format($orderDetails->total_amount - $orderDetails->fee_shipping ?? 0, '0', '.', '.') . ' đ' }}
-                                        </td>
-                                    </tr>
-                                    <tr>
                                         <td colspan="2">Phí vận chuyển</td>
                                         <td class="text-end">
                                             {{ number_format($orderDetails->fee_shipping, '0', '.', '.') . ' đ' }}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">Mã giảm giá (Code: NEWYEAR)</td>
-                                        <td class="text-danger text-end">-$10.00</td>
+                                        <td colspan="2">
+                                            Mã giảm giá:
+                                            {{ $orderDetails->Coupon !== null ? '(' . $orderDetails->Coupon->code_coupon . ')' : '' }}
+                                        </td>
+
+                                        <td class="text-success text-end">
+                                            {{ number_format($orderDetails->discount, 0, '.', '.'). ' đ' }}
+                                        </td>
                                     </tr>
                                     <tr class="fw-bold">
                                         <td colspan="2">Tổng tiền</td>
@@ -184,11 +183,12 @@
                                         'refund' => 'secondary',
                                     ];
 
-                                    $statusMessage = $statusMessages[$orderDetails->status] ?? 'Trạng thái không xác định';
+                                    $statusMessage =
+                                        $statusMessages[$orderDetails->status] ?? 'Trạng thái không xác định';
                                     $statusbg = $statusbgs[$orderDetails->status] ?? 'info';
                                 @endphp
-                                <button class="btn bg-{{ $statusbg }}"
-                                    id="statusOrder" type-order="{{ $orderDetails->status }}">
+                                <button class="btn bg-{{ $statusbg }}" id="statusOrder"
+                                    type-order="{{ $orderDetails->status }}">
 
 
                                     {{ $statusMessage }}

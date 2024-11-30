@@ -1,4 +1,4 @@
-<footer class="bg-light text-dark pt-5">
+<footer class="bg-light text-dark pt-5 mt-5">
     <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
 
     <div class="container">
@@ -34,26 +34,6 @@
         </div>
 
         <hr>
-
-        {{-- <div class="row">
-            <!-- Social Icons and App Links -->
-            <div class="col-md-6 d-flex align-items-center">
-                <ul>
-                    <li>
-                        <a href="#"><i class="bi bi-facebook fs-5 text-dark me-3"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="bi bi-youtube fs-5 text-dark me-3"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="bi bi-instagram fs-5 text-dark me-3"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="bi bi-twitter fs-5 text-dark me-3"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </div> --}}
         <div class="text-center p-3">
             <small>Giấy chứng nhận Đăng ký Kinh doanh số 0304132047 do Sở Kế hoạch và Đầu tư Thành phố Hồ Chí Minh cấp
                 ngày 20/12/2005, đăng ký thay đổi lần thứ 10, ngày 20/05/2022.</small>
