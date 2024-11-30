@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\BillDetailModel;
+use App\Models\couponModel;
 use App\Models\Product;
 use App\Services\Interfaces\CheckoutServiceInterface;
 // use App\Models\User;
@@ -116,7 +117,10 @@ class CheckoutService implements CheckoutServiceInterface
                         }
                   }
                   $this->CartService->destroyAll();
-
+                  if ((session()->get('id_coupon', 0)) !== 0) {
+                        $coupon = couponModel::findOrFail(session()->get('id_coupon'));
+                        $coupon->decrement('quantity', 1);
+                  }
                   DB::commit();
                   session()->forget(['price', 'id_coupon', 'code', 'disable']);
                   if ($payload['payment_method'] == "ONLINE") {
