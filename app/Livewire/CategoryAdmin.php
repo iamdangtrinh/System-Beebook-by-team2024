@@ -18,7 +18,7 @@ class CategoryAdmin extends Component
     use WithFileUploads;
     use WithPagination;
     public $getAllCategory = [];
-    
+
     public $paginationData;
     public $idCategory = '';
     public $nameCategory = '';
@@ -37,7 +37,6 @@ class CategoryAdmin extends Component
     public $dataEditCategory;
     public function mount()
     {
-        $this->dataIdCategoryParent = CategoryProduct::get();
         $this->loadCategory();
     }
 
@@ -54,6 +53,18 @@ class CategoryAdmin extends Component
         $paginator = $query->paginate(20);
         $this->getAllCategory = $paginator->items();
         $this->updatePaginationData($paginator);
+        // foreach ($this->getAllCategory as $value) {
+        //     $this->dataIdCategoryParent = CategoryProduct::where('id', $value->parent_id)->get();
+        // }
+        foreach ($this->getAllCategory as $value) {
+            // Lấy dữ liệu của category cha
+            if (!empty($value->parent_id)) {
+                $parentCategory = CategoryProduct::find($value->parent_id); // Tìm parent theo ID
+                if ($parentCategory) {
+                    $this->dataIdCategoryParent[$value->id] = $parentCategory; // Gán vào mảng với key là ID category
+                }
+            }
+        }
     }
     public function updatePaginationData($paginator)
     {
@@ -103,6 +114,7 @@ class CategoryAdmin extends Component
         $this->dispatch('swal');
     }
     #[On('hanldeDeletedCategory')]
+
     public function deletedCategory()
     {
         try {
@@ -110,14 +122,15 @@ class CategoryAdmin extends Component
             Storage::disk('public')->delete(paths: 'uploads/' . $this->imageCategory);
             $this->imageCategory = '';
             $this->loadCategory();
-            session()->flash('deleted_success', 'Xóa danh mục thành công');
+            $this->dispatch('toast', message: 'Xóa danh mục thành công.', notify: 'success');
             $this->loadCategory();
         } catch (\Throwable $th) {
-            session()->flash('deleted_error', 'Xóa danh mục không thành công');
+            $this->dispatch('toast', message: 'Xóa danh mục không thành công.', notify: 'error');
         }
     }
     public function closeModal()
     {
+        $this->dataEditCategory = [];
         $this->isModal = !$this->isModal;
         $this->reset([
             'valueNameCategory',
@@ -139,17 +152,22 @@ class CategoryAdmin extends Component
     public function updatedImageCategory($value)
     {
         $this->validate([
-            'imageCategory' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'imageCategory' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+        ], [
+            'imageCategory.required' => 'Ảnh đại diện là bắt buộc.',
+            'imageCategory.image' => 'Ảnh đại diện phải là một hình ảnh.',
+            'imageCategory.mimes' => 'Ảnh đại diện phải có định dạng jpeg, png, jpg, gif, hoặc svg.',
+            'imageCategory.max' => 'Ảnh đại diện không được lớn hơn 2048 KB.',
         ]);
-
         try {
             // Kiểm tra và tạo thư mục nếu chưa tồn tại
             $fileName = time() . '_' . $value->getClientOriginalName();
             $value->storeAs('uploads', $fileName, 'public');
             $this->imageCategory = '';
             $this->imageCategory = $fileName;
+            $this->dispatch('toast', message: 'Thêm ảnh danh mục thành công.', notify: 'success');
         } catch (\Exception $th) {
-            session()->flash('error', 'Không thể cập nhật ảnh đại diện. Vui lòng thử lại.');
+            $this->dispatch('toast', message: 'Không thể cập nhật ảnh danh mục. Vui lòng thử lại.', notify: 'error');
         }
     }
     public function removeImage()
@@ -157,10 +175,10 @@ class CategoryAdmin extends Component
         if ($this->imageCategory !== '' && Storage::disk('public')->exists('uploads/' . $this->imageCategory)) {
             // Xóa hình ảnh khỏi thư mục
             Storage::disk('public')->delete(paths: 'uploads/' . $this->imageCategory);
+            $this->dispatch('toast', message: 'Xóa hình danh mục thành công.', notify: 'success');
         }
         // Reset giá trị về mặc định
         $this->imageCategory = '';
-        session()->flash('removeImageSuccess', 'Hình ảnh đã được xóa thành công.');
     }
     public function updatedValueNameCategory($value)
     {
@@ -189,11 +207,11 @@ class CategoryAdmin extends Component
             $paginator = CategoryProduct::orderBy('id', 'desc')->paginate(20);
             $this->getAllCategory = $paginator->items();
             $this->updatePaginationData($paginator);
-            session()->flash('create_success', 'Thêm danh mục thành công');
+            $this->dispatch('toast', message: 'Thêm danh mục thành công.', notify: 'success');
         } catch (\Throwable $th) {
             dd($th->getMessage());
             $this->isModal = false;
-            session()->flash('create_error', 'Thêm danh mục thất bại');
+            $this->dispatch('toast', message: 'Thêm danh mục thất bại.', notify: 'error');
         }
     }
     public function editCategory($value)
@@ -208,6 +226,7 @@ class CategoryAdmin extends Component
         $this->valueStatus = $this->dataEditCategory['status'];
         $this->imageCategory = $this->dataEditCategory['image'];
     }
+
     public function UpdateCategory()
     {
         try {
@@ -231,9 +250,9 @@ class CategoryAdmin extends Component
             $paginator = CategoryProduct::orderBy('id', 'desc')->paginate(20);
             $this->getAllCategory = $paginator->items();
             $this->updatePaginationData($paginator);
-            session()->flash('update_success', 'Cập nhật danh mục thành công');
+            $this->dispatch('toast', message: 'Cập nhật danh mục thành công.', notify: 'success');
         } catch (\Throwable $th) {
-            session()->flash('update_error', 'Cập nhật danh mục thất bại');
+            $this->dispatch('toast', message: 'Cập nhật danh mục thất bại.', notify: 'error');
         }
     }
     public function render()

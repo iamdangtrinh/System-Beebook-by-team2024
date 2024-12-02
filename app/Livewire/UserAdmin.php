@@ -6,6 +6,7 @@ use App\Mail\verifySignUpByAdmin;
 use Livewire\Component;
 use App\Models\User;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Hash;
@@ -46,7 +47,8 @@ class UserAdmin extends Component
     public $address = '';
     public $disabled = false;
     public $valueStatusConfirm = '';
-    public $DataEditUser;
+    public $DataEditUser = [];
+    public $loading =  false;
     public function mount()
     {
         $this->loadUsers();
@@ -125,6 +127,8 @@ class UserAdmin extends Component
     }
     public function closeModal()
     {
+        $this->DataEditUser = [];
+
         $this->isModal = !$this->isModal;
     }
     public function updatedAddress($value)
@@ -140,7 +144,16 @@ class UserAdmin extends Component
         }
         // dd($value);
     }
-
+    public function removeImage()
+    {
+        if ($this->valueAvatar !== '' && Storage::disk('public')->exists('uploads/' . $this->valueAvatar)) {
+            // Xóa hình ảnh khỏi thư mục
+            Storage::disk('public')->delete(paths: 'uploads/' . $this->valueAvatar);
+        }
+        // Reset giá trị về mặc định
+        $this->valueAvatar = '';
+        $this->dispatch('toast', message: 'Xóa hình danh mục thành công.', notify: 'success');
+    }
     public function addAddress($description)
     {
         $this->address = $description;
@@ -151,14 +164,14 @@ class UserAdmin extends Component
         $this->validate([
             'valueAvatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
         try {
             // Kiểm tra và tạo thư mục nếu chưa tồn tại
-            $fileName = time() . '_' . $value->getClientOriginalName();
+            $fileName = time() . str_replace(' ', '', $value->getClientOriginalName());
             $this->valueAvatar = $fileName;
             $value->storeAs('uploads', $fileName, 'public');
+            $this->dispatch('toast', message: 'Thêm ảnh đại diện thành công.', notify: 'success');
         } catch (\Exception $th) {
-            session()->flash('error', 'Không thể cập nhật ảnh đại diện. Vui lòng thử lại.');
+            $this->dispatch('toast', message: 'Không thể cập nhật ảnh đại diện.', notify: 'error');
         }
     }
     public function updatedValueStatus($value)
@@ -169,22 +182,9 @@ class UserAdmin extends Component
     {
         $this->valueStatus1 = $value;
     }
-    public function updatedValueStatusConfirm($value)
-    {
-        try {
-            User::where('id', $this->edit)->update(['roles' => $value]);
-            $paginator = User::paginate(20);
-            $this->getAllUser = $paginator->items();
-            $this->updatePaginationData($paginator);
-            session()->flash('updateSuccess', 'Bạn đã đổi quyền thành công');
-        } catch (\Throwable $th) {
-            dd($th->getMessage());
-            //throw $th;
-            session()->flash('update', 'Bạn đã đổi quyền thất bại');
-        }
-    }
     public function createUser()
     {
+        $this->loading = true;
         $password_random = Str::random(10);
         $this->disabled = true;
         try {
@@ -200,22 +200,21 @@ class UserAdmin extends Component
             ]);
             Mail::to($this->valueEmail)->send(new verifySignUpByAdmin($password_random));
             // dd($this->paginationData['currentPage']);
-            $paginator = User::paginate(20);
+            $paginator = User::orderBy('id', 'desc')->paginate(20);
             $this->getAllUser = $paginator->items();
             $this->updatePaginationData($paginator);
-            session()->flash('successCreate', 'Chúc mừng bạn đã tạo tài khoản thành công.');
+            $this->dispatch('toast', message: 'Tạo tài khoản thành công.', notify: 'success');
         } catch (\Throwable $th) {
-            dd($th->getMessage());
-            session()->flash('errorCreate', 'Không thể tạo tài khoản. Vui lòng thử lại.');
+            $this->dispatch('toast', message: 'Tạo tài khoản thất bại.', notify: 'error');
         } finally {
-
             $this->disabled = false;
             $this->isModal = false;
-
+            $this->loading = false;
             // Đặt lại các trường nhập liệu sau khi tạo thành công
             $this->reset([
                 'valueName',
                 'valueEmail',
+                'valueAvatar',
                 'valuePhone',
                 'address',
                 'valueStatus',
@@ -225,15 +224,21 @@ class UserAdmin extends Component
     }
     public function editUser($value)
     {
-        $this->isModal = true;
-        $this->DataEditUser = User::where('id', $value)->first();
-        $this->valueName = $this->DataEditUser['name'];
-        $this->valueEmail = $this->DataEditUser['email'];
-        $this->valuePhone = $this->DataEditUser['phone'];
-        $this->valueStatus = $this->DataEditUser['roles'];
-        $this->valueStatus1 = $this->DataEditUser['status'];
-        $this->valueAvatar = $this->DataEditUser['avatar'];
-        $this->address = $this->DataEditUser['address'];
+        try {
+            $this->isModal = true;
+            $this->DataEditUser = User::where('id', $value)->first();
+            $this->valueName = $this->DataEditUser['name'];
+            $this->valueEmail = $this->DataEditUser['email'];
+            $this->valuePhone = $this->DataEditUser['phone'];
+            $this->valueStatus = $this->DataEditUser['roles'];
+            $this->valueStatus1 = $this->DataEditUser['status'];
+            $this->valueAvatar = $this->DataEditUser['avatar'];
+            $this->address = $this->DataEditUser['address'];
+        } catch (\Throwable $th) {
+            //throw $th;
+        } finally {
+            $this->loading = false;
+        }
     }
     public function updateUser()
     {
@@ -242,6 +247,7 @@ class UserAdmin extends Component
                 'name' => $this->valueName,
                 'phone' => $this->valuePhone,
                 'email' => $this->valueEmail,
+                'avatar' => $this->valueAvatar,
                 'address' => $this->address,
                 'status' => $this->valueStatus1,
                 'roles' => $this->valueStatus,
@@ -256,14 +262,17 @@ class UserAdmin extends Component
                 'valuePhone',
                 'address',
                 'valueStatus',
+                'valueAvatar',
                 'valueStatus1'
             ]);
             $this->valueStatus = 'customer';
             $this->DataEditUser = [];
-            session()->flash('success_update', 'Cập nhật tài khoản thành công');
+            $this->dispatch('toast', message: 'Cập nhật tài khoản thành công.', notify: 'success');
+            $paginator = User::orderBy('id', 'desc')->paginate(20);
+            $this->getAllUser = $paginator->items();
+            $this->updatePaginationData($paginator);
         } catch (\Throwable $th) {
-            dd($th->getMessage());
-            session()->flash('error_update', 'Cập nhật tài khoản thất bại');
+            $this->dispatch('toast', message: 'Cập nhật tài khoản thất bại.', notify: 'error');
         }
     }
     public function render()

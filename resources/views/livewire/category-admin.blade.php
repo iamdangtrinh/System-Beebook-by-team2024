@@ -66,9 +66,9 @@
                                 <th>Mã danh mục</th>
                                 <th >Ảnh</th>
                                 <th >Tên danh mục</th>
-                                <th >Slug</th>
-                                <th >order</th>
-                                <th >parent_id</th>
+                                <th >Đường dẫn</th>
+                                <th >Thứ tự</th>
+                                <th >Danh mục cha</th>
                                 <th >Trạng thái</th>
                                 <th >Hành động</th>
                             </tr>
@@ -86,18 +86,32 @@
                                 <td>{{ $category->name }}</td>
                                 <td>{{ $category->slug }}</td>
                                 <td>{{ $category->order }}</td>
-                                <td>{{ $category->parent_id }}</td>
-                                <td class="d-flex justify-content-center" style="border: none" > 
+                                <td>
+                                {{ $dataIdCategoryParent[$category->id]->name ?? 'Không có' }}
+
+                                </td>
+                                {{-- <td>{{$category->parent_id}}</td> --}}
+                                <td   > 
                                     @if ($category->status === 'active')
+                                  <div style="display: flex; justify-content: center">
                                     <div style="width: 10px; height: 10px; background: #00FF00; border-radius: 50%; border: none" class="dot"></div>
+                                  </div>
                                     @else
+                                    <div style="display: flex; justify-content: center">
                                     <div style="width: 10px; height: 10px; background: red; border-radius: 50%; border: none" class="dot"></div>
+                                  </div>
                                     @endif
                                 </td>
                                 <td class="text-right">
                                     <div class="d-flex gap-2">
                                         <a wire:click="editCategory({{$category->id}})"  class="btn btn-sm btn-warning">Sửa</a>
-                                        <a wire:click="deleted_category({{ $category->id }}, '{{ $category->image }}')" class="btn btn-sm btn-danger">Xóa</a>
+                                            <a  wire:loading.attr="disabled" wire:click="deleted_category({{ $category->id }}, '{{ $category->image }}')" class="btn btn-sm btn-danger">Xóa  @if ($id_category===$category->id )
+                                                <span wire:loading wire:target="deleted_category({{ $category->id }}, '{{ $category->image }}')">
+                                                    <i class="removeLoading fa fa-spinner fa-spin" style="font-size:18px"></i>
+                                                </span>
+                                            @endif
+                                        </a>
+                                   
 
                                     </div>
                                 </td>
@@ -193,7 +207,7 @@
                                             </div>
                                             <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
                                                 <label for="CustomerEmail">Danh mục cha</label>
-                                                <select name="" id="" wire:model.change="valueIdParentCategory" style="border: 1px solid #e5e6e7; width: 100%; border-radius: 8px; padding: 6px 12px;" >
+                                                <select name="" id="" wire:model.change="valueIdParentCategory" style="border: 1px solid black; width: 100%; border-radius: 8px; padding: 6px 12px;" >
                                                     <option value="" disabled>Chọn danh mục</option>
                                                    @foreach ($dataIdCategoryParent as $item)
                                                    <option value={{$item->id}}>{{$item->name}}</option>
@@ -246,9 +260,13 @@
                 <div class="modal-footer">
                     <button type="button" style="border-radius: 4px" class="btn btn-secondary" wire:click="closeModal">Đóng</button>
                     @if ($dataEditCategory)
-                    <button type="button" @if ($errors->any() ||  $valueNameCategory==='' || $valueOrderCategory === '') disabled  @endif  style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="UpdateCategory" class="btn rounded-1  fs-6">Cập nhật</button>
+                    <button wire:loading.attr="disabled" type="button" @if ($errors->any() ||  $valueNameCategory==='' || $valueOrderCategory === '') disabled  @endif  style="border-radius: 4px; background:#198754 !important; color:white !important" wire:click="UpdateCategory" class="btn rounded-1  fs-6">Cập nhật  <span wire:loading wire:target="UpdateCategory">
+                        <i class="removeLoading fa fa-spinner fa-spin" style="font-size:18px"></i>
+                    </span></button>
                     @else    
-                    <button type="button" @if ($errors->any() ||  $valueNameCategory==='' || $valueOrderCategory === '') disabled  @endif  style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="createCategory" class="btn rounded-1  fs-6">Xác nhận thêm</button>
+                    <button wire:loading.attr="disabled" type="button" @if ($errors->any() ||  $valueNameCategory==='' || $valueOrderCategory === '') disabled  @endif  style="border-radius: 4px; background:#198754 !important; color:white !important" wire:click="createCategory" class="btn rounded-1  fs-6">Xác nhận thêm  <span wire:loading  wire:target="createCategory">
+                        <i class="removeLoading fa fa-spinner fa-spin" style="font-size:18px"></i>
+                    </span></button>
                     @endif
                 </div>
             </div>
@@ -265,6 +283,7 @@
             color:black !important
         }
     </style>
+<script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener('livewire:initialized',()=>{
@@ -278,14 +297,25 @@
             reverseButtons: true,
             confirmButtonColor: 'red',
             cancelButtonColor: 'black',
-            confirmButtonText: 'Xác nhận xóa'
+            confirmButtonText: 'Xác nhận xóa',
+            cancelButtonText: 'Hủy' // Thay đổi văn bản của nút Cancel
         }).then((result)=>{
             if (result.isConfirmed) {
                 @this.dispatch('hanldeDeletedCategory')
             }
         })
-    })
+    });
+    Livewire.on("toast", (event) => {
+        console.log(event.notify);
+        toastr[event.notify](event.message); 
+});
 })
+// document.addEventListener('livewire:initialized', () => {
+//     Livewire.on('showToastr', (data) => {
+//         toastr[data.type](data.message);
+//     });
+// });
+
     </script>
 
 </div>

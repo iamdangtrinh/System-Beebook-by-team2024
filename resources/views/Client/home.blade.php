@@ -64,8 +64,9 @@
                 <div class="swiper-wrapper">
                     @foreach ($categories as $category)
                     <div class="swiper-slide">
-                        <a href="{{ asset('danh-muc/' . $category->slug) }}">
-                            <img src="https://cdn0.fahasa.com/media/wysiwyg/Huyen-KD/vn-11134207-7r98o-ly67tdog94y594-removebg-preview_1.png"
+                        <a style="width:140px" href="{{ asset('danh-muc/' . $category->slug) }}">
+                            <img style="width: 140px;height: 140px;"
+                            src="{{asset('storage/uploads/'.($category->image === '' ? 'no_image.jpg':$category->image))}}" 
                                 alt="">
                             {{ $category->name }}</a>
                     </div>
