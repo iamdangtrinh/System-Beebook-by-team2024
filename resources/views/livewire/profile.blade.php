@@ -21,7 +21,7 @@
                         <label for="file-upload" style="cursor: pointer;">
                             <img 
                                  style="width: 100px; height: 100px; border-radius: 50%; border: 1px solid black" 
-                                 src={{ Auth::user()->avatar !== null ? asset('storage/uploads/'.Auth::User()->avatar) : "/client/images/manager-user/no_avt.png" }}
+                                 src={{ asset('storage/uploads/' . ($Avt === '' ? 'no_image.jpg' : $Avt)) }}
                                  alt="User Avatar">
                         </label>
                         <input type="file" wire:model.change="avatar" id="file-upload" wire:model.live="avatar" style="display: none;" accept="image/*">
@@ -149,13 +149,20 @@ document.addEventListener('livewire:initialized',()=>{
             reverseButtons: true,
             confirmButtonColor: 'red',
             cancelButtonColor: 'black',
-            confirmButtonText: 'Xác nhận xóa'
+            confirmButtonText: 'Xác nhận xóa',
+            cancelButtonText: 'Hủy' // Thay đổi văn bản của nút Cancel
         }).then((result)=>{
             if (result.isConfirmed) {
                 @this.dispatch('hanldeDeleted')
             }
         })
     })
+    Livewire.on("toast", (event) => {
+        console.log(event.notify);
+        toastr[event.notify](event.message); 
+});
 })
+
 </script>
+<script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
 </div>

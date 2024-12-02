@@ -91,6 +91,7 @@ class ManagerUserController extends Controller
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
+                'avatar' => 'no_avt.png',
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password_confirm),
                 'status' => "inactive"

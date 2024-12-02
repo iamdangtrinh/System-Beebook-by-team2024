@@ -25,6 +25,7 @@ class Profile extends Component
     #[Validate('required', message: 'Email không được để rỗng')]
     #[Validate('email', message: 'Email không đúng định dạng')]
     public $email = '';
+    public $toastDispatched = false;
 
     public $avatar;
     public $dataToUpdate = [];
@@ -34,6 +35,7 @@ class Profile extends Component
     public $chooseAddress;
     public $disabled = false;
     public $result;
+    public $Avt = '';
 
     public function mount()
     {
@@ -50,37 +52,40 @@ class Profile extends Component
             $this->phone =  $this->result->phone;
             $this->email =  $this->result->email;
             $this->address =  $this->result->address;
+            $this->Avt = $this->result->avatar;
         }
     }
 
+    // public function handleEditProfile()
+    // {
+    //     $this->validate();
+    //     $user = Auth::user();
+    //     $this->validateProfileChanges($user);
+    //     $this->setUserData();
+    //     $this->disabled = true;
+    // }
+
     public function handleEditProfile()
     {
-        $this->validate();
         $user = Auth::user();
-        $this->validateProfileChanges($user);
-        $this->setUserData();
-        $this->disabled = true;
-    }
-
-    protected function validateProfileChanges($user)
-    {
         if ($user->name !== $this->name) {
             try {
                 User::where('id', Auth::user()->id)->update(['name' => $this->name]);
-                session()->flash('success', 'Cập nhật thông tin thành công.');
+                $this->dispatch('toast', message: 'Cập nhật tên thành công.', notify: 'success');
                 $this->name = $user->name;
             } catch (\Throwable $th) {
-                session()->flash('error', 'Cập nhật thông tin không thành công.');
+                dd($th->getMessage());
+                $this->dispatch('toast', message: 'Cập nhật tên thất bại.', notify: 'error');
             }
         }
         if ($this->phone !== $user->phone) {
             $this->validatePhone();
             try {
                 User::where('id', Auth::user()->id)->update(['phone' => $this->phone]);
-                session()->flash('success', 'Cập nhật thông tin thành công.');
+                $this->dispatch('toast', message: 'Cập nhật số điện thoại thành công.', notify: 'success');
                 $this->phone = $user->phone;
             } catch (\Throwable $th) {
-                session()->flash('error', 'Cập nhật thông tin không thành công.');
+                $this->dispatch('toast', message: 'Cập nhật số điện thoại thất bại.', notify: 'error');
             }
         }
 
@@ -88,23 +93,23 @@ class Profile extends Component
             $this->validateEmail();
             try {
                 User::where('id', Auth::user()->id)->update(['email' => $this->email]);
-                session()->flash('success', 'Cập nhật thông tin thành công.');
+                $this->dispatch('toast', message: 'Cập nhật email thất bại.', notify: 'success');
                 $this->email = $user->email;
             } catch (\Throwable $th) {
-                session()->flash('error', 'Cập nhật thông tin không thành công.');
+                $this->dispatch('toast', message: 'Cập nhật email thất bại.', notify: 'error');
             }
         }
         if ($this->address !== $user->address) {
             try {
                 User::where('id', Auth::user()->id)->update(['address' => $this->address]);
-                session()->flash('success', 'Cập nhật thông tin thành công.');
+                $this->dispatch('toast', message: 'Cập nhật địa chỉ thành công.', notify: 'success');
                 $this->address = $user->address;
             } catch (\Throwable $th) {
-                session()->flash('error', 'Cập nhật thông tin không thành công.');
+                $this->dispatch('toast', message: 'Cập nhật địa chỉ thất bại.', notify: 'error');
             }
         }
+        $this->setUserData();
     }
-
     protected function validatePhone()
     {
         $this->validate([
@@ -113,7 +118,6 @@ class Profile extends Component
             ],
         ]);
     }
-
     protected function validateEmail()
     {
         $this->validate([
@@ -122,56 +126,37 @@ class Profile extends Component
             ],
         ]);
     }
-
     public function updatedAvatar($value)
     {
         if ($value) {
             $this->handleUploadImage($value);
         }
     }
-    // public function handleUploadImage($value)
-    // {
-    //     $this->validate([
-    //         'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    //     ]);
 
-    //     try {
-    //         // Lưu tệp vào thư mục 'uploads' trên đĩa 'public' và lấy đường dẫn
-    //         $path = $value->store('uploads', 'public');
 
-    //         // Cập nhật đường dẫn của ảnh đại diện trong cơ sở dữ liệu
-    //         User::where('id', Auth::id())->update(['avatar' => $path]);
-
-    //         // Thông báo thành công
-    //         session()->flash('success', 'Cập nhật ảnh đại diện thành công!');
-    //     } catch (\Exception $e) {
-    //         // Thông báo lỗi và ghi log lỗi nếu có
-    //         session()->flash('error', 'Không thể cập nhật ảnh đại diện. Vui lòng thử lại.');
-    //     }
-    // }
     public function handleUploadImage($value)
     {
         $this->validate([
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+        ], [
+            'avatar.required' => 'Ảnh đại diện là bắt buộc.',
+            'avatar.image' => 'Ảnh đại diện phải là một hình ảnh.',
+            'avatar.mimes' => 'Ảnh đại diện phải có định dạng jpeg, png, jpg, gif, hoặc svg.',
+            'avatar.max' => 'Ảnh đại diện không được lớn hơn 2048 KB.',
         ]);
-
         try {
             // Kiểm tra và tạo thư mục nếu chưa tồn tại
-            if (!file_exists(public_path('uploads'))) {
-                mkdir(public_path('uploads'), 0775, true);
-            }
-            // Lưu tệp vào thư mục 'uploads' trên đĩa 'public'
-            // $path = $value->storeAs('uploads', time() . '_' . $value->getClientOriginalName(), 'public');
-            $fileName = time() . '_' . $value->getClientOriginalName();
-            // Di chuyển tệp vào thư mục 'public/uploads'
+            $fileName = time() . str_replace(' ', '', $value->getClientOriginalName());
+            $this->avatar = $fileName;
             $value->storeAs('uploads', $fileName, 'public');
-            // Cập nhật đường dẫn trong cơ sở dữ liệu
             User::where('id', Auth::id())->update(['avatar' => $fileName]);
-            session()->flash('success', 'Cập nhật ảnh đại diện thành công!');
+            if (!$this->toastDispatched) {
+                $this->dispatch('toast', message: 'Thêm ảnh đại diện thành công', notify: 'success');
+                $this->toastDispatched = true;
+            }
+            $this->setUserData();
         } catch (\Exception $th) {
-            dd($th->getMessage());
-            // Thông báo lỗi nếu có
-            session()->flash('error', 'Không thể cập nhật ảnh đại diện. Vui lòng thử lại.');
+            $this->dispatch('toast', message: 'Không thể cập nhật ảnh đại diện thất bại.', notify: 'error');
         }
     }
     public function updatedAddress($value)

@@ -66,11 +66,15 @@
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td style="width: 20%">{{ $user->address }}</td>
-                                <td class="d-flex justify-content-center" style="border: none" > 
+                                <td > 
                                     @if ($user->status === 'active')
+                                   <div class="d-flex justify-content-center" >
                                     <div style="width: 10px; height: 10px; background: #00FF00; border-radius: 50%; border: none" class="dot"></div>
+                                   </div>
                                     @else
+                                   <div class="d-flex justify-content-center" >
                                     <div style="width: 10px; height: 10px; background: red; border-radius: 50%; border: none" class="dot"></div>
+                                   </div>
                                     @endif
                                 </td>
                                 <td>
@@ -82,8 +86,9 @@
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group gap-2 w-100 __custom_btn_group">
-                                        <a wire:click="editUser({{$user->id}})" class="btn badge text-light text-bg-warning">Chỉnh sửa</a>
-                                        {{-- <a wire:click="confirmDelete" href="" class="btn badge text-light text-bg-danger">Xóa</a> --}}
+                                        <a wire:click="editUser({{$user->id}})" class="btn badge text-light text-bg-warning">Chỉnh sửa  <span wire:loading wire:target="editUser({{$user->id}})">
+                                       </a>
+
                                     </div>
                                 </td>
                             </tr>
@@ -157,7 +162,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
+                    @if ($DataEditUser)
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cập nhật tài khoản</h1>
+                    @else                        
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm tài khoản</h1>
+                    @endif
                     <button type="button" class="btn-close" wire:click="closeModal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -171,18 +180,23 @@
                                         <div class="image-upload">
                                             <label for="file-upload" style="cursor: pointer;">
                                                 <img 
-                                                     style="width: 100px; height: 100px; border-radius: 50%; border: 1px solid black" 
-                                                     src={{ asset('storage/uploads/' . ($valueAvatar === '' ? 'no_image.jpg' : $valueAvatar)) }}
-                                                     alt="User Avatar">
+                                                     style="width: 100px;height: 100px;object-fit: cover;border-radius: 50%; border: 1px solid black" 
+                                                     src="{{ asset('storage/uploads/' . ($valueAvatar === '' ? 'no_image.jpg' : $valueAvatar)) }}" 
+                                                     alt="">
                                             </label>
                                             <input type="file" wire:model.change="valueAvatar" id="file-upload" wire:model.live="avatar" style="display: none;" accept="image/*">
                                         </div>
+                                      
                                         @error('avatar')
                                         <span class="error text-danger">{{ $message }}</span>
                                     @enderror
                                        </div>
+                                       @if ($valueAvatar !=='')
+                                       <div style="display: flex; justify-content: center; padding-top: 10px" > 
+                                        <button type="button" wire:click="removeImage">Xóa ảnh</button> 
+                                       </div>
+                                        @endif
                                    </div>
-
                                     {{-- Name --}}
                                     <div class="form-group " style="display: flex; flex-direction: column; gap:5px">
                                         <label for="CustomerName">Họ tên</label>
@@ -221,7 +235,7 @@
                                      {{-- Role --}}
                                     <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
                                         <label for="CustomerEmail">Quyền</label>
-                                        <select name="" id="" wire:model.live="valueStatus" style="border: 1px solid #e5e6e7; width: 100%; border-radius: 8px; padding: 6px 12px;" >
+                                        <select name="" id="" wire:model.live="valueStatus" style="border: 1px solid black; width: 100%; border-radius: 8px; padding: 6px 12px;" >
                                             <option  value="customer">Khách hàng</option>
                                             <option value="admin">Quản lý</option>
                                         </select>
@@ -229,7 +243,7 @@
                                     @if ($DataEditUser)      
                                     <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
                                         <label for="CustomerEmail">Trạng thái</label>
-                                        <select name="" id="" wire:model.live="valueStatus1" style="border: 1px solid #e5e6e7; width: 100%; border-radius: 8px; padding: 6px 12px;" >
+                                        <select name="" id="" wire:model.live="valueStatus1" style="border: 1px solid black; width: 100%; border-radius: 8px; padding: 6px 12px;" >
                                             <option value="active">Hoạt động</option>
                                             <option value="inactive">Tạm khóa</option>
                                         </select>
@@ -250,9 +264,16 @@
                 <div class="modal-footer">
                     <button type="button" style="border-radius: 4px" class="btn btn-secondary" wire:click="closeModal">Đóng</button>
                     @if ($DataEditUser)
-                    <button type="button"  style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="updateUser" class="btn rounded-1  fs-6">Cập nhật</button>
+                    <button type="button" wire:loading.attr="disabled"  style="border-radius: 4px; background:#198754 !important; color:white !important" wire:click="updateUser" class="btn rounded-1  fs-6">Cập nhật  <span wire:loading wire:target="updateUser">
+                        <i class="removeLoading fa fa-spinner fa-spin" style="font-size:18px"></i>
+                    </span></button>
                     @else
-                    <button type="button"  @if ($errors->any() ||  $valuePhone==='' || $valueName === ''||$valueEmail === '' || $disabled )  disabled @endif style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="createUser" class="btn rounded-1  fs-6">Xác nhận thêm</button>
+                        <button type="button"   wire:loading.attr="disabled"   @if ($errors->any() ||  $valuePhone==='' || $valueName === ''||$valueEmail === '' || $disabled )  disabled @endif style="border-radius: 4px; background:#198754 !important; color:white !important" wire:click="createUser" class="btn rounded-1  fs-6">Xác nhận thêm 
+                            <span wire:loading wire:target="createUser">
+                                <i class="removeLoading fa fa-spinner fa-spin" style="font-size:18px"></i>
+                            </span>
+                        </button>
+                        
                     @endif
                 </div>
             </div>
@@ -267,4 +288,13 @@
             color:black !important
         }
     </style>
+    <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
+    <script>
+        document.addEventListener('livewire:initialized',()=>{
+    Livewire.on("toast", (event) => {
+        console.log(event.notify);
+        toastr[event.notify](event.message); 
+});
+})
+</script>
 </div>
