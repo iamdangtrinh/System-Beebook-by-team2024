@@ -292,7 +292,7 @@
     <script>
         document.addEventListener('livewire:initialized',()=>{
     Livewire.on("toast", (event) => {
-        console.log(event.notify);
+        toastr.clear();
         toastr[event.notify](event.message); 
 });
 })
