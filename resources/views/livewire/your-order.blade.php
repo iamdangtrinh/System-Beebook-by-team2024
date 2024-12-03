@@ -39,39 +39,52 @@
                                 <th>Hành động</th>
                             </thead>
                             <tbody>
-                                @foreach ($orders as $order)
-                                    <tr>
-                                        <td>{{ $order->id }}</td>
-                                        <td>{{ date('H:i:s d-m-Y', strtotime($order->created_at)) }}</td>
-                                        <td>{{ number_format($order->total_amount, '0', '.', '.') . ' đ' }}</td>
-                                        <td>
-                                            @foreach (config('admin.order.statusOrderUser') as $key => $status)
-                                                @if ($order->status === $key)
-                                                    <span
-                                                        class="badge {{ $order->status === $key ? config('admin.order.statusOrderColors')[$key] : '' }}">
-                                                        {{ $order->status === $key ? $status : '' }}
-                                                    </span>
+                                @if (count($orders) > 1)
+                                    @foreach ($orders as $order)
+                                        <tr>
+                                            <td>{{ $order->id }}</td>
+                                            <td>{{ date('H:i:s d-m-Y', strtotime($order->created_at)) }}</td>
+                                            <td>{{ number_format($order->total_amount, '0', '.', '.') . ' đ' }}</td>
+                                            <td>
+                                                @foreach (config('admin.order.statusOrderUser') as $key => $status)
+                                                    @if ($order->status === $key)
+                                                        <span
+                                                            class="badge {{ $order->status === $key ? config('admin.order.statusOrderColors')[$key] : '' }}">
+                                                            {{ $order->status === $key ? $status : '' }}
+                                                        </span>
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td><span
+                                                    class="{{ $order->payment_status === 'UNPAID' ? 'text-danger' : 'text-success' }}">{{ $order->payment_status === 'UNPAID' ? 'Chưa thanh toán' : 'Đã thanh toán' }}</span>
+                                            </td>
+                                            <td class="d-flex"style="gap: 8px">
+                                                @if ($order->status !== 'success')
+                                                    @if ($order->status !== 'cancel')
+                                                        <button wire:click="showAlert('{{ $order->id }}')"
+                                                            class="btn btn-danger bg-danger">
+                                                            Hủy
+                                                        </button>
+                                                    @else
+                                                        <span class="btn btn-danger bg-secondary">Đã hủy</span>
+                                                    @endif
                                                 @endif
-                                            @endforeach
-                                        </td>
-                                        <td><span
-                                                class="{{ $order->payment_status === 'UNPAID' ? 'text-danger' : 'text-success' }}">{{ $order->payment_status === 'UNPAID' ? 'Chưa thanh toán' : 'Đã thanh toán' }}</span>
-                                        </td>
-                                        <td class="d-flex"style="gap: 8px">
-                                            @if ($order->status !== 'cancel')
-                                                <button wire:click="showAlert('{{ $order->id }}')"
-                                                    class="btn btn-danger bg-danger">
-                                                    Hủy
-                                                </button>
-                                            @else
-                                                <span class="btn btn-danger bg-secondary">Đã hủy</span>
-                                            @endif
 
-                                            <a
-                                                href="/profile/your-order/{{ $order->id }}"class="btn btn-danger">Xem</a>
+
+                                                <a
+                                                    href="/profile/your-order/{{ $order->id }}"class="btn btn-danger">Xem</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td class="text-center p-5" colspan="20">
+                                            <img src="{{ asset('/') }}client/images/ico_emptycart.svg"
+                                                alt="Không có bản nháp">
+                                            <h3 class="mt-3">Hiện tại không có đơn hàng</h3>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                         {{ $orders->links() }}

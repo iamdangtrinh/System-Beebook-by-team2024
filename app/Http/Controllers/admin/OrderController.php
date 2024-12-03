@@ -4,6 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BillModel;
+use App\Models\couponModel;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -77,6 +79,32 @@ class OrderController extends Controller
                 'status' => $payload['status'],
                 'note_admin' => $payload['note_admin']
             ]);
+
+        if ($payload['status'] === 'cancel') {
+            try {
+                $order = BillModel::where('id', $payload['id'])
+                    ->where('id_user', Auth::user()->id)
+                    ->with('billDetails')
+                    ->with('Coupon')
+                    ->firstOrFail();
+
+                foreach ($order->billDetails as $key => $value) {
+                    $product = Product::select(['id', 'quantity'])->find($value->id);
+                    if ($product) {
+                        Product::where('id', $value->id)->update(['quantity' => $product->quantity += $value->quantity]);
+                    }
+                }
+
+                if ($order->Coupon) {
+                    $coupon = $order->Coupon;
+                    couponModel::where('id', $coupon->id)->increment('quantity');
+                }
+                $order->update(['status' => 'cancel']);
+            } catch (\Exception $e) {
+                return redirect()->route('admin.order.detail', ['id' => $payload['id']])->with('error', 'Không thể hủy đơn hàng, vui lòng thử lại.!');
+            }
+        }
+
 
         return redirect()->route('admin.order.detail', ['id' => $payload['id']])->with('success', 'Cập nhật đơn hàng thành công!');
     }
