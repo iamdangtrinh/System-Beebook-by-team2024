@@ -56,7 +56,8 @@ class ShopLiveWire extends Component
 
     protected $queryString = [
         'priceRange' => ['except' => ''],
-        'languages' => ['except' => '']
+        'languages' => ['except' => ''],
+        'sortBy' => ['except' => '']
     ];
 
     public function applyPriceFilter($range)
@@ -84,14 +85,13 @@ class ShopLiveWire extends Component
     {
         $this->resetPage(); // Reset phân trang nếu có
     }
-    public function sortBy($sortOption)
-    {
-        // Cập nhật giá trị của sortBy
-        $this->sortBy = $sortOption;
 
-        // Sau khi thay đổi giá trị, bạn sẽ tự động gọi lại phương thức render để hiển thị sản phẩm đã sắp xếp
-        $this->resetPage(); // Reset phân trang khi thay đổi cách sắp xếp
+    public function onSortChange($value)
+    {
+        $this->sortBy = $value;
+        $this->resetPage();
     }
+
     public function render()
     {
         // dd($this->sortBy);
@@ -122,17 +122,16 @@ class ShopLiveWire extends Component
         }
         if ($this->type === 'wishlist') {
             // Đẩy các sản phẩm có status là inactive xuống cuối
-            $query->orderByRaw('status = "inactive" ASC')
-                  ->orderBy('created_at', 'desc'); // Sắp xếp theo created_at sau
+            $query->orderByRaw('status = "inactive" ASC, quantity <= 0 ASC')
+                ->orderBy('created_at', 'desc'); // Sắp xếp theo created_at sau
         } else {
             // Sắp xếp sản phẩm có quantity > 0 trước, quantity <= 0 sau
-            $query->orderByRaw('quantity > 0 DESC')
-                  ->orderBy('created_at', 'desc'); // Sau đó sắp xếp theo created_at
-        
+            $query->orderByRaw('quantity > 0 DESC');
+
             // Áp dụng điều kiện trạng thái
             $query->where('status', '!=', 'inactive');
         }
-        
+
 
         // Lọc theo khoảng giá
         if (!empty($this->priceRange)) {
@@ -178,23 +177,24 @@ class ShopLiveWire extends Component
         // Sắp xếp sản phẩm dựa trên lựa chọn của người dùng
         switch ($this->sortBy) {
             case 'newest':
-                $query->orderBy('created_at', 'desc');
+                $query->orderBy('created_at', 'desc'); // Sắp xếp sản phẩm mới nhất
                 break;
             case 'oldest':
-                $query->orderBy('created_at', 'asc');
+                $query->orderBy('created_at', 'asc'); // Sắp xếp sản phẩm cũ nhất
                 break;
             case 'price-desc':
-                $query->orderBy('price', 'desc');
+                $query->orderBy('price', 'desc'); // Giá giảm dần
                 break;
             case 'price-asc':
-                $query->orderBy('price', 'asc');
+                $query->orderBy('price', 'asc'); // Giá tăng dần
                 break;
             default:
-                break; // Không sắp xếp nếu không có lựa chọn
+                $query->orderBy('created_at', 'desc'); // Mặc định sắp xếp mới nhất
+                break;
         }
 
         // Phân trang và lấy sản phẩm
-        $products = $query->paginate(12);
+        $products = $query->paginate(16);
         $this->totalProducts = $products->total();
 
         return view('livewire.shop', [

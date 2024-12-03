@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\BillDetailModel;
 use App\Models\BillModel;
+use App\Models\couponModel;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,7 @@ use Livewire\WithPagination;
 
 class YourOrder extends Component
 {
-
+// tăng thêm số lương và mã giảm giá nếu huy order
     protected $listeners = ['cancel'];
     public function cancel($id)
     {
@@ -24,27 +25,18 @@ class YourOrder extends Component
                 ->with('Coupon')
                 ->firstOrFail();
 
-            DB::transaction(function () use ($order) {
-                // Duyệt qua từng sản phẩm trong chi tiết đơn hàng
-                foreach ($order->billDetails as $billDetail) {
-                    $product = Product::find($billDetail->id);
-                    if ($product) {
-                        $product->quantity += $billDetail->quantity;
-                        $product->save();
-                    }
+            foreach ($order->billDetails as $key => $value) {
+                $product = Product::select(['id', 'quantity'])->find($value->id);
+                if ($product) {
+                    Product::where('id', $value->id)->update(['quantity' => $product->quantity += $value->quantity]);
                 }
+            }
 
-                if ($order->Coupon) {
-                    $coupon = $order->Coupon;
-                    if ($coupon->quantity !== null) {
-                        $coupon->quantity += 1; // Tăng số lượng mã giảm giá
-                        $coupon->save();
-                    }
-                }
-
-                $order->status = 'cancel';
-                $order->save();
-            });
+            if ($order->Coupon) {
+                $coupon = $order->Coupon;
+                couponModel::where('id', $coupon->id)->increment('quantity');
+            }
+            $order->update(['status' => 'cancel']);
             return $this->dispatch('swal:success', (object)[
                 'title' => 'Thành công',
                 'text' => 'Đơn hàng đã được hủy.',
