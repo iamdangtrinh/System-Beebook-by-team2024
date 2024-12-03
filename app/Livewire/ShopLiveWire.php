@@ -56,7 +56,8 @@ class ShopLiveWire extends Component
 
     protected $queryString = [
         'priceRange' => ['except' => ''],
-        'languages' => ['except' => '']
+        'languages' => ['except' => ''],
+        'sortBy' => ['except' => '']
     ];
 
     public function applyPriceFilter($range)
@@ -84,15 +85,13 @@ class ShopLiveWire extends Component
     {
         $this->resetPage(); // Reset phân trang nếu có
     }
-    public function sortBy($sortOption)
-    {
-        // Cập nhật giá trị của sortBy
-        $this->sortBy = $sortOption;
-        \Log::info('SortBy updated:', ['value' => $sortOption]);
 
-        // Sau khi thay đổi giá trị, bạn sẽ tự động gọi lại phương thức render để hiển thị sản phẩm đã sắp xếp
-        $this->resetPage(); // Reset phân trang khi thay đổi cách sắp xếp
+    public function onSortChange($value)
+    {
+        $this->sortBy = $value;
+        $this->resetPage();
     }
+
     public function render()
     {
         // dd($this->sortBy);
@@ -127,7 +126,7 @@ class ShopLiveWire extends Component
                 ->orderBy('created_at', 'desc'); // Sắp xếp theo created_at sau
         } else {
             // Sắp xếp sản phẩm có quantity > 0 trước, quantity <= 0 sau
-            $query->orderByRaw('quantity > 0 DESC'); 
+            $query->orderByRaw('quantity > 0 DESC');
 
             // Áp dụng điều kiện trạng thái
             $query->where('status', '!=', 'inactive');

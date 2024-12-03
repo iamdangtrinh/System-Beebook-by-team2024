@@ -221,7 +221,7 @@
                                 <div class="col-4 col-md-4 col-lg-4 text-right">
                                     <div class="filters-toolbar__item">
                                         <label for="SortBy" class="hidden">Lọc</label>
-                                        <select name="SortBy" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort" wire:change="sortBy">
+                                        <select name="SortBy" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort" wire:change="onSortChange($event.target.value)">
                                             <option value="default" selected="selected">Lọc</option>
                                             <option value="newest">Mới nhất</option>
                                             <option value="oldest">Cũ nhất</option>
