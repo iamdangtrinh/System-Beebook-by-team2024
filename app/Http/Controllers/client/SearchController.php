@@ -20,7 +20,10 @@ class SearchController extends Controller
         }
 
         // Tìm kiếm sách theo tên
-        $books = Product::where('name', 'like', "%{$query}%")->get();
+        $books = Product::where('name', 'like', "%{$query}%")
+            ->orderByRaw("status = 'inactive' ASC, quantity <= 0 ASC")
+            ->get();
+
         // dd($books);
         $blogs = BlogModel::where('title', 'like', "%{$query}%")->get();
 
@@ -42,7 +45,10 @@ class SearchController extends Controller
         $query = $request->get('query');
 
         // Tìm kiếm sách theo tên
-        $books = Product::where('name', 'like', "%{$query}%")->limit(6)->get();
+        $books = Product::where('name', 'like', "%{$query}%")
+            ->orderByRaw("status = 'inactive' ASC, quantity <= 0 ASC")
+            ->limit(6)
+            ->get();
         $blogs = BlogModel::where('title', 'like', "%{$query}%")->limit(3)->get();
 
         // Tìm kiếm tác giả
