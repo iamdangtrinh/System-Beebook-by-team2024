@@ -37,7 +37,7 @@
                             @foreach ($bannerMain as $item)
                             <div class="swiper-slide">
                                 <a href="{{ $item->text_link }}">
-                                    <img src="{{ $item->image }}" alt="{{ $item->image }}">
+                                    <img  src="{{ $item->image }}" alt="{{ $item->image }}">
                                 </a>
                             </div>
                             @endforeach
@@ -64,11 +64,14 @@
                 <div class="swiper-wrapper">
                     @foreach ($categories as $category)
                     <div class="swiper-slide">
-                        <a style="width:140px" href="{{ asset('danh-muc/' . $category->slug) }}">
-                            <img style="width: 140px;height: 140px;"
-                            src="{{asset('storage/uploads/'.($category->image === '' ? 'no_image.jpg':$category->image))}}" 
-                                alt="">
-                            {{ $category->name }}</a>
+                        <a style="display: flex; flex-direction: column;gap: 10px" href="{{ asset('danh-muc/' . $category->slug) }}">
+                            <div class="category-box" >
+                                <img style="width: 100%;height: 100%;"
+                                src="{{asset('storage/uploads/'.($category->image === '' ? 'no_image.jpg':$category->image))}}" 
+                                    alt="">
+                                </div>
+                                <span >   {{ $category->name }}</span>
+                        </a>
                     </div>
                     @endforeach
                 </div>
@@ -367,7 +370,20 @@
     </div>
 </div>
 </div>
+<style>
+    .category-box {
+        width: 140px;
+        height: 140px;
+    }
 
+    /* Kiểu cho màn hình nhỏ hơn 768px (mobile) */
+    @media (max-width: 768px) {
+        .category-box {
+            width: 80px;
+            height: 80px;
+        }
+    }
+</style>
 <script>
     jQuery(document).ready(function() {
         jQuery('.closepopup').on('click', function() {
