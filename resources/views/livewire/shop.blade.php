@@ -29,7 +29,7 @@
                     <div class="custom-search">
                         <div class="input-group search-header search position-relative rounded" role="search">
                             <input class="search-header__input search__input input-group__field rounded" type="search"
-                            wire:model.defer="searchQuery" placeholder="Tìm kiếm sách..." aria-label="Search" autocomplete="off">
+                                wire:model.defer="searchQuery" placeholder="Tìm kiếm sách..." aria-label="Search" autocomplete="off">
                             <span class="input-group__btn"><button wire:click="search" class="btnSearch" type="submit"> <i
                                         class="icon anm anm-search-l"></i> </button></span>
                         </div>
@@ -213,26 +213,23 @@
                                 <div class="col-8 col-md-8 col-lg-8 filters-toolbar__item filters-toolbar__item--count">
                                     <span class="filters-toolbar__product-count">Tổng số: {{ $totalProducts }} quyển
                                         sách</span>
+                                    <div>
+                                        <p>Đang sắp xếp theo: {{ $sortBy }}</p>
+                                    </div>
+
                                 </div>
                                 <div class="col-4 col-md-4 col-lg-4 text-right">
                                     <div class="filters-toolbar__item">
                                         <label for="SortBy" class="hidden">Lọc</label>
-                                        <select name="SortBy" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort">
+                                        <select name="SortBy" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort" wire:change="sortBy">
                                             <option value="default" selected="selected">Lọc</option>
-                                            <option value="newest" @if ($sortBy==='newest' ) selected @endif
-                                                wire:click="sortBy('newest')">Mới nhất</option>
-                                            <option value="oldest" @if ($sortBy==='oldest' ) selected @endif
-                                                wire:click="sortBy('oldest')">Cũ nhất</option>
-                                            <option value="price-desc" @if ($sortBy==='price-desc' ) selected @endif
-                                                wire:click="sortBy('price-desc')">Giá cao tới thấp</option>
-                                            <option value="price-asc" @if ($sortBy==='price-asc' ) selected @endif
-                                                wire:click="sortBy('price-asc')">Giá thấp tới cao</option>
+                                            <option value="newest">Mới nhất</option>
+                                            <option value="oldest">Cũ nhất</option>
+                                            <option value="price-desc">Giá cao tới thấp</option>
+                                            <option value="price-asc">Giá thấp tới cao</option>
                                         </select>
-
-
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
