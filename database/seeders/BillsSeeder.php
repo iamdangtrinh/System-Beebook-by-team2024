@@ -8,6 +8,8 @@ use Faker\Factory as Faker;
 use App\Models\User;
 use App\Models\CouponModel;
 use Carbon\Carbon;
+use App\Models\BillModel;
+use App\Models\Product;
 
 
 class BillsSeeder extends Seeder
@@ -19,6 +21,8 @@ class BillsSeeder extends Seeder
         // Lấy danh sách user và coupon
         $users = User::pluck('id')->toArray(); // Lấy danh sách id của user
         $coupons = CouponModel::select('id', 'discount')->get(); // Lấy danh sách id và discount của coupon
+        $products = Product::select('id', 'price', 'price_sale')->get();
+        $bills = BillModel::get();
         $statuses = ['new', 'success', 'cancel', 'refund', 'shipping'];
         $paymentMethods = ['ONLINE', 'OFFLINE'];
         $paymentStatuses = ['PAID', 'UNPAID'];
@@ -34,7 +38,6 @@ class BillsSeeder extends Seeder
             'Khách hàng yêu cầu hóa đơn đỏ.',
             'Hàng cần giao gấp trong ngày.'
         ];
-
         $notesAdmin = [
             'Kiểm tra lại tồn kho trước khi xuất hàng.',
             'Liên hệ với khách hàng để xác nhận thông tin địa chỉ.',
@@ -47,31 +50,76 @@ class BillsSeeder extends Seeder
             'Đơn hàng đang chờ xác nhận từ quản lý.',
             'Khách hàng yêu cầu đổi sản phẩm sang mã khác.'
         ];
-
-        for ($i = 0; $i < 1000; $i++) {
+        $reason_cancel = [
+            "Khách hàng không muốn mua nữa",
+            "Không liên lạc được với khách hàng",
+            "Hàng không có sẵn",
+            "Lý do khác"
+        ];
+        for ($i = 0; $i < 5; $i++) {
             $randomCoupon = $coupons->random();
             $randomDate = Carbon::now()->subMonths(rand(0, 12))->subDays(rand(0, 30));
             $phone = $this->generateUniquePhone($generatedPhones);
             DB::table('bills')->insert([
-                'id_user' => $faker->randomElement($users), // Chọn ngẫu nhiên một user
-                'id_coupon' => $randomCoupon ? $randomCoupon->id : null, // ID coupon hoặc null
+                'id_user' => $faker->randomElement($users),
+                'id_coupon' => $randomCoupon ? $randomCoupon->id : null,
                 'status' => $faker->randomElement($statuses),
-                'reason_cancel' => $faker->optional()->sentence(),
-                'total_amount' => $faker->randomFloat(2, 50, 5000),
+                'reason_cancel' => $faker->optional()->randomElement($reason_cancel),
+                'total_amount' => 0,
                 'payment_method' => $faker->randomElement($paymentMethods),
                 'payment_status' => $faker->randomElement($paymentStatuses),
                 'shipping_method' => 'GHN',
-                'fee_shipping' => $faker->optional()->randomFloat(2, 5, 50),
-                'discount' => $randomCoupon ? $randomCoupon->discount : null, // Lấy discount từ danh sách coupon
+                'fee_shipping' => $faker->optional()->numberBetween(1000, 50000),
+                'discount' => $randomCoupon ? $randomCoupon->discount : null,
                 'address' => $faker->address,
                 'email' => $faker->unique()->userName . '@gmail.com',
                 'name' => $faker->name,
                 'phone' => $phone,
-                'note' =>  $faker->optional()->randomElement($notes),
-                'note_admin' =>  $faker->optional()->randomElement($notesAdmin),
+                'note' => $faker->optional()->randomElement($notes),
+                'note_admin' => $faker->optional()->randomElement($notesAdmin),
                 'created_at' => $randomDate,
                 'updated_at' => $randomDate,
             ]);
+        }
+
+        // Lấy lại danh sách bill sau khi đã thêm dữ liệu
+        $bills = BillModel::get();
+
+        foreach ($bills as $bill) {
+            $numberOfProducts = $faker->numberBetween(1, 5);
+            $totalBillPrice = 0;
+
+            for ($i = 0; $i < $numberOfProducts; $i++) {
+                $randomProduct = $products->random();
+                $quantity = $faker->numberBetween(1, 10);
+                $price = $randomProduct->price_sale ?? $randomProduct->price;
+                $totalPrice = $price * $quantity;
+                DB::table('bill_detail')->insert([
+                    'id_bill' => $bill->id,
+                    'id_product' => $randomProduct->id,
+                    'quantity' => $quantity,
+                    'price' => $totalPrice,
+                    'created_at' => $bill->created_at,
+                    'updated_at' => $bill->updated_at,
+                ]);
+                $total = $totalBillPrice += $totalPrice;
+                if ($bill->fee_shipping !== null) {
+                    $fee = $total + $bill->fee_shipping;
+                } else {
+                    $fee = $total;
+                }
+                if ($bill->id_coupon !== null) {
+                    $findCoupon = CouponModel::find($bill->id_coupon);
+                    if ($findCoupon['type_coupon'] === 'amount') {
+                        $totalPrice = $fee - $findCoupon['discount'];
+                    } else {
+                        $totalPrice = $fee * ($findCoupon['discount'] / 100);
+                    }
+                } else {
+                    $totalPrice = $fee;
+                }
+            }
+            BillModel::where('id', $bill->id)->update(['total_amount' => $totalPrice]);
         }
     }
     private function generateUniquePhone(array &$generatedPhones): string
