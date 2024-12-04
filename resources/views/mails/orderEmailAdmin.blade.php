@@ -16,7 +16,8 @@
 
 <div style="max-width:800px;margin:0 auto;padding:20px;background-color:#f9f9f9;">
     <img src="{{ asset('/client/images/logo.png') }}" style="width: 100%" alt="Bee book" title="Logo" />
-    <img src="{{ asset('/client/images/logo.png') }}" style="width: 100%" alt="Bee book" title="Logo" />
+    <img src="{{ env('APP_URL') }}logo.webp" style="width: 100%" alt="Bee book" title="Logo" />
+
 
     <div style="text-align: center;">
         <h2 style="text-align: center; color: #333;">Bạn có đơn hàng mới!</h2>
