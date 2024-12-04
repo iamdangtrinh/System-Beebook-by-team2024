@@ -62,8 +62,8 @@ class CheckoutController extends Controller
         $resultBill = BillModel::where('id_user', Auth::user()->id)->findOrFail($idBill);
 
         if ($resultBill->send_email === 0) {
-            Mail::to(env('MAIL_ADMIN'))->send(new \App\Mail\NewOrderAdminEmail($idBill));
-            Mail::to($resultBill->email)->send(new \App\Mail\sendEmailOrder($idBill));
+            Mail::to(env('MAIL_ADMIN'))->queue(new \App\Mail\NewOrderAdminEmail($idBill));
+            Mail::to($resultBill->email)->queue(new \App\Mail\sendEmailOrder($idBill));
             BillModel::find($idBill)
                 ->where('id_user', Auth::user()->id)
                 ->update(['send_email' => true]);
