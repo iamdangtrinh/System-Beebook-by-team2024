@@ -15,7 +15,7 @@
 @endphp
 
 <div style="max-width:800px;margin:0 auto;padding:20px;background-color:#f9f9f9;">
-    <img src="{{ env('APP_URL') }}logo_text.png" style="width: 100%" alt="Bee book" title="Logo" />
+    <img src="{{ env('APP_URL') }}client/images/logo.png" style="width: 100%" alt="Bee book" title="Logo" />
 
 
     <div style="text-align: center;">
