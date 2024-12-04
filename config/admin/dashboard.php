@@ -10,7 +10,7 @@ return [
             [
                   'route' => 'overview.index',
                   'icon' => 'fa fa-th-large',
-                  'label' => 'Dashboards',
+                  'label' => 'Tổng quan',
             ],
             [
                   'route' => 'adminCategory.index',
