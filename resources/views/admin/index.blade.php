@@ -422,9 +422,6 @@
         </div>
     </div>
 
-    <img src="{{ env('APP_URL') . 'client/images/logo.png' }}" style="width: 100%" alt="Bee book" title="Logo" />
-
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="{{ asset('/') }}backend/css/custom.css" rel="stylesheet">
     <script>
