@@ -15,7 +15,7 @@
 @endphp
 
 <div style="max-width:800px;margin:0 auto;padding:20px;background-color:#f9f9f9;">
-    <img src="{{env('APP_URL')}}/client/images/logo.png" style="width: 100%" alt="Bee book" title="Logo" />
+    <img src="{{env('APP_URL')}}logo.webp" style="width: 100%" alt="Bee book" title="Logo" />
     <div style="text-align: center;">
         <h2 style="text-align: center; color: #333;">Cảm ơn {{ $resultBill->name }} đã đặt hàng!</h2>
         <p style="text-align: center; color: #555;">Chúng tôi đã xử lý xong đơn hàng của bạn.</p>
