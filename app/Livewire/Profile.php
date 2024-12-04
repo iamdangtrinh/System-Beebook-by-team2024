@@ -163,7 +163,7 @@ class Profile extends Component
     {
         if ($value !== '') {
             try {
-                $response = Http::timeout(5)
+                $response = Http::timeout(1.5)
                     ->get("https://rsapi.goong.io/Place/AutoComplete", [
                         'api_key' => '3llMTBYg6lewfO3NctgGOQWkynPkZojFyNm6HBpp',
                         'more_compound' => true,
