@@ -54,7 +54,7 @@
                 <div class="form-group col-md-12 col-lg-12 col-xl-12">
                     <div class="position-relative">
                         <label for="input-address">Địa chỉ </label>
-                        <input class="form-control" wire:model.live="address" 
+                        <input class="form-control"  wire:model.live="address" 
                             id="input-address-autocomplete" type="text">
                         <ul class="list-group position-absolute w-100">
                             @if ($chooseAddress)

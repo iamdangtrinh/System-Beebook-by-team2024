@@ -105,5 +105,6 @@
     </div>
 </form>
 </div>
+<script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
 @livewireScripts
 @endsection

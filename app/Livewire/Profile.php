@@ -162,15 +162,23 @@ class Profile extends Component
     public function updatedAddress($value)
     {
         if ($value !== '') {
-            $response = Http::get("https://rsapi.goong.io/Place/AutoComplete?api_key=3llMTBYg6lewfO3NctgGOQWkynPkZojFyNm6HBpp&more_compound=true&radius=20000&input=" . $value);
-            if ($response->successful()) {
-                // $this->address = ;
-                $this->chooseAddress = $response['predictions'];
-            } else {
-                session()->flash('error', 'Không thể tải dữ liệu');
+            try {
+                $response = Http::timeout(1.5)
+                    ->get("https://rsapi.goong.io/Place/AutoComplete", [
+                        'api_key' => '3llMTBYg6lewfO3NctgGOQWkynPkZojFyNm6HBpp',
+                        'more_compound' => true,
+                        'radius' => 20000,
+                        'input' => $value,
+                    ]);
+                if ($response->successful()) {
+                    $this->chooseAddress = $response['predictions'];
+                } else {
+                    session()->flash('error', 'Không thể tải dữ liệu');
+                }
+            } catch (\Exception $e) {
+                session()->flash('error', 'Lỗi kết nối, vui lòng thử lại!');
             }
         }
-        // dd($value);
     }
 
     public function addAddress($description)

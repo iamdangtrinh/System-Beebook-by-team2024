@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
 use App\Models\User;
-use App\Models\CouponModel;
+use App\Models\couponModel;
 use Carbon\Carbon;
 use App\Models\BillModel;
 use App\Models\Product;
