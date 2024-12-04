@@ -45,3 +45,16 @@ td {
 /* tbody, td, tfoot, th, thead, tr {
       border: 1px solid #ccc;
 } */
+
+/* over start */
+#overview .ibox-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+}
+
+#overview .ibox-title h5 {
+      margin: 0;
+}
+
+/* over end */

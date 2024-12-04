@@ -22,7 +22,7 @@ Route::get('/shortdescription', [ClientController::class, 'shortdescription']);
 Route::get('/posts/{slug}', [BlogController::class, 'show'])->name('posts.show');
 //admin
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('overview.index');
     Route::get('/404', [AdminController::class, 'show404']);
     Route::get('/500', [AdminController::class, 'show500']);
