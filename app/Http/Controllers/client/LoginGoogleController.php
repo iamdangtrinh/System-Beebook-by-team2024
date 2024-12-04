@@ -90,7 +90,9 @@ class LoginGoogleController extends Controller
                 return redirect('/');
             }
         } catch (Exception $e) {
-            dd($e->getMessage());
+            session()->flash('errorSignIn', 'Đăng nhập thất bại, vui lòng thử lại !');
+            return redirect('/sign-in');
+            // dd($e->getMessage());
         }
     }
 }
