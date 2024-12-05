@@ -117,7 +117,7 @@
                                 <h3>Phương thức vận chuyển</h3>
                                 <p> <span class="__custom_shipping">Phương thức vận chuyển: </span>
                                     {{ $resultBill->shipping_method }} </p>
-                                <p> <span class="__custom_shipping">Phí vận chuyển: </span> {{ $resultBill->fee_shipping }}
+                                <p> <span class="__custom_shipping">Phí vận chuyển: </span> {{ number_format($resultBill->fee_shipping, 0,'.', '.'). ' đ' }}
                                 </p>
                             </div>
                         </div>
@@ -137,10 +137,7 @@
                     <a href="{{ route('product.index') }}"
                         class="d-inline-flex align-items-center btn btn-outline-primary rounded me-2 mb-2 me-sm-3"><i
                             class="me-2 icon an an-angle-left-r"></i>Tiếp tục mua hàng</a>
-                    <button type="button" class="d-inline-flex align-items-center btn rounded me-2 mb-2 me-sm-3"><i
-                            class="me-2 icon an an-print"></i>Tải hoá đơn</button>
-                    <button type="button" class="d-inline-flex align-items-center btn rounded me-2 mb-2 me-sm-3"><i
-                            class="me-2 icon an an-sync-ar"></i>Mua lại</button>
+                    
                 </div>
             </div>
         </div>
