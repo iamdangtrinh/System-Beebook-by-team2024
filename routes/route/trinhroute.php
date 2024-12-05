@@ -38,7 +38,8 @@ Route::prefix('profile/your-order')->middleware('CheckLogin:Vui lòng đăng nh�
 });
 
 Route::get('/redis-test', function () {
-      Cache::store('redis')->put('test_key', 'Hello Redis', 10);
+      // Cache::store('redis')->put('test_key', 'Hello Redis', 10);
+      Cache::store('redis')->get('order_year_data');
       return Cache::store('redis')->get('test_key');
 });
 

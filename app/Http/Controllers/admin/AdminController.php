@@ -9,6 +9,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class AdminController extends Controller
 {
@@ -54,6 +55,7 @@ class AdminController extends Controller
             ])
             ->get();
 
+        // đếm đơn hàng trong ngày
         $orderDayCount = BillModel::select($this->seleced())->with('billDetails')
             ->with('Coupon')
             ->whereBetween('created_at', [
@@ -62,12 +64,13 @@ class AdminController extends Controller
             ])
             ->count();
 
+        // đếm user được tạo trong tháng
         $countUser = User::select('id')->whereBetween('created_at', [
             Carbon::now()->startOfMonth(),
             Carbon::now()->endOfMonth()
         ])->count();
 
-        // query user buy most of month
+        // user mua nhiều nhất tháng
         $userBuyMost = User::select($this->selecedUserBill())->withCount(['bills' => function ($query) {
             $query->whereBetween('created_at', [
                 Carbon::now()->startOfMonth(),
@@ -75,10 +78,12 @@ class AdminController extends Controller
             ]);
         }])->orderBy('bills_count', 'desc')->having('bills_count', '>', 0)->limit(10)->get();
 
-        // top product sell on month
+        // sản phẩm bán chạy nhất tháng
         $topSellingProducts = BillDetailModel::select(
             'products.id as product_id',
             'products.name as product_name',
+            'products.image_cover as product_image',
+            'products.quantity as product_stock',
             DB::raw('SUM(bill_detail.quantity) as total_quantity_sold')
         )
             ->join('products', 'bill_detail.id_product', '=', 'products.id')
@@ -87,9 +92,10 @@ class AdminController extends Controller
                 Carbon::now()->startOfMonth(),
                 Carbon::now()->endOfMonth()
             ])
+            ->where('bills.status', 'success')
             ->groupBy('products.id', 'products.name')
             ->orderByDesc('total_quantity_sold')
-            ->limit(10) // Giới hạn 10 sản phẩm bán chạy nhất
+            ->limit(10)
             ->get();
 
         $amount_month = 0;
@@ -99,13 +105,29 @@ class AdminController extends Controller
 
         $countOrder = count($order);
 
+
+        $orderYear = BillModel::selectRaw(
+            'SUM(total_amount) as total_amount,
+                    MONTH(created_at) as month, 
+                    SUM(CASE WHEN status = "success" THEN 1 ELSE 0 END) as success_count,
+                    SUM(CASE WHEN status = "cancel" THEN 1 ELSE 0 END) as cancel_count'
+        )
+            ->whereBetween('created_at', [
+                Carbon::now()->startOfYear(),
+                Carbon::now()->endOfMonth()
+            ])
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->orderBy('month', 'asc')
+            ->get();
+
         return view('admin.index', compact(
             'countOrder',
             'amount_month',
             'countUser',
             'orderDayCount',
             'userBuyMost',
-            'topSellingProducts'
+            'topSellingProducts',
+            'orderYear'
         ));
     }
 
