@@ -26,9 +26,6 @@ class User extends Authenticatable
         'facebook_id',
         'email_verified_at',
         'status',
-        'id_city',
-        'id_province',
-        'id_ward',
         'address',
         'roles',
         'avatar'
@@ -55,5 +52,10 @@ class User extends Authenticatable
     public function favorite()
     {
         return $this->hasMany(Favorite::class, 'id_user');
+    }
+
+    public function bills(){
+
+        return $this->hasMany(BillModel::class, 'id_user');
     }
 }

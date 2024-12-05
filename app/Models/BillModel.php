@@ -60,4 +60,9 @@ class BillModel extends Model
     {
         return $this->hasOne(couponModel::class, 'id', 'id_coupon')->select(['*']);
     }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'id_product');
+    }
 }
