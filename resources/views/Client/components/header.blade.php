@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
 
 @php
-    define('CSS_VER', '1.0.1');
+define('CSS_VER', '1.0.1');
 @endphp
 
 <head>
@@ -12,13 +12,17 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf_token" content="{{ csrf_token() }}" />
     <meta name="description"
-        content="Sách tiếng Việt - Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách.">
+        content="{{ isset($description_seo) ? $description_seo : 'Beebook hệ thống nhà sách chuyên nghiệp, đáp ứng mọi nhu cầu về sách.' }}">
+    <meta name="keywords"
+        content="{{ isset($meta_seo) ? $meta_seo : 'sách, sách tiếng Việt, nhà sách' }}">
+
+    <meta name="robots" content="index,follow">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:url" content="/" />
     <meta name="google-site-verification" content="0NTJDxu20GXY4Pl6OY-u_e1fmLJmV35qAnf380ru9b0" />
-    {{-- <meta property="og:type" content="Sách tiếng Việt - Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách." /> --}}
+    {{-- <meta property="og:type" content="Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách." /> --}}
     <meta property="og:type"
-        content="{{ $headDescription ?? 'Sách 2 tiếng Việt - Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách.' }}" />
+        content="{{ $description ?? 'Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách.' }}" />
 
     <meta property="og:image" content="{{ asset('/') }}client/images/favicon.png" />
     <link rel="shortcut icon" href="{{ asset('/') }}client/images/favicon-beebook.webp" />
@@ -82,33 +86,33 @@
                                 <li class="lvl1 parent megamenu"><a href="/">Trang chủ<i
                                             class="anm anm-angle-down-l"></i></a></li>
                                 @php
-                                    $categories_header = \App\Models\CategoryProduct::where('parent_id', null)
-                                        ->where('status', 'active')
-                                        ->with([
-                                            'children' => function ($query) {
-                                                $query->where('status', 'active');
-                                            },
-                                        ])
-                                        ->get();
+                                $categories_header = \App\Models\CategoryProduct::where('parent_id', null)
+                                ->where('status', 'active')
+                                ->with([
+                                'children' => function ($query) {
+                                $query->where('status', 'active');
+                                },
+                                ])
+                                ->get();
                                 @endphp
 
                                 <li class="lvl1 parent dropdown"><a href="#">Danh mục <i
                                             class="anm anm-angle-down-l"></i></a>
                                     <ul class="dropdown">
                                         @foreach ($result_category as $parentCategory)
-                                            @if ($parentCategory->children->isNotEmpty())
-                                                <li><a href="{{ url('danh-muc/' . $parentCategory->slug) }}"
-                                                        class="site-nav">{{ $parentCategory->name }} <i
-                                                            class="anm anm-angle-right-l"></i></a>
-                                                    <ul class="dropdown">
-                                                        @foreach ($parentCategory->children as $childCategory)
-                                                            <li><a href="{{ url('danh-muc/' . $childCategory->slug) }}"
-                                                                    class="site-nav">{{ $childCategory->name }}</a>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
+                                        @if ($parentCategory->children->isNotEmpty())
+                                        <li><a href="{{ url('danh-muc/' . $parentCategory->slug) }}"
+                                                class="site-nav">{{ $parentCategory->name }} <i
+                                                    class="anm anm-angle-right-l"></i></a>
+                                            <ul class="dropdown">
+                                                @foreach ($parentCategory->children as $childCategory)
+                                                <li><a href="{{ url('danh-muc/' . $childCategory->slug) }}"
+                                                        class="site-nav">{{ $childCategory->name }}</a>
                                                 </li>
-                                            @endif
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                        @endif
                                         @endforeach
                                     </ul>
                                 </li>
@@ -146,28 +150,28 @@
                                     <i style="font-size: 20px" class="icon anm anm-user-circle"></i>
                                     <ul class="dropdown" style="top:30px">
                                         @if (Auth::check())
-                                            <li><a href="/profile" class="site-nav">
-                                                    <i class="icon anm anm-user-circle"></i>
-                                                    Hồ sơ
-                                                </a>
-                                            </li>
-                                            <li><a href="{{ route('your-order.index') }}" class="site-nav">
-                                                    <i class="icon anm anm-cart-r"></i>
-                                                    Đơn hàng của tôi </a>
-                                            </li>
-                                            <li><a href="{{ asset('/yeu-thich') }}" class="site-nav">
-                                                    <i class="icon anm anm-heart-r"></i>
-                                                    Sản phẩm yêu thích </a>
-                                            </li>
-                                            <li><a href="/logout" class="site-nav">
-                                                    <i class="icon anm anm-sign-out-ar"></i>
-                                                    Đăng xuất </a>
-                                            </li>
+                                        <li><a href="/profile" class="site-nav">
+                                                <i class="icon anm anm-user-circle"></i>
+                                                Hồ sơ
+                                            </a>
+                                        </li>
+                                        <li><a href="{{ route('your-order.index') }}" class="site-nav">
+                                                <i class="icon anm anm-cart-r"></i>
+                                                Đơn hàng của tôi </a>
+                                        </li>
+                                        <li><a href="{{ asset('/yeu-thich') }}" class="site-nav">
+                                                <i class="icon anm anm-heart-r"></i>
+                                                Sản phẩm yêu thích </a>
+                                        </li>
+                                        <li><a href="/logout" class="site-nav">
+                                                <i class="icon anm anm-sign-out-ar"></i>
+                                                Đăng xuất </a>
+                                        </li>
                                         @else
-                                            <li><a href="{{ asset('/sign-in') }}" class="site-nav">Đăng nhập </a>
-                                            </li>
-                                            <li><a href="{{ asset('/sign-up') }}" class="site-nav">Đăng ký </a>
-                                            </li>
+                                        <li><a href="{{ asset('/sign-in') }}" class="site-nav">Đăng nhập </a>
+                                        </li>
+                                        <li><a href="{{ asset('/sign-up') }}" class="site-nav">Đăng ký </a>
+                                        </li>
                                         @endif
                                     </ul>
                                 </li>
@@ -185,16 +189,16 @@
                                 <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">
                                     {{-- đếm cart --}}
                                     @php
-                                        if (\Auth::check()) {
-                                            $user = \Auth::user();
-                                            $cartItems = \DB::table('carts')
-                                                ->select(['id'])
-                                                ->where('id_user', $user->id)
-                                                ->get();
-                                            $cartCount = $cartItems->count();
-                                        } else {
-                                            $cartCount = session()->has('cart') ? count(session()->get('cart')) : 0;
-                                        }
+                                    if (\Auth::check()) {
+                                    $user = \Auth::user();
+                                    $cartItems = \DB::table('carts')
+                                    ->select(['id'])
+                                    ->where('id_user', $user->id)
+                                    ->get();
+                                    $cartCount = $cartItems->count();
+                                    } else {
+                                    $cartCount = session()->has('cart') ? count(session()->get('cart')) : 0;
+                                    }
                                     @endphp
                                     {{ $cartCount ?? 0 }}
                                 </span>
@@ -212,32 +216,32 @@
                 <li class="lvl1 parent megamenu"><a href="/">Trang chủ<i class="anm anm-angle-down-l"></i></a>
                 </li>
                 @php
-                    $categories_header = \App\Models\CategoryProduct::where('parent_id', null)
-                        ->where('status', 'active')
-                        ->with([
-                            'children' => function ($query) {
-                                $query->where('status', 'active');
-                            },
-                        ])
-                        ->get();
+                $categories_header = \App\Models\CategoryProduct::where('parent_id', null)
+                ->where('status', 'active')
+                ->with([
+                'children' => function ($query) {
+                $query->where('status', 'active');
+                },
+                ])
+                ->get();
                 @endphp
 
                 <li class="lvl1 parent dropdown"><a href="#">Danh mục <i class="anm anm-angle-down-l"></i></a>
                     <ul class="dropdown">
                         @foreach ($result_category as $parentCategory)
-                            @if ($parentCategory->children->isNotEmpty())
-                                <li><a href="{{ url('danh-muc/' . $parentCategory->slug) }}"
-                                        class="site-nav">{{ $parentCategory->name }} <i
-                                            class="anm anm-angle-right-l"></i></a>
-                                    <ul class="dropdown">
-                                        @foreach ($parentCategory->children as $childCategory)
-                                            <li><a href="{{ url('danh-muc/' . $childCategory->slug) }}"
-                                                    class="site-nav">{{ $childCategory->name }}</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                        @if ($parentCategory->children->isNotEmpty())
+                        <li><a href="{{ url('danh-muc/' . $parentCategory->slug) }}"
+                                class="site-nav">{{ $parentCategory->name }} <i
+                                    class="anm anm-angle-right-l"></i></a>
+                            <ul class="dropdown">
+                                @foreach ($parentCategory->children as $childCategory)
+                                <li><a href="{{ url('danh-muc/' . $childCategory->slug) }}"
+                                        class="site-nav">{{ $childCategory->name }}</a>
                                 </li>
-                            @endif
+                                @endforeach
+                            </ul>
+                        </li>
+                        @endif
                         @endforeach
                     </ul>
                 </li>
