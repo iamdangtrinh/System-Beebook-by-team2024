@@ -203,7 +203,6 @@ class ProductsSeeder extends Seeder
 
     private function downloadImage($url)
     {
-        // // Đường dẫn lưu hình ảnh
         // $imageDirectory = public_path('userfiles/image/');
         // $imageName = basename($url);
         // $imageNameWithoutExtension = pathinfo($imageName, PATHINFO_FILENAME);
@@ -218,46 +217,65 @@ class ProductsSeeder extends Seeder
         //         throw new \Exception('Không thể tạo hình ảnh từ dữ liệu.');
         //     }
 
+        //     // Check if the image is a palette-based image (e.g., GIF)
+        //     if (imageistruecolor($image) === false) {
+        //         imagedestroy($image); // Giải phóng bộ nhớ
+        //         return '/no_image.jpg'; // Trả về đường dẫn mặc định
+        //     }
+
         //     // Lưu hình ảnh dưới dạng WebP
-        //     imagewebp($image, $imagePath, 90); // 80 là chất lượng hình ảnh, bạn có thể điều chỉnh
+        //     imagewebp($image, $imagePath, 80); // 80 là chất lượng hình ảnh, bạn có thể điều chỉnh
         //     imagedestroy($image); // Giải phóng bộ nhớ
 
         //     return '/userfiles/image/' . $imageNameWithoutExtension . '.webp'; // Trả về đường dẫn tương đối
         // } catch (\Exception $e) {
         //     // Xử lý lỗi nếu không tải được hình ảnh
         //     $this->command->error('Error downloading or converting image: ' . $e->getMessage());
-        //     return null;
+        //     return '/no_image.jpg'; // Trả về đường dẫn mặc định
         // }
-
         $imageDirectory = public_path('userfiles/image/');
         $imageName = basename($url);
         $imageNameWithoutExtension = pathinfo($imageName, PATHINFO_FILENAME);
-        $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp'; // Lưu với đuôi .webp
+        $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp'; // Save with .webp extension
 
-        // Lấy nội dung hình ảnh và chuyển đổi định dạng
+        // Check if the image already exists
+        if (file_exists($imagePath)) {
+            return '/userfiles/image/' . $imageNameWithoutExtension . '.webp'; // Return relative path
+        }
+
+        // Get image content and convert format
         try {
-            $imageContent = file_get_contents($url);
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            $imageContent = curl_exec($ch);
+            curl_close($ch);
+
+            if ($imageContent === false) {
+                throw new \Exception('Unable to download image.');
+            }
+
             $image = imagecreatefromstring($imageContent);
 
             if ($image === false) {
-                throw new \Exception('Không thể tạo hình ảnh từ dữ liệu.');
+                throw new \Exception('Unable to create image from data.');
             }
 
             // Check if the image is a palette-based image (e.g., GIF)
             if (imageistruecolor($image) === false) {
-                imagedestroy($image); // Giải phóng bộ nhớ
-                return '/no_image.jpg'; // Trả về đường dẫn mặc định
+                imagedestroy($image); // Free memory
+                return '/no_image.jpg'; // Return default path
             }
 
-            // Lưu hình ảnh dưới dạng WebP
-            imagewebp($image, $imagePath, 90); // 80 là chất lượng hình ảnh, bạn có thể điều chỉnh
-            imagedestroy($image); // Giải phóng bộ nhớ
+            // Save image as WebP
+            imagewebp($image, $imagePath, 80); // 80 is the image quality, you can adjust
+            imagedestroy($image); // Free memory
 
-            return '/userfiles/image/' . $imageNameWithoutExtension . '.webp'; // Trả về đường dẫn tương đối
+            return '/userfiles/image/' . $imageNameWithoutExtension . '.webp'; // Return relative path
         } catch (\Exception $e) {
-            // Xử lý lỗi nếu không tải được hình ảnh
+            // Handle error if image download or conversion fails
             $this->command->error('Error downloading or converting image: ' . $e->getMessage());
-            return '/no_image.jpg'; // Trả về đường dẫn mặc định
+            return '/no_image.jpg'; // Return default path
         }
     }
 
