@@ -201,48 +201,128 @@ class ProductsSeeder extends Seeder
         return false;
     }
 
+    // private function downloadImage($url)
+    // {
+    //     // $imageDirectory = public_path('userfiles/image/');
+    //     // $imageName = basename($url);
+    //     // $imageNameWithoutExtension = pathinfo($imageName, PATHINFO_FILENAME);
+    //     // $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp'; // Lưu với đuôi .webp
+
+    //     // // Lấy nội dung hình ảnh và chuyển đổi định dạng
+    //     // try {
+    //     //     $imageContent = file_get_contents($url);
+    //     //     $image = imagecreatefromstring($imageContent);
+
+    //     //     if ($image === false) {
+    //     //         throw new \Exception('Không thể tạo hình ảnh từ dữ liệu.');
+    //     //     }
+
+    //     //     // Check if the image is a palette-based image (e.g., GIF)
+    //     //     if (imageistruecolor($image) === false) {
+    //     //         imagedestroy($image); // Giải phóng bộ nhớ
+    //     //         return '/no_image.jpg'; // Trả về đường dẫn mặc định
+    //     //     }
+
+    //     //     // Lưu hình ảnh dưới dạng WebP
+    //     //     imagewebp($image, $imagePath, 80); // 80 là chất lượng hình ảnh, bạn có thể điều chỉnh
+    //     //     imagedestroy($image); // Giải phóng bộ nhớ
+
+    //     //     return '/userfiles/image/' . $imageNameWithoutExtension . '.webp'; // Trả về đường dẫn tương đối
+    //     // } catch (\Exception $e) {
+    //     //     // Xử lý lỗi nếu không tải được hình ảnh
+    //     //     $this->command->error('Error downloading or converting image: ' . $e->getMessage());
+    //     //     return '/no_image.jpg'; // Trả về đường dẫn mặc định
+    //     // }
+    //     $imageDirectory = public_path('userfiles/image/');
+    //     $imageName = basename($url);
+    //     $imageNameWithoutExtension = pathinfo($imageName, PATHINFO_FILENAME);
+    //     $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp'; // Save with .webp extension
+
+    //     // Check if the image already exists
+    //     if (file_exists($imagePath)) {
+    //         return '/userfiles/image/' . $imageNameWithoutExtension . '.webp'; // Return relative path
+    //     }
+
+    //     // Get image content and convert format
+    //     try {
+    //         $ch = curl_init($url);
+    //         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    //         $imageContent = curl_exec($ch);
+    //         curl_close($ch);
+
+    //         // if ($imageContent === false) {
+    //         //     throw new \Exception('Unable to download image.');
+    //         // }
+
+    //         // $image = imagecreatefromstring($imageContent);
+
+    //         // if ($image === false) {
+    //         //     throw new \Exception('Unable to create image from data.');
+    //         // }
+
+    //         // // Check if the image is a palette-based image (e.g., GIF)
+    //         // if (imageistruecolor($image) === false) {
+    //         //     imagedestroy($image); // Free memory
+    //         //     return '/no_image.jpg'; // Return default path
+    //         // }
+
+    //         // // Save image as WebP
+    //         // imagewebp($image, $imagePath, 80); // 80 is the image quality, you can adjust
+    //         // imagedestroy($image); // Free memory
+
+    //         // return '/userfiles/image/' . $imageNameWithoutExtension . '.webp'; // Return relative path
+
+    //         if ($imageContent === false) {
+    //             throw new \Exception('Unable to download image.');
+    //         }
+
+    //         // Check if the content is a valid image format
+    //         $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    //         $mimeType = finfo_buffer($finfo, $imageContent);
+    //         finfo_close($finfo);
+
+    //         $validMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    //         if (!in_array($mimeType, $validMimeTypes)) {
+    //             throw new \Exception('Downloaded content is not a valid image format.');
+    //         }
+
+    //         $image = imagecreatefromstring($imageContent);
+
+    //         if ($image === false) {
+    //             throw new \Exception('Unable to create image from data.');
+    //         }
+
+    //         // Check if the image is a palette-based image (e.g., GIF)
+    //         if (imageistruecolor($image) === false) {
+    //             imagedestroy($image); // Free memory
+    //             return '/no_image.jpg'; // Return default path
+    //         }
+
+    //         // Save image as WebP
+    //         imagewebp($image, $imagePath, 80); // 80 is the image quality, you can adjust
+    //         imagedestroy($image); // Free memory
+
+    //         return '/userfiles/image/' . $imageNameWithoutExtension . '.webp'; // Return relative path
+    //     } catch (\Exception $e) {
+    //         // Handle error if image download or conversion fails
+    //         $this->command->error('Error downloading or converting image: ' . $e->getMessage());
+    //         return '/no_image.jpg'; // Return default path
+    //     }
+    // }
+
     private function downloadImage($url)
     {
-        // $imageDirectory = public_path('userfiles/image/');
-        // $imageName = basename($url);
-        // $imageNameWithoutExtension = pathinfo($imageName, PATHINFO_FILENAME);
-        // $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp'; // Lưu với đuôi .webp
-
-        // // Lấy nội dung hình ảnh và chuyển đổi định dạng
-        // try {
-        //     $imageContent = file_get_contents($url);
-        //     $image = imagecreatefromstring($imageContent);
-
-        //     if ($image === false) {
-        //         throw new \Exception('Không thể tạo hình ảnh từ dữ liệu.');
-        //     }
-
-        //     // Check if the image is a palette-based image (e.g., GIF)
-        //     if (imageistruecolor($image) === false) {
-        //         imagedestroy($image); // Giải phóng bộ nhớ
-        //         return '/no_image.jpg'; // Trả về đường dẫn mặc định
-        //     }
-
-        //     // Lưu hình ảnh dưới dạng WebP
-        //     imagewebp($image, $imagePath, 80); // 80 là chất lượng hình ảnh, bạn có thể điều chỉnh
-        //     imagedestroy($image); // Giải phóng bộ nhớ
-
-        //     return '/userfiles/image/' . $imageNameWithoutExtension . '.webp'; // Trả về đường dẫn tương đối
-        // } catch (\Exception $e) {
-        //     // Xử lý lỗi nếu không tải được hình ảnh
-        //     $this->command->error('Error downloading or converting image: ' . $e->getMessage());
-        //     return '/no_image.jpg'; // Trả về đường dẫn mặc định
-        // }
         $imageDirectory = public_path('userfiles/image/');
         $imageName = basename($url);
         $imageNameWithoutExtension = pathinfo($imageName, PATHINFO_FILENAME);
         $imagePath = $imageDirectory . $imageNameWithoutExtension . '.webp'; // Save with .webp extension
-
+    
         // Check if the image already exists
         if (file_exists($imagePath)) {
             return '/userfiles/image/' . $imageNameWithoutExtension . '.webp'; // Return relative path
         }
-
+    
         // Get image content and convert format
         try {
             $ch = curl_init($url);
@@ -250,27 +330,44 @@ class ProductsSeeder extends Seeder
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
             $imageContent = curl_exec($ch);
             curl_close($ch);
-
+    
             if ($imageContent === false) {
                 throw new \Exception('Unable to download image.');
             }
-
+    
+            // Check if the content is a valid image format
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimeType = finfo_buffer($finfo, $imageContent);
+            finfo_close($finfo);
+    
+            $validMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            if (!in_array($mimeType, $validMimeTypes)) {
+                throw new \Exception('Downloaded content is not a valid image format.');
+            }
+    
+            // Temporarily suppress warnings
+            $oldErrorReporting = error_reporting();
+            error_reporting($oldErrorReporting & ~E_WARNING);
+    
             $image = imagecreatefromstring($imageContent);
-
+    
+            // Restore error reporting
+            error_reporting($oldErrorReporting);
+    
             if ($image === false) {
                 throw new \Exception('Unable to create image from data.');
             }
-
+    
             // Check if the image is a palette-based image (e.g., GIF)
             if (imageistruecolor($image) === false) {
                 imagedestroy($image); // Free memory
                 return '/no_image.jpg'; // Return default path
             }
-
+    
             // Save image as WebP
             imagewebp($image, $imagePath, 80); // 80 is the image quality, you can adjust
             imagedestroy($image); // Free memory
-
+    
             return '/userfiles/image/' . $imageNameWithoutExtension . '.webp'; // Return relative path
         } catch (\Exception $e) {
             // Handle error if image download or conversion fails
