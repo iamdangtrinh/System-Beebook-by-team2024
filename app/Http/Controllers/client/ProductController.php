@@ -157,6 +157,9 @@ class ProductController extends Controller
         // Tăng số lượt xem lên 1
         $product->increment('views');
         $product->save();
+        $meta_seo = $product->meta_seo;
+        $description_seo = $product->description_seo;
+        // dd($product);
         $product_meta = ProductMeta::where('id_product', $product->id)->get();
         $product_same = Product::where('id_category', $product->id_category)->where('id', '!=', $product->id)->inRandomOrder()->limit(4)->get();
         $comments = Comment::where('id_product', $product->id)->latest()->get();
@@ -164,6 +167,8 @@ class ProductController extends Controller
         $averageRating = $product->averageRating(); // Tính trung bình rating
         return view('Client.productdetail', compact([
             'product',
+            'meta_seo',
+            'description_seo',
             'product_meta',
             'product_same',
             'comments',

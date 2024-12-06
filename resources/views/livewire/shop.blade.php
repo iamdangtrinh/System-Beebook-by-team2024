@@ -213,10 +213,6 @@
                                 <div class="col-8 col-md-8 col-lg-8 filters-toolbar__item filters-toolbar__item--count">
                                     <span class="filters-toolbar__product-count">Tổng số: {{ $totalProducts }} quyển
                                         sách</span>
-                                    <div>
-                                        <p>Đang sắp xếp theo: {{ $sortBy }}</p>
-                                    </div>
-
                                 </div>
                                 <div class="col-4 col-md-4 col-lg-4 text-right">
                                     <div class="filters-toolbar__item">
