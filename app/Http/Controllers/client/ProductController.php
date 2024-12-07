@@ -161,7 +161,7 @@ class ProductController extends Controller
         $description_seo = $product->description_seo;
         // dd($product);
         $product_meta = ProductMeta::where('id_product', $product->id)->get();
-        $product_same = Product::where('id_category', $product->id_category)->where('id', '!=', $product->id)->inRandomOrder()->limit(4)->get();
+        $product_same = Product::where('id_category', $product->id_category)->where('status', '=', 'active')->where('id', '!=', $product->id)->inRandomOrder()->limit(4)->get();
         $comments = Comment::where('id_product', $product->id)->latest()->get();
         $commentCount = $product->countComments(); // Đếm số bình luận
         $averageRating = $product->averageRating(); // Tính trung bình rating
