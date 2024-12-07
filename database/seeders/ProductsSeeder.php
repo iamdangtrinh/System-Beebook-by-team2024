@@ -157,39 +157,79 @@ class ProductsSeeder extends Seeder
         // Trả về null nếu không lấy được dữ liệu
         return null;
     }
+    // private function fetchAndDownloadGalleryImages($slug): array
+    // {
+    //     $downloadedImages = [];
+    //     try {
+    //         $url = "https://www.fahasa.com/$slug.html";
+    //         $client = new Client();
+    //         $response = $client->request('GET', $url, [
+    //             'headers' => [
+    //                 'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
+    //             ]
+    //         ]);
+
+    //         if ($response->getStatusCode() === 200) {
+    //             $html = $response->getBody()->getContents();
+    //             $crawler = new Crawler($html);
+
+    //             $imageUrls = $crawler->filter('#lightgallery-product-media img')->each(function (Crawler $node) {
+    //                 return $node->attr('src');
+    //             });
+
+    //             foreach ($imageUrls as $url) {
+    //                 $path = $this->downloadImage($url);
+    //                 if ($path) {
+    //                     $downloadedImages[] = $path;
+    //                 }
+    //             }
+    //         }
+    //     } catch (\Exception $e) {
+    //         $this->command->error("Error fetching or downloading gallery images for slug $slug: " . $e->getMessage());
+    //     }
+
+    //     return $downloadedImages;
+    // }
+
     private function fetchAndDownloadGalleryImages($slug): array
-    {
-        $downloadedImages = [];
-        try {
-            $url = "https://www.fahasa.com/$slug.html";
-            $client = new Client();
-            $response = $client->request('GET', $url, [
-                'headers' => [
-                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
-                ]
-            ]);
+{
+    $downloadedImages = [];
+    try {
+        $url = "https://www.fahasa.com/$slug.html";
+        $client = new Client();
+        $response = $client->request('GET', $url, [
+            'headers' => [
+                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
+            ]
+        ]);
 
-            if ($response->getStatusCode() === 200) {
-                $html = $response->getBody()->getContents();
-                $crawler = new Crawler($html);
+        if ($response->getStatusCode() === 200) {
+            $html = $response->getBody()->getContents();
+            $crawler = new Crawler($html);
 
-                $imageUrls = $crawler->filter('#lightgallery-product-media img')->each(function (Crawler $node) {
-                    return $node->attr('src');
-                });
+            // Extract image URLs
+            $imageUrls = $crawler->filter('#lightgallery-product-media img')->each(function (Crawler $node) {
+                return $node->attr('src');
+            });
 
-                foreach ($imageUrls as $url) {
+            foreach ($imageUrls as $url) {
+                // Filter only png, webp, jpg extensions
+                $extension = pathinfo(parse_url($url, PHP_URL_PATH), PATHINFO_EXTENSION);
+                if (in_array(strtolower($extension), ['png', 'webp', 'jpg'])) {
                     $path = $this->downloadImage($url);
                     if ($path) {
                         $downloadedImages[] = $path;
                     }
                 }
             }
-        } catch (\Exception $e) {
-            $this->command->error("Error fetching or downloading gallery images for slug $slug: " . $e->getMessage());
         }
-
-        return $downloadedImages;
+    } catch (\Exception $e) {
+        $this->command->error("Error fetching or downloading gallery images for slug $slug: " . $e->getMessage());
     }
+
+    return $downloadedImages;
+}
+
 
     private function isValidImage($url)
     {
