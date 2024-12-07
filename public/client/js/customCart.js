@@ -194,8 +194,12 @@
             let price = $(this).closest("tr").find(".money").attr("pricetotal");
             subTotal += Number(price) || 0;
         });
+
+        
         jQuery(".subTotal").html(subTotal.toLocaleString("vi-VN") + " đ");
-        jQuery(".totalAmout").html(subTotal.toLocaleString("vi-VN") + " đ");
+        let totalAmout = 0;
+        totalAmout = subTotal + Number($('#fee-shipping').data('fee-shipping'));
+        jQuery(".totalAmout").html(totalAmout.toLocaleString("vi-VN") + " đ");
     };
 
     // xóa sản phẩm trong giỏ hàng
