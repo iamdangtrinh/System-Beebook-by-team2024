@@ -47,9 +47,10 @@
                                     @if ($product->status == 'inactive')
                                     <div class="bg-warning text-center p-2">Ngưng hoạt động</div>
                                     @elseif($product->quantity <=0)
-                                        <div class="bg-danger text-center text-light p-2">Hết hàng</div>
-                                @endif
-                             </div>
+                                        <div class="bg-danger text-center text-light p-2">Hết hàng
+                            </div>
+                            @endif
+                        </div>
                         @endif
                         <div class="product-labels">
                             @if ($product->price_sale && $product->is_new)
@@ -171,10 +172,6 @@
 
                 <div class="product-single__meta">
                     <h1 class="product-single__title">{{ $product->name }}</h1>
-                    <div class="product-nav clearfix">
-                        <a href="#" class="next" title="Next"><i class="fa fa-angle-right"
-                                aria-hidden="true"></i></a>
-                    </div>
                     <div class="prInfoRow">
                         <div class="product-stock">
                             @if ($product->status !== 'inactive')
@@ -382,6 +379,7 @@
         <!--End-product-single-->
 
         <!--Related Product Slider-->
+        @if($product_same && $product_same->isNotEmpty())
         <div class="related-product grid-products mt-3">
             <header class="section-header">
                 <h2 class="section-header__title text-center h2"><span>Sách tương tự</span></h2>
@@ -463,6 +461,7 @@
                 @endforeach
             </div>
         </div>
+        @endif
         <!--End Related Product Slider-->
         <div id="shopify-product-reviews">
             <div id="comments" class="spr-container">

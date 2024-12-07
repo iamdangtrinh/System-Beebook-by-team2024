@@ -182,11 +182,12 @@ class ShopLiveWire extends Component
             case 'oldest':
                 $query->orderBy('created_at', 'asc'); // Sắp xếp sản phẩm cũ nhất
                 break;
-            case 'price-desc':
-                $query->orderBy('price', 'desc'); // Giá giảm dần
+            case 'price-desc': // Giá giảm dần
+                $query->orderByRaw('CASE WHEN price_sale IS NOT NULL THEN price_sale ELSE price END DESC');
                 break;
-            case 'price-asc':
-                $query->orderBy('price', 'asc'); // Giá tăng dần
+
+            case 'price-asc': // Giá tăng dần
+                $query->orderByRaw('CASE WHEN price_sale IS NOT NULL THEN price_sale ELSE price END ASC');
                 break;
             default:
                 $query->orderBy('created_at', 'desc'); // Mặc định sắp xếp mới nhất
