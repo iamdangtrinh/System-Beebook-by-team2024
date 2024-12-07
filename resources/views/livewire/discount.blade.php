@@ -10,7 +10,7 @@
                 @if ($disable)
                 <button  style="padding: 11px ; background: red !important"  type="button" wire:click="RemoveCoupon" class="btn">Xóa mã</button>
                     @else
-                    <button style="padding: 11px " @if ($code === '') disabled @endif  type="button" wire:click="ApplyCoupon" class="btn">Áp dụng</button>
+                    <button style="padding: 11.5px; width: 100%; " @if ($code === '') disabled @endif  type="button" wire:click="ApplyCoupon" class="btn">Áp dụng</button>
                 @endif
             </div>
         </div>
