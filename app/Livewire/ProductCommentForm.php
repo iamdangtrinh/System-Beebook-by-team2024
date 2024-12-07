@@ -25,7 +25,24 @@ class ProductCommentForm extends Component
     {
         $this->id_product = $idProduct;
         $this->slug_product = $slugProduct;
-        $this->id_user = 1;
+        $this->id_user = auth()->id(); // Đảm bảo sử dụng ID của người dùng đăng nhập
+        $this->fetchComments();
+    }
+
+    // Xóa bình luận
+    public function deleteComment($commentId)
+    {
+        // Kiểm tra xem người dùng có phải là người đã đăng bình luận không
+        $comment = Comment::find($commentId);
+
+        if ($comment && $comment->id_user == auth()->id()) {
+            $comment->delete();
+            session()->flash('success', 'Bình luận đã được xóa thành công.');
+        } else {
+            session()->flash('error', 'Bạn không có quyền xóa bình luận này.');
+        }
+
+        // Tải lại danh sách bình luận sau khi xóa
         $this->fetchComments();
     }
 
@@ -49,8 +66,6 @@ class ProductCommentForm extends Component
             'content' => $this->content,
         ]);
 
-        // Flash success message
-        Session::flash('comment_success', 'Bình luận thành công!');
 
         // Fetch the latest comments after submitting
         $this->fetchComments();

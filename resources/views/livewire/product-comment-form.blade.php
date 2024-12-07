@@ -16,7 +16,7 @@
                             <label for="rate-{{ $i }}" style="--i:{{ $i }}">
                             <i class="fa fa-star"></i>
                             </label>
-                            <input type="radio" name="rating" id="rate-{{ $i }}" wire:model="rating" value="{{ $i }}">
+                            <input type="radio" name="rating" id="rate-{{ $i }}" wire:model.defer="rating" value="{{ $i }}">
                             @endfor
                     </span>
 
@@ -31,7 +31,7 @@
             <fieldset class="spr-form-review-body">
                 <label class="spr-form-label" for="review_body">Nội dung</label>
                 <div class="spr-form-input">
-                    <textarea wire:model="content" id="review_body" class="spr-form-input spr-form-input-textarea" rows="10" placeholder="Viết bình luận ở đây"></textarea>
+                    <textarea wire:model.defer="content" id="review_body" class="spr-form-input spr-form-input-textarea" rows="10" placeholder="Viết bình luận ở đây"></textarea>
                 </div>
 
                 <!-- Error Message for Content -->
@@ -53,7 +53,7 @@
         @foreach ($comments as $comment)
         <div class="spr-review">
             <div class="spr-review-header">
-                <span class="product-review spr-starratings spr-review-header-starratings">
+                <span class="product-review spr-starratings spr-review-header-starratings d-flex justify-content-between">
                     <span class="reviewLink">
                         @for ($i = 0; $i < $comment->rating; $i++)
                             <i class="fa fa-star"></i>
@@ -62,6 +62,20 @@
                                 <i class="fa fa-star-o"></i>
                                 @endfor
                     </span>
+                    @if (Auth::id() === $comment->id_user)
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+                            id="dropdownMenuButton-{{ $comment->id }}" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-{{ $comment->id }}">
+                            <li>
+                                <a class="dropdown-item"
+                                wire:click="deleteComment({{ $comment->id }})">Xóa</a>
+                            </li>
+                        </ul>
+                    </div>
+                    @endif
                 </span></br>
                 <span class="spr-review-header-byline">
                     <strong>{{ $comment->user->name }}</strong>
