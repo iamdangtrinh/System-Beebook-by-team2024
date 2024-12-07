@@ -45,6 +45,7 @@ class BlogController extends Controller
         if (!empty($searchQuery)) {
             $blogs->where(function ($query) use ($searchQuery) {
                 $query->where('tags', 'like', "%{$searchQuery}%")
+                    ->where('status', 'active')
                     ->orWhere('content', 'like', "%{$searchQuery}%")
                     ->orWhere('title', 'like', "%{$searchQuery}%");
             });
@@ -67,13 +68,14 @@ class BlogController extends Controller
         if (!empty($searchQuery)) {
             $blogs->where(function ($query) use ($searchQuery) {
                 $query->where('tags', 'like', "%{$searchQuery}%")
+                    ->where('status', 'active')
                     ->orWhere('content', 'like', "%{$searchQuery}%")
                     ->orWhere('title', 'like', "%{$searchQuery}%");
             });
         }
         $blogs = $blogs->paginate(12);
         $getMostPost = BlogModel::select($this->selected())
-        ->where('post_type', 'review')->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(10)->get();
+            ->where('post_type', 'review')->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(10)->get();
         $routeName = 'indexReview';
         return view('Client.blog', compact('blogs', 'getMostPost', 'routeName', 'titleHeading',));
     }
@@ -87,13 +89,14 @@ class BlogController extends Controller
 
             try {
                 //code...
-                BlogModel::where('id', $getPost->id)->increment('views'); $getPost =  BlogModel::where('slug', $slug)->firstOrFail();
+                BlogModel::where('id', $getPost->id)->increment('views');
+                $getPost =  BlogModel::where('slug', $slug)->firstOrFail();
             } catch (\Throwable $th) {
                 //throw $th;
                 dd($th->getMessage());
             }
-            }
-        
+        }
+
         if ($getPost['post_type'] === 'blog') {
             $getProduct = [];
             return view('Client.blogarticle', compact('getPost', 'getProduct', 'getPostMore', 'getMostPost'));
