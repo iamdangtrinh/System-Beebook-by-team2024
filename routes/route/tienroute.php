@@ -20,8 +20,8 @@ Route::middleware(['CheckAuth'])->group(function () {
 Route::get('auth/google', [LoginGoogleController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [LoginGoogleController::class, 'handleGoogleCallback']);
 // Login with facebook
-Route::get('auth/facebook', [LoginFaceBookController::class, 'redirectToFacebook']);
-Route::get('auth/facebook/callback', [LoginFaceBookController::class, 'handleFacebookCallback']);
+// Route::get('auth/facebook', [LoginFaceBookController::class, 'redirectToFacebook']);
+// Route::get('auth/facebook/callback', [LoginFaceBookController::class, 'handleFacebookCallback']);
 // Logout
 Route::get('/logout', [ManagerUserController::class, 'LogOut'])->name('logout.index');
 // profile
