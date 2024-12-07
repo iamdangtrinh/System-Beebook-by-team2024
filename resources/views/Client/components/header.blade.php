@@ -126,8 +126,6 @@ define('CSS_VER', '1.0.1');
                                         <li><a href="{{ route('indexReview') }}" class="site-nav">Review sách</a></li>
                                     </ul>
                                 </li>
-                                <li class="lvl1 parent megamenu"><a href="{{ route('contact') }}">Liên hệ</a>
-                                </li>
                             </ul>
                         </nav>
                         <!--End Desktop Menu-->
@@ -255,8 +253,6 @@ define('CSS_VER', '1.0.1');
                         <li><a href="{{ route('indexReview') }}" class="site-nav">Review sách</a></li>
 
                     </ul>
-                </li>
-                <li class="lvl1 parent megamenu"><a href="{{ route('contact') }}">Liên hệ</a>
                 </li>
             </ul>
         </div>
