@@ -7,7 +7,7 @@
             <div class="col-md-4">
                 <h5 class="fw-bold"><img src="{{ asset('/') }}client/images/logo.webp" height="50px" alt="Bee book"
                         title="Logo" /></h5>
-                <p>76 Ling Trung, Thủ Đức, TP HCM</p>
+                <p>76 Linh Trung, Thủ Đức, TP HCM</p>
                 <span>Công Ty Cổ Phần Phát Hành Sách BEEBOOK</span>
                 <span>Beebook.site nhận đặt hàng trực tuyến và giao hàng tận nơi. KHÔNG hỗ trợ đặt mua và nhận hàng trực
                     tiếp
