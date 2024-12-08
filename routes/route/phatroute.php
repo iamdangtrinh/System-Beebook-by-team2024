@@ -24,7 +24,8 @@ Route::get('/posts/{slug}', [BlogController::class, 'show'])->name('posts.show')
 
 Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('overview.index');
-    Route::get('/blogs', [AdminController::class, 'blogs']);
+    // Route::get('/blogs', [AdminController::class, 'blogs']);
+    Route::get('/blog/{id}', [BlogAdmin::class, 'edit'])->name('adminblog.edit');
     Route::get('/article', [AdminController::class, 'article']);
     Route::get('/blog', [BlogAdmin::class,'index'])->name('adminblog.index');
     Route::get('/taxonomy', [TaxonomyAdmin::class,'index'])->name('admintaxonomy.index');
