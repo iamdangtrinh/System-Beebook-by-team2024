@@ -40,12 +40,22 @@ class ShopLiveWire extends Component
         // Tải sản phẩm nổi bật
         $this->hotProducts = Product::where('status', 'active')->where('hot', 1)->inRandomOrder()->limit(4)->get();
 
-        // Xử lý tiêu đề và thực thể liên quan
+
         if ($type === 'category') {
-            $this->relatedEntity = CategoryProduct::where('slug', $slug)->firstOrFail();
+            $this->relatedEntity = CategoryProduct::where('slug', $slug)->first();
+
+            if (!$this->relatedEntity) {
+                abort(404);
+            }
+
             $this->title = 'Danh mục: ' . $this->relatedEntity->name;
         } elseif ($type === 'author' || $type === 'manufacturer') {
-            $this->relatedEntity = Taxonomy::where('slug', $slug)->firstOrFail();
+            $this->relatedEntity = Taxonomy::where('slug', $slug)->first();
+
+            if (!$this->relatedEntity) {
+                abort(404);
+            }
+
             $this->title = $type === 'author' ? 'Tác giả: ' . $this->relatedEntity->name : $this->relatedEntity->name;
         } elseif ($type === 'hot') {
             $this->title = 'Sản phẩm nổi bật';
@@ -53,6 +63,8 @@ class ShopLiveWire extends Component
             $this->title = 'Yêu thích';
         }
     }
+
+
 
     protected $queryString = [
         'priceRange' => ['except' => ''],
