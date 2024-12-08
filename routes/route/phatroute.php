@@ -7,7 +7,7 @@ use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\client\BlogController;
 use App\Http\Controllers\admin\BlogController as AdminBlogController;
 use App\Http\Controllers\admin\BlogAdmin;
-use App\Http\Controllers\admin\CouponAdmin;
+use App\Http\Controllers\admin\couponAdmin;
 use App\Http\Controllers\admin\TaxonomyAdmin;
 //client
 
@@ -24,14 +24,11 @@ Route::get('/posts/{slug}', [BlogController::class, 'show'])->name('posts.show')
 
 Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('overview.index');
-    Route::get('/404', [AdminController::class, 'show404']);
-    Route::get('/500', [AdminController::class, 'show500']);
     Route::get('/blogs', [AdminController::class, 'blogs']);
     Route::get('/article', [AdminController::class, 'article']);
-    Route::get('/dashboard_3', [AdminController::class, 'dashboard_3']);
     Route::get('/blog', [BlogAdmin::class,'index'])->name('adminblog.index');
     Route::get('/taxonomy', [TaxonomyAdmin::class,'index'])->name('admintaxonomy.index');
-    Route::get('/coupon', [CouponAdmin::class,'index'])->name('admincoupon.index');
+    Route::get('/coupon', [couponAdmin::class,'index'])->name('admincoupon.index');
 
 });
 
