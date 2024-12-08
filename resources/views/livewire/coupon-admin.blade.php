@@ -86,7 +86,16 @@
                                 <td>{{ \Carbon\Carbon::parse($sale['expires_at'])->format('H:i-d-m-Y') }}</td>
                                 <td>{{ number_format($sale['coupon_min_spend'], 0, ',', '.') }}Đ</td>
                                 <td>{{ number_format($sale['coupon_max_spend'], 0, ',', '.') }}Đ</td>
-                                <td>{{ $sale->discount }}</td>
+                                <td>
+                                    @if ($sale->type_coupon == 'percent')
+                                        {{ $sale->discount }}%
+                                    @elseif ($sale->type_coupon == 'amount')
+                                        {{ number_format($sale->discount, 0, ',', '.') }}Đ
+                                    @else
+                                        {{ $sale->discount }}
+                                    @endif
+                                </td>
+                                
                                 <td>
                                     @if ($sale->type_coupon == 'percent')
                                         Phần trăm
@@ -97,18 +106,23 @@
                                     @endif
                                 </td>
                                 <td>{{ $sale->quantity }}</td>
-                                
-                                <td class="d-flex justify-content-center" style="border: none" > 
+                                <td   > 
+                               
                                     @if ($sale->status === 'active')
+                                    <div style="display: flex; justify-content: center">
                                     <div style="width: 10px; height: 10px; background: #00FF00; border-radius: 50%; border: none" class="dot"></div>
+                                  </div>
                                     @else
+                                    <div style="display: flex; justify-content: center">
                                     <div style="width: 10px; height: 10px; background: red; border-radius: 50%; border: none" class="dot"></div>
+                                  </div>
                                     @endif
+                                    
                                 </td>
                                 <td class="text-right">
                                     <div class="d-flex gap-2">
                                         <a wire:click="editCoupon({{$sale->id}})"  class="btn btn-sm btn-warning">Sửa</a>
-                                        <a wire:click="deletedCoupon({{ $sale->id }}" class="btn btn-sm btn-danger">Xóa</a>
+                                        <a wire:click="deleted_Coupon({{ $sale->id }}, '{{ $sale->image }}')" class="btn btn-sm btn-danger">Xóa</a>
 
                                     </div>
                                 </td>
@@ -288,7 +302,7 @@
                                             <label for="file-upload" style="cursor: pointer;">
                                                 <img 
                                                      style="width: 100%; border: 1px solid black" 
-                                                     src="{{ asset(($image === '' ? 'no_image.jpg' : $image)) }}" 
+                                                     src="{{asset('storage/uploads/'.($image === '' ? 'no_image.jpg':$image))}}" 
                                                      alt="">
                                             </label>
                                             <input type="file" id="file-upload" wire:model.change="image" style="display: none;" accept="image/*">
@@ -316,7 +330,7 @@
                     <button type="button"  style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="Updatepost" class="btn rounded-1  fs-6">Cập nhật</button>
                 
                     @else    
-                    <button type="button"   style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="createpost" class="btn rounded-1  fs-6">Xác nhận thêm</button>
+                    <button type="button"   style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="createCoupon" class="btn rounded-1  fs-6">Xác nhận thêm</button>
                     @endif
                 </div>
             </div>
@@ -340,7 +354,7 @@
         const data=event;
         swal.fire({
             icon: 'warning',
-            title: 'Bạn có muốn xóa mã giảm giá này không?',
+            title: 'Bạn có muốn xóa danh mục này không?',
             text: 'Nếu bạn xóa, hành động này không thể hoàn tác!',
             showCancelButton: true,
             reverseButtons: true,
@@ -349,7 +363,7 @@
             confirmButtonText: 'Xác nhận xóa'
         }).then((result)=>{
             if (result.isConfirmed) {
-                @this.dispatch('hanldeDeletedpost')
+                @this.dispatch('hanldeDeletedCoupon')
             }
         })
     })

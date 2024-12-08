@@ -1,6 +1,8 @@
 <div>
     <div class="row wrapper border-bottom white-bg page-heading">
-
+        <div class="col-lg-10">
+            
+        </div>
         <div class="col-lg-2">
             <a wire:click="closeModal" class="btn btn-outline btn-primary btn-rounded">Thêm tác giả</a>
         </div>

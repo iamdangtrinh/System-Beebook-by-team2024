@@ -91,7 +91,7 @@
 
                                 </td>
                                 {{-- <td>{{$category->parent_id}}</td> --}}
-                                <td   > 
+                                <td> 
                                     @if ($category->status === 'active')
                                   <div style="display: flex; justify-content: center">
                                     <div style="width: 10px; height: 10px; background: #00FF00; border-radius: 50%; border: none" class="dot"></div>
