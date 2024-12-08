@@ -21,8 +21,24 @@
         finder.popup();
     };
 
+    DT.configSelect2 = () => {
+        $(".setupSelect2").each(function () {
+            $(this).select2({});
+        });
+
+        $(".setupSelect2HasTag").each(function () {
+            $(this).select2({
+                tags: true,
+            });
+        });
+    };
+
     $(document).ready(function () {
         DT.uploadImageAvatar();
-        CKEDITOR.replace('content');
+        DT.configSelect2();
+        CKEDITOR.replace("content", {
+            height: 500,
+            language: "vi",
+        });
     });
 })(jQuery);

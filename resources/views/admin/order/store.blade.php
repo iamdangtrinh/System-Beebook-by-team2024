@@ -107,7 +107,7 @@
                                                     <td style="border: none; padding-left: 0px" scope="row">Tổng tiền :
                                                     </td>
                                                     <td style="border: none; padding-left: 0px" class="text-end">
-                                                        {{ number_format($orderDetails->total_amount + $orderDetails->fee_shipping, '0', '.', '.') . ' đ' }}
+                                                        {{ number_format($orderDetails->total_amount, '0', '.', '.') . ' đ' }}
                                                     </td>
                                                 </tr>
                                                 <tr class="">

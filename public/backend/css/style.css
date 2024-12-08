@@ -1885,15 +1885,15 @@ div.dt-button-info {
 }
 .form-control,
 .single-line {
-  background-color: #FFFFFF;
+  border: 1px solid #999;
+  /* background-color: #FFFFFF;
   background-image: none;
-  border: 1px solid black;
   border-radius: 1px;
   color: black;
   display: block;
   padding: 6px 12px;
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-  width: 100%;
+  width: 100%; */
 }
 .form-control:focus,
 .single-line:focus {

@@ -173,9 +173,6 @@ class BlogAdmin extends Component
     {
         $this->slug = Str::slug($value);
     }
-    public function updatedType($value){
-        // dd('ok');
-    }
     public function createPost()
     {
         try {

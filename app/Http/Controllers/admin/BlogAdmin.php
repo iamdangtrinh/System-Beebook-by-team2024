@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\BlogModel;
 use App\Models\Taxonomy;
 use App\Models\BlogMeta;
-
+use App\Models\Product;
 
 class BlogAdmin extends Controller
 {
@@ -93,4 +93,10 @@ class BlogAdmin extends Controller
 
     //     return redirect()->route('adminblog.index')->with('success', 'Thêm blog thành công!');
     // }
+
+    function edit(string $id) {
+        $data = BlogModel::find($id);
+        $products = Product::select('id', 'name')->where('status', 'active')->get();
+        return view('admin.blog.store', compact(['data', 'products']));
+    }
 }

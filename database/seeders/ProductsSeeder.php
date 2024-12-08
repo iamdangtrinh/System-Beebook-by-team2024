@@ -62,7 +62,7 @@ class ProductsSeeder extends Seeder
         }
 
         $status = Arr::random($this->statuses);
-        $imagePath = $this->isValidImage($item['image_src']) ? $this->downloadImage($item['image_src']) : 'no_image.jpg';
+        $imagePath = $this->isValidImage($item['image_src']) ? $this->downloadImage($item['image_src']) : '/no_image.jpg';
         $imagePath = $this->validateImagePath($imagePath);
 
         $product = $this->createProductArray($item, $name, $slug, $status, $imagePath);
