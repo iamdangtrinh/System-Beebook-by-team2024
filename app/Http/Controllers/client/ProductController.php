@@ -154,6 +154,9 @@ class ProductController extends Controller
     public function detail($slug)
     {
         $product = Product::with('author', 'translator', 'manufacturer')->where('slug', $slug)->firstOrFail();
+        if (!$product) {
+            abort(404);
+        }
         // Tăng số lượt xem lên 1
         $product->increment('views');
         $product->save();
@@ -161,7 +164,13 @@ class ProductController extends Controller
         $description_seo = $product->description_seo;
         // dd($product);
         $product_meta = ProductMeta::where('id_product', $product->id)->get();
-        $product_same = Product::where('id_category', $product->id_category)->where('status', '=', 'active')->where('id', '!=', $product->id)->inRandomOrder()->limit(4)->get();
+        $product_same = Product::where('id_category', $product->id_category)
+            ->where('status', '=', 'active')
+            ->where('id', '!=', $product->id)
+            ->where('quantity', '>', 0) // Thêm điều kiện kiểm tra số lượng
+            ->inRandomOrder()
+            ->limit(4)
+            ->get();
         $comments = Comment::where('id_product', $product->id)->latest()->get();
         $commentCount = $product->countComments(); // Đếm số bình luận
         $averageRating = $product->averageRating(); // Tính trung bình rating
