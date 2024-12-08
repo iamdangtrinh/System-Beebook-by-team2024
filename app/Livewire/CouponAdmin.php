@@ -83,7 +83,29 @@ class CouponAdmin extends Component
         $this->setPage($page);
         $this->loadCoupons(); // Cập nhật theo trang hiện tại và bộ lọc
     }
+    public function deleted_Coupon($couponId)
+    {
+        $this->couponId = $couponId;
+        
+        $this->dispatch('swal');
+    }
+    #[On('hanldeDeletedCoupon')]
+    public function deletedCoupon()
+{
+    try {
+        // Xóa mã giảm giá khỏi cơ sở dữ liệu
+        couponModel::destroy($this->couponId);
 
+        // Tải lại danh sách mã giảm giá (nếu cần)
+        $this->loadCoupons();
+
+        // Thông báo thành công
+        session()->flash('deleted_success', 'Xóa mã giảm giá thành công');
+    } catch (\Throwable $th) {
+        // Nếu có lỗi trong quá trình xóa, thông báo lỗi
+        session()->flash('deleted_error', 'Xóa mã giảm giá không thành công');
+    }
+}
     public function closeModal()
     {
         $this->isModal = false;
@@ -184,19 +206,6 @@ class CouponAdmin extends Component
         }
     }
 
-    #[On('hanldeDeletedCoupon')]
-    public function deleteCoupon()
-    {
-        try {
-            couponModel::destroy($this->id);
-            Storage::disk('public')->delete('uploads/' . $this->image);
-            
-            $this->loadCoupons();
-            session()->flash('deleted_success', 'Xóa mã giảm giá thành công');
-        } catch (\Throwable $th) {
-            session()->flash('deleted_error', 'Xóa mã giảm giá không thành công');
-        }
-    }
 
     public function render()
     {

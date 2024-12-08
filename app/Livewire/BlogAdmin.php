@@ -127,12 +127,15 @@ class BlogAdmin extends Component
     {
         $this->isModal = !$this->isModal;
         $this->reset([
+            'post_type',
             'title',
             'image',
             'slug',
             'content',
+            'hot',
             'tags',
-            
+            'meta_title_seo',
+            'meta_description_seo',
         ]);
         $this->status = 'active';
     }
@@ -145,7 +148,7 @@ class BlogAdmin extends Component
     public function updatedimage($value)
     {
         $this->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
         try {
@@ -166,9 +169,9 @@ class BlogAdmin extends Component
         session()->flash('removeImageSuccess', 'Hình ảnh đã được xóa thành công.');
     }
 
-    public function updatedValueTitlePost($value)
+    public function updatedTitle($value)
     {
-        // $this->slug = Str::slug($value);
+        $this->slug = Str::slug($value);
     }
     public function updatedType($value){
         // dd('ok');
@@ -176,22 +179,31 @@ class BlogAdmin extends Component
     public function createPost()
     {
         try {
-            BlogModel::create([
+            
+            BlogModel::create ([
+                'post_type' => $this->post_type,
                 'title' => $this->title,
                 'image' => $this->image,
                 'slug' => $this->slug,
+                'hot'  => $this->hot,
                 'content' => $this->content,
                 'status' => $this->status,
                 'tags'=> $this->tags,
-                
+                'meta_title_seo'=> $this->meta_title_seo,
+                'meta_description_seo'=> $this->meta_description_seo,
             ]);
+            
             $this->reset([
+                'post_type',
                 'title',
                 'image',
                 'slug',
+                'hot',
                 'content',
+                'status',
                 'tags',
-                
+                'meta_title_seo',
+                'meta_description_seo',
             ]);
             $this->status = 'active';
             $this->isModal = false;
@@ -212,12 +224,16 @@ class BlogAdmin extends Component
         $this->id = $value;
         $this->isModal = true;
         $this->post_type = $this->dataEditpost['post_type'];
-        $this->tags = $this->dataEditpost['tags'];
         $this->title = $this->dataEditpost['title'];
+        $this->image = $this->dataEditpost['image'];
         $this->slug = $this->dataEditpost['slug'];
         $this->content= $this->dataEditpost['content'];
         $this->status = $this->dataEditpost['status'];
-        $this->image = $this->dataEditpost['image'];
+        $this->tags = $this->dataEditpost['tags'];
+        $this->hot = $this->dataEditpost['hot'] !== null ? (int) $this->dataEditpost['hot'] : 0; // Gán giá trị mặc định nếu hot là null
+        $this->slug = $this->dataEditpost['meta_title_seo'];
+        $this->slug = $this->dataEditpost['meta_description_seo'];
+        
         
     }
 
@@ -232,21 +248,21 @@ class BlogAdmin extends Component
                 'content' => $this->content,
                 'status' => $this->status,
                 'tags' => $this->tags,
-                'hot' => $this->hot,
+                'hot' => $this->hot !== '' ? (int) $this->hot : 0,
                 'meta_title_seo' => $this->meta_title_seo,
                 'meta_description_seo' => $this->meta_description_seo,
             ]);
             $this->reset([
-                'post_type' => $this->post_type,
-                'title' => $this->title,
-                'image' => $this->image,
-                'slug' => $this->slug,
-                'content' => $this->content,
-                'status' => $this->status,
-                'tags' => $this->tags,
-                'hot' => $this->hot,
-                'meta_title_seo' => $this->meta_title_seo,
-                'meta_description_seo' => $this->meta_description_seo,
+                'post_type' ,
+                'title' ,
+                'image' ,
+                'slug',
+                'content' ,
+                'status' ,
+                'tags' ,
+                'hot' ,
+                'meta_title_seo' ,
+                'meta_description_seo' 
                 
             ]);
             $this->status = 'active';

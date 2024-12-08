@@ -1,19 +1,8 @@
 <div>
     <div class="row wrapper border-bottom white-bg page-heading" >
-        <div class="col-lg-10">
-            <h2>Bài viết</h2>
-            <ol class="breadcrumb">
-                <li>
-                    <a href="index.html">Trang chủ</a>
-                </li>
-                <li>
-                    <i class="fa fa-angle-right mx-1"></i>
-                </li>
-                <li class="active">
-                    <strong>Bài viết</strong>
-                </li>
-            </ol>
-        </div>
+            <div class="col-lg-10">
+  
+            </div>
         <div class="col-lg-2">
             <a wire:click="closeModal" class="btn btn-outline btn-primary btn-rounded">Thêm bài viết</a>
         </div>
@@ -92,7 +81,7 @@
                                 <td>
                                     <img 
                                     style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid black" 
-                                    src="{{ asset($posts->image ? $posts->image : 'no_image.jpg') }}" 
+                                    src="{{asset('storage/uploads/'.($posts->image === '' ? 'no_image.jpg':$posts->image))}}" 
                                     >
                                 </td>
                                 <td>{{ $posts->title }}</td>
@@ -100,11 +89,15 @@
                                 <td>{{ $posts->status }}</td>
                                 <td>{{ $posts->hot }}</td>
                                 
-                                <td class="d-flex justify-content-center" style="border: none" > 
+                                <td   >
                                     @if ($posts->status === 'active')
-                                    <div style="width: 10px; height: 10px; background: #00FF00; border-radius: 50%; border: none" class="dot"></div>
-                                    @else
-                                    <div style="width: 10px; height: 10px; background: red; border-radius: 50%; border: none" class="dot"></div>
+                                    <div style="display: flex; justify-content: center">
+                                        <div style="width: 10px; height: 10px; background: #00FF00; border-radius: 50%; border: none" class="dot"></div>
+                                      </div>
+                                        @else
+                                        <div style="display: flex; justify-content: center">
+                                        <div style="width: 10px; height: 10px; background: red; border-radius: 50%; border: none" class="dot"></div>
+                                      </div>
                                     @endif
                                 </td>
                                 <td class="text-right">
@@ -194,7 +187,7 @@
                                             {{-- Title --}}
                                             <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
                                                 <label for="Title">Tên bài viết</label>
-                                                <input type="text" wire:model="title" class="form-control rounded-3" placeholder="Tên bài viết" id="Title">
+                                                <input type="text" wire:model.live="title" class="form-control rounded-3" placeholder="Tên bài viết" id="Title">
                                                 @error('title') <span class="error text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         
@@ -224,10 +217,9 @@
                                             </div> --}}
                                         
                                             {{-- Slug --}}
-                                            <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
-                                                <label for="Slug">Slug</label>
-                                                <input type="text" wire:model="slug" class="form-control rounded-3" placeholder="Slug" id="Slug" disabled>
-                                                @error('slug') <span class="error text-danger">{{ $message }}</span> @enderror
+                                            <div class="form-group " style="display: flex; flex-direction: column; gap:5px">
+                                                <label for="CustomerName">Slug</label>
+                                                <input class="form-control rounded-3"  placeholder="slug" disabled id="CustomerName" autocorrect="off" autocapitalize="off"  value={{$slug}} >
                                             </div>
                                         
                                             {{-- Status --}}
@@ -291,7 +283,7 @@
                                             <label for="file-upload" style="cursor: pointer;">
                                                 <img 
                                                      style="width: 100%; border: 1px solid black" 
-                                                     src="{{ asset(($image === '' ? 'no_image.jpg' : $image)) }}" 
+                                                     src="{{asset('storage/uploads/'.($image === '' ? 'no_image.jpg':$image))}}"
                                                      alt="">
                                             </label>
                                             <input type="file" id="file-upload" wire:model.change="image" style="display: none;" accept="image/*">
@@ -319,7 +311,7 @@
                     <button type="button"  style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="Updatepost" class="btn rounded-1  fs-6">Cập nhật</button>
                 
                     @else    
-                    <button type="button"   style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="createpost" class="btn rounded-1  fs-6">Xác nhận thêm</button>
+                    <button type="button"   style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="createPost" class="btn rounded-1  fs-6">Xác nhận thêm</button>
                     @endif
                 </div>
             </div>
