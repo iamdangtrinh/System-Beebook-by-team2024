@@ -49,6 +49,8 @@ class UserAdmin extends Component
     public $valueStatusConfirm = '';
     public $DataEditUser = [];
     public $loading =  false;
+    public $role = '';
+    public $status = '';
     public function mount()
     {
         $this->loadUsers();
@@ -68,7 +70,12 @@ class UserAdmin extends Component
         if (!empty($this->phone)) {
             $query->where('phone', 'like', '%' . $this->phone . '%');
         }
-
+        if (!empty($this->status)) {
+            $query->where('status',    $this->status);
+        }
+        if (!empty($this->role)) {
+            $query->where('roles',  $this->role);
+        }
         // Thực hiện phân trang
         $paginator = $query->paginate(20);
         $this->getAllUser = $paginator->items();
@@ -102,6 +109,18 @@ class UserAdmin extends Component
     public function updatedPhone($value)
     {
         $this->phone = $value;
+        $this->resetPage(); // Quay về trang đầu
+        $this->loadUsers();
+    }
+    public function updatedStatus($value)
+    {
+        $this->status = $value;
+        $this->resetPage(); // Quay về trang đầu
+        $this->loadUsers();
+    }
+    public function updatedRole($value)
+    {
+        $this->role = $value;
         $this->resetPage(); // Quay về trang đầu
         $this->loadUsers();
     }

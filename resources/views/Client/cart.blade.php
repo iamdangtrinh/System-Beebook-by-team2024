@@ -98,7 +98,6 @@
                                                     </del>
                                                 </td>
                                             @endforeach
-
                                             {{-- Số lượng sản phẩm --}}
                                             <td class="cart__update-wrapper cart-flex-item text-center">
                                                 <div class="cart__qty text-center">

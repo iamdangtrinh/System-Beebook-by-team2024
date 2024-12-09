@@ -31,6 +31,20 @@
                             class="form-control">
                     </div>
                 </div>
+                <div class="col-sm-4 mb-3">
+                    <div class="form-group">
+                        <label class="control-label" for="customer">Quyền</label>
+                        <input type="text" id="customer" wire:model.live="role" value="" placeholder="Quyền"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <div class="form-group">
+                        <label class="control-label" for="customer">Trạng thái</label>
+                        <input type="text" id="customer" wire:model.live="status" value="" placeholder="Trạng thái"
+                            class="form-control">
+                    </div>
+                </div>
             </div>
           
     

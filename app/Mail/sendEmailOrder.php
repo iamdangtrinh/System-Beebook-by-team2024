@@ -23,16 +23,14 @@ class sendEmailOrder extends Mailable
     {
         $this->id_bill = $id_bill;
         $this->resultBill = BillModel::where('id', $id_bill)->firstOrFail();
-        
     }
-
     /**
      * Get the message envelope.
      */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Bee Book - Đơn hàng '.($this->id_bill).' đặt thành công',
+            subject: 'Bee Book - Đơn hàng ' . ($this->id_bill) . ' đặt thành công',
         );
     }
 
