@@ -39,10 +39,13 @@
                     </div>
                 </div>
                 <div class="col-sm-4 mb-3">
-                    <div class="form-group">
-                        <label class="control-label" for="title">Trạng thái </label>
-                        <input type="text" id="title" wire:model.live="statusCoupon" value="" placeholder="Trạng thái"
-                            class="form-control">
+                    <div class="form-group" style="display: flex; flex-direction: column;">
+                        <label class="control-label" for="customer">Trạng thái</label>
+                        <select style="padding: 8px 0px" wire:model.change="statusCoupon" name="" id="">
+                            <option disabled value="">Vui lòng chọn trạng thái</option>
+                            <option value="active">Hoạt động</option>
+                            <option value="inactive">Tạm khóa</option>
+                        </select>
                     </div>
                 </div>
             </div>
