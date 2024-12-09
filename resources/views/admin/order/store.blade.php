@@ -53,7 +53,7 @@
                                                     <td>{{ number_format($order->price, '0', '.', '.') . ' đ' }}</td>
                                                     <td>{{ $order->quantity }}</td>
                                                     <td class="fw-medium text-end">
-                                                        {{ number_format($order->price * $order->quantity, '0', '.', '.') . ' đ' }}
+                                                        {{ number_format($order->order_price * $order->quantity, '0', '.', '.') . ' đ' }}
                                                     </td>
                                                 </tr>
                                             @endforeach

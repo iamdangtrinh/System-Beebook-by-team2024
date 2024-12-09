@@ -19,7 +19,7 @@ return [
             ],
             [
                   'route' => 'order.index',
-                  'icon' => 'fa fa-list',
+                  'icon' => 'fa fa-first-order',
                   'label' => 'Đơn hàng',
             ],
             [
@@ -39,7 +39,7 @@ return [
             ],
             [
                   'route' => 'admincoupon.index',
-                  'icon' => 'fa fa-book',
+                  'icon' => 'fa fa-ticket',
                   'label' => 'Mã giảm giá',
             ],
             [

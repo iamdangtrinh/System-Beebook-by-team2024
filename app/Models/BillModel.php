@@ -48,7 +48,8 @@ class BillModel extends Model
             'products.price',
             'products.image_cover',
             'products.slug',
-            'bill_detail.quantity'
+            'bill_detail.quantity',
+            'bill_detail.price as order_price'
         );
     }
 
