@@ -1,4 +1,18 @@
 <div>
+<style>
+     .select2-container .select2-selection--single {
+            height: 40px !important;
+        }
+
+        .select2-container--default .select2-selection--single {
+            border: var(--bs-border-width) solid var(--bs-border-color) !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 40px !important;
+        }
+</style>
+<!-- JS -->
     <div class="row wrapper border-bottom white-bg page-heading" >
         <div class="col-lg-10">
         </div>
@@ -13,14 +27,21 @@
                 <div class="col-sm-4 mb-3">
                     <div class="form-group">
                         <label class="control-label" for="id">Mã giảm giá</label>
-                        <input type="text" id="" wire:model.live="id" value="" placeholder="Mã giảm giá"
+                        <input type="text" id="" wire:model.live="idCoupon" value="" placeholder="Mã giảm giá"
                             class="form-control">
                     </div>
                 </div>
                 <div class="col-sm-4 mb-3">
                     <div class="form-group">
                         <label class="control-label" for="title">Tên mã giảm giá </label>
-                        <input type="text" id="title" wire:model.live="title" value="" placeholder="Mã giảm giá"
+                        <input type="text" id="title" wire:model.live="codeCoupon" value="" placeholder="Tên mã giảm giá"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <div class="form-group">
+                        <label class="control-label" for="title">Trạng thái </label>
+                        <input type="text" id="title" wire:model.live="statusCoupon" value="" placeholder="Trạng thái"
                             class="form-control">
                     </div>
                 </div>
@@ -122,7 +143,13 @@
                                 <td class="text-right">
                                     <div class="d-flex gap-2">
                                         <a wire:click="editCoupon({{$sale->id}})"  class="btn btn-sm btn-warning">Sửa</a>
-                                        <a wire:click="deleted_Coupon({{ $sale->id }}, '{{ $sale->image }}')" class="btn btn-sm btn-danger">Xóa</a>
+                                        <a wire:loading.attr="disabled" wire:click="deleted_Coupon({{ $sale->id }})" class="btn btn-sm btn-danger">Xóa 
+                                            @if ($sale->id === $couponId)
+                                            <span wire:loading wire:target="deletedCoupon">
+                                                <i class="removeLoading fa fa-spinner fa-spin" style="font-size:18px"></i>
+                                            </span>   
+                                            @endif
+                                        </a>
 
                                     </div>
                                 </td>
@@ -149,7 +176,6 @@
                                 </button>
                             </li>
                         @endfor
-            
                             <!-- Next Page Link -->
                             <li class="page-item {{ $paginationData['currentPage'] == $paginationData['lastPage'] ? 'disabled' : '' }}">
                                 <button class="page-link" wire:click="nextPage" wire:loading.attr="disabled">
@@ -174,163 +200,121 @@
         <div style="max-width: 70%;" class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    @if ($editCoupon)
+                    @if ($dataEdit)
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Cập nhật </h1>
                     @else
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm mã giảm giá</h1>
                     @endif
-                    <button type="button" class="btn-close" wire:click="closeModal" aria-label="Close"></button>
+                    <button wire:loading.attr="disabled" type="button" class="btn-close" wire:click="closeModal" aria-label="Close"></button>
                 </div>
-                {{-- <div class="modal-body">
+                <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="d-flex flex-column gap-4"> --}}
-                                        {{-- Form Đăng ký --}}
-                                        {{-- <form class="d-flex flex-column gap-4"> --}}
-                                            {{-- ID (Hidden) --}}
-                                            {{-- <input type="hidden" wire:model="id"> --}}
-                                        
-                                            {{-- Post Type --}}
-                                            {{-- <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
-                                                <label for="PostType">Loại mã giảm giá</label>
-                                                <select wire:model="post_type" id="PostType" class="form-control rounded-3">
-                                                    <option value="" disabled>Chọn loại mã giảm giá</option>
-                                                    
-                                                </select>
-                                                @error('post_type') <span class="error text-danger">{{ $message }}</span> @enderror
-                                            </div> --}}
-                                        
-                                            {{-- Title --}}
-                                            {{-- <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
-                                                <label for="Title">Tên mã giảm giá</label>
-                                                <input type="text" wire:model="title" class="form-control rounded-3" placeholder="Tên mã giảm giá" id="Title">
-                                                @error('title') <span class="error text-danger">{{ $message }}</span> @enderror
-                                            </div> --}}
-                                        
-                                            {{-- Content --}}
-                                            {{-- <div class="col-12">
-                                                <div class="form-group @error('content') has-error @enderror">
-                                                    <label>Description <span class="text-danger">*</span></label>
-                                                    <textarea name="content" id="content" class="content form-control" cols="30" rows="10">{{ old('content') }}</textarea>
-                                                    @error('content')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div> --}}
-                                        
-                                            {{-- Tags --}}
-                                            {{-- <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
-                                                <label for="Tags">Tags</label>
-                                                <input type="text" wire:model="tags" class="form-control rounded-3" placeholder="Tags (phân cách bởi dấu phẩy)" id="Tags">
-                                                @error('tags') <span class="error text-danger">{{ $message }}</span> @enderror
-                                            </div> --}}
-                                        
-                                            {{-- Image --}}
-                                            {{-- <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
-                                                <label for="Image">Hình ảnh</label>
-                                                <input type="file" wire:model="image" class="form-control rounded-3" id="Image">
-                                                @error('image') <span class="error text-danger">{{ $message }}</span> @enderror
-                                            </div> --}}
-                                        
-                                            {{-- Slug --}}
-                                            {{-- <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
-                                                <label for="Slug">Slug</label>
-                                                <input type="text" wire:model="slug" class="form-control rounded-3" placeholder="Slug" id="Slug" disabled>
-                                                @error('slug') <span class="error text-danger">{{ $message }}</span> @enderror
-                                            </div> --}}
-                                        
-                                            {{-- Status --}}
-                                            {{-- <div class="d-flex gap-4 align-items-center">
-                                                <label class="fs-6">
-                                                    <input type="radio" wire:model="status" value="active">
-                                                    Hiện
-                                                </label>
-                                                <label class="fs-6">
-                                                    <input type="radio" wire:model="status" value="inactive">
-                                                    Ẩn
-                                                </label>
-                                                @error('status') <span class="error text-danger">{{ $message }}</span> @enderror
-                                            </div> --}}
-                                        
-                                            {{-- Hot --}}
-                                            {{-- <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
-                                                <label for="Hot">Hot</label>
-                                                <select wire:model="hot" id="Hot" class="form-control rounded-3">
-                                                    <option value="0">Không</option>
-                                                    <option value="1">Có</option>
-                                                </select>
-                                                @error('hot') <span class="error text-danger">{{ $message }}</span> @enderror
-                                            </div> --}}
-                                        
-                                            {{-- Meta Title SEO --}}
-                                            {{-- <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
-                                                <label for="MetaTitle">Meta Title SEO</label>
-                                                <input type="text" wire:model="meta_title_seo" class="form-control rounded-3" placeholder="Meta Title SEO" id="MetaTitle">
-                                                @error('meta_title_seo') <span class="error text-danger">{{ $message }}</span> @enderror
-                                            </div> --}}
-                                        
-                                            {{-- Meta Description SEO --}}
-                                            {{-- <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
-                                                <label for="MetaDescription">Meta Description SEO</label>
-                                                <textarea wire:model="meta_description_seo" class="form-control rounded-3" placeholder="Meta Description SEO" id="MetaDescription" rows="3"></textarea>
-                                                @error('meta_description_seo') <span class="error text-danger">{{ $message }}</span> @enderror
-                                            </div> --}}
-                                        
-                                           
-                                        
-                                            {{-- Success Message --}}
-                                            @if (session('success'))
-                                                <div class="alert alert-success">
-                                                    {{ session('success') }}
-                                                </div>
-                                            @endif
-                                        
-                                            
-                                        </form>
-                                        
+                                <div class="col-8" style="display: flex; flex-direction: column; gap:10px">
+                                    <div class="form-group " style="display: flex; flex-direction: column; gap:5px">
+                                        <label for="CustomerName">Tên mã khuyến mãi</label>
+                                        <input class="form-control rounded-3" style=""  wire:model.live="Value_code_coupon" placeholder="Tên mã khuyến mãi" id="CustomerName" autocorrect="off" autocapitalize="off"  >
+                                        @error('Value_code_coupon') <span class="error text-danger">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="form-group " style="display: flex; flex-direction: column; gap:5px">
+                                        <label for="CustomerName">Chi tiết khuyến mãi</label>
+                                        <input class="form-control rounded-3"  wire:model.live="description" placeholder="Chi tiết khuyến mãi" id="CustomerName" autocorrect="off" autocapitalize="off"  >
+                                        @error('description') <span class="error text-danger">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="form-group " style="display: flex; flex-direction: column; gap:5px">
+                                        <label for="CustomerName">Ngày bắt đầu</label>
+                                        <input class="form-control rounded-3" type="datetime-local"  wire:model.live="start_date" placeholder="Ngày bắt đầu" id="CustomerName" autocorrect="off" autocapitalize="off"  >
+                                        @error('start_date') <span class="error text-danger">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="form-group " style="display: flex; flex-direction: column; gap:5px">
+                                        <label for="CustomerName">Ngày kết thúc</label>
+                                        <input class="form-control rounded-3" type="datetime-local"  wire:model.live="expires_at" placeholder="Ngày kết thúc" id="CustomerName" autocorrect="off" autocapitalize="off"  >
+                                        @error('expires_at') <span class="error text-danger">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="form-group " style="display: flex; flex-direction: column; gap:5px">
+                                        <label for="CustomerName">Số tiền tối thiểu</label>
+                                        <input class="form-control rounded-3"  wire:model.live="coupon_min_spend" placeholder="Số tiền tối thiểu" id="CustomerName" autocorrect="off" autocapitalize="off"  >
+                                        @error('coupon_min_spend') <span class="error text-danger">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="form-group " style="display: flex; flex-direction: column; gap:5px">
+                                        <label for="CustomerName">Số tiền tối đa</label>
+                                        <input class="form-control rounded-3"  wire:model.live="coupon_max_spend" placeholder="Số tiền tối đa" id="CustomerName" autocorrect="off" autocapitalize="off"  >
+                                        @error('coupon_max_spend') <span class="error text-danger">{{ $message }}</span> @enderror
+                                    </div>
+                                   
+                                    <div class="form-group " style="display: flex; flex-direction: column; gap:5px">
+                                        <label for="CustomerName">Giảm giá</label>
+                                        <input class="form-control rounded-3"  wire:model.live="discount" placeholder="Giảm giá" id="CustomerName" autocorrect="off" autocapitalize="off"  >
+                                        @error('discount') <span class="error text-danger">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="d-flex gap-4 align-items-center">
+                                        <label for="CustomerName">Loại khuyến mãi</label>
+                                        <label class="fs-6" >
+                                            <input type="radio" wire:model.change="typeCoupon" name={{$typeCoupon}} value="amount">
+                                            Số tiền
+                                        </label>
+                                        <label class="fs-6">
+                                            <input type="radio" wire:model.change="typeCoupon" name={{$typeCoupon}} value="percent">
+                                            Phần trăm
+                                        </label>
+                                    </div>
+                                    <div class="form-group " style="display: flex; flex-direction: column; gap:5px">
+                                        <label for="CustomerName">Số lượng</label>
+                                        <input class="form-control rounded-3"  wire:model.live="quantity" placeholder="Số lượng" id="CustomerName" autocorrect="off" autocapitalize="off"  >
+                                        @error('quantity') <span class="error text-danger">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="d-flex gap-4 align-items-center">
+                                        <label for="CustomerName">Trạng thái</label>
+                                        <label class="fs-6" >
+                                            <input type="radio" wire:model.change="valueStatus" name={{$valueStatus}} value="active">
+                                            Hiện
+                                        </label>
+                                        <label class="fs-6">
+                                            <input type="radio" wire:model.change="valueStatus" name={{$valueStatus}} value="inactive">
+                                            Ẩn
+                                        </label>
                                     </div>
                                 </div>
+                                <div class="col-4" >
+                                     <fieldset>
+                                <div class="form-group col-md-12 col-lg-12 col-xl-12">
+                                    <label >Chọn email gởi khuyến mãi </label>
+                                    <select @if ($dataEdit)
+                                        disabled
+                                    @endif class="form-control setupSelect2"  wire:model.change="newValue">
+                                        <option value=""  disabled>Vui lòng chọn email</option>
+                                        @foreach ($listEmail as $item)
+                                        <option value={{$item['email']}}>{{$item['email']}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </fieldset>
+                            @if (!$dataEdit)
+                            <div class="form-group col-md-12 col-lg-12 col-xl-12 pt-2">
+                                <span style="font-size: 1rem; color: black"  >Danh sách email</span>
+                                  <ul>
+                                        @foreach($arr as $item)
+                                           <div style="display: flex; align-items: center; justify-content: space-between" >
+                                            <li style="font-size: 0.875rem; color: black" >{{ $item }}</li>
+                                            <i                                                 @disabled(true)
+                                            style="cursor: pointer;" wire:click="removeEmail('{{$item}}')" class="icon icon anm anm-times-l">X</i>
+                                           </div>
+                                        @endforeach
+                                    </ul>
                             </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                            <div class="d-flex flex-col gap-4">
-                                <div class="form-group" >
-                                    <div class="w-100 d-flex justify-content-center flex-col">
-                                        <div class="image-upload">
-                                            <label for="file-upload" style="cursor: pointer;">
-                                                <img 
-                                                     style="width: 100%; border: 1px solid black" 
-                                                     src="{{asset('storage/uploads/'.($image === '' ? 'no_image.jpg':$image))}}" 
-                                                     alt="">
-                                            </label>
-                                            <input type="file" id="file-upload" wire:model.change="image" style="display: none;" accept="image/*">
-                                        </div>
-                                        @error('avatar')
-                                        <span class="error text-danger">{{ $message }}</span>
-                                    @enderror
-                                       </div>
-                                   </div>
-                                </div>
-                                @if ($image !=='')
-                                <button wire:click="removeImage">Xóa ảnh</button> 
-                                @endif
-                                @if (session('removeImageSuccess'))
-                                <div class="success text-success">
-                                    {{ session('removeImageSuccess') }}
-                                </div>
                             @endif
-                            </div>
-                    </div>
+                        </div>
+                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" style="border-radius: 4px" class="btn btn-secondary" wire:click="closeModal">Đóng</button>
-                    @if ($editCoupon)
-                    <button type="button"  style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="Updatepost" class="btn rounded-1  fs-6">Cập nhật</button>
-                
+                    <button wire:loading.attr="disabled"  type="button" style="border-radius: 4px" class="btn btn-secondary" wire:click="closeModal">Đóng</button>
+                    @if ($dataEdit)
+                    <button wire:loading.attr="disabled" type="button"  style="border-radius: 4px; background:#198754 !important; color:white !important" wire:click="updateCoupon" class="btn rounded-1  fs-6">Cập nhật <span wire:loading wire:target="updateCoupon">
+                        <i class="removeLoading fa fa-spinner fa-spin" style="font-size:18px"></i>
+                    </span></button>
                     @else    
-                    <button type="button"   style="border-radius: 4px; background:#CE2626 !important; color:white !important" wire:click="createCoupon" class="btn rounded-1  fs-6">Xác nhận thêm</button>
+                    <button wire:loading.attr="disabled" type="button" @if ($errors->any() ||  $Value_code_coupon==='' || $description === ''|| $start_date === '' || $expires_at === '' || $coupon_min_spend ==='' || $coupon_max_spend==='' || $discount === '' || $quantity === '') disabled  @endif    style="border-radius: 4px; background:#198754 !important; color:white !important" wire:click="createCoupon" class="btn rounded-1  fs-6">Xác nhận thêm  <span wire:loading wire:target="createCoupon">
+                        <i class="removeLoading fa fa-spinner fa-spin" style="font-size:18px"></i>
+                    </span> </button>
                     @endif
                 </div>
             </div>
@@ -348,27 +332,46 @@
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
     <script>
         document.addEventListener('livewire:initialized',()=>{
     @this.on('swal',(event)=>{
         const data=event;
         swal.fire({
             icon: 'warning',
-            title: 'Bạn có muốn xóa danh mục này không?',
+            title: 'Bạn có muốn xóa khuyến mãi này không?',
             text: 'Nếu bạn xóa, hành động này không thể hoàn tác!',
             showCancelButton: true,
             reverseButtons: true,
             confirmButtonColor: 'red',
             cancelButtonColor: 'black',
-            confirmButtonText: 'Xác nhận xóa'
+            confirmButtonText: 'Xác nhận xóa',
+            cancelButtonText: 'Hủy' // Thay đổi văn bản của nút Cancel
         }).then((result)=>{
             if (result.isConfirmed) {
                 @this.dispatch('hanldeDeletedCoupon')
             }
         })
+        
     })
+    Livewire.on("toast", (event) => {
+        toastr.clear();
+        toastr[event.notify](event.message); 
+});
 })
+document.addEventListener('livewire:load', function () {
+        // Khởi tạo Select2
+        let multiSelect = $('#multi-select').select2();
+
+        // Lắng nghe sự kiện thay đổi
+        multiSelect.on('change', function () {
+            @this.set('arr', $(this).val()); // Cập nhật giá trị vào Livewire
+        });
+    });
     </script>
+<link rel="stylesheet" href="{{ asset('/') }}backend/css/plugins/select2/select2.min.css">
+<script src="{{ asset('/') }}backend/js/plugins/select2/select2.full.min.js"></script>
+
 
 </div>
 <script src="{{ asset('/') }}backend/plugins/ckeditor/ckeditor.js"></script>
