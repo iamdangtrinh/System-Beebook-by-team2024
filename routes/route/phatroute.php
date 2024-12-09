@@ -15,10 +15,7 @@ Route::get('/', [ClientController::class, 'home']);
 Route::get('/contact', [ClientController::class, 'contact'])->name('contact');
 Route::get('/shop', [ClientController::class, 'shop']);
 Route::get('/blog/{page?}', [BlogController::class, 'indexBlog'])->name('indexBlog');
-
 Route::get('/review/{page?}', [BlogController::class, 'indexReview'])->name('indexReview');
-Route::get('/productshippingmessage', [ClientController::class, 'productshippingmessage']);
-Route::get('/shortdescription', [ClientController::class, 'shortdescription']);
 Route::get('/posts/{slug}', [BlogController::class, 'show'])->name('posts.show');
 //admin
 
