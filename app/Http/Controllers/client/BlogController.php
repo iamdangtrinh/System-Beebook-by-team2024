@@ -40,7 +40,8 @@ class BlogController extends Controller
 
         $blogs = BlogModel::select($this->selected())
             ->where('post_type', 'blog')
-            ->where('status', 'active');
+            ->where('status', 'active')
+            ->orderBy('views', 'desc');
 
         if (!empty($searchQuery)) {
             $blogs->where(function ($query) use ($searchQuery) {
