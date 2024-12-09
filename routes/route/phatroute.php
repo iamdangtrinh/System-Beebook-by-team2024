@@ -25,8 +25,10 @@ Route::get('/posts/{slug}', [BlogController::class, 'show'])->name('posts.show')
 Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('overview.index');
     // Route::get('/blogs', [AdminController::class, 'blogs']);
-    Route::get('/blog/{id}', [BlogAdmin::class, 'edit'])->name('adminblog.edit');
+    Route::get('/blog/edit/{id}', [BlogAdmin::class, 'edit'])->name('adminblog.edit');
     Route::post('/blog/update/', [BlogAdmin::class, 'update'])->name('adminblog.update');
+    Route::get('/blog/add', [BlogAdmin::class, 'showAdd'])->name('adminblog.show');
+    Route::post('/blog/addnew', [BlogAdmin::class, 'add'])->name('adminblog.add');
 
     Route::get('/article', [AdminController::class, 'article']);
     Route::get('/blog', [BlogAdmin::class, 'index'])->name('adminblog.index');
