@@ -35,17 +35,17 @@ td {
 .select2-selection.select2-selection--multiple,
 .select2-container--default .select2-selection--single .select2-selection__arrow,
 .select2-container .select2-selection--single {
-      height: 40px !important;
+      min-height: 40px !important;
+}
+
+.select2.select2-container.select2-container--default {
+      width: 100% !important;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
       line-height: 40px !important;
       font-size: 1rem;
 }
-
-/* tbody, td, tfoot, th, thead, tr {
-      border: 1px solid #ccc;
-} */
 
 /* over start */
 #overview .ibox-title {

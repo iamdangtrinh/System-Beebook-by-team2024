@@ -79,7 +79,7 @@
                                     <td>{{ $posts->id }}</td>
                                     <td>
                                         <img style="width: 50px; height: 50px; border-radius: 50%; border: 1px solid black"
-                                            src="{{ asset('storage/uploads/' . ($posts->image === '' ? 'no_image.jpg' : $posts->image)) }}">
+                                            src="{{ asset(($posts->image === '' ? 'no_image.jpg' : $posts->image)) }}">
                                     </td>
                                     <td>{{ $posts->title }}</td>
                                     <td>{{ $posts->slug }}</td>

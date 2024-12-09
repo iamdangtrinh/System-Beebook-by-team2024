@@ -16,6 +16,8 @@
         finder.selectActionFunction = function (fileUrl, data) {
             object.find("img").attr("src", "/" + fileUrl);
             object.siblings("input").val("/" + fileUrl);
+
+            console.log(object.siblings("input").val("/" + fileUrl));
         };
 
         finder.popup();
