@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
 
 @php
-define('CSS_VER', '1.0.1');
+define('CSS_VER', '1.0.2');
 @endphp
 
 <head>
