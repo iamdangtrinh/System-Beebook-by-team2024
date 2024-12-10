@@ -40,7 +40,8 @@ class BlogController extends Controller
 
         $blogs = BlogModel::select($this->selected())
             ->where('post_type', 'blog')
-            ->where('status', 'active');
+            ->where('status', 'active')
+            ->orderBy('id', 'desc');
 
         if (!empty($searchQuery)) {
             $blogs->where(function ($query) use ($searchQuery) {
@@ -64,7 +65,8 @@ class BlogController extends Controller
         $titleHeading = 'Review sách';
         $blogs = BlogModel::select($this->selected())
             ->where('post_type', 'review')
-            ->where('status', 'active');
+            ->where('status', 'active')
+            ->orderBy('id', 'desc');
         if (!empty($searchQuery)) {
             $blogs->where(function ($query) use ($searchQuery) {
                 $query->where('tags', 'like', "%{$searchQuery}%")

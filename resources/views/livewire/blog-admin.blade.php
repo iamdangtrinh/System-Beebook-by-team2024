@@ -4,7 +4,8 @@
 
         </div>
         <div class="col-lg-2">
-            <a wire:click="closeModal" class="btn btn-outline btn-primary btn-rounded">Thêm bài viết</a>
+            {{-- <a wire:click="closeModal" class="btn btn-outline btn-primary btn-rounded">Thêm bài viết</a> --}}
+            <a href="{{route('adminblog.show')}}" class="btn btn-primary">Thêm bài viết</a>
         </div>
     </div>
 

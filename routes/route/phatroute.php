@@ -15,18 +15,17 @@ Route::get('/', [ClientController::class, 'home']);
 Route::get('/contact', [ClientController::class, 'contact'])->name('contact');
 Route::get('/shop', [ClientController::class, 'shop']);
 Route::get('/blog/{page?}', [BlogController::class, 'indexBlog'])->name('indexBlog');
-
 Route::get('/review/{page?}', [BlogController::class, 'indexReview'])->name('indexReview');
-Route::get('/productshippingmessage', [ClientController::class, 'productshippingmessage']);
-Route::get('/shortdescription', [ClientController::class, 'shortdescription']);
 Route::get('/posts/{slug}', [BlogController::class, 'show'])->name('posts.show');
 //admin
 
 Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('overview.index');
     // Route::get('/blogs', [AdminController::class, 'blogs']);
-    Route::get('/blog/{id}', [BlogAdmin::class, 'edit'])->name('adminblog.edit');
+    Route::get('/blog/edit/{id}', [BlogAdmin::class, 'edit'])->name('adminblog.edit');
     Route::post('/blog/update/', [BlogAdmin::class, 'update'])->name('adminblog.update');
+    Route::get('/blog/add', [BlogAdmin::class, 'showAdd'])->name('adminblog.show');
+    Route::post('/blog/addnew', [BlogAdmin::class, 'add'])->name('adminblog.add');
 
     Route::get('/article', [AdminController::class, 'article']);
     Route::get('/blog', [BlogAdmin::class, 'index'])->name('adminblog.index');
