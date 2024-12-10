@@ -1,11 +1,7 @@
 <title>@yield('title', 'Chi tiết bài viết')</title>
 @extends('layout.client')
 @section('body')
-    <!--Mobile Menu-->
 
-    <!--End Mobile Menu-->
-
-    <!--Body Content-->
     <div id="page-content">
         <!--Page Title-->
         <div class="page section-header text-center mb-0">

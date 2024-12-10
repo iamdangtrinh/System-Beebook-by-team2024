@@ -53,7 +53,6 @@ class BlogController extends Controller
         }
 
         $blogs = $blogs->paginate(12);
-
         $getMostPost = BlogModel::select($this->selected())
             ->where('post_type', 'blog')->where('status', 'active')->orderBy('views', 'desc')->inRandomOrder()->limit(10)->get();
         $routeName = 'indexBlog';
@@ -90,7 +89,6 @@ class BlogController extends Controller
         if (Auth::user()) {
 
             try {
-                //code...
                 BlogModel::where('id', $getPost->id)->increment('views');
                 $getPost =  BlogModel::where('slug', $slug)->firstOrFail();
             } catch (\Throwable $th) {
@@ -99,24 +97,23 @@ class BlogController extends Controller
             }
         }
 
+        $meta_seo = $getPost->meta_seo ?? $getPost->title;
+        $description_seo = $getPost->description_seo ?? $getPost->title;
+
         if ($getPost['post_type'] === 'blog') {
             $getProduct = [];
-            return view('Client.blogarticle', compact('getPost', 'getProduct', 'getPostMore', 'getMostPost'));
+            return view('Client.blogarticle', compact('getPost', 'getProduct', 'getPostMore', 'getMostPost', 'meta_seo', 'description_seo'));
         } else {
-
-            $getProductByPost = PostProduct::where('id_post', $getPost['id'])->get(); // Lấy tất cả các bản ghi liên kết
+            $getProductByPost = PostProduct::where('id_post', $getPost['id'])->get();
             if ($getProductByPost->isNotEmpty()) {
-                // Lấy tất cả các `id_product` từ `$getProductByPost` để truy vấn bảng `Product`
-                $productIds = $getProductByPost->pluck('id_product'); // Lấy ra mảng các id_product
-                $getProduct = Product::whereIn('id', $productIds)->get(); // Lấy tất cả các sản phẩm có id trong mảng $productIds
+                $productIds = $getProductByPost->pluck('id_product');
+                $getProduct = Product::whereIn('id', $productIds)->get();
             } else {
-                $getProduct = collect(); // Collection rỗng nếu không có sản phẩm nào
+                $getProduct = collect();
             }
 
-            // return view('Client.blogarticle', compact('getPost', 'getProduct', 'getPostMore', 'getMostPost'));
 
-
-            return view('Client.blogarticle', compact('getPost', 'getProduct', 'getPostMore', 'getMostPost'));
+            return view('Client.blogarticle', compact('getPost', 'getProduct', 'getPostMore', 'getMostPost', 'meta_seo', 'description_seo'));
         }
     }
 }

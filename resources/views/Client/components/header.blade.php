@@ -13,9 +13,8 @@ define('CSS_VER', '1.0.1');
     <meta name="csrf_token" content="{{ csrf_token() }}" />
     <meta name="description"
         content="{{ isset($description_seo) ? $description_seo : 'Beebook hệ thống nhà sách chuyên nghiệp, đáp ứng mọi nhu cầu về sách.' }}">
-    <meta name="keywords"
-        content="{{ isset($meta_seo) ? $meta_seo : 'sách, sách tiếng Việt, nhà sách' }}">
-
+    <meta name="keywords" content="{{ isset($meta_seo) ? $meta_seo : 'sách, sách tiếng Việt, nhà sách' }}">
+    
     <meta name="robots" content="index,follow">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:url" content="/" />
