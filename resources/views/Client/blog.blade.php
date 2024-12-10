@@ -20,28 +20,23 @@
                             </div>
                             <div class="widget-content">
                                 <div class="list list-sidebar-products">
-                                    <div class="grid">
-                                        @foreach ($getMostPost as $mostpost)
-                                            <div class="grid__item">
-                                                <div class="mini-list-item">
-                                                    <div class="mini-view_image">
-                                                        <a class="grid-view-item__link" href="/posts/{{ $mostpost->slug }}">
-                                                            <img class="grid-view-item__image blur-up lazyload"
-                                                                data-src="{{ asset($mostpost->image ? $mostpost->image : 'no_image.jpg') }}"
-                                                                alt="{{ $mostpost->title }}" />
+                                    @foreach ($getMostPost as $mostpost)
+                                        <div class="d-flex mb-3">
+                                            <a class="" href="/posts/{{ $mostpost->slug }}">
+                                                <img class="rounded" style="max-width: 80px" src="{{ $mostpost->image }}"
+                                                    alt="{{ $mostpost->title }}" />
+                                            </a>
 
-                                                        </a>
-                                                    </div>
-                                                    <div class="details"> <a class="grid-view-item__title"
-                                                            href="/posts/{{ $mostpost->slug }}">{{ $mostpost->title }}</a>
-                                                        <div class="grid-view-item__meta"><span class="article__date"> <time
-                                                                    datetime="">{{ date('d-m-Y', strtotime($mostpost->created_at)) }}</time></span>
-                                                        </div>
-                                                    </div>
+                                            <div class="title_blog">
+                                                <a class="title"
+                                                    href="/posts/{{ $mostpost->slug }}">{{ $mostpost->title }}</a>
+                                                <div class="">
+                                                    <span class=""> <time
+                                                            datetime="">{{ date('d-m-Y', strtotime($mostpost->created_at)) }}</time></span>
                                                 </div>
                                             </div>
-                                        @endforeach
-                                    </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -72,7 +67,7 @@
                                     <div class="col-12 col-sm-12 col-md-4 col-lg-4 article">
                                         <!-- Article Image -->
                                         <a class="article_featured-image" href="/posts/{{ $blog['slug'] }}"><img
-                                                class="blur-up lazyload rounded"
+                                                class=" rounded"
                                                 src="{{ asset($blog->image ? $blog->image : 'no_image.jpg') }}"
                                                 alt="{{ $blog['title'] }}"></a>
                                         <h2 class="h3"><a href="/posts/{{ $blog['slug'] }}">{{ $blog['title'] }}</a>

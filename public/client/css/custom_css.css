@@ -34,25 +34,41 @@ html {}
     background-color: #555;
     /* Màu sắc khi hover */
 }
-.search-results .search-item{
+
+.search-results .search-item {
     max-height: 40px;
 }
+
 .text-clamp {
-    display: -webkit-box;        /* Đảm bảo hỗ trợ đa trình duyệt */
-    -webkit-line-clamp: 2;      /* Số dòng tối đa là 2 */
-    -webkit-box-orient: vertical; /* Thiết lập hướng box */
-    overflow: hidden;           /* Ẩn phần nội dung thừa */
-    text-overflow: ellipsis;    /* Hiển thị "..." khi nội dung bị cắt */
-    max-height: 3em;            /* Đảm bảo chiều cao tương ứng với 2 dòng */
-    line-height: 1.5em;         /* Dòng cách nhau 1.5em */
+    display: -webkit-box;
+    /* Đảm bảo hỗ trợ đa trình duyệt */
+    -webkit-line-clamp: 2;
+    /* Số dòng tối đa là 2 */
+    -webkit-box-orient: vertical;
+    /* Thiết lập hướng box */
+    overflow: hidden;
+    /* Ẩn phần nội dung thừa */
+    text-overflow: ellipsis;
+    /* Hiển thị "..." khi nội dung bị cắt */
+    max-height: 3em;
+    /* Đảm bảo chiều cao tương ứng với 2 dòng */
+    line-height: 1.5em;
+    /* Dòng cách nhau 1.5em */
 }
+
 .text-truncate {
-    display: block;             /* Hoặc inline-block nếu cần */
-    white-space: nowrap;        /* Không xuống dòng */
-    overflow: hidden;           /* Ẩn phần tràn ra ngoài */
-    text-overflow: ellipsis;    /* Thêm "..." khi văn bản vượt quá kích thước */
-    max-width: 100%;            /* Đặt chiều rộng tối đa cho văn bản */
+    display: block;
+    /* Hoặc inline-block nếu cần */
+    white-space: nowrap;
+    /* Không xuống dòng */
+    overflow: hidden;
+    /* Ẩn phần tràn ra ngoài */
+    text-overflow: ellipsis;
+    /* Thêm "..." khi văn bản vượt quá kích thước */
+    max-width: 100%;
+    /* Đặt chiều rộng tối đa cho văn bản */
 }
+
 /* rating */
 .star-rating {
     white-space: nowrap;
@@ -296,6 +312,7 @@ a {
     height: 280px;
     object-fit: contain;
 }
+
 .grid-products .item .product-image img.shop {
     height: 200px;
     object-fit: contain;
@@ -305,4 +322,19 @@ a {
     .product-template__container .product-form__item--submit .btn {
         width: 100% !important;
     }
+}
+
+.title_blog {
+    margin-left: 12px;
+}
+
+.title_blog .title {
+    height: 44px;
+    overflow: hidden;
+    font-size: 15px;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
 }
