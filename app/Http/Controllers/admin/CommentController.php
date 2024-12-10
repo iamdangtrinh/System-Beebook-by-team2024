@@ -22,7 +22,14 @@ class CommentController extends Controller
             ->withCount('comments') // Đếm số lượng bình luận
             ->orderBy('comments_count', 'desc') // Sắp xếp theo số lượng bình luận từ nhiều tới ít
             ->paginate(12);
-
+        // Tính toán điểm trung bình cho từng sản phẩm (nếu có bình luận)
+        foreach ($products as $product) {
+            if ($product->comments->count() > 0) {
+                $product->average_rating = $product->comments->avg('rating'); // Tính điểm trung bình
+            } else {
+                $product->average_rating = 0; // Nếu không có bình luận, điểm trung bình là 0
+            }
+        }
         // Trả về view
         return view('admin.comment.index', compact('products', 'search'));
     }

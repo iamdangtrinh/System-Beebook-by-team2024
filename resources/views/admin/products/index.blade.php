@@ -233,9 +233,15 @@
 
                                             <td>
                                                 @if($product->status == 'active')
-                                                <span class="badge badge-info">Đang hoạt động</span>
+                                                <div class="d-flex justify-content-center">
+                                                    <div style="width: 10px; height: 10px; background: #00FF00; border-radius: 50%; border: none" class="dot"></div>
+                                                </div>
+                                                <!-- <span class="badge badge-info">Đang hoạt động</span> -->
                                                 @else
-                                                <span class="badge">Ngưng hoạt động</span>
+                                                <div class="d-flex justify-content-center">
+                                                    <div style="width: 10px; height: 10px; background: red; border-radius: 50%; border: none" class="dot"></div>
+                                                </div>
+                                                <!-- <span class="badge">Ngưng hoạt động</span> -->
                                                 @endif
                                             </td>
                                             <td class="text-right">

@@ -61,8 +61,28 @@
                         @forelse ($comments as $comment)
                         <tr>
                             <td>{{ $comment->user->name ?? 'Ẩn danh' }}</td>
-                            <td>{{ $comment->content }}</td>
-                            <td>{{ $comment->created_at->format('d/m/Y H:i') }}</td>
+                            <td>
+                                @php
+                                $rating = $comment->rating;
+                                $fullStars = floor($rating);
+                                $halfStars = ($rating - $fullStars) >= 0.5 ? 1 : 0;
+                                $emptyStars = 5 - ($fullStars + $halfStars);
+                                @endphp
+
+                                @for ($i = 0; $i < $fullStars; $i++)
+                                <i class="fa fa-star text-warning"></i> <!-- Sao đầy -->
+                                @endfor
+
+                                @if ($halfStars)
+                                <i class="fa fa-star-half-o text-warning"></i> <!-- Sao nửa -->
+                                @endif
+
+                                @for ($i = 0; $i < $emptyStars; $i++)
+                                <i class="fa fa-star-o"></i> <!-- Sao trống -->
+                                @endfor
+                                </br>{{ $comment->content }}
+                            </td>
+                            <td>{{ optional($comment->created_at) ? optional($comment->created_at)->format('H:i, d-m-Y') : 'Không có' }}</td>
                             <td>
                                 <!-- Nút xóa hoặc ẩn bình luận -->
                                 <form action="{{ route('admincomment.destroy', $comment->id) }}" method="POST" style="display: inline-block;">

@@ -72,6 +72,7 @@ class ProductCommentForm extends Component
 
         // Reset form fields to empty values
         $this->reset(['rating', 'content']);
+        $this->resetValidation();
     }
 
 

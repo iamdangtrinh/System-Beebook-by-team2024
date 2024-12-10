@@ -54,17 +54,54 @@
                             <td>
                                 <img src="{{ $product->image_cover ? $product->image_cover : '/no_image.jpg' }}" alt="{{ $product->name }}" width="100">
                             </td>
-                            <td>{{ $product->name }}</td>
+                            <td>
+                                {{ $product->name }}
+                                </br>
+                                @php
+                                $rating = $product->average_rating; // Lấy giá trị rating từ sản phẩm
+                                $fullStars = floor($rating); // Số sao đầy
+                                $halfStars = ($rating - $fullStars) >= 0.5 ? 1 : 0; // Kiểm tra xem có sao nửa không
+                                $emptyStars = 5 - ($fullStars + $halfStars); // Số sao trống
+                                @endphp
+
+                                @for ($i = 0; $i < $fullStars; $i++)
+                                    <i class="fa fa-star text-warning"></i> <!-- Sao đầy -->
+                                    @endfor
+
+                                    @if ($halfStars)
+                                    <i class="fa fa-star-half-o text-warning"></i> <!-- Sao nửa -->
+                                    @endif
+
+                                    @for ($i = 0; $i < $emptyStars; $i++)
+                                        <i class="fa fa-star-o"></i> <!-- Sao trống -->
+                                        @endfor
+                            </td>
                             <td>
                                 @if($product->status == 'active')
-                                <span class="badge badge-info">Đang hoạt động</span>
+                                <div class="d-flex justify-content-center">
+                                    <div style="width: 10px; height: 10px; background: #00FF00; border-radius: 50%; border: none" class="dot"></div>
+                                </div>
+                                <!-- <span class="badge badge-info">Đang hoạt động</span> -->
                                 @else
-                                <span class="badge">Ngưng hoạt động</span>
+                                <div class="d-flex justify-content-center">
+                                    <div style="width: 10px; height: 10px; background: red; border-radius: 50%; border: none" class="dot"></div>
+                                </div>
+                                <!-- <span class="badge">Ngưng hoạt động</span> -->
                                 @endif
                             </td>
                             <td class="text-center">{{ $product->comments->count() }}</td>
-                            <td>{{ optional($product->comments->last())->created_at ?? 'Không có' }}</td>
-                            <td>{{ optional($product->comments->first())->created_at ?? 'Không có' }}</td>
+                            <td>
+                                @php
+                                $latestComment = $product->comments->sortByDesc('created_at')->first(); // Bình luận mới nhất
+                                $oldestComment = $product->comments->sortBy('created_at')->first(); // Bình luận cũ nhất
+                                @endphp
+
+                                {{ $oldestComment ? $oldestComment->created_at->format('H:i, d-m-Y') : 'Không có' }}
+                            </td>
+                            <td>
+                                {{ $latestComment ? $latestComment->created_at->format('H:i, d-m-Y') : 'Không có' }}
+                            </td>
+
                             <td>
                                 <a href="{{ route('admincomment.show', $product->id) }}" class="btn btn-sm btn-info">Xem chi tiết</a>
                             </td>
