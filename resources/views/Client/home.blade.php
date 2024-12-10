@@ -11,8 +11,7 @@
                             <input class="rounded" type="text" id="search" name="query"
                                 placeholder="Tìm kiếm sách, tác giả, nhà xuất bản, bài viết" autocomplete="off">
                         </div>
-                        <button class="btn btn-primary" name="seach" type="submit"><i
-                                class="icon anm anm-search-l"></i></button>
+                        <button class="btn btn-primary" name="seach" type="submit"><i class="icon anm anm-search-l"></i></button>
                         <div id="search-results" class="search-results p-3 row" style="display: none;">
                             <!-- Kết quả tìm kiếm sẽ hiển thị ở đây -->
                         </div>

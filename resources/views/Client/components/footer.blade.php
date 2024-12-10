@@ -52,7 +52,7 @@
 </footer>
 
 <!-- Including Jquery -->
-<script src="{{ asset('/') }}client/js/vendor/jquery-3.3.1.min.js" defer></script>
+{{-- <script src="{{ asset('/') }}client/js/vendor/jquery-3.3.1.min.js" defer></script> --}}
 <script src="{{ asset('/') }}client/js/vendor/modernizr-3.6.0.min.js" defer></script>
 <script src="{{ asset('/') }}client/js/vendor/wow.min.js" defer></script>
 <!-- Including Javascript -->

@@ -12,7 +12,7 @@ define('CSS_VER', '1.0.1');
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf_token" content="{{ csrf_token() }}" />
     <meta name="description"
-        content="{{ isset($description_seo) ? $description_seo : 'Beebook hệ thống nhà sách chuyên nghiệp, đáp ứng mọi nhu cầu về sách.' }}">
+        content="{{ isset($description_seo) ? $description_seo : 'Beebook hệ thống bán sách chuyên nghiệp, đáp ứng mọi nhu cầu về sách.' }}">
     <meta name="keywords" content="{{ isset($meta_seo) ? $meta_seo : 'sách, sách tiếng Việt, nhà sách' }}">
     
     <meta name="robots" content="index,follow">
@@ -21,7 +21,7 @@ define('CSS_VER', '1.0.1');
     <meta name="google-site-verification" content="0NTJDxu20GXY4Pl6OY-u_e1fmLJmV35qAnf380ru9b0" />
     {{-- <meta property="og:type" content="Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách." /> --}}
     <meta property="og:type"
-        content="{{ $description ?? 'Beebook hệ thống nhà sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách.' }}" />
+        content="{{ $description ?? 'Beebook hệ thống bán sách chuyên nghiệp. Đáp ứng tất cả các yêu cầu về sách.' }}" />
 
     <meta property="og:image" content="{{ asset('/') }}client/images/favicon.png" />
     <link rel="shortcut icon" href="{{ asset('/') }}client/images/favicon-beebook.webp" />
