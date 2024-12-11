@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BillModel;
 use App\Models\couponModel;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,20 +45,18 @@ class OrderController extends Controller
         if (!empty($payload['status'])) {
             $query->where('status', $payload['status']);
         }
-
         if (!empty($payload['customer'])) {
-            $query->where('id_user', 'like', '%' . $payload['customer'] . '%');
+            $query->where('id_user', '=', $payload['customer']);
         }
 
         if (!empty($payload['amount'])) {
             $query->where('total_amount', $payload['amount']);
         }
-
-        $results = $query->paginate(20);
-
-        // $results = BillModel::select($this->selected())->paginate(20);
-        return view('admin.order.index', compact(['results']));
+        $results = $query->paginate(20)->withQueryString();
+        $users = User::select(['id', 'name'])->get();
+        return view('admin.order.index', compact(['results', 'users']));
     }
+
 
     /**
      * Show the form for creating a new resource.
