@@ -22,7 +22,7 @@ class ProductsSeeder extends Seeder
         $idCate = [12, 9, 11, 6011, 6718, 17, 6003, 6038, 6007];
 
         foreach ($idCate as $categoryId) {
-            for ($currentPage = 1; $currentPage <= 2; $currentPage++) {
+            for ($currentPage = 1; $currentPage <= 4; $currentPage++) {
                 $this->processCategoryPage($categoryId, $currentPage);
             }
         }

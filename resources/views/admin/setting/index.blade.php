@@ -3,4 +3,7 @@
 
 @section('body')
 Cấu hình admin
+{{-- email gửi --}}
+{{-- Phí vận chuyển --}}
+{{-- Ví sepay  --}}
 @endsection
