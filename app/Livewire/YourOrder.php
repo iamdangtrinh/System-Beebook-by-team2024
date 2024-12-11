@@ -16,7 +16,7 @@ class YourOrder extends Component
 {
 // tăng thêm số lương và mã giảm giá nếu huy order
     protected $listeners = ['cancel'];
-    public function cancel($id)
+    public function cancel($id, $reason_cancel = null)
     {
         try {
             $order = BillModel::where('id', $id)
@@ -36,7 +36,11 @@ class YourOrder extends Component
                 $coupon = $order->Coupon;
                 couponModel::where('id', $coupon->id)->increment('quantity');
             }
-            $order->update(['status' => 'cancel']);
+            $order->update([
+                'status' => 'cancel',
+                'reason_cancel' => $reason_cancel,
+            ]);
+
             return $this->dispatch('swal:success', (object)[
                 'title' => 'Thành công',
                 'text' => 'Đơn hàng đã được hủy.',

@@ -1,6 +1,26 @@
-<title>@yield('title', 'Bài viết')</title>
+<title>@yield('title', 'Chi tiết đơn hàng')</title>
 @extends('layout.client')
 @section('body')
+    @php
+        $statusMessages = [
+            'new' => 'Hủy đơn hàng',
+            'shipping' => 'Đang vận chuyển',
+            'success' => 'Đã nhận được hàng',
+            'cancel' => 'Đã hủy đơn hàng',
+            'refund' => 'Hoàn tiền',
+        ];
+        $statusbgs = [
+            'new' => 'info',
+            'shipping' => 'warning',
+            'success' => 'success',
+            'cancel' => 'danger',
+            'refund' => 'secondary',
+        ];
+
+        $statusMessage = $statusMessages[$orderDetails->status] ?? 'Trạng thái không xác định';
+        $statusbg = $statusbgs[$orderDetails->status] ?? 'info';
+    @endphp
+
     <div class="container-fluid">
         <div class="container" id="invoice">
             <!-- Title -->
@@ -18,7 +38,6 @@
                                 <div>
                                     <span
                                         class="me-3">{{ date('H:i d-m-Y', strtotime($orderDetails->created_at)) }}</span>
-                                    {{-- <span class="me-3">#16123222</span> --}}
                                     <span class="me-3">Trạng thái đơn hàng: </span>
                                     <span
                                         class="badge rounded-pill 
@@ -67,8 +86,8 @@
                                     </span>
                                 </div>
                                 <div class="d-flex">
-                                    <button class="btn btn-link d-none d-lg-block btn-icon-text" id="downloadInvoice"> <span
-                                            class="text">In hóa đơn</span></button>
+                                    <button class="btn btn-success d-none d-lg-block btn-icon-text" id="downloadInvoice">
+                                        <span class="text">In hóa đơn</span></button>
                                 </div>
                             </div>
                             <table class="table table-borderless">
@@ -108,7 +127,7 @@
                                         </td>
 
                                         <td class="text-success text-end">
-                                            {{ number_format($orderDetails->discount, 0, '.', '.'). ' đ' }}
+                                            {{ number_format($orderDetails->discount, 0, '.', '.') . ' đ' }}
                                         </td>
                                     </tr>
                                     <tr class="fw-bold">
@@ -147,9 +166,20 @@
                 <div class="col-lg-4">
                     <!-- Customer Notes -->
                     <div class="card rounded mb-4">
+
+                        <div class="text-center">
+                            <img src="/shippping.png" width="120px" alt="shipping">
+                            <span class="d-block">Trạng thái đơn hàng</span>
+                            <h3 class="h6 badge text-bg-{{ $statusbg }}">{{ $statusMessage }}</h3>
+                        </div>
+
                         <div class="card-body">
-                            <h3 class="h6">Ghi chú</h3>
-                            <p>{{ $orderDetails->note }}</p>
+                            <h3 class="h6">Ghi chú của bạn: </h3>
+                            <p>{{ $orderDetails->note ?? 'Không có ghi chú nào' }}</p>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="h6">Quản trị viên ghi chú đơn hàng: </h3>
+                            <p class="text-danger">{{ $orderDetails->note_admin ?? 'Không có ghi chú nào' }}</p>
                         </div>
                     </div>
                     <div class="card rounded mb-4">
@@ -166,30 +196,25 @@
                                 {{ Auth::user()->address }}<br>
                                 <abbr title="Số điện thoại">Số điện thoại: </abbr> {{ Auth::user()->phone }}
                             </address>
-                            <div class="text-right">
-                                @php
-                                    $statusMessages = [
-                                        'new' => 'Hủy đơn hàng',
-                                        'shipping' => 'Đã nhận được hàng',
-                                        'success' => 'Đã nhận được hàng',
-                                        'cancel' => 'Đã hủy đơn hàng',
-                                        'refund' => 'Hoàn tiền',
-                                    ];
-                                    $statusbgs = [
-                                        'new' => 'info',
-                                        'shipping' => 'warning',
-                                        'success' => 'success',
-                                        'cancel' => 'danger',
-                                        'refund' => 'secondary',
-                                    ];
+                            <div class="d-flex justify-content-between">
+                                @if ($orderDetails->status !== 'cancel' && $orderDetails->status !== 'success')
+                                    <button class="btn text-white bg-danger" id="cancelOrder"
+                                        type-order="{{ $orderDetails->status }}" order-id="{{ $orderDetails->id }}">
+                                        Hủy đơn hàng
+                                    </button>
+                                @elseif($orderDetails->status !== 'cancel')
+                                    <button class="btn text-white bg-secondary" id="refundOrder"
+                                        type-order="{{ $orderDetails->status }}" order-id="{{ $orderDetails->id }}">
+                                        Hủy đơn & hoàn tiền
+                                    </button>
+                                @endif
 
-                                    $statusMessage = $statusMessages[$orderDetails->status] ?? 'Trạng thái không xác định';
-                                    $statusbg = $statusbgs[$orderDetails->status] ?? 'info';
-                                @endphp
-                                <button class="btn bg-{{ $statusbg }}" id="statusOrder"
-                                    type-order="{{ $orderDetails->status }}">
-                                    {{ $statusMessage }}
-                                </button>
+                                @if ($orderDetails->status !== 'cancel' && $orderDetails->status !== 'success')
+                                    <button class="btn text-white bg-success" id="successOrder"
+                                        type-order="{{ $orderDetails->status }}" order-id="{{ $orderDetails->id }}">
+                                        Đã nhận được hàng
+                                    </button>
+                                @endif
                             </div>
                         </div>
                     </div>

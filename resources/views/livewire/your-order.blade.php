@@ -124,11 +124,17 @@
                     showCancelButton: data.showCancelButton,
                     confirmButtonText: data.confirmButtonText,
                     cancelButtonText: data.cancelButtonText,
-                }).then((result) => {
+
+                    input: "text",
+                    inputLabel: "Lý do hủy: ",
+                    inputValue: "",
+                }).then((result, input) => {
                     if (result.isConfirmed) {
+                        const inputValue = result.value;
                         if (typeof Livewire !== 'undefined') {
                             Livewire.dispatch('cancel', {
-                                id: data.id
+                                id: data.id,
+                                "reason_cancel": inputValue
                             });
                         } else {
                             console.error('Livewire is not available');

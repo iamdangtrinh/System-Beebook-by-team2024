@@ -33,7 +33,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- {{dd($orderDetails)}} --}}
                                             @foreach ($orderDetails->billDetails as $order)
                                                 <tr>
                                                     <td>
@@ -111,10 +110,12 @@
                                                     </td>
                                                 </tr>
                                                 <tr class="">
-                                                    <td style="border: none; padding-left: 0px" scope="row">Ghi chú đơn
-                                                        hàng :</td>
-                                                    <td style="border: none; padding-left: 0px" class="text-end">
-                                                        {{ $orderDetails->note }}</td>
+                                                    <td style="border: none; padding-left: 0px" scope="row">Ghi chú đơn hàng :</td>
+                                                    <td style="border: none; padding-left: 0px" class="text-end"> {{ $orderDetails->note }}</td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td class="text-danger" style="border: none; padding-left: 0px" scope="row">Lý do hủy :</td>
+                                                    <td style="border: none;" class="text-end text-danger pl-0 font-bold"> {{ $orderDetails->reason_cancel }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
