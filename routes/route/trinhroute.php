@@ -10,6 +10,7 @@ use App\Http\Controllers\client\ClientController;
 use App\Http\Controllers\client\getLocationGHNContronller;
 use App\Http\Controllers\client\ManagerUserController;
 use App\Http\Controllers\client\OrderController as ClientOrderController;
+use App\Http\Controllers\client\SepayController;
 use Illuminate\Support\Facades\Route;
 use App\Payments\Casso;
 use Illuminate\Support\Facades\Cache;
@@ -56,7 +57,8 @@ Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
 
       Route::get('/destroy/banner/{id}', [BannerController::class, 'destroy'])->name('admin.banner.destroy');
       Route::get('/banner/edit/{id}', [BannerController::class, 'show'])->name('admin.banner.detail');
-      // Route::get('/', [BannerController::class, 'show'])->name('transaction.history');
+      
+      Route::get('/transaction/all', [SepayController::class, 'show'])->name('transaction.history');
       
       Route::get('/settings', [BannerController::class, 'show'])->name('admin.banner.detail');
 

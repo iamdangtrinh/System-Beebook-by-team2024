@@ -82,6 +82,12 @@ class SepayController extends Controller
         }
     }
 
+    public function show()
+    {
+        $data = SePayTransaction::paginate(20);
+        return view('admin.transaction.index', compact('data'));
+    }
+
     /**
      * Get the bearer token from the request headers.
      *

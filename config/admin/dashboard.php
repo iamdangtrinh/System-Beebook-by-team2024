@@ -57,11 +57,11 @@ return [
                   'icon' => 'fa fa-image',
                   'label' => 'Quản lý banner',
             ],
-            // [
-            //       'route' => 'transaction.history', // Assuming this route name exists
-            //       'icon' => 'fa fa-image',
-            //       'label' => 'Lịch sử giao dịch',
-            // ],
+            [
+                  'route' => 'transaction.history', // Assuming this route name exists
+                  'icon' => 'fa fa-image',
+                  'label' => 'Lịch sử giao dịch',
+            ],
       ]
 
 ];
