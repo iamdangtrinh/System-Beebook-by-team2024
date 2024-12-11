@@ -3,21 +3,28 @@
 
 @section('body')
     <div class="row wrapper wrapper-content p-0">
-        <form action="" method="get" class="p-0">
+        <form action="" method="get" class="p-0" id="dateForm">
             <div class="ibox-content m-b-sm border-bottom">
-                <div class="row">
-                    <div class="col-sm-4 mb-3">
-                        <div class="form-group">
-                            <label class="control-label" for="order_id">Hóa đơn</label>
-                            <input type="text" id="order_id" name="order_id" value="{{ old('order_id') }}"
-                                placeholder="Mã hóa đơn" class="form-control">
-                        </div>
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
                     </div>
-                </div>
+                @endif
                 <div class="row">
-                    <div class="col-sm-4 mb-3">
+                    <div class="col-md-3 col-sm-12 col-xl-3">
+                        <label for="start_date">Ngày bắt đầu:</label>
+                        <input name="start_date" type="text" id="start_date"
+                            value="{{ old('start_date', $_GET['start_date'] ?? '') }}" class="form-control datepicker"
+                            required>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xl-3">
+                        <label for="end_date">Ngày kết thúc:</label>
+                        <input name="end_date" type="text" id="end_date"
+                            value="{{ old('end_date', $_GET['end_date'] ?? '') }}" class="form-control datepicker" required>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xl-3">
                         <div class="form-group mt-3">
-                            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                            <button type="submit" id="search" class="btn btn-primary">Tìm kiếm</button>
                         </div>
                     </div>
                 </div>
@@ -68,4 +75,7 @@
             </div>
         </div>
     </div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="/backend/js/transactions.js"></script>
 @endsection

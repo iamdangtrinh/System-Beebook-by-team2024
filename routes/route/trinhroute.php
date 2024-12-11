@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\AdminSetting;
 use App\Http\Controllers\admin\BannerController;
 use App\Http\Controllers\admin\couponController;
 use App\Http\Controllers\admin\OrderController;
@@ -59,7 +60,6 @@ Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
       Route::get('/banner/edit/{id}', [BannerController::class, 'show'])->name('admin.banner.detail');
       
       Route::get('/transaction/all', [SepayController::class, 'show'])->name('transaction.history');
-      
-      Route::get('/settings', [BannerController::class, 'show'])->name('admin.banner.detail');
+      Route::get('/settings', [AdminSetting::class, 'index'])->name('admin.settings.index');
 
 });

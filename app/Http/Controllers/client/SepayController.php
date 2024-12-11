@@ -4,6 +4,7 @@ namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
 use App\Models\BillModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use SePay\SePay\Models\SePayTransaction;
@@ -85,6 +86,27 @@ class SepayController extends Controller
     public function show()
     {
         $data = SePayTransaction::paginate(20);
+        if (request()->has(['start_date', 'end_date'])) {
+            $startDate = request('start_date');
+            $endDate = request('end_date');
+
+            // end_date > start_date
+            if (strtotime($startDate) > strtotime($endDate)) {
+                return redirect()->back()->with('error', 'Ngày kết thúc phải lớn hơn ngày bắt đầu');
+            }
+
+            if (strtotime($startDate) && strtotime($endDate)) {
+                $data = SePayTransaction::whereBetween('transactionDate', [
+                    Carbon::parse($startDate)->startOfDay(),
+                    Carbon::parse($endDate)->endOfDay()
+                ])->paginate(10);
+            } else {
+                return redirect()->back()->with('error', 'Có lỗi xảy ra vui lòng thử lại!');
+            }
+        }
+
+
+
         return view('admin.transaction.index', compact('data'));
     }
 

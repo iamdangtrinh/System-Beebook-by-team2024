@@ -59,8 +59,13 @@ return [
             ],
             [
                   'route' => 'transaction.history', // Assuming this route name exists
-                  'icon' => 'fa fa-image',
+                  'icon' => 'fa fa-money',
                   'label' => 'Lịch sử giao dịch',
+            ],
+            [
+                  'route' => 'admin.settings.index', // Assuming this route name exists
+                  'icon' => 'fa fa-sliders',
+                  'label' => 'Cấu hình website',
             ],
       ]
 

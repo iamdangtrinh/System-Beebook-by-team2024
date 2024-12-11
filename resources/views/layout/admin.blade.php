@@ -15,8 +15,8 @@
     <link href="{{ asset('/') }}backend/css/style.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/custom.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="{{ asset('/') }}backend/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css"
-        rel="stylesheet">
+    {{-- <link href="{{ asset('/') }}backend/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css"
+        rel="stylesheet"> --}}
     <link href="{{ asset('/') }}backend/css/plugins/chosen/bootstrap-chosen.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/plugins/dropzone/basic.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/plugins/dropzone/dropzone.css" rel="stylesheet">
@@ -24,6 +24,9 @@
     <link href="{{ asset('/') }}backend/css/plugins/codemirror/codemirror.css" rel="stylesheet">
     <link href="{{ asset('/') }}backend/css/plugins/switchery/switchery.css" rel="stylesheet">
     <script src="{{ asset('/') }}backend/js/jquery-3.1.1.min.js"></script>
+
+    <link rel="stylesheet" href="{{ asset('/') }}client/js/lib/toastr.css">
+    <script src="{{ asset('/') }}client/js/lib/toastr.js" defer></script>
 
 </head>
 
