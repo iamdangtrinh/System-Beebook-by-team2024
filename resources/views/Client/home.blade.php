@@ -78,7 +78,7 @@
         <div class="container section pt-0">
             {{-- <div class="flashSale mb-3"> --}}
             <div class="productList">
-                <div class="border rounded rounded mb-3 pt-3"
+                <div class="border rounded mb-3 pt-3"
                     style="background: url('/client/images/flash_sale_background_image.webp') no-repeat center center; background-size: cover;">
                     <div class="container">
                         <div class="title-custom bg-white rounded my-3">
@@ -174,7 +174,7 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
                 <a href="{{ $thirdBanner[0]->text_link ?? '' }}">
                     <img src="{{ $thirdBanner[0]->image ?? '/no_image.jpg' }}"
-                        alt="{{ $thirdBanner[0]->text_link ?? 'image' }}" class="lazyload w-100 object-fit-cover" />
+                        alt="{{ $thirdBanner[0]->text_link ?? 'image' }}" class="lazyload w-100 rounded object-fit-cover" />
                 </a>
             </div>
         </div>
@@ -265,7 +265,7 @@
             <div class="container text-center">
                 <a href="{{ $thirdBanner[1]->text_link ?? '' }}">
                     <img src="{{ $thirdBanner[1]->image ?? '/no_image.jpg' }}"
-                        alt="{{ $thirdBanner[1]->text_link ?? 'image' }}" class="lazyload w-100 object-fit-cover" />
+                        alt="{{ $thirdBanner[1]->text_link ?? 'image' }}" class="lazyload w-100 rounded object-fit-cover" />
                 </a>
             </div>
         </div>
