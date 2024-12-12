@@ -56,7 +56,7 @@ class BillsSeeder extends Seeder
             "Hàng không có sẵn",
             "Lý do khác"
         ];
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $randomCoupon = $coupons->random();
             $randomDate = Carbon::now()->subMonths(rand(0, 12))->subDays(rand(0, 30));
             $phone = $this->generateUniquePhone($generatedPhones);
@@ -84,7 +84,6 @@ class BillsSeeder extends Seeder
 
         // Lấy lại danh sách bill sau khi đã thêm dữ liệu
         $bills = BillModel::get();
-
         foreach ($bills as $bill) {
             $numberOfProducts = $faker->numberBetween(1, 5);
             $totalBillPrice = 0;
@@ -98,7 +97,7 @@ class BillsSeeder extends Seeder
                     'id_bill' => $bill->id,
                     'id_product' => $randomProduct->id,
                     'quantity' => $quantity,
-                    'price' => $totalPrice,
+                    'price' => $price,
                     'created_at' => $bill->created_at,
                     'updated_at' => $bill->updated_at,
                 ]);
@@ -113,7 +112,7 @@ class BillsSeeder extends Seeder
                     if ($findCoupon['type_coupon'] === 'amount') {
                         $totalPrice = $fee - $findCoupon['discount'];
                     } else {
-                        $totalPrice = $fee * ($findCoupon['discount'] / 100);
+                        $totalPrice = $fee - ($fee * ($findCoupon['discount'] / 100));
                     }
                 } else {
                     $totalPrice = $fee;

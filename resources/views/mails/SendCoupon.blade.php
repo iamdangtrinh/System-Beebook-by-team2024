@@ -36,5 +36,5 @@
    <p><strong>Đội ngũ hỗ trợ</strong></p>
 
    <hr>
-   <p class="text-center small">Nếu bạn cần hỗ trợ, vui lòng liên hệ chúng tôi tại <strong>support@example.com</strong></p>
+   <p class="text-center small">Nếu bạn cần hỗ trợ, vui lòng liên hệ chúng tôi tại <strong>cskh@beebook.com.vn</strong></p>
 </div>
