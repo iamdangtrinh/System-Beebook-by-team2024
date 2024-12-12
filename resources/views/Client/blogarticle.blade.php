@@ -137,7 +137,7 @@
                                                     <div class="mini-view_image">
                                                         <a class="grid-view-item__link"
                                                             href="/posts/{{ $mostpost->slug }}">
-                                                            <img class="grid-view-item__image blur-up lazyload"
+                                                            <img class="grid-view-item__image lazyload"
                                                                 src="{{ asset($mostpost->image ? $mostpost->image : 'no_image.jpg') }}"
                                                                 alt="" />
                                                         </a>
@@ -170,7 +170,7 @@
                                                     <div class="mini-view_image">
                                                         <a class="grid-view-item__link"
                                                             href="/posts/{{ $postmore->slug }}">
-                                                            <img class="grid-view-item__image blur-up lazyload"
+                                                            <img class="grid-view-item__image "
                                                                 src="{{ asset($postmore['image'] ? $postmore['image'] : 'no_image.jpg') }}"
                                                                 alt="{{ $postmore->title }}" />
                                                         </a>
