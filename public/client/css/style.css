@@ -5693,3 +5693,7 @@ input.checkbox {
       transition: filter .4s, -webkit-filter .4s;
       -webkit-transition: filter .4s, -webkit-filter .4s
 } */
+
+#page-content .grid-products .item .product-image {
+      margin: 0 !important;
+}
