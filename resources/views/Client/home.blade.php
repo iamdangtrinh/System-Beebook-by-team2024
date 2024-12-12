@@ -78,7 +78,7 @@
         <div class="container section pt-0">
             {{-- <div class="flashSale mb-3"> --}}
             <div class="productList">
-                <div class="border rounded row rounded mb-3 pt-3"
+                <div class="border rounded rounded mb-3 pt-3"
                     style="background: url('/client/images/flash_sale_background_image.webp') no-repeat center center; background-size: cover;">
                     <div class="container">
                         <div class="title-custom bg-white rounded my-3">
