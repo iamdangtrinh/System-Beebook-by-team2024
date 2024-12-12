@@ -91,7 +91,7 @@
 </div>
 <div class="infinitpaginOuter">
     <div class="infinitpagin">
-        <a href="#" class="btn loadMore">Xem thêm</a>
+        <a href="#" class="btn btn-primary loadMore">Xem thêm</a>
     </div>
 </div>
 </div>
