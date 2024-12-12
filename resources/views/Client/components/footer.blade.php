@@ -43,11 +43,6 @@
                 <span>Điện thoại: 0362094527</span>
             </div>
         </div>
-        {{-- <hr>
-        <div class="text-center p-3">
-            <small>Giấy chứng nhận Đăng ký Kinh doanh số 0304132047 do Sở Kế hoạch và Đầu tư Thành phố Hồ Chí Minh cấp
-                ngày 20/12/2005, đăng ký thay đổi lần thứ 10, ngày 20/05/2022.</small>
-        </div> --}}
     </div>
 </footer>
 
@@ -58,8 +53,8 @@
 <!-- Including Javascript -->
 <script src="{{ asset('/') }}client/js/bootstrap.min.js" defer></script>
 <script src="{{ asset('/') }}client/js/plugins.js" defer></script>
-<script src="{{ asset('/') }}client/js/popper.min.js" defer></script>
-<script src="{{ asset('/') }}client/js/lazysizes.js" defer></script>
+{{-- <script src="{{ asset('/') }}client/js/popper.min.js" defer></script> --}}
+{{-- <script src="{{ asset('/') }}client/js/lazysizes.js" defer></script> --}}
 <script src="{{ asset('/') }}client/js/main.js" defer></script>
 
 <!--Start of Tawk.to Script-->

@@ -101,7 +101,7 @@
                                             {{-- Số lượng sản phẩm --}}
                                             <td class="cart__update-wrapper cart-flex-item text-center">
                                                 <div class="cart__qty text-center">
-                                                    <div class="qtyField">
+                                                    <div class="qtyField d-flex">
                                                         <button type="button" class="qtyBtn qtyBtnMinus minus"
                                                             href="javascript:void(0);">
                                                             <i class="icon icon-minus"></i>
