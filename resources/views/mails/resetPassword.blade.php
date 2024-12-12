@@ -12,6 +12,6 @@
  
     <p class="mt-4">Trân trọng,</p>
     <p class="border-bottom pb-2 mb-4">Đội ngũ hỗ trợ</p>
-    <p class="text-center small">Đối với các yêu cầu hỗ trợ, vui lòng liên hệ với chúng tôi tại <strong>support@example.com</strong></p>
+    <p class="text-center small">Đối với các yêu cầu hỗ trợ, vui lòng liên hệ với chúng tôi tại <strong>cskh@beebook.com.vn</strong></p>
     {{-- <p class="text-center small">hoặc Hotline hỗ trợ: <strong>0376206645</strong></p> --}}
  </div>
