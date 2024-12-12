@@ -10,7 +10,7 @@
         Đã xóa gần đây
     </button>
 </div>
-
+<!-- trash -->
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -218,7 +218,7 @@
                                             <td>{{ $product->id }}</td>
                                             <td><img src="{{ $product->image_cover ? asset($product->image_cover) : asset('no_image.jpg') }}" width="50px">
                                             </td>
-                                            <td>{{ $product->name }}</td>
+                                            <td><a href="/san-pham/{{$product->slug}}" target="_blank" rel="noopener noreferrer">{{ $product->name }}</a></td>
                                             <td>{{ $product->category->name }}</td>
                                             <td>
                                                 @if(!$product->price_sale)
