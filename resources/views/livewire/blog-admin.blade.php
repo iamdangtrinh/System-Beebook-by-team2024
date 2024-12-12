@@ -1,9 +1,10 @@
 <div>
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-lg-10">
+        <div class="col-lg-9">
 
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-3 d-flex" style="gap: 20px">
+            <a href="{{route('adminblog.trash')}}" class="btn btn-primary">Bài viết đã xóa</a>
             {{-- <a wire:click="closeModal" class="btn btn-outline btn-primary btn-rounded">Thêm bài viết</a> --}}
             <a href="{{route('adminblog.show')}}" class="btn btn-primary">Thêm bài viết</a>
         </div>

@@ -134,4 +134,30 @@ class BlogAdmin extends Controller
         }
         return redirect()->back()->with('success', 'Cập nhật blog thành công!');
     }
+    
+    public function restore(string $id)
+    {
+        $result = BlogModel::where('id', $id)->restore();
+        if (!$result) {
+            return redirect()->back()->with('error', 'Khôi phục bài viết thất bại!');
+        }
+        return redirect()->back()->with('success', 'Khôi phục bài viết thành công!');
+    }
+
+    public function forceDelete(string $id)
+    {
+        $result = BlogModel::where('id', $id)->forceDelete();
+        if (!$result) {
+            return redirect()->back()->with('error', 'Xóa vĩnh viễn bài viết thất bại!');
+        }
+        return redirect()->back()->with('success', 'Xóa vĩnh viễn bài viết thành công!');
+    }
+
+    public function trash()
+    {
+        $data = BlogModel::onlyTrashed()->paginate(20);
+
+        return view('admin.blog.trash', compact('data'));
+    }
+
 }

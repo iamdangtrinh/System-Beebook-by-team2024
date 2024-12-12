@@ -22,13 +22,18 @@ Route::get('/posts/{slug}', [BlogController::class, 'show'])->name('posts.show')
 Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('overview.index');
     // Route::get('/blogs', [AdminController::class, 'blogs']);
+    Route::get('/blog', [BlogAdmin::class, 'index'])->name('adminblog.index');
     Route::get('/blog/edit/{id}', [BlogAdmin::class, 'edit'])->name('adminblog.edit');
     Route::post('/blog/update/', [BlogAdmin::class, 'update'])->name('adminblog.update');
     Route::get('/blog/add', [BlogAdmin::class, 'showAdd'])->name('adminblog.show');
     Route::post('/blog/addnew', [BlogAdmin::class, 'add'])->name('adminblog.add');
 
+    // bản tin xóa mềm
+    Route::get('/blog/restore/{id}', [BlogAdmin::class, 'restore'])->name('adminblog.restore');
+    Route::get('/blog/forceDelete/{id}', [BlogAdmin::class, 'forceDelete'])->name('adminblog.forceDelete');
+    Route::get('/blog/trash', [BlogAdmin::class, 'trash'])->name('adminblog.trash');
+
     Route::get('/article', [AdminController::class, 'article']);
-    Route::get('/blog', [BlogAdmin::class, 'index'])->name('adminblog.index');
     Route::get('/taxonomy', [TaxonomyAdmin::class, 'index'])->name('admintaxonomy.index');
     Route::get('/coupon', [couponAdmin::class, 'index'])->name('admincoupon.index');
 });
