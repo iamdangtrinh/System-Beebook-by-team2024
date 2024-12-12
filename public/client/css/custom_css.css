@@ -289,6 +289,7 @@ a {
     height: 150px;
     width: 100%;
     object-fit: cover;
+    border-radius: 6px;
 }
 
 .article_featured-image .__custom_image {
