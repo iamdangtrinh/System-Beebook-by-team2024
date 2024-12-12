@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\client\ProductController;
 use App\Http\Controllers\client\WishlistController;
 use App\Http\Controllers\client\SearchController;
+use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\client\CommentController;
 use App\Http\Controllers\admin\ProductController as AdminProductController;
 use App\Http\Controllers\admin\CommentController as AdminCommentController;
@@ -30,6 +31,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
+    Route::get('/get-top-selling-products', [AdminController::class, 'getTopSellingProducts'])->name('admin.topsellingproducts');
     Route::get('/product', [AdminProductController::class, 'index'])->name('adminproduct.index');
     Route::get('/product/add', [AdminProductController::class, 'add'])->name('adminproduct.add');
     Route::post('/product/store', [AdminProductController::class, 'store'])->name('product.store');

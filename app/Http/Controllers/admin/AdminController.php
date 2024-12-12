@@ -79,24 +79,24 @@ class AdminController extends Controller
         }])->orderBy('bills_count', 'desc')->having('bills_count', '>', 0)->limit(10)->get();
 
         // sản phẩm bán chạy nhất tháng
-        $topSellingProducts = BillDetailModel::select(
-            'products.id as product_id',
-            'products.name as product_name',
-            'products.image_cover as product_image',
-            'products.quantity as product_stock',
-            DB::raw('SUM(bill_detail.quantity) as total_quantity_sold')
-        )
-            ->join('products', 'bill_detail.id_product', '=', 'products.id')
-            ->join('bills', 'bill_detail.id_bill', '=', 'bills.id')
-            ->whereBetween('bills.created_at', [
-                Carbon::now()->startOfMonth(),
-                Carbon::now()->endOfMonth()
-            ])
-            ->where('bills.status', 'success')
-            ->groupBy('products.id', 'products.name')
-            ->orderByDesc('total_quantity_sold')
-            ->limit(10)
-            ->get();
+        // $topSellingProducts = BillDetailModel::select(
+        //     'products.id as product_id',
+        //     'products.name as product_name',
+        //     'products.image_cover as product_image',
+        //     'products.quantity as product_stock',
+        //     DB::raw('SUM(bill_detail.quantity) as total_quantity_sold')
+        // )
+        //     ->join('products', 'bill_detail.id_product', '=', 'products.id')
+        //     ->join('bills', 'bill_detail.id_bill', '=', 'bills.id')
+        //     ->whereBetween('bills.created_at', [
+        //         Carbon::now()->startOfMonth(),
+        //         Carbon::now()->endOfMonth()
+        //     ])
+        //     ->where('bills.status', 'success')
+        //     ->groupBy('products.id', 'products.name')
+        //     ->orderByDesc('total_quantity_sold')
+        //     ->limit(10)
+        //     ->get();
 
         $amount_month = 0;
         foreach ($order as $key => $amount) {
@@ -126,10 +126,40 @@ class AdminController extends Controller
             'countUser',
             'orderDayCount',
             'userBuyMost',
-            'topSellingProducts',
+            // 'topSellingProducts',
             'orderYear'
         ));
     }
+
+    public function getTopSellingProducts(Request $request)
+    {
+        // Get filter inputs
+        $timeRange = $request->input('time_range', 1); // Default to 1 month
+        $limit = $request->input('limit', 3);         // Default to 3 products
+
+        // Calculate date range
+        $startDate = Carbon::now()->subMonths($timeRange)->startOfMonth();
+        $endDate = Carbon::now()->endOfMonth();
+
+        // Fetch top-selling products
+        $topSellingProducts = BillDetailModel::select(
+            'products.id as product_id',
+            'products.name as product_name',
+            'products.image_cover as product_image',
+            DB::raw('SUM(bill_detail.quantity) as total_quantity_sold')
+        )
+            ->join('products', 'bill_detail.id_product', '=', 'products.id')
+            ->join('bills', 'bill_detail.id_bill', '=', 'bills.id')
+            ->whereBetween('bills.created_at', [$startDate, $endDate])
+            ->where('bills.status', 'success')
+            ->groupBy('products.id', 'products.name', 'products.image_cover')
+            ->orderByDesc('total_quantity_sold')
+            ->limit($limit)
+            ->get();
+
+        return response()->json($topSellingProducts);
+    }
+
 
     public function show404()
     {
