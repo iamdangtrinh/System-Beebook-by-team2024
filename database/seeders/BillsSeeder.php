@@ -56,7 +56,7 @@ class BillsSeeder extends Seeder
             "Hàng không có sẵn",
             "Lý do khác"
         ];
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 1200; $i++) {
             $randomCoupon = $coupons->random();
             $randomDate = Carbon::now()->subMonths(rand(0, 12))->subDays(rand(0, 30));
             $phone = $this->generateUniquePhone($generatedPhones);
