@@ -49,6 +49,7 @@ class AdminController extends Controller
         // doanh thu của tháng
         $order = BillModel::select($this->seleced())->with('billDetails')
             ->with('Coupon')
+            ->where('status', 'success')
             ->whereBetween('created_at', [
                 Carbon::now()->startOfMonth(),
                 Carbon::now()->endOfMonth()

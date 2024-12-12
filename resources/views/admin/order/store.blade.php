@@ -49,7 +49,7 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>{{ number_format($order->price, '0', '.', '.') . ' đ' }}</td>
+                                                    <td>{{ number_format($order->order_price, '0', '.', '.') . ' đ' }}</td>
                                                     <td>{{ $order->quantity }}</td>
                                                     <td class="fw-medium text-end">
                                                         {{ number_format($order->order_price * $order->quantity, '0', '.', '.') . ' đ' }}
