@@ -589,7 +589,7 @@ th {
       padding-left: 0
 }
 
-/* .btn,
+.btn,
 .shopify-payment-button__button--unbranded {
       -moz-user-select: none;
       -ms-user-select: none;
@@ -620,7 +620,7 @@ th {
       -webkit-transition: .3s ease-in-out;
       transition: .3s ease-in-out;
       cursor: pointer
-} */
+}
 
 .btn:focus,
 .btn:hover,
