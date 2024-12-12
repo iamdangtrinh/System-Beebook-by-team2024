@@ -61,5 +61,6 @@ Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
       
       Route::get('/transaction/all', [SepayController::class, 'show'])->name('transaction.history');
       Route::get('/settings', [AdminSetting::class, 'index'])->name('admin.settings.index');
+      Route::post('/settings/udpate', [AdminSetting::class, 'udpate'])->name('admin.settings.udpate');
 
 });
