@@ -197,19 +197,28 @@
                                 <abbr title="Số điện thoại">Số điện thoại: </abbr> {{ Auth::user()->phone }}
                             </address>
                             <div class="d-flex justify-content-between">
-                                @if ($orderDetails->status === 'success')
+                                @if ($orderDetails->status === 'new')
                                     <button class="btn text-white bg-danger" id="cancelOrder"
                                         type-order="{{ $orderDetails->status }}" order-id="{{ $orderDetails->id }}">
                                         Hủy đơn hàng
                                     </button>
-                                @elseif($orderDetails->status !== 'cancel')
+                                @endif
+
+                                @if ($orderDetails->status === 'new')
+                                    <button class="btn text-white bg-danger" id="cancelOrder"
+                                        type-order="{{ $orderDetails->status }}" order-id="{{ $orderDetails->id }}">
+                                        Hủy đơn hàng
+                                    </button>
+                                @endif
+
+                                @if ($isDisabled === false && $orderDetails->status === 'success')
                                     <button class="btn text-white bg-secondary" id="refundOrder"
                                         type-order="{{ $orderDetails->status }}" order-id="{{ $orderDetails->id }}">
                                         Hủy đơn & hoàn tiền
                                     </button>
                                 @endif
 
-                                @if ($orderDetails->status !== 'cancel' && $orderDetails->status !== 'success')
+                                @if ($orderDetails->status === 'shipping')
                                     <button class="btn text-white bg-success" id="successOrder"
                                         type-order="{{ $orderDetails->status }}" order-id="{{ $orderDetails->id }}">
                                         Đã nhận được hàng
