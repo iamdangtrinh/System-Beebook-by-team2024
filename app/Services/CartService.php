@@ -22,34 +22,20 @@ class CartService implements CartServiceInterface
         $this->CartRepository = $CartRepository;
     }
 
-    private function paginateSelect()
-    {
-        return [
-            'id',
-            'id_user',
-            'id_product',
-            'price',
-            'quantity',
-        ];
-    }
-
     public function findCartByUser($perPage = 20)
     {
         $cart = [];
         if (Auth::check()) {
             $cart = cartModel::select('*')
                 ->where('id_user', '=', Auth::user()->id)
-                ->with(['cartProduct' => function ($cart) {
-                    $cart->where('status', 'active');
-                }])
+                ->with(['cartProduct'])
                 ->get();
 
             $cart->each(function ($cartItem) {
-                if ($cartItem->cartProduct->isEmpty()) {
+                if ($cartItem->cartProduct->where('status','!=', 'active')->isEmpty()) {
                     $cartItem->delete();
                 }
             });
-
         } else {
             $carts = session()->get('cart', []);
             $proIdArr = array_column($carts, 'product_id');

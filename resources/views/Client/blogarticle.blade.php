@@ -12,8 +12,8 @@
             </div>
         </div>
         <!--End Page Title-->
-        
-        <div class="container">
+
+        <div class="container mt-5">
             <div class="row">
                 <!--Main Content-->
                 <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">
@@ -24,10 +24,10 @@
                                     alt="{{ $getPost['title'] }}"></a>
                             <h1><a href="blog-left-sidebar.html">{{ $getPost['title'] }}</a></h1>
                             <ul class="publish-detail">
-                                
+
                                 <li>{{ $getPost['post_type'] }}</li>
-                                    <li><i class="anm anm-eye" aria-hidden="true"></i>{{ $getPost['views'] }}</li>
-                                  
+                                <li><i class="anm anm-eye" aria-hidden="true"></i>{{ $getPost['views'] }}</li>
+
                                 <li><i class="icon anm anm-clock-r"></i> <time
                                         datetime="{{ date('d-m-Y', strtotime($getPost['updated_at'])) }}">{{ date('d-m-Y', strtotime($getPost['updated_at'])) }}</time>
                                 </li>
@@ -45,21 +45,14 @@
                                                 @foreach ($getProduct as $product)
                                                     <div class="swiper-slide">
                                                         <div class="col-sm-6 col-md-12 col-lg-12 item">
-                                                            <!-- start product image -->
                                                             <div class="product-image">
-                                                                <!-- start product image -->
                                                                 <a href="{{ asset('san-pham/' . $product->slug) }}"
                                                                     class="grid-view-item__link">
-                                                                    <!-- image -->
                                                                     <img class="primary lazyload"
                                                                         data-src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
                                                                         src="{{ asset($product->image_cover ? $product->image_cover : 'no_image.jpg') }}"
                                                                         alt="image" title="product">
-                                                                    <!-- End image -->
                                                                 </a>
-                                                                <!-- end product image -->
-
-                                                                <!-- Start product button -->
                                                                 <form class="variants add add_to_cart"
                                                                     action="{{ route('cart.store') }}" method="post">
                                                                     @csrf
@@ -94,16 +87,11 @@
                                                                 </div>
                                                                 <!-- end product button -->
                                                             </div>
-                                                            <!-- end product image -->
-                                                            <!--start product details -->
                                                             <div class="product-details text-center">
-                                                                <!-- product name -->
                                                                 <div class="product-name">
                                                                     <a
                                                                         href="{{ asset('san-pham/' . $product->slug) }}">{{ $product->name }}</a>
                                                                 </div>
-                                                                <!-- End product name -->
-                                                                <!-- product price -->
                                                                 <div class="product-price">
                                                                     @if (!$product->price_sale)
                                                                         <span
@@ -133,6 +121,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar">
                     <div class="sidebar_tags">
                         <div class="sidebar_widget">
@@ -146,14 +135,15 @@
                                             <div class="grid__item">
                                                 <div class="mini-list-item">
                                                     <div class="mini-view_image">
-                                                        <a class="grid-view-item__link" href="/posts/{{$mostpost->slug}}">
-                                                            <img class="grid-view-item__image blur-up lazyload"
+                                                        <a class="grid-view-item__link"
+                                                            href="/posts/{{ $mostpost->slug }}">
+                                                            <img class="grid-view-item__image lazyload"
                                                                 src="{{ asset($mostpost->image ? $mostpost->image : 'no_image.jpg') }}"
                                                                 alt="" />
                                                         </a>
                                                     </div>
                                                     <div class="details"> <a class="grid-view-item__title"
-                                                            href="/posts/{{$mostpost->slug}}">{{ $mostpost->title }}</a>
+                                                            href="/posts/{{ $mostpost->slug }}">{{ $mostpost->title }}</a>
                                                         <p>{{ $mostpost->tags }}</p>
                                                     </div>
 
@@ -178,15 +168,16 @@
                                             <div class="grid__item">
                                                 <div class="mini-list-item">
                                                     <div class="mini-view_image">
-                                                        <a class="grid-view-item__link" href="/posts/{{$postmore->slug}}">
-                                                            <img class="grid-view-item__image blur-up lazyload"
+                                                        <a class="grid-view-item__link"
+                                                            href="/posts/{{ $postmore->slug }}">
+                                                            <img class="grid-view-item__image "
                                                                 src="{{ asset($postmore['image'] ? $postmore['image'] : 'no_image.jpg') }}"
                                                                 alt="{{ $postmore->title }}" />
                                                         </a>
                                                     </div>
 
                                                     <div class="details"> <a class="grid-view-item__title"
-                                                            href="/posts/{{$postmore->slug}}">{{ $postmore->title }}</a>
+                                                            href="/posts/{{ $postmore->slug }}">{{ $postmore->title }}</a>
                                                         <p>{{ $postmore->tags }}</p>
                                                     </div>
                                                 </div>
@@ -241,6 +232,6 @@
             });
         </script>
     @endif
-<script src="{{ asset('/') }}client/js/customFavorite.js"></script>
-<script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
+    <script src="{{ asset('/') }}client/js/customFavorite.js"></script>
+    <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
 @endsection
