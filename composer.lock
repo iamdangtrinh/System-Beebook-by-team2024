@@ -1343,6 +1343,7 @@
             "extra": {
                 "laravel": {
 <<<<<<< HEAD
+<<<<<<< HEAD
                     "providers": [
                         "Laravel\\Sanctum\\SanctumServiceProvider"
                     ]
@@ -1352,6 +1353,9 @@
 =======
                     "providers": ["Laravel\\Sanctum\\SanctumServiceProvider"]
 >>>>>>> b45263f4068e52a6f44cfa6f5badf77ab8e5b924
+=======
+                    "providers": ["Laravel\\Sanctum\\SanctumServiceProvider"]
+>>>>>>> c4fad55d589d6c76afd297693813515cddbc48b6
                 }
             },
             "autoload": {
@@ -1992,7 +1996,11 @@
         {
             "name": "livewire/livewire",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "version": "v3.5.17",
+=======
+            "version": "v3.5.16",
+>>>>>>> c4fad55d589d6c76afd297693813515cddbc48b6
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
@@ -2000,6 +2008,7 @@
             },
             "dist": {
                 "type": "zip",
+<<<<<<< HEAD
                 "url": "https://api.github.com/repos/livewire/livewire/zipball/7bbf80d93db9b866776bf957ca6229364bca8d87",
                 "reference": "7bbf80d93db9b866776bf957ca6229364bca8d87",
 =======
@@ -2014,6 +2023,10 @@
                 "url": "https://api.github.com/repos/livewire/livewire/zipball/0b842088d716cadaf9d94fc4f096bc688db29d65",
                 "reference": "0b842088d716cadaf9d94fc4f096bc688db29d65",
 >>>>>>> b45263f4068e52a6f44cfa6f5badf77ab8e5b924
+=======
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/0b842088d716cadaf9d94fc4f096bc688db29d65",
+                "reference": "0b842088d716cadaf9d94fc4f096bc688db29d65",
+>>>>>>> c4fad55d589d6c76afd297693813515cddbc48b6
                 "shasum": ""
             },
             "require": {
@@ -2063,10 +2076,14 @@
             "support": {
                 "issues": "https://github.com/livewire/livewire/issues",
 <<<<<<< HEAD
+<<<<<<< HEAD
                 "source": "https://github.com/livewire/livewire/tree/v3.5.17"
 =======
                 "source": "https://github.com/livewire/livewire/tree/v3.5.16"
 >>>>>>> b45263f4068e52a6f44cfa6f5badf77ab8e5b924
+=======
+                "source": "https://github.com/livewire/livewire/tree/v3.5.16"
+>>>>>>> c4fad55d589d6c76afd297693813515cddbc48b6
             },
             "funding": [
                 {
@@ -2075,10 +2092,14 @@
                 }
             ],
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2024-12-06T13:41:21+00:00"
 =======
             "time": "2024-12-02T15:57:58+00:00"
 >>>>>>> b45263f4068e52a6f44cfa6f5badf77ab8e5b924
+=======
+            "time": "2024-12-02T15:57:58+00:00"
+>>>>>>> c4fad55d589d6c76afd297693813515cddbc48b6
         },
         {
             "name": "masterminds/html5",
@@ -3249,10 +3270,14 @@
         {
             "name": "psy/psysh",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "version": "v0.12.7",
 =======
             "version": "v0.12.5",
 >>>>>>> b45263f4068e52a6f44cfa6f5badf77ab8e5b924
+=======
+            "version": "v0.12.5",
+>>>>>>> c4fad55d589d6c76afd297693813515cddbc48b6
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
@@ -3261,12 +3286,17 @@
             "dist": {
                 "type": "zip",
 <<<<<<< HEAD
+<<<<<<< HEAD
                 "url": "https://api.github.com/repos/bobthecow/psysh/zipball/d73fa3c74918ef4522bb8a3bf9cab39161c4b57c",
                 "reference": "d73fa3c74918ef4522bb8a3bf9cab39161c4b57c",
 =======
                 "url": "https://api.github.com/repos/bobthecow/psysh/zipball/36a03ff27986682c22985e56aabaf840dd173cb5",
                 "reference": "36a03ff27986682c22985e56aabaf840dd173cb5",
 >>>>>>> b45263f4068e52a6f44cfa6f5badf77ab8e5b924
+=======
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/36a03ff27986682c22985e56aabaf840dd173cb5",
+                "reference": "36a03ff27986682c22985e56aabaf840dd173cb5",
+>>>>>>> c4fad55d589d6c76afd297693813515cddbc48b6
                 "shasum": ""
             },
             "require": {
@@ -3320,6 +3350,7 @@
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
 <<<<<<< HEAD
+<<<<<<< HEAD
                 "source": "https://github.com/bobthecow/psysh/tree/v0.12.7"
             },
             "time": "2024-12-10T01:58:33+00:00"
@@ -3328,6 +3359,11 @@
             },
             "time": "2024-11-29T06:14:30+00:00"
 >>>>>>> b45263f4068e52a6f44cfa6f5badf77ab8e5b924
+=======
+                "source": "https://github.com/bobthecow/psysh/tree/v0.12.5"
+            },
+            "time": "2024-11-29T06:14:30+00:00"
+>>>>>>> c4fad55d589d6c76afd297693813515cddbc48b6
         },
         {
             "name": "ralouphie/getallheaders",
