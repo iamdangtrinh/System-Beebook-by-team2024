@@ -5,7 +5,7 @@
     <div id="page-content">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-6 col-sm-12">
+                <div class="col-lg-6 col-md-10 col-sm-12">
                     <form class="d-flex gap-1 m-0 position-relative" method="GET" action="{{ route('search') }}">
                         <div class="w-75 flex-fill">
                             <input class="rounded" type="text" id="search" name="query"
@@ -82,9 +82,9 @@
                     style="background: url('/client/images/flash_sale_background_image.webp') no-repeat center center; background-size: cover;">
                     <div class="container">
                         <div class="title-custom bg-white rounded my-3">
-                            <div class="d-flex justify-content-between align-items-center px-3">
-                                <h2 class="p-3 m-0"><strong>SẢN PHẨM NỔI BẬT</strong></h2>
-                                <a class="link-danger" href="{{ route('product.hot') }}">Xem tất cả >></a>
+                            <div class="row align-items-center px-3">
+                                <h2 class="col-md-8 col-sm-12 p-3 m-0"><strong>SẢN PHẨM NỔI BẬT</strong></h2>
+                                <a class="col-md-4 col-sm-12 text-md-end text-start link-danger" href="{{ route('product.hot') }}">Xem tất cả >></a>
                             </div>
                         </div>
                     </div>

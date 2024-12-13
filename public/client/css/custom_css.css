@@ -254,6 +254,9 @@ a {
     .title_coupon {
         margin-top: 20px;
     }
+    .grid-products .item .product-image img {
+        height: 150px !important;
+    }
 }
 
 .imgBnrOuter {
