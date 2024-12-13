@@ -148,6 +148,7 @@ class ManagerUserController extends Controller
             ->with('billDetails')
             ->with('Coupon')
             ->firstOrFail();
-        return view('Client.order.detail', compact(['orderDetails']));
+        $isDisabled = $orderDetails->status === 'success' && $orderDetails->updated_at->addDays(5)->isPast();
+        return view('Client.order.detail', compact(['orderDetails', 'isDisabled']));
     }
 }

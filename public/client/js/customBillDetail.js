@@ -84,7 +84,7 @@
                 preConfirm: (reason_cancel) => {
                     DT.handlerUpdateStatusOrder(
                         orderId,
-                        "cancel",
+                        "refund",
                         reason_cancel
                     );
                 },
