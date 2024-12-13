@@ -34,7 +34,10 @@ Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
     Route::get('/blog/trash', [BlogAdmin::class, 'trash'])->name('adminblog.trash');
 
     Route::get('/article', [AdminController::class, 'article']);
-    Route::get('/taxonomy', [TaxonomyAdmin::class, 'index'])->name('admintaxonomy.index');
+    Route::get('/taxonomy/author', [TaxonomyAdmin::class, 'author'])->name('admintaxonomy.author');
+    Route::get('/taxonomy/translator', [TaxonomyAdmin::class, 'translator'])->name('admintaxonomy.translator');
+    Route::get('/taxonomy/manufacturer', [TaxonomyAdmin::class, 'manufacturer'])->name('admintaxonomy.manufacturer');
+    Route::get('/taxonomy/forceDelete/{id}', [TaxonomyAdmin::class, 'forceDelete'])->name('admintaxonomy.forceDelete');
     Route::get('/coupon', [couponAdmin::class, 'index'])->name('admincoupon.index');
 });
 

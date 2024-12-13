@@ -43,9 +43,19 @@ return [
                   'label' => 'Mã giảm giá',
             ],
             [
-                  'route' => 'admintaxonomy.index',
+                  'route' => 'admintaxonomy.author',
                   'icon' => 'fa fa-book',
                   'label' => 'Tác giả',
+            ],
+            [
+                  'route' => 'admintaxonomy.translator',
+                  'icon' => 'fa fa-book',
+                  'label' => 'Người biên dịch',
+            ],
+            [
+                  'route' => 'admintaxonomy.manufacturer',
+                  'icon' => 'fa fa-book',
+                  'label' => 'Nhà xuất bản',
             ],
             [
                   'route' => 'adminUser.index',
