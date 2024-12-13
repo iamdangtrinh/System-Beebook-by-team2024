@@ -110,7 +110,7 @@
                                             </td>
                                             <td>{{ $billDetail->quantity }}</td>
                                             <td class="text-end">
-                                                {{ number_format($billDetail->price, '0', '.', '.') . ' đ' }}</td>
+                                                {{ number_format($billDetail->order_price, '0', '.', '.') . ' đ' }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -197,7 +197,7 @@
                                 <abbr title="Số điện thoại">Số điện thoại: </abbr> {{ Auth::user()->phone }}
                             </address>
                             <div class="d-flex justify-content-between">
-                                @if ($orderDetails->status !== 'cancel' && $orderDetails->status !== 'success')
+                                @if ($orderDetails->status === 'success')
                                     <button class="btn text-white bg-danger" id="cancelOrder"
                                         type-order="{{ $orderDetails->status }}" order-id="{{ $orderDetails->id }}">
                                         Hủy đơn hàng
