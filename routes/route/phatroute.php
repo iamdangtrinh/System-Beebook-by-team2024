@@ -38,6 +38,10 @@ Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
     Route::get('/taxonomy/translator', [TaxonomyAdmin::class, 'translator'])->name('admintaxonomy.translator');
     Route::get('/taxonomy/manufacturer', [TaxonomyAdmin::class, 'manufacturer'])->name('admintaxonomy.manufacturer');
     Route::get('/taxonomy/forceDelete/{id}', [TaxonomyAdmin::class, 'forceDelete'])->name('admintaxonomy.forceDelete');
+    Route::get('/taxonomy/edit/{id}', [TaxonomyAdmin::class, 'edit'])->name('admintaxonomy.edit');
+    Route::post('/taxonomy/update/{id}', [TaxonomyAdmin::class, 'update'])->name('admintaxonomy.update');
+    Route::post('/taxonomy/add', [TaxonomyAdmin::class, 'add'])->name('admintaxonomy.add');
+
     Route::get('/coupon', [couponAdmin::class, 'index'])->name('admincoupon.index');
 });
 

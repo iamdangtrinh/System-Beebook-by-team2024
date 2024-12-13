@@ -1,81 +1,52 @@
-<title>
-    @yield('title', 'Đơn hàng')</title>
+<title>@yield('title', 'Danh mục tác giả')</title>
 @extends('layout.admin')
 
 @section('body')
     <div>
-        <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-10">
+        @if ($errors->any())
+            <ul class="navbar-nav alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
 
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
             </div>
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        {{ $error }}
-                    @endforeach
-                </div>
-            @endif
-
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-        </div>
+        @endif
 
         <div class="row wrapper wrapper-content" style="padding: 10px 0 0 !important">
             <div class="ibox-content m-b-sm border-bottom">
-                <div class="row">
-                    <!-- Cột 1: Nhập tên tác giả -->
-                    <div class="col-sm-4 mb-3">
-                        <div class="form-group">
-                            <label for="text_link">Nhập tên tác giả</label>
-                            <input type="text" id="text_link" name="text_link" class="mb-3 form-control" value="">
+                <form action="{{ route('admintaxonomy.add') }}" method="post">
+                    <div class="row">
+                        <!-- Cột 1: Nhập tên tác giả -->
+                        @csrf
+                        <input type="hidden" id="type" name="type" class="mb-3 form-control" value="author">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="name">Nhập tên tác giả</label>
+                                <input type="text" id="name" name="name" class="mb-3 form-control"
+                                    value="">
+                            </div>
+                        </div>
+
+                        <!-- Cột 2: Tên danh mục -->
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="slug">Đường dẫn</label>
+                                <input type="text" id="slug" name="slug" value="" placeholder=""
+                                    class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Cột 3: Nút Lưu thay đổi -->
+                        <div class="col-sm-4">
+                            <button class="mt-3 btn btn-primary w-100">Thêm tác giả</button>
                         </div>
                     </div>
-
-                    <!-- Cột 2: Tên danh mục -->
-                    <div class="col-sm-4 mb-3">
-                        <div class="form-group">
-                            <label class="control-label" for="title">Slug</label>
-                            <input type="text" id="title" value="" placeholder="Slug+" class="form-control">
-                        </div>
-                    </div>
-
-                    <!-- Cột 3: Nút Lưu thay đổi -->
-                    <div class="col-sm-4 mb-3">
-                        <button class="mt-3 btn btn-primary w-100">Lưu thay đổi</button>
-                        <!-- w-100 để nút chiếm hết chiều rộng của cột -->
-                    </div>
-                </div>
-            </div>
-
-
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
-                        type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Tác giả</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
-                        type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Nhà sản
-                        xuất</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
-                        type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Người phiên
-                        dịch</button>
-                </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
-                    tabindex="0">
-                </div>
-
-                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
-                    tabindex="0">
-                </div>
+                </form>
             </div>
 
             <div class="ibox">
@@ -88,7 +59,7 @@
                                     <th>Loại</th>
                                     <th>Tên</th>
                                     <th>Đường dẫn</th>
-                                    <th>Hành động</th>
+                                    <th style="width: 200px">Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -110,11 +81,12 @@
                                         <td>{{ $tax->name }}</td>
                                         <td>{{ $tax->slug }}</td>
                                         <td class="text-right">
-                                            <button class="btn btn-warning" style="border-radius: 5px; padding: 8px 16px; font-size: 14px; text-align: center; display: inline-flex; align-items: center; min-width: 80px; background-color: #ffc107; border-color: #ffc107; color: #fff; text-decoration: none;">Sửa</button>
-                                            <a href="{{ route('admintaxonomy.forceDelete', ['id' => $tax->id]) }}" class="btn btn-danger deleteBtn" style="border-radius: 5px; padding: 8px 16px; font-size: 14px; text-align: center; display: inline-flex; align-items: center; min-width: 80px; background-color: #dc3545; border-color: #dc3545; color: #fff; text-decoration: none;">Xóa</a>
+
+                                            <a href="{{ route('admintaxonomy.edit', ['id' => $tax->id]) }}"
+                                                class="btn btn-warning" style="width: max-content">Sửa</a>
+                                            <a href="{{ route('admintaxonomy.forceDelete', ['id' => $tax->id]) }}"
+                                                class="btn btn-danger deleteBtn" style="width: max-content">Xóa</a>
                                         </td>
-
-
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -128,31 +100,30 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // Sử dụng jQuery để bắt sự kiện click
-        $(document).on('click', '.deleteBtn', function(event) {
-            event.preventDefault(); // Ngừng hành động mặc định của nút (nếu có)
+        $(document).ready(function() {
+            $(document).on('click', '.deleteBtn', function(event) {
+                event.preventDefault();
 
-            // Hiển thị SweetAlert để xác nhận
-            Swal.fire({
-                title: "Bạn có muốn xóa danh mục này không?",
-                text: "Nếu bạn xóa, hành động này không thể hoàn tác!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#d33",
-                cancelButtonColor: "#000",
-                confirmButtonText: "Xác nhận xóa",
-                cancelButtonText: "Hủy"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Xử lý nếu người dùng xác nhận xóa
-                    Swal.fire({
-                        title: "Đã xóa!",
-                        text: "Danh mục của bạn đã bị xóa.",
-                        icon: "success"
-                    });
+                Swal.fire({
+                    title: "Bạn có muốn xóa danh mục này không?",
+                    text: "Nếu bạn xóa, hành động này không thể hoàn tác!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#000",
+                    confirmButtonText: "Xác nhận xóa",
+                    cancelButtonText: "Hủy"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: "Đã xóa!",
+                            text: "Danh mục của bạn đã bị xóa.",
+                            icon: "success"
+                        });
 
-                    window.location.href = $(this).attr('href')
-                }
+                        window.location.href = $(this).attr('href')
+                    }
+                });
             });
         });
     </script>

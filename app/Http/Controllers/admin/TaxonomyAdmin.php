@@ -46,9 +46,67 @@ class TaxonomyAdmin extends Controller
     {
         $result = Taxonomy::where('id', $id)->forceDelete();
         if (!$result) {
-            return redirect()->back()->with('error', 'Xóa vĩnh viễn bài viết thất bại!');
+            return redirect()->back()->with('error', 'Xóa vĩnh viễn danh mục thất bại!');
         }
-        return redirect()->back()->with('success', 'Xóa vĩnh viễn bài viết thành công!');
+        return redirect()->back()->with('success', 'Xóa vĩnh viễn danh mục thành công!');
     }
 
+    public function edit(string $id)
+    {
+        $taxonomy = Taxonomy::FindOrFail($id);
+        return view('admin.taxonomy.edit', compact('taxonomy'));
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $message = [
+            'name.required' => 'Tên danh mục không được để trống',
+            'slug.required' => 'Đường dẫn không được để trống',
+            'type.required' => 'Loại danh mục không được để trống',
+        ];
+
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required',
+            'type' => 'required',
+        ], $message);
+
+        $taxonomy = Taxonomy::FindOrFail($id);
+        $result = $taxonomy->update([
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'type' => $request->type,
+        ]);
+
+        if (!$result) {
+            return redirect()->back()->with('error', 'Cập nhật danh mục thất bại!');
+        }
+        return redirect()->back()->with('success', 'Cập nhật danh mục thành công!');
+    }
+
+    public function add(Request $request)
+    {
+        $message = [
+            'name.required' => 'Tên danh mục không được để trống',
+            'slug.required' => 'Đường dẫn không được để trống',
+            'type.required' => 'Loại danh mục không được để trống',
+        ];
+
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required',
+            'type' => 'required',
+        ], $message);
+
+        $result = Taxonomy::create([
+            'name' => $request->name,
+            'slug' => Str::slug($request->slug),
+            'type' => $request->type,
+        ]);
+
+        if (!$result) {
+            return redirect()->back()->with('error', 'Thêm danh mục thất bại!');
+        }
+        return redirect()->back()->with('success', 'Thêm danh mục thành công!');
+    }
 }
