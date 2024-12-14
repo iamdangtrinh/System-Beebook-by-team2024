@@ -1,5 +1,5 @@
 <title>
-    @yield('title', 'Đơn hàng')</title>
+    @yield('title', 'Cấu hình website')</title>
 @extends('layout.admin')
 
 @section('body')
