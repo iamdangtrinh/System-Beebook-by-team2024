@@ -25,7 +25,6 @@
     <link href="{{ asset('/') }}backend/css/plugins/switchery/switchery.css" rel="stylesheet">
     <script src="{{ asset('/') }}backend/js/jquery-3.1.1.min.js"></script>
 
-    <link rel="stylesheet" href="{{ asset('/') }}client/js/lib/toastr.css">
     <script src="{{ asset('/') }}client/js/lib/toastr.js" defer></script>
 
 </head>
