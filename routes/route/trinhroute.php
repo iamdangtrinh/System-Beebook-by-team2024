@@ -26,12 +26,11 @@ Route::controller(cartController::class)->group(function () {
 Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware('CheckLogin');
 Route::post('progressCheckout', [CheckoutController::class, 'store'])->name('checkout.store')->middleware('CheckLogin');
 Route::get('thank-you/{id}', [CheckoutController::class, 'thankyou'])->name('thankyou.index')->middleware('CheckLogin');
-// Route::get('payment', [Casso::class, 'payment_handler'])->name('payment.index')->middleware('CheckLogin');
 
 // client
 Route::get('/order/{id}', [CheckoutController::class, 'show'])->name('order.show')->middleware('CheckLogin');
 Route::post('/order/update', [ClientOrderController::class, 'update'])->name('order.update')->middleware('CheckLogin');
-Route::post('/order-check-status', [CheckoutController::class, 'checkStatus'])->name('order.checkStatus');
+Route::post('/order-check-status', [CheckoutController::class, 'checkStatus'])->name('order.checkStatus')->middleware('CheckLogin');
 
 Route::prefix('profile/your-order')->middleware('CheckLogin:Vui lòng đăng nhập để thực hiện chức năng!')->name('your-order.')->group(function () {
       Route::get('/', [ManagerUserController::class, 'yourOrder'])->name('index');

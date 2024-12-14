@@ -28,14 +28,14 @@ class CartService implements CartServiceInterface
         if (Auth::check()) {
             $cart = cartModel::select('*')
                 ->where('id_user', '=', Auth::user()->id)
-                ->with(['cartProduct'])
+                ->with('cartProduct')
                 ->get();
 
-            $cart->each(function ($cartItem) {
-                if ($cartItem->cartProduct->where('status','!=', 'active')->isEmpty()) {
+            foreach ($cart as $cartItem) {
+                if ($cartItem->cartProduct->where('status', 'inactive')->where('id', '=', $cartItem->id_product)->isNotEmpty()) {
                     $cartItem->delete();
                 }
-            });
+            }
         } else {
             $carts = session()->get('cart', []);
             $proIdArr = array_column($carts, 'product_id');
