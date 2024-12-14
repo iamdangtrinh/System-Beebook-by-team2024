@@ -194,11 +194,11 @@
                                 <div class="row border-bottom mb-3">
                                     <span class="col-12 col-sm-6 cart__subtotal-title">Phí vận chuyển:</span>
                                     <span class="col-12 col-sm-6 text-right"><span id="freeShipping">
-                                            {{ number_format(env('fee_shipping'), '0', '.', '.') }} đ
+                                            {{ number_format($fee_shipping, '0', '.', '.') }} đ
                                             @php
-                                                $subTotal += env('fee_shipping');
+                                                $subTotal += $fee_shipping;
                                             @endphp
-                                            <input type="hidden" name="fee_shipping" value="{{ env('fee_shipping') }}">
+                                            <input type="hidden" name="fee_shipping" value="{{ $fee_shipping }}">
                                         </span></span>
                                 </div>
                                 @if ($price_sale !== 0)

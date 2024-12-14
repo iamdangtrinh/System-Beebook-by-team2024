@@ -154,7 +154,7 @@
                             <div class="row border-bottom pb-2 pt-2">
                                 <span class="col-12 col-sm-6 cart__subtotal-title">Phí vận chuyển:</span>
                                 <span
-                                    data-fee-shipping="{{ env('fee_shipping') }}" id="fee-shipping" class="col-12 col-sm-6 text-right">{{ number_format(env('fee_shipping'), 0, '.', '.') }} đ</span>
+                                    data-fee-shipping="{{ $fee_shipping }}" id="fee-shipping" class="col-12 col-sm-6 text-right">{{ number_format($fee_shipping, 0, '.', '.') }} đ</span>
                             </div>
                             <div class="row border-bottom pb-2 pt-2">
                                 <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Tổng cộng:</strong></span>

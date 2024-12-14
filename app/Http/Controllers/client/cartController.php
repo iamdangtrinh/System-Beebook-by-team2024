@@ -5,6 +5,7 @@ namespace App\Http\Controllers\client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\cartRequest;
 use App\Http\Requests\CreateCart;
+use App\Models\config_admin;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\CartServiceInterface as CartService;
 use App\Repositories\Interfaces\CartRepositoryInterface as CartRepository;
@@ -14,20 +15,23 @@ class cartController extends Controller
 {
     protected $CartService;
     protected $CartRepository;
+    protected $fee_shipping;
     public function __construct(
         CartService $CartService,
         CartRepository $CartRepository
     ) {
         $this->CartService = $CartService;
         $this->CartRepository = $CartRepository;
+        $this->fee_shipping = config_admin::select('value')->where('key', 'fee-shipping')->first();
     }
 
     public function index()
     {
         $result = $this->CartService->findCartByUser(20);
-
+        $fee_shipping = $this->fee_shipping->value;
         return view('Client.cart', compact([
-            'result'
+            'result',
+            'fee_shipping'
         ]));
     }
 

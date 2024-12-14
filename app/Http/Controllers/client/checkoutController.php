@@ -23,6 +23,8 @@ class CheckoutController extends Controller
     protected $CheckoutService;
     protected $CheckoutRepository;
     protected $CartService;
+    protected $fee_shipping;
+
     public function __construct(
         CheckoutService $CheckoutService,
         CheckoutRepository $CheckoutRepository,
@@ -32,16 +34,19 @@ class CheckoutController extends Controller
         $this->CheckoutRepository = $CheckoutRepository;
         $this->CartService = $CartService;
         $this->emailAdmin = config_admin::select('value')->where('key', 'email_admin')->first();
+        $this->fee_shipping = config_admin::select('value')->where('key', 'fee-shipping')->first();
     }
     public function index()
     {
         $result = $this->CartService->findCartByUser(20);
         $price_sale = session()->get('price', 0);
         $id_coupon = session()->get('id_coupon');
+        $fee_shipping = $this->fee_shipping->value;
+
         if (count($result) == 0) {
             return redirect()->route('product.index')->with('error', 'Vui lòng thêm sản phẩm vào giỏ hàng!');
         }
-        return view('Client.checkout', compact(['result', 'price_sale', 'id_coupon']));
+        return view('Client.checkout', compact(['result', 'price_sale', 'id_coupon', 'fee_shipping']));
     }
 
     public function cartToCheckout(Request $request) {}

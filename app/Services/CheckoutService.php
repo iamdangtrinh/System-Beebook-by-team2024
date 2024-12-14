@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\BillDetailModel;
+use App\Models\config_admin;
 use App\Models\couponModel;
 use App\Models\Product;
 use App\Services\Interfaces\CheckoutServiceInterface;
@@ -28,12 +29,14 @@ class CheckoutService implements CheckoutServiceInterface
       protected $CheckoutRepository;
       protected $BillDetailRepository;
       protected $CartService;
+      protected $fee_shipping;
 
       public function __construct(CheckoutRepository $CheckoutRepository, BillDetailRepository $BillDetailRepository, CartService $CartService)
       {
             $this->CheckoutRepository = $CheckoutRepository;
             $this->BillDetailRepository = $BillDetailRepository;
             $this->CartService = $CartService;
+            $this->fee_shipping = config_admin::select('value')->where('key', 'fee-shipping')->first();
       }
 
       private function paginateSelect()
@@ -81,7 +84,7 @@ class CheckoutService implements CheckoutServiceInterface
                         ];
                   }
 
-                  $payload['fee_shipping'] = env('fee_shipping');
+                  $payload['fee_shipping'] = $this->fee_shipping->value;
                   $payload['total_amount'] = $total_amount + (session()->get('price', 0)) + ($payload['fee_shipping'] ?? 0);
                   $payload['discount'] = session()->get('price', 0);
                   $payload['id_user'] = Auth::user()->id;
@@ -163,7 +166,7 @@ class CheckoutService implements CheckoutServiceInterface
       private function preparePayload($request)
       {
             $payload = $request->except(['_token']);
-            $payload['fee_shipping'] = env('fee_shipping');
+            $payload['fee_shipping'] = $this->fee_shipping;
             $payload['discount'] = session()->get('price', 0);
             $payload['id_user'] = Auth::user()->id;
             return $payload;
