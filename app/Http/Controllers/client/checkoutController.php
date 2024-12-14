@@ -5,6 +5,7 @@ namespace App\Http\Controllers\client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CheckoutRequest;
 use App\Models\BillModel;
+use App\Models\config_admin;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\CheckoutServiceInterface as CheckoutService;
 use App\Repositories\Interfaces\CheckoutRepositoryInterface as CheckoutRepository;
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
+    protected $emailAdmin;
+
     protected $CheckoutService;
     protected $CheckoutRepository;
     protected $CartService;
@@ -28,6 +31,7 @@ class CheckoutController extends Controller
         $this->CheckoutService = $CheckoutService;
         $this->CheckoutRepository = $CheckoutRepository;
         $this->CartService = $CartService;
+        $this->emailAdmin = config_admin::select('value')->where('key', 'email_admin')->first();
     }
     public function index()
     {
@@ -62,15 +66,11 @@ class CheckoutController extends Controller
         $resultBill = BillModel::where('id_user', Auth::user()->id)->findOrFail($idBill);
 
         if ($resultBill->send_email === 0) {
-            Mail::to(env('MAIL_ADMIN'))->queue(new \App\Mail\NewOrderAdminEmail($idBill));
+            Mail::to($this->emailAdmin->value)->queue(new \App\Mail\NewOrderAdminEmail($idBill));
             Mail::to($resultBill->email)->queue(new \App\Mail\sendEmailOrder($idBill));
             BillModel::find($idBill)
                 ->where('id_user', Auth::user()->id)
                 ->update(['send_email' => true]);
-        }
-
-        if ($resultBill->payment_status === 'PAID') {
-            // return redirect()->route('your-order.index', ['id' => $idBill]);
         }
         return view('Client.thankyou', compact('resultBill'));
     }
