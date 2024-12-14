@@ -1,12 +1,20 @@
 <div>
+    <style>
+        .fa-star {
+    color: #3A3A3A; /* Màu sao chưa chọn */
+    font-size: 24px;
+    transition: color 0.3s;
+}
+
+.fa-star.active {
+    color: #ffc107; /* Màu sao được chọn */
+}
+    </style>
     @if (!auth()->check())
     Vui lòng đăng nhập để bình luận!
     @else
     <div class="spr-form clearfix">
-        <form wire:submit.prevent="submit" id="new-review-form" class="new-review-form">
-            @csrf
-            <h3 class="spr-form-title">Viết bình luận</h3>
-
+            <h3  class="spr-form-title">Viết bình luận</h3>
             <!-- Rating Field -->
             <fieldset class="spr-form-review">
                 <div class="spr-form-review-rating">
@@ -14,16 +22,14 @@
                     <span class="star-rating">
                         @for ($i = 1; $i <= 5; $i++)
                             <label for="rate-{{ $i }}" style="--i:{{ $i }}">
-                            <i class="fa fa-star"></i>
+                                <i wire:click="rating({{$i}})" class="fa fa-star {{ $i <= $showRate ? 'active' : '' }}"></i>
                             </label>
-                            <input type="radio" name="rating" id="rate-{{ $i }}" wire:model.defer="rating" value="{{ $i }}">
                             @endfor
                     </span>
-
                     <!-- Error Message for Rating -->
-                    @error('rating')
-                    <br><span class="text-danger">{{ $message }}</span>
-                    @enderror
+                   @error ('showRate')
+                   <br><span class="text-danger">{{ $message }}</span>
+                   @enderror
                 </div>
             </fieldset>
 
@@ -31,21 +37,23 @@
             <fieldset class="spr-form-review-body">
                 <label class="spr-form-label" for="review_body">Nội dung</label>
                 <div class="spr-form-input">
-                    <textarea wire:model.defer="content" id="review_body" class="spr-form-input spr-form-input-textarea" rows="10" placeholder="Viết bình luận ở đây"></textarea>
+                    @if ($title === '')
+                    <textarea  rows="10" placeholder="Viết bình luận ở đây"  ></textarea>
+                    @else
+                    <textarea  wire:model.live="title" rows="10" placeholder="Viết bình luận ở đây"  ></textarea>
+                    @endif
                 </div>
-
                 <!-- Error Message for Content -->
-                @error('content')
+                @error('title')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror
             </fieldset>
 
             <!-- Submit Button -->
-            <fieldset class="spr-form-actions">
+            <fieldset wire:click="postComment" class="spr-form-actions">
                 <input type="hidden" name="id_product" value="{{ $id_product }}">
-                <input type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Gửi bình luận">
+                <input  type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Gửi bình luận">
             </fieldset>
-        </form>
     </div>
     @endif
     <div class="spr-reviews">

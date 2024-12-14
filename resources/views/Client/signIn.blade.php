@@ -63,8 +63,13 @@
                             <div class="col-12">
                                 <div class="form-group position-relative">
                                     <label for="CustomerPassword">Mật khẩu</label>
+                                    <div class="position-relative">
                                     <input type="password" name="password1" class="rounded-1"
                                         placeholder="Mật khẩu" id="CustomerPassword" value="{{ old('password1') }}">
+                                        <div class="position-absolute" style="top: 25%; right: 10px; cursor: pointer;" onclick="togglePasswordLogin()">
+                                            <i id="IconPassword" class="icon anm anm-eye-slash"></i>
+                                        </div>
+                                    </div>   
                                     @error('password1')
                                         <span class="error text-danger">{{ $message }}</span>
                                     @enderror
@@ -106,5 +111,20 @@
 </form>
 </div>
 <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
+<script>
+    function togglePasswordLogin() {
+        const password = document.getElementById("CustomerPassword");
+        const icon = document.getElementById("IconPassword");
+        if (password.type === "password") {
+            password.type = "text";
+            icon.classList.remove("anm-eye-slash");
+            icon.classList.add("anm-eye");
+        } else {
+            password.type = "password";          
+            icon.classList.remove("anm-eye");
+            icon.classList.add("anm-eye-slash");
+        }
+    }
+</script>
 @livewireScripts
 @endsection

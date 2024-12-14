@@ -124,6 +124,7 @@ define('CSS_VER', '1.0.2');
                                         <li><a href="{{ route('indexReview') }}" class="site-nav">Review sách</a></li>
                                     </ul>
                                 </li>
+                              
                             </ul>
                         </nav>
                         <!--End Desktop Menu-->
@@ -252,6 +253,33 @@ define('CSS_VER', '1.0.2');
 
                     </ul>
                 </li>
+                <li class="lvl1 parent dropdown"><a href="#">Tài khoản <i
+                    class="anm anm-angle-down-l"></i></a>
+                    <ul class="dropdown">
+                        @if (Auth::check())
+                        <li><a href="/profile" class="site-nav">
+                            <i class="icon anm anm-user-circle"></i>
+                            Hồ sơ
+                        </a>
+                    </li>
+                    <li><a href="{{ route('your-order.index') }}" class="site-nav">
+                            <i class="icon anm anm-cart-r"></i>
+                            Đơn hàng của tôi </a>
+                    </li>
+                    <li><a href="{{ asset('/yeu-thich') }}" class="site-nav">
+                            <i class="icon anm anm-heart-r"></i>
+                            Sản phẩm yêu thích </a>
+                    </li>
+                    <li><a href="/logout" class="site-nav">
+                            <i class="icon anm anm-sign-out-ar"></i>
+                            Đăng xuất </a>
+                    </li>
+                @else
+                <li><a href="{{ asset('/sign-in') }}" class="site-nav">Đăng nhập </a>
+                    <li><a href="{{ asset('/sign-up') }}" class="site-nav">Đăng Ký</a></li>
+                @endif
+            </ul>
+        </li>
             </ul>
         </div>
     </div>
