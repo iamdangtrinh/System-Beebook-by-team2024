@@ -66,9 +66,10 @@ class SepayController extends Controller
 
                         $idBill->payment_status = 'PAID';
                         $idBill->save();
+                        
+                        event(new SePayWebhookEvent($info, $sePayWebhookData));
                     }
                 }
-                event(new SePayWebhookEvent($info, $sePayWebhookData));
             }
             return response()->noContent();
         } else {
