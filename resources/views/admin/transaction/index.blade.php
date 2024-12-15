@@ -1,4 +1,4 @@
-<title>@yield('title', 'Đơn hàng')</title>
+<title>@yield('title', 'Lịch sử thanh toán online')</title>
 @extends('layout.admin')
 
 @section('body')

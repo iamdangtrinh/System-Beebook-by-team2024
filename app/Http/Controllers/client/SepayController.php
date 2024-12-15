@@ -64,8 +64,10 @@ class SepayController extends Controller
 
                 if ($info) {
                     $idBill = BillModel::findOrFail($info);
-                    $idBill->payment_status = 'PAID';
-                    $idBill->save();
+                    if ($model->transferAmount === $idBill->total) {
+                        $idBill->payment_status = 'PAID';
+                        $idBill->save();
+                    }
                 }
                 event(new SePayWebhookEvent($info, $sePayWebhookData));
             }
