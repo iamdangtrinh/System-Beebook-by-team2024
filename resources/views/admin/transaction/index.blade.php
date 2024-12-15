@@ -38,7 +38,6 @@
                         <thead>
                             <tr>
                                 <th>Mã giao dịch</th>
-                                <th>Ngân hàng nhận</th>
                                 <th>Mã đơn hàng</th>
                                 <th>Ngày giao dịch</th>
                                 <th>Nội dung giao dịch</th>
@@ -51,19 +50,19 @@
 
                             @php
                                 $pattern = '/\b' . config('sepay.pattern') . '([a-zA-Z0-9-_])+/';
-
                             @endphp
 
                             @if (count($data) > 0)
                                 @foreach ($data as $result)
+                                    @php
+                                        $extractedDescription = 'Lỗi đơn hàng';
+                                        if (preg_match($pattern, $result->description, $matches)) {
+                                            $extractedDescription = substr($matches[0], 3);
+                                        }
+                                    @endphp
                                     <tr>
                                         <td>{{ $result->id }}</td>
-                                        <td>{{ $result->gateway }}</td>
-                                        <td>{{
-                                            preg_match($pattern, $result->description, $matches);
-                                            substr($matches['0'], 3) 
-                                            }}
-                                        </td>
+                                        <td>{{ $extractedDescription }}</td>
                                         <td>{{ date('h:i d-m-Y', strtotime($result->transactionDate)) }}</td>
                                         <td>{{ $result->content }}</td>
                                         <td>{{ $result->description }}</td>

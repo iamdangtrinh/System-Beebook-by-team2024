@@ -37,6 +37,10 @@
                         <table class="table">
                             <tbody>
                                 <tr>
+                                    <td>Ngân hàng:</td>
+                                    <td><b>MB Bank</b></td>
+                                </tr>
+                                <tr>
                                     <td>Chủ tài khoản:</td>
                                     <td><b>Nguyễn Cao Đăng Trình</b></td>
                                 </tr>
