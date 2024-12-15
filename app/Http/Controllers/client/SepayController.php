@@ -49,7 +49,7 @@ class SepayController extends Controller
                 
                 if ($info) {
                     $idBill = BillModel::findOrFail($info);
-                    if ((float) $sePayWebhookData->transferAmount === (float) $idBill->total_amount) {
+                    if ((float) $sePayWebhookData->transferAmount == (float) $idBill->total_amount) {
                         $model = new SePayTransaction();
                         $model->id = $sePayWebhookData->id;
                         $model->gateway = $sePayWebhookData->gateway;
