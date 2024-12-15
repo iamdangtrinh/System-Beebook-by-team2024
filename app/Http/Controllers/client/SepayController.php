@@ -64,7 +64,7 @@ class SepayController extends Controller
 
                 if ($info) {
                     $idBill = BillModel::findOrFail($info);
-                    if ($model->transferAmount === $idBill->total) {
+                    if ($model->transferAmount === $idBill->total_amount) {
                         $idBill->payment_status = 'PAID';
                         $idBill->save();
                     }
