@@ -39,32 +39,31 @@ class SepayController extends Controller
                 SePayTransaction::query()->whereId($sePayWebhookData->id)->exists(),
                 ValidationException::withMessages(['message' => ['transaction này đã thực hiện']])
             );
-
-            $model = new SePayTransaction();
-            $model->id = $sePayWebhookData->id;
-            $model->gateway = $sePayWebhookData->gateway;
-            $model->transactionDate = $sePayWebhookData->transactionDate;
-            $model->accountNumber = $sePayWebhookData->accountNumber;
-            $model->subAccount = $sePayWebhookData->subAccount;
-            $model->code = $sePayWebhookData->code;
-            $model->content = $sePayWebhookData->content;
-            $model->transferType = $sePayWebhookData->transferType;
-            $model->description = $sePayWebhookData->description;
-            $model->transferAmount = $sePayWebhookData->transferAmount;
-            $model->referenceCode = $sePayWebhookData->referenceCode;
-            $model->save();
-
             // Lấy ra user id hoặc order id ví dụ: SE_123456, SE_abcd-efgh
             $pattern = '/\b' . config('sepay.pattern') . '([a-zA-Z0-9-_])+/';
             preg_match($pattern, $sePayWebhookData->code, $matches);
-
+            
             if (isset($matches[0])) {
                 // Lấy bỏ phần pattern chỉ còn lại id ex: 123456, abcd-efgh
                 $info = Str::of($matches[0])->replaceFirst(config('sepay.pattern'), '')->value();
-
+                
                 if ($info) {
                     $idBill = BillModel::findOrFail($info);
-                    if ((float) $model->transferAmount === (float) $idBill->total_amount) {
+                    if ((float) $sePayWebhookData->transferAmount === (float) $idBill->total_amount) {
+                        $model = new SePayTransaction();
+                        $model->id = $sePayWebhookData->id;
+                        $model->gateway = $sePayWebhookData->gateway;
+                        $model->transactionDate = $sePayWebhookData->transactionDate;
+                        $model->accountNumber = $sePayWebhookData->accountNumber;
+                        $model->subAccount = $sePayWebhookData->subAccount;
+                        $model->code = $sePayWebhookData->code;
+                        $model->content = $sePayWebhookData->content;
+                        $model->transferType = $sePayWebhookData->transferType;
+                        $model->description = $sePayWebhookData->description;
+                        $model->transferAmount = $sePayWebhookData->transferAmount;
+                        $model->referenceCode = $sePayWebhookData->referenceCode;
+                        $model->save();
+
                         $idBill->payment_status = 'PAID';
                         $idBill->save();
                     }
