@@ -87,7 +87,7 @@ class SepayController extends Controller
 
     public function show()
     {
-        $data = SePayTransaction::paginate(20);
+        $data = SePayTransaction::orderBy('transactionDate', 'desc')->paginate(20);
         if (request()->has(['start_date', 'end_date'])) {
             $startDate = request('start_date');
             $endDate = request('end_date');
