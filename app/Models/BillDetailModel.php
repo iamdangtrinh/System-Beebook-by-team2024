@@ -24,5 +24,9 @@ class BillDetailModel extends Model
     public function product() {
         return $this->belongsTo(Product::class, 'id_product', 'id');
     }
+    public function bill()
+    {
+        return $this->belongsTo(BillModel::class, 'id_bill', 'id'); 
+    }
     
 }

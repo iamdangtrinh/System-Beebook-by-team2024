@@ -66,4 +66,14 @@ class BillModel extends Model
     {
         return $this->belongsTo(Product::class, 'id_product');
     }
+
+    public function userHasPurchased($productId, $userId)
+    {
+        return BillDetailModel::whereHas('bill', function ($query) use ($userId) {
+            $query->where('id_user', $userId)
+                ->where('status', 'success'); // Chỉ hóa đơn có trạng thái success
+        })
+            ->where('id_product', $productId)
+            ->exists();
+    }
 }

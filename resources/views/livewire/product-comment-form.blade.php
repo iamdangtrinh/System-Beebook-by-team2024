@@ -13,7 +13,9 @@
         }
     </style>
     @if (!auth()->check())
-        Vui lòng đăng nhập để bình luận!
+        Vui lòng đăng nhập và mua hàng để bình luận!
+    @elseif (!$userHasPurchased)
+        Bạn cần mua sản phẩm này để có thể bình luận!
     @else
         <div class="spr-form">
             <h3 class="spr-form-title">Viết bình luận</h3>
@@ -53,8 +55,6 @@
                         value="Gửi bình luận">
                 </fieldset>
             </form>
-
-
         </div>
     @endif
     <div class="spr-reviews">
@@ -80,7 +80,7 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-{{ $comment->id }}">
                                         <li>
-                                            <a class="dropdown-item"
+                                            <a style="text-decoration: none;" class="dropdown-item"
                                                 wire:click="deleteComment({{ $comment->id }})">Xóa</a>
                                         </li>
                                     </ul>
@@ -108,7 +108,7 @@
         const data=event;
         swal.fire({
             icon: 'warning',
-            title: 'Bạn có muốn bình luận này không?',
+            title: 'Bạn có muốn xóaxóa bình luận này không?',
             text: 'Nếu bạn xóa, hành động này không thể hoàn tác!',
             showCancelButton: true,
             reverseButtons: true,

@@ -7,6 +7,7 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Session;
 use App\Models\Comment;
 use Livewire\Attributes\On;
+use App\Models\BillModel;
 
 class ProductCommentForm extends Component
 {
@@ -90,6 +91,15 @@ class ProductCommentForm extends Component
 
     public function render()
     {
-        return view('livewire.product-comment-form');
+        $userHasPurchased = false;
+
+        if (auth()->check()) {
+            $billModel = new BillModel();
+            $userHasPurchased = $billModel->userHasPurchased($this->id_product, auth()->id());
+        }
+
+        return view('livewire.product-comment-form', [
+            'userHasPurchased' => $userHasPurchased,
+        ]);
     }
 }
