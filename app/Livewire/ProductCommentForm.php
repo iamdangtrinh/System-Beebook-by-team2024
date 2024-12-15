@@ -6,6 +6,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Illuminate\Support\Facades\Session;
 use App\Models\Comment;
+use Livewire\Attributes\On;
 
 class ProductCommentForm extends Component
 {
@@ -17,6 +18,7 @@ class ProductCommentForm extends Component
     public $id_product;
     public $slug_product;
     public $id_user;
+    public $id_comment;
     public $comments = [];
 
     public function mount($idProduct, $slugProduct)
@@ -30,20 +32,24 @@ class ProductCommentForm extends Component
     // Xóa bình luận
     public function deleteComment($commentId)
     {
-        // Kiểm tra xem người dùng có phải là người đã đăng bình luận không
-        $comment = Comment::find($commentId);
+        $this->id_comment = $commentId;
+        $this->dispatch('swal');
+    }
+    #[On('hanldeDeletedComment')]
+    public function deleted()
+    {
+        $comment = Comment::find($this->id_comment);
 
         if ($comment && $comment->id_user == auth()->id()) {
             $comment->delete();
-            session()->flash('success', 'Bình luận đã được xóa thành công.');
+            $this->dispatch('toast', message: 'Xóa bình luận thành công.', notify: 'success');
         } else {
-            session()->flash('error', 'Bạn không có quyền xóa bình luận này.');
+            $this->dispatch('toast', message: 'Xóa bình luận không thành công.', notify: 'error');
         }
 
         // Tải lại danh sách bình luận sau khi xóa
         $this->fetchComments();
     }
-
     public function rating($value)
     {
         $this->showRate = $value;
@@ -70,6 +76,7 @@ class ProductCommentForm extends Component
         ]);
 
         $this->reset(['showRate', 'title']);
+        $this->dispatch('toast', message: 'Thêm bình luận thành công.', notify: 'success');
         $this->fetchComments();
     }
 

@@ -101,9 +101,31 @@
             <p>Chưa có bình luận. Hãy là người đầu tiên bình luận về sách này nào!</p>
         @endif
     </div>
-    @if (session()->has('comment_success'))
-        <script>
-            toastr.success("{{ session('comment_success') }}");
+<script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
+             <script>
+        document.addEventListener('livewire:initialized',()=>{
+    @this.on('swal',(event)=>{
+        const data=event;
+        swal.fire({
+            icon: 'warning',
+            title: 'Bạn có muốn bình luận này không?',
+            text: 'Nếu bạn xóa, hành động này không thể hoàn tác!',
+            showCancelButton: true,
+            reverseButtons: true,
+            confirmButtonColor: 'red',
+            cancelButtonColor: 'black',
+            confirmButtonText: 'Xác nhận xóa',
+            cancelButtonText: 'Hủy' // Thay đổi văn bản của nút Cancel
+        }).then((result)=>{
+            if (result.isConfirmed) {
+                @this.dispatch('hanldeDeletedComment')
+            }
+        })
+    });
+    Livewire.on("toast", (event) => {
+        toastr.clear();
+        toastr[event.notify](event.message); 
+});
+})
         </script>
-    @endif
 </div>
