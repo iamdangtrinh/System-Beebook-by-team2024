@@ -31,10 +31,10 @@
                             class="form-control">
                     </div>
                 </div>
-                <div class="col-sm-4 mb-3">
-                    <div class="form-group" style="display: flex; flex-direction: column;">
+                <div class="col-sm-4 mb-3"  >
+                    <div class="form-group"  style="display: flex; flex-direction: column; ">
                         <label class="control-label" for="customer">Quyền</label>
-                        <select style="padding: 8px 0px" wire:model.change="role" name="" id="">
+                        <select style="padding: 8px 0px;border-radius: .375rem; border:1px solid #999" wire:model.change="role" name="" id="">
                             <option disabled value="">Vui lòng chọn quyền</option>
                             <option value="admin">Quản lý</option>
                             <option value="customer">Khách hàng</option>
@@ -46,7 +46,7 @@
                 <div class="col-sm-4 mb-3">
                     <div class="form-group" style="display: flex; flex-direction: column;">
                         <label class="control-label" for="customer">Trạng thái</label>
-                        <select style="padding: 8px 0px" wire:model.change="status" name="" id="">
+                        <select style="padding: 8px 0px; border-radius: .375rem; border:1px solid #999" wire:model.change="status" name="" id="">
                             <option disabled value="">Vui lòng chọn trạng thái</option>
                             <option value="active">Hoạt động</option>
                             <option value="inactive">Tạm khóa</option>
