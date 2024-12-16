@@ -60,11 +60,12 @@
                         <thead>
                             <tr>
                                 <th>Mã ĐH</th>
-                                <th data-hide="phone">Họ và tên</th>
+                                <th data-hide="name">Họ và tên</th>
                                 <th data-hide="phone">Số điện thoại</th>
-                                <th data-hide="phone">Tổng tiền</th>
+                                <th data-hide="totalAmout">Tổng tiền</th>
+                                <th data-hide="statusOrder">Trạng thái đơn hàng</th>
                                 <th data-hide="phone">Ngày đặt hàng</th>
-                                <th data-hide="phone,tablet">Cập nhật đơn hàng</th>
+                                <th data-hide="phone">Cập nhật đơn hàng</th>
                                 <th data-hide="status">Trạng thái</th>
                                 <th data-hide="">Trạng thái thanh toán</th>
                                 <th class="text-right">Hành động</th>
@@ -83,12 +84,24 @@
                                         $dateCreate = date('H:i d/m/Y', strtotime($result->created_at));
                                         $dateUpdate = date('H:i d/m/Y', strtotime($result->updated_at));
                                         $total_amount = number_format($result->total_amount, '0', '.', '.') . ' đ';
+
+                                        $statusOrder = config('admin.order.statusOrderUser');
+                                        $order_status = $statusOrder[$result->status] ?? 'Unknown status';
+
+                                        $statusColor = config('admin.order.statusOrderColors');
+                                        $statusOrderColors = $statusColor[$result->status] ?? 'Unknown status';
+
                                     @endphp
 
                                     <tr>
                                         <td>{{ $result->id }}</td>
                                         <td>{{ $result->name }}</td>
                                         <td>{{ $result->phone }}</td>
+                                        <td>
+                                            <span class="label cus_tom_label rounded w-100 {{ $statusOrderColors }}">
+                                                {{ $order_status }}
+                                            </span>
+                                        </td>
                                         <td>{{ $total_amount }}</td>
                                         <td>{{ $dateCreate }}</td>
                                         <td>{{ $dateUpdate }}</td>
