@@ -28,6 +28,8 @@ class CategoryAdmin extends Component
     public $valueSlug = '';
     public $dataIdCategoryParent = [];
     #[Validate('required', message: 'Tên danh mục không được để rỗng')]
+    #[Validate('unique:categories_product,name', message: 'Tên danh mục đã tồn tại ')]
+
     public $valueNameCategory = '';
     #[Validate('required', message: 'Số thứ tự không được để rỗng')]
     #[Validate('numeric', message: 'Số thứ tự chỉ được nhập số')]

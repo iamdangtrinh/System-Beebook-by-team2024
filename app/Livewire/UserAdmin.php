@@ -34,7 +34,6 @@ class UserAdmin extends Component
     #[Validate('required', message: 'Số điện thoại không được để rỗng')]
     #[Validate('regex:/^0[1-9]{1}[0-9]{8}$/', message: 'Số điện thoại không đúng định dạng')]
     #[Validate('unique:users,phone', message: 'Số điện thoại đã tồn tại ')]
-    #[Validate('unique:users,phone', message: 'Số điện thoại đã tồn tại')]
 
     public $valuePhone = '';
     #[Validate('required', message: 'Email không được để rỗng')]

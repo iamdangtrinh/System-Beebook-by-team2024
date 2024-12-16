@@ -286,7 +286,7 @@
                 <div class="modal-footer">
                     <button type="button" style="border-radius: 4px" class="btn btn-secondary" wire:click="closeModal">Đóng</button>
                     @if ($DataEditUser)
-                    <button type="button" wire:loading.attr="disabled"  style="border-radius: 4px; background:#198754 !important; color:white !important" wire:click="updateUser" class="btn rounded-1  fs-6">Cập nhật  <span wire:loading wire:target="updateUser">
+                    <button type="button" wire:loading.attr="disabled"   @if ($errors->any() ||  $valuePhone==='' || $valueName === ''||$valueEmail === '' || $disabled )  disabled @endif style="border-radius: 4px; background:#198754 !important; color:white !important" wire:click="updateUser" class="btn rounded-1  fs-6">Cập nhật  <span wire:loading wire:target="updateUser">
                         <i class="removeLoading fa fa-spinner fa-spin" style="font-size:18px"></i>
                     </span></button>
                     @else
