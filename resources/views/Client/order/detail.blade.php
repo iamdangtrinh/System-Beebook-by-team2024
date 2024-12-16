@@ -3,7 +3,7 @@
 @section('body')
     @php
         $statusMessages = [
-            'new' => 'Hủy đơn hàng',
+            'new' => 'Đơn mới',
             'shipping' => 'Đang vận chuyển',
             'success' => 'Đã nhận được hàng',
             'cancel' => 'Đã hủy đơn hàng',
@@ -150,6 +150,9 @@
                                         <span
                                             class="badge bg-{{ $orderDetails->payment_status === 'PAID' ? 'success' : 'danger' }} rounded-pill">{{ $orderDetails->payment_status === 'PAID' ? 'Đã thanh toán' : 'Chưa thanh toán' }}</span>
                                     </p>
+                                    @if ($orderDetails->payment_status !== 'PAID')
+                                        <a href="{{route('order.show',['id' => $orderDetails->id] )}}">Click vào đây để thanh toán đơn hàng</a>
+                                    @endif
                                 </div>
                                 <div class="col-lg-6">
                                     <h3 class="h6">Địa chỉ giao hàng</h3>
@@ -197,13 +200,6 @@
                                 <abbr title="Số điện thoại">Số điện thoại: </abbr> {{ Auth::user()->phone }}
                             </address>
                             <div class="d-flex justify-content-between">
-                                @if ($orderDetails->status === 'new')
-                                    <button class="btn text-white bg-danger" id="cancelOrder"
-                                        type-order="{{ $orderDetails->status }}" order-id="{{ $orderDetails->id }}">
-                                        Hủy đơn hàng
-                                    </button>
-                                @endif
-
                                 @if ($orderDetails->status === 'new')
                                     <button class="btn text-white bg-danger" id="cancelOrder"
                                         type-order="{{ $orderDetails->status }}" order-id="{{ $orderDetails->id }}">

@@ -82,8 +82,10 @@ class CheckoutController extends Controller
 
     public function show($id)
     {
-        // Lấy thông tin đơn hàng
-        $order_details = BillModel::find($id);
+        $order_details = BillModel::where('id', $id)
+            ->where('id_user', '=', Auth::user()->id)
+            ->first();
+
         if (!$order_details) {
             abort(404, 'Không tìm thấy đơn hàng');
         }

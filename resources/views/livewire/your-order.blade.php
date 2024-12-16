@@ -59,7 +59,7 @@
                                                     class="{{ $order->payment_status === 'UNPAID' ? 'text-danger' : 'text-success' }}">{{ $order->payment_status === 'UNPAID' ? 'Chưa thanh toán' : 'Đã thanh toán' }}</span>
                                             </td>
                                             <td class="d-flex"style="gap: 8px">
-                                                @if ($order->status !== 'success')
+                                                {{-- @if ($order->status !== 'success')
                                                     @if ($order->status !== 'cancel')
                                                         <button wire:click="showAlert('{{ $order->id }}')"
                                                             class="btn btn-danger bg-danger">
@@ -68,7 +68,7 @@
                                                     @else
                                                         <span class="btn btn-danger bg-secondary">Đã hủy</span>
                                                     @endif
-                                                @endif
+                                                @endif --}}
 
 
                                                 <a
