@@ -46,6 +46,11 @@ Route::get('/redis-test', function () {
 
 // admin
 Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
+      Route::get('/get-user-buy-most', [AdminController::class, 'getUserBuyMost'])->name('admin.getUserBuyMost');
+      Route::get('/get-order-month', [AdminController::class, 'getOrderMonth'])->name('admin.getOrderMonth');
+      
+      Route::get('/get-amount-total-of-month', [AdminController::class, 'amountTotalOfMonth'])->name('admin.amountTotalOfMonth');
+
       Route::get('/order', [OrderController::class, 'index'])->name('order.index');
       Route::get('/order/{id}', [OrderController::class, 'edit'])->name('admin.order.detail');
       Route::post('/order/update', [OrderController::class, 'store'])->name('admin.order.store');
