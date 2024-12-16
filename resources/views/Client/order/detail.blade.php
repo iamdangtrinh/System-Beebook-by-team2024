@@ -151,7 +151,7 @@
                                             class="badge bg-{{ $orderDetails->payment_status === 'PAID' ? 'success' : 'danger' }} rounded-pill">{{ $orderDetails->payment_status === 'PAID' ? 'Đã thanh toán' : 'Chưa thanh toán' }}</span>
                                     </p>
                                     @if ($orderDetails->payment_status !== 'PAID')
-                                        <a href="{{route('order.show',['id' => $orderDetails->id] )}}">Click vào đây để thanh toán đơn hàng</a>
+                                        <a class="text-danger" href="{{route('order.show',['id' => $orderDetails->id] )}}">Click vào đây để thanh toán đơn hàng</a>
                                     @endif
                                 </div>
                                 <div class="col-lg-6">
