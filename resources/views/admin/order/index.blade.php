@@ -6,21 +6,29 @@
         <form action="" method="get" class="p-0">
             <div class="ibox-content m-b-sm border-bottom">
                 <div class="row">
-                    <div class="col-sm-4 mb-3">
+                    <div class="col-sm-3 mb-3">
                         <div class="form-group">
                             <label class="control-label" for="order_id">Hóa đơn</label>
                             <input type="text" id="order_id" name="order_id" value="{{ old('order_id') }}"
                                 placeholder="Mã hóa đơn" class="form-control">
                         </div>
                     </div>
-                    <div class="col-sm-4 mb-3">
+                    <div class="col-sm-3 mb-3">
                         <div class="form-group">
                             <label class="control-label" for="status">Trạng thái đơn hàng</label>
-                            <input type="text" id="status" name="status" value="" placeholder="Trạng thái"
-                                class="form-control">
+                            <select id="status" class="form-control" name="status">
+                                <option value="">Chọn trạng thái</option>
+                                @foreach (config('admin.order.statusOrderUser') as $key => $status)
+                                    <option value="{{ $key }}"
+                                        {{ old('status', $_GET['status'] ?? '') == $key ? 'selected' : '' }}>
+                                        {{ $status }}
+                                    </option>
+                                @endforeach
+                            </select>
+
                         </div>
                     </div>
-                    <div class="col-sm-4 mb-3">
+                    <div class="col-sm-3 mb-3">
                         <div class="form-group">
                             <label class="control-label" for="customer">Khách hàng</label>
                             <select id="customer" class="form-control" name="customer">
@@ -34,17 +42,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 mb-3">
-                        <div class="form-group">
-                            <label class="control-label" for="amount">Tổng tiền</label>
-                            <input type="text" id="amount" name="amount" value="" placeholder="Tổng tiền"
-                                class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 mb-3">
+                    <div class="col-sm-3 mb-3">
                         <div class="form-group mt-3">
                             <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                         </div>
