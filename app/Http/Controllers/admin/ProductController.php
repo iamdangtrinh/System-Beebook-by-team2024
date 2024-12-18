@@ -374,7 +374,11 @@ class ProductController extends Controller
         $product->year = $request->year;
         $product->meta_seo = $request->meta_seo;
         $product->url_video = $request->url_video;
-        $product->status = $request->status;
+        if(!$request->status){
+            $product->status = 'draft';
+        }else{
+            $product->status = $request->status;
+        }
         $product->description_seo = !empty($request->description_seo)
             ? strip_tags($request->description_seo) // Loại bỏ thẻ HTML từ description_seo
             : (strlen(strip_tags($request->content)) > 150

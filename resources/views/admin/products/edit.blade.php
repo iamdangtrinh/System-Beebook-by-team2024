@@ -11,9 +11,16 @@
                 @csrf
                 @method('PUT')
                 <div class="row">
-                    <div class="col-12 d-flex justify-content-end mb-3">
+                    @if($product->status === 'draft')
+                    <div class="col-12 mb-3 gap-2 d-flex justify-content-end">
+                        <button style="width: 200px;" class="btn btn-outline-success">Cập nhật</button>
+                        <button style="width: 200px;" name="status" value="active" class="btn btn-success">Đăng</button>
+                    </div>
+                    @else
+                    <div class="col-12 mb-3 d-flex justify-content-end">
                         <button style="width: 200px;" class="btn btn-success">Lưu</button>
                     </div>
+                    @endif
                     <div class="col-8">
                         <div class="row">
                             <div class="col-12">
@@ -206,6 +213,7 @@
                                     <label> <input type="radio" value="0" name="hot" {{ old('hot', $product->hot) == '0' ? 'checked' : '' }}> <i></i> Không </label>
                                 </div>
                             </div>
+                            @if($product->status != 'draft')
                             <div class="col-12">
                                 <div class="i-checks">
                                     <label>Trạng thái</label> <br>
@@ -213,6 +221,7 @@
                                     <label> <input type="radio" value="inactive" name="status" {{ old('status' , $product->status) == 'inactive' ? 'checked' : '' }}> <i></i> Ẩn </label>
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                     <div class="col-6 my-3">
@@ -268,9 +277,16 @@
                         </div>
                     </div>
 
+                    @if($product->status === 'draft')
+                    <div class="col-12 mt-3 gap-2 d-flex justify-content-end">
+                        <button style="width: 200px;" class="btn btn-outline-success">Cập nhật</button>
+                        <button style="width: 200px;" name="status" value="active" class="btn btn-success">Đăng</button>
+                    </div>
+                    @else
                     <div class="col-12 mt-3 d-flex justify-content-end">
                         <button style="width: 200px;" class="btn btn-success">Lưu</button>
                     </div>
+                    @endif
                 </div>
             </form>
         </div>

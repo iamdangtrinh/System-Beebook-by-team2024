@@ -317,7 +317,7 @@
                                             </td>
                                             <td class="text-right">
                                                 <div class="btn-group gap-2 __custom_btn_group">
-                                                    <a href="" class="btn btn-sm btn-warning">Sửa</a>
+                                                    <a href="{{ route('adminproduct.edit', $product->id) }}" class="btn btn-sm btn-warning">Sửa</a>
                                                     <form class="m-0" action="{{ route('adminproduct.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa bản nháp này?');">
                                                         @csrf
                                                         @method('DELETE')
