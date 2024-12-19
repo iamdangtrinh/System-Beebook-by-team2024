@@ -310,11 +310,6 @@
         toastr[event.notify](event.message); 
 });
 })
-// document.addEventListener('livewire:initialized', () => {
-//     Livewire.on('showToastr', (data) => {
-//         toastr[data.type](data.message);
-//     });
-// });
 
     </script>
 

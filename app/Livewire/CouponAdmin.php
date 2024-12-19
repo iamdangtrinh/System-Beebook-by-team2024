@@ -271,6 +271,7 @@ class CouponAdmin extends Component
 
     public function updateCoupon()
     {
+
         try {
             couponModel::where('id', $this->couponId)->update([
                 'code_coupon' => $this->Value_code_coupon,
@@ -281,6 +282,7 @@ class CouponAdmin extends Component
                 'coupon_max_spend' => $this->coupon_max_spend,
                 'discount' => $this->discount,
                 'type_coupon' => $this->typeCoupon,
+                'quantity' => $this->quantity
             ]);
             $this->closeModal();
             $this->loadCoupons();

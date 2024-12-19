@@ -409,8 +409,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('/') }}client/js/lib/toastr.js"></script>
     <script>
-        $(document).ready(function() {
+
             document.addEventListener('livewire:initialized', () => {
+
                 @this.on('swal', (event) => {
                     const data = event;
                     swal.fire({
@@ -444,7 +445,6 @@
                     @this.set('arr', $(this).val()); // Cập nhật giá trị vào Livewire
                 });
             });
-        });
     </script>
     <link rel="stylesheet" href="{{ asset('/') }}backend/css/plugins/select2/select2.min.css">
     <script src="{{ asset('/') }}backend/js/plugins/select2/select2.full.min.js"></script>
