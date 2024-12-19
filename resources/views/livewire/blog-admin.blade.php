@@ -15,17 +15,30 @@
                 <div class="col-sm-4 mb-3">
                     <div class="form-group">
                         <label class="control-label" for="id">Mã bài viết</label>
-                        <input type="text" id="" wire:model.live="id" value=""
+                        <input type="text" id="" wire:model.live="idFilter" value=""
                             placeholder="Mã bài viết" class="form-control">
                     </div>
                 </div>
                 <div class="col-sm-4 mb-3">
                     <div class="form-group">
                         <label class="control-label" for="title">Tên bài viết</label>
-                        <input type="text" id="title" wire:model.live="title" value=""
+                        <input type="text" id="title" wire:model.live="titleFilter" value=""
                             placeholder="Tên bài viết" class="form-control">
                     </div>
                 </div>
+                <div class="col-sm-4 mb-3">
+                    <div class="form-group" style="display: flex; flex-direction: column; gap:5px">
+                        <label for="CustomerEmail">Loại bản tin</label>
+                        <select name="" id="" wire:model.change="changeType" style="border: 1px solid black; width: 100%; border-radius: 8px; padding: 6px 12px;" >
+                            <option selected value="" >Tất cả</option>
+                           <option value="review">Review sách</option>
+                           <option value="blog">Bản tin sách</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
             </div>
             @if (session('deleted_success'))
                 <div class="success text-success">

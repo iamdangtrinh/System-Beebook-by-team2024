@@ -28,14 +28,17 @@ class BlogAdmin extends Component
     public $slug = '';
     public $tags = '';
     public $review;
-    
+
     public $Content = '';
-    
+    public $idFilter = '';
+    public $titleFilter = '';
+    public $changeType = '';
+
     #[Validate('required', message: 'Tiêu đề bài viết không được để rỗng')]
     public $content = '';
     #[Validate('required', message: 'Nội dung bài viết không được để rỗng')]
-   
-    
+
+
     public $status = 'active';
     public $dataEditpost;
 
@@ -44,18 +47,44 @@ class BlogAdmin extends Component
 
         $this->loadPosts();
     }
-    
+
 
     public function loadPosts()
     {
         $query = BlogModel::query()->orderBy('id', 'desc');
+        if (!empty($this->idFilter)) {
+            $query->where('id', 'like', '%' . $this->idFilter . '%');
+        }
+        if (!empty($this->titleFilter)) {
+            $query->where('title', 'like', '%' . $this->titleFilter . '%');
+        }
+        if (!empty($this->changeType)) {
+            $query->where('post_type', 'like', '%' . $this->changeType . '%');
+        }
 
-      
         $paginator = $query->paginate(20);
         $this->getposts = $paginator->items();
         $this->updatePaginationData($paginator);
     }
 
+    public function updatedIdFilter($value)
+    {
+        $this->idFilter = $value;
+        $this->resetPage(); // Quay về trang đầu
+        $this->loadPosts();
+    }
+    public function updatedTitleFilter($value)
+    {
+        $this->titleFilter = $value;
+        $this->resetPage(); // Quay về trang đầu
+        $this->loadPosts();
+    }
+    public function updatedChangeType($value)
+    {
+        $this->changeType = $value;
+        $this->resetPage(); // Quay về trang đầu
+        $this->loadPosts();
+    }
     public function updatePaginationData($paginator)
     {
         $this->paginationData = [
@@ -75,7 +104,7 @@ class BlogAdmin extends Component
 
     public function updatedTitlePost($value)
     {
-        $this->title = $value;
+        $this->titleFilter = $value;
         $this->resetPage(); // Quay về trang đầu
         $this->loadPosts();
     }
@@ -110,7 +139,7 @@ class BlogAdmin extends Component
     #[On('hanldeDeletedpost')]
     public function deletedPost()
     {
-       
+
         try {
             BlogModel::destroy($this->id);
             Storage::disk('public')->delete('uploads/' . $this->image);
@@ -176,8 +205,8 @@ class BlogAdmin extends Component
     public function createPost()
     {
         try {
-            
-            BlogModel::create ([
+
+            BlogModel::create([
                 'post_type' => $this->post_type,
                 'title' => $this->title,
                 'image' => $this->image,
@@ -185,11 +214,11 @@ class BlogAdmin extends Component
                 'hot'  => $this->hot,
                 'content' => $this->content,
                 'status' => $this->status,
-                'tags'=> $this->tags,
-                'meta_title_seo'=> $this->meta_title_seo,
-                'meta_description_seo'=> $this->meta_description_seo,
+                'tags' => $this->tags,
+                'meta_title_seo' => $this->meta_title_seo,
+                'meta_description_seo' => $this->meta_description_seo,
             ]);
-            
+
             $this->reset([
                 'post_type',
                 'title',
@@ -224,14 +253,12 @@ class BlogAdmin extends Component
         $this->title = $this->dataEditpost['title'];
         $this->image = $this->dataEditpost['image'];
         $this->slug = $this->dataEditpost['slug'];
-        $this->content= $this->dataEditpost['content'];
+        $this->content = $this->dataEditpost['content'];
         $this->status = $this->dataEditpost['status'];
         $this->tags = $this->dataEditpost['tags'];
         $this->hot = $this->dataEditpost['hot'] !== null ? (int) $this->dataEditpost['hot'] : 0; // Gán giá trị mặc định nếu hot là null
         $this->slug = $this->dataEditpost['meta_title_seo'];
         $this->slug = $this->dataEditpost['meta_description_seo'];
-        
-        
     }
 
     public function Updatepost()
@@ -250,17 +277,17 @@ class BlogAdmin extends Component
                 'meta_description_seo' => $this->meta_description_seo,
             ]);
             $this->reset([
-                'post_type' ,
-                'title' ,
-                'image' ,
+                'post_type',
+                'title',
+                'image',
                 'slug',
-                'content' ,
-                'status' ,
-                'tags' ,
-                'hot' ,
-                'meta_title_seo' ,
-                'meta_description_seo' 
-                
+                'content',
+                'status',
+                'tags',
+                'hot',
+                'meta_title_seo',
+                'meta_description_seo'
+
             ]);
             $this->status = 'active';
             $this->isModal = false;
