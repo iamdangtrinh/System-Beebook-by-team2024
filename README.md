@@ -22,11 +22,16 @@ php artisan migrate
 ```
 
 ## -- run db seeder
-1 TaxonomySeeder
-2 CateforyProductSeeder
-3 ProductsSeeder
-4 UsersSeedder
-5 CouponSeeder
+php artisan db:seed TaxonomySeeder
+php artisan db:seed CategoryProductSeeder
+php artisan db:seed CouponSeeder
+php artisan db:seed PostSeeder
+php artisan db:seed ProductsSeeder
+php artisan db:seed favoriteSeeder
+php artisan db:seed AfterSeeder
+php artisan db:seed Comments
+php artisan db:seed BillsSeeder
+php artisan db:seed PostProductSeeder
 
 ## Demo
 
