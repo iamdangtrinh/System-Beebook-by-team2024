@@ -7,7 +7,7 @@ mysql 8.0
 
 #### 1. Clone the project
 ```bash
-git clone https://github.com/iamdangtrinh/BeeMarket.git
+git clone here
 ```
 #### 2. Run `composer install`
 Navigate into project folder using terminal and run
